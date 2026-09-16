@@ -9,6 +9,35 @@ installer that puts them there.
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-09-16
+
+Works on Cloud23333's V1.01 and V1.02. Unzip this release over your game folder and run the
+launcher, or take it through Check for updates. Your accounts, decks, settings and whichever
+graphics layer you have stay as they are.
+
+### Fixed
+
+- The older AMD graphics layer is back in the package. A fresh install without an NVIDIA card
+  gets it by itself, since the newer layer crashes at the first battle on RX 500, RX 6000 and
+  RX 7600 cards. An install that already has a layer keeps it; if you turn the layer off and on
+  again, the fresh choice is the older one, and the newer one is a click away.
+- "Go back to the older layer" now also shows when App\opengl32.dll is a copy the launcher did
+  not put there, and the Display page says when a fgoglcompat.dll sits where the game cannot use it.
+- A game folder whose fgohook.dll is still the 11.00 build is refused with a message that says
+  to apply V1.02 again, instead of crashing at start.
+- Play works from a folder whose name has square brackets.
+- The help page explains ERROR 6401, the 0xC000001D stop on CPUs without F16C, and the AMD
+  first-battle crash.
+
+### Added
+
+- Deck loadouts: save the deck under a name, keep as many as you like, load any of them, and
+  Export or Import to share with other players (Cards and Deck).
+- Draw-rate presets: the same for the Draw Rates table.
+- Sort the card list by name or card number.
+- Max Master Level on the Account page.
+- A short "what's new" window the first time the launcher starts after an update.
+
 ## [1.1.1] - 2026-09-15
 
 Works on Cloud23333's V1.01 and V1.02. V1.02 is the one to be on: it fixes ERROR 4102, the blank

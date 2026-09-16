@@ -103,15 +103,15 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				{
 					if (accountMode == "normal")
 					{
-						return "Normal";
+						return "ปกติ";
 					}
 					return AccountMode;
 				}
-				return "All Servants (test)";
+				return "เซอร์แวนต์ทั้งหมด (ทดสอบ)";
 			}
 		}
 
-		public string DisplayText => $"{MasterName} (ID {AimeId}) - Lv.{MasterLevel} - {ModeLabel}{(IsCurrent ? " (current)" : "")}";
+		public string DisplayText => $"{MasterName} (ID {AimeId}) - Lv.{MasterLevel} - {ModeLabel}{(IsCurrent ? " (ปัจจุบัน)" : "")}";
 
 		public override string ToString()
 		{
@@ -149,7 +149,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				if (CardTypeId != 2)
 				{
-					return "Servant";
+					return "เซอร์แวนต์";
 				}
 				return "Craft Essence";
 			}
@@ -173,7 +173,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				if (DrawCount <= 1)
 				{
-					return "Single";
+					return "เดี่ยว";
 				}
 				return $"{DrawIndex}/{DrawCount}";
 			}
@@ -182,11 +182,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		public string PoolLabel => LotteryType switch
 		{
 			2 => "Friend Point", 
-			3 => "Battle", 
+			3 => "การต่อสู้", 
 			5 => $"Pickup {LineupId}", 
 			6 => "Summon Point x1", 
 			7 => "Summon Point x10", 
-			_ => (LineupId > 0) ? $"Pool {LineupId}" : "History", 
+			_ => (LineupId > 0) ? $"พูล {LineupId}" : "ประวัติ", 
 		};
 	}
 
@@ -476,7 +476,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException || ex is InvalidOperationException)
 		{
 			// A deck that cannot be published must not keep the window from opening.
-			RuntimeStatusText.Text = "The deck could not be published: " + ex.Message;
+			RuntimeStatusText.Text = "เผยแพร่เด็คไม่สำเร็จ: " + ex.Message;
 		}
 		UpdateDeckStatus();
 		OwnedCardsOnlyCheckBox.IsChecked = true;
@@ -523,7 +523,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				AppendAccountLog("Could not list the deck loadouts: " + ex.Message);
 			}
-			AboutVersionText.Text = "Version " + UpdateSettings.Version + ", an English build of the FGO Arcade local platform.";
+			AboutVersionText.Text = "เวอร์ชัน " + UpdateSettings.Version + " บิลด์ภาษาไทยของแพลตฟอร์ม FGO Arcade แบบโลคัล";
 			SectionTabs.Tag = UpdateSettings.Version;
 			ShowWhatsNewIfUpdated(freshInstall);
 			await CheckForUpdateAsync(announce: false);
@@ -556,7 +556,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		catch (Exception ex)
 		{
 			AppendAccountLog("First-run setup error: " + ex.Message);
-			ThemedMessageBox.Show(this, "The first-run setup did not finish:\n" + ex.Message + "\n\nYou can still set everything up by hand from the Account and Settings pages.", "FGOAC scooby - First Run", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, foreground: true);
+			ThemedMessageBox.Show(this, "การตั้งค่าเมื่อเริ่มใช้งานครั้งแรกทำไม่สำเร็จ:\n" + ex.Message + "\n\nคุณยังตั้งค่าทุกอย่างเองได้จากหน้าบัญชีและหน้าการตั้งค่า", "FGOAC scooby - เริ่มใช้งานครั้งแรก", MessageBoxButton.OK, MessageBoxImage.Exclamation, MessageBoxResult.OK, foreground: true);
 		}
 		finally
 		{
@@ -657,7 +657,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			string body = ReadReleaseNotes(UpdateSettings.Version);
 			if (body.Length == 0)
 			{
-				body = "The launcher is now version " + UpdateSettings.Version + ". Your accounts, decks and settings are as they were.";
+				body = "ตอนนี้ตัวเรียกเกมเป็นเวอร์ชัน " + UpdateSettings.Version + " บัญชี เด็ค และการตั้งค่าของคุณยังคงเหมือนเดิม";
 			}
 			new WhatsNewDialog(this, UpdateSettings.Version, body).ShowDialog();
 		}
@@ -681,7 +681,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		windowClosing = true;
 		statusTimer.Stop();
 		launcherOutputTimer.Stop();
-		RuntimeStatusText.Text = "Closing the launcher and shutting down the local server...";
+		RuntimeStatusText.Text = "กำลังปิดตัวเรียกเกมและปิดเซิร์ฟเวอร์ในเครื่อง...";
 		try
 		{
 			SaveLayoutSettings();
@@ -711,7 +711,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			windowClosing = false;
 			statusTimer.Start();
 			launcherOutputTimer.Start();
-			RuntimeStatusText.Text = "The server did not shut down completely and the launcher stayed open: " + ex.Message;
+			RuntimeStatusText.Text = "เซิร์ฟเวอร์ปิดไม่สมบูรณ์ ตัวเรียกเกมจึงยังเปิดค้างไว้: " + ex.Message;
 			return;
 		}
 		closeReady = true;
@@ -783,7 +783,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		if (announce)
 		{
-			AboutUpdateStatusText.Text = "Checking...";
+			AboutUpdateStatusText.Text = "กำลังตรวจสอบ...";
 		}
 		try
 		{
@@ -794,7 +794,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			Updater.Log("Check failed: " + ex);
 			if (announce)
 			{
-				AboutUpdateStatusText.Text = "The update check could not reach GitHub: " + ex.Message + ". Check your connection, or open " + UpdateSettings.ReleasesUrl + " yourself.";
+				AboutUpdateStatusText.Text = "การตรวจสอบอัปเดตเชื่อมต่อ GitHub ไม่ได้: " + ex.Message + " ตรวจสอบการเชื่อมต่อของคุณ หรือเปิด " + UpdateSettings.ReleasesUrl + " ด้วยตัวเอง";
 			}
 			return;
 		}
@@ -802,15 +802,15 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		{
 			if (announce)
 			{
-				AboutUpdateStatusText.Text = "You are on the latest version (" + UpdateSettings.Version + ").";
+				AboutUpdateStatusText.Text = "คุณใช้เวอร์ชันล่าสุดอยู่แล้ว (" + UpdateSettings.Version + ").";
 			}
 			return;
 		}
-		UpdateBannerText.Text = "Update " + availableUpdate.Version + " is available.";
+		UpdateBannerText.Text = "อัปเดต " + availableUpdate.Version + " พร้อมให้ติดตั้งแล้ว";
 		UpdateBanner.Visibility = Visibility.Visible;
 		if (announce)
 		{
-			AboutUpdateStatusText.Text = "Update " + availableUpdate.Version + " is available. Install it from the banner on the Play page.";
+			AboutUpdateStatusText.Text = "อัปเดต " + availableUpdate.Version + " พร้อมให้ติดตั้งแล้ว ติดตั้งได้จากแบนเนอร์ในหน้าเล่น";
 		}
 	}
 
@@ -862,15 +862,15 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			return;
 		}
 		availableUpdate = null;
-		AboutUpdateStatusText.Text = "Version " + release.Version + " is installed.";
+		AboutUpdateStatusText.Text = "ติดตั้งเวอร์ชัน " + release.Version + " แล้ว";
 		if (Updater.HasStagedLauncher(out var stagedPath))
 		{
-			RuntimeStatusText.Text = "Version " + release.Version + " is ready - the launcher restarts to finish.";
+			RuntimeStatusText.Text = "เวอร์ชัน " + release.Version + " พร้อมแล้ว - ตัวเรียกเกมจะเริ่มใหม่เพื่อดำเนินการให้เสร็จ";
 			Updater.SwapAndRestart(stagedPath);
 			Close();
 			return;
 		}
-		RuntimeStatusText.Text = "Version " + release.Version + " is installed. Close and reopen the launcher to run it.";
+		RuntimeStatusText.Text = "ติดตั้งเวอร์ชัน " + release.Version + " แล้ว ปิดแล้วเปิดตัวเรียกเกมใหม่เพื่อใช้งาน";
 	}
 
 	private void AboutLink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -885,7 +885,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			ThemedMessageBox.Show(this, "Could not open the link: " + ex.Message, "About", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(this, "เปิดลิงก์ไม่ได้: " + ex.Message, "เกี่ยวกับ", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 		}
 	}
 
@@ -931,14 +931,14 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		config.Save(Path.Combine(GamePaths.GameRoot, "deck.json"));
 		if (!GameCommunication.UpdateCards(cardCollection.SelectedCards))
 		{
-			HoldStatus("The shared deck buffer is busy - the game will read deck.json instead");
+			HoldStatus("บัฟเฟอร์เด็คที่ใช้ร่วมกันไม่ว่าง - เกมจะอ่าน deck.json แทน");
 		}
 		UpdateDeckStatus();
 	}
 
 	private void UpdateDeckStatus()
 	{
-		DeckStatusText.Text = $"{cardCollection.SelectedCards.Count} of 30 cards - FGO 11.00 format 6";
+		DeckStatusText.Text = $"{cardCollection.SelectedCards.Count} จาก 30 การ์ด - FGO 11.00 format 6";
 		UpdateHeroCard();
 	}
 
@@ -1024,18 +1024,18 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		UpdateCardItemsSource();
 		if (availableCardStacks.Count == 0)
 		{
-			CardCatalogSummaryText.Text = "No card images in " + Path.GetFullPath(Path.Combine(GamePaths.GameRoot, cardCollection.Path ?? "")) + ". They come with the full 1.0 package (DEVICE\\print\\FGO11_AllServants, 3,707 files), not with any update: extract that package into the game folder again, then click Reload.";
+			CardCatalogSummaryText.Text = "ไม่มีภาพการ์ดใน " + Path.GetFullPath(Path.Combine(GamePaths.GameRoot, cardCollection.Path ?? "")) + " ภาพการ์ดมากับแพ็กเกจ 1.0 ฉบับเต็ม (DEVICE\\print\\FGO11_AllServants, 3,707 ไฟล์) ไม่ได้มากับอัปเดตใด ๆ ให้แตกแพ็กเกจนั้นลงในโฟลเดอร์เกมอีกครั้ง แล้วคลิกปุ่มโหลดใหม่";
 			return;
 		}
 		int value = availableCardStacks.Count((CardStack stack) => stack.Card.CardTypeId == 1);
 		int value2 = availableCardStacks.Count((CardStack stack) => stack.Card.CardTypeId == 2);
 		string value3 = selectedCardType switch
 		{
-			1 => $"Servants {value:N0}", 
+			1 => $"เซอร์แวนต์ {value:N0}", 
 			2 => $"Craft Essences {value2:N0}", 
-			_ => $"Servants {value:N0} / Craft Essences {value2:N0}", 
+			_ => $"เซอร์แวนต์ {value:N0} / Craft Essences {value2:N0}", 
 		};
-		CardCatalogSummaryText.Text = $"{value3} - {count:N0} shown - drag into the deck, or double-click to pick art and quantity";
+		CardCatalogSummaryText.Text = $"{value3} - แสดง {count:N0} - ลากลงในเด็ค หรือดับเบิลคลิกเพื่อเลือกภาพและจำนวน";
 	}
 
 	private int SelectedCardTypeId()
@@ -1186,9 +1186,9 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		{
 			var (value, num) = await Task.Run(() => Card.WarmThumbnailCache(cards, delegate(int processed, int total)
 			{
-				((DispatcherObject)this).Dispatcher.BeginInvoke((Delegate)(Func<object>)(() => BuildThumbnailCacheButton.Content = $"Caching {processed:N0}/{total:N0}"), Array.Empty<object>());
+				((DispatcherObject)this).Dispatcher.BeginInvoke((Delegate)(Func<object>)(() => BuildThumbnailCacheButton.Content = $"กำลังแคช {processed:N0}/{total:N0}"), Array.Empty<object>());
 			}));
-			BuildThumbnailCacheButton.Content = ((num == 0) ? $"Cached +{value:N0}" : $"Done +{value:N0} / failed {num:N0}");
+			BuildThumbnailCacheButton.Content = ((num == 0) ? $"แคชแล้ว +{value:N0}" : $"เสร็จ +{value:N0} / ล้มเหลว {num:N0}");
 		}
 		finally
 		{
@@ -1252,10 +1252,10 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			bool gameRunning = (lastKnownGameRunning = IsThisGameRunning());
 			int[] configuredPorts = ServerSettingsView.ConfiguredPorts().Take(3).ToArray();
 			bool[] source = await Task.WhenAll(configuredPorts.Select(IsPortOpenAsync));
-			string text = (source.All((bool value) => value) ? ("Server " + string.Join('/', configuredPorts) + " OK") : ("Server ports " + string.Join('/', source.Select((bool value) => (!value) ? "down" : "up"))));
+			string text = (source.All((bool value) => value) ? ("เซิร์ฟเวอร์ " + string.Join('/', configuredPorts) + " OK") : ("พอร์ตเซิร์ฟเวอร์ " + string.Join('/', source.Select((bool value) => (!value) ? "ปิด" : "เปิด"))));
 			if (!serverConfiguring && !stoppingServer && !windowClosing && !firstRunning && DateTime.UtcNow >= statusHoldUntil)
 			{
-				RuntimeStatusText.Text = text + " - Game " + (gameRunning ? "running" : "not running");
+				RuntimeStatusText.Text = text + " - เกม " + (gameRunning ? "กำลังทำงาน" : "ไม่ได้ทำงาน");
 			}
 			StartGameButton.IsEnabled = !gameRunning && !launcherProcessRunning && !serverConfiguring && !stoppingServer && !windowClosing && !firstRunning;
 			StopGameButton.IsEnabled = gameRunning || launcherProcessRunning;
@@ -1503,7 +1503,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		if (Process.GetProcessesByName("ago").Length != 0 || launcherProcessRunning)
 		{
-			ThemedMessageBox.Show("Quit the game before changing the server settings.", "Server Settings");
+			ThemedMessageBox.Show("ปิดเกมก่อนเปลี่ยนการตั้งค่าเซิร์ฟเวอร์", "การตั้งค่าเซิร์ฟเวอร์");
 			return;
 		}
 		serverConfiguring = true;
@@ -1531,7 +1531,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				await ServerSettingsPanel.ReloadAsync();
 				await RefreshRuntimeStatusAsync();
 				await RefreshAccountsAsync(showErrors: false);
-				ThemedMessageBox.Show("Server settings saved. The server starts when you click Start Server or Play.", "Server Settings");
+				ThemedMessageBox.Show("บันทึกการตั้งค่าเซิร์ฟเวอร์แล้ว เซิร์ฟเวอร์จะเริ่มทำงานเมื่อคุณคลิกปุ่มเริ่มเซิร์ฟเวอร์หรือปุ่มเล่น", "การตั้งค่าเซิร์ฟเวอร์");
 				goto end_IL_0091;
 				end_IL_00b4:;
 			}
@@ -1539,7 +1539,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				if (!windowClosing)
 				{
-					ThemedMessageBox.Show(ex.Message, "Server Settings", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+					ThemedMessageBox.Show(ex.Message, "การตั้งค่าเซิร์ฟเวอร์", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 				}
 				goto end_IL_0091;
 			}
@@ -1562,16 +1562,16 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		string fullPath = Path.GetFullPath(Path.Combine(GamePaths.GameRoot, "..", "Server", "Start-FGOLocalServer.ps1"));
 		if (!File.Exists(fullPath))
 		{
-			ThemedMessageBox.Show("The server start script is missing:\n" + fullPath, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
+			ThemedMessageBox.Show("ไม่พบสคริปต์เริ่มเซิร์ฟเวอร์:\n" + fullPath, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
 			return;
 		}
 		serverConfiguring = true;
-		RuntimeStatusText.Text = "Starting and checking the local server...";
+		RuntimeStatusText.Text = "กำลังเริ่มและตรวจสอบเซิร์ฟเวอร์ในเครื่อง...";
 		try
 		{
 			if (await RunServerCommandAsync(start: true) != 0 && !windowClosing)
 			{
-				ThemedMessageBox.Show(StartupDiagnostics.Explain(10) + "\n\n" + ReadTail(Path.Combine(GamePaths.LogsRoot, "server-control.log")), "Server Did Not Start", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+				ThemedMessageBox.Show(StartupDiagnostics.Explain(10) + "\n\n" + ReadTail(Path.Combine(GamePaths.LogsRoot, "server-control.log")), "เซิร์ฟเวอร์ไม่เริ่มทำงาน", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			}
 		}
 		catch (OperationCanceledException)
@@ -1581,7 +1581,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		{
 			if (!windowClosing)
 			{
-				ThemedMessageBox.Show(ex2.Message, "Server Did Not Start", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+				ThemedMessageBox.Show(ex2.Message, "เซิร์ฟเวอร์ไม่เริ่มทำงาน", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			}
 		}
 		finally
@@ -1714,7 +1714,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		if (IsThisGameRunning() || launcherProcessRunning)
 		{
-			ThemedMessageBox.Show("Stop the game before stopping the local server.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+			ThemedMessageBox.Show("หยุดเกมก่อนหยุดเซิร์ฟเวอร์ในเครื่อง", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 		}
 		else
 		{
@@ -1723,7 +1723,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				return;
 			}
 			stoppingServer = true;
-			RuntimeStatusText.Text = "Stopping the local server...";
+			RuntimeStatusText.Text = "กำลังหยุดเซิร์ฟเวอร์ในเครื่อง...";
 			StartGameButton.IsEnabled = false;
 			try
 			{
@@ -1733,7 +1733,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				if (!windowClosing)
 				{
-					ThemedMessageBox.Show(ex.Message, "Server Did Not Stop", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+					ThemedMessageBox.Show(ex.Message, "เซิร์ฟเวอร์ไม่หยุดทำงาน", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 				}
 			}
 			finally
@@ -1761,7 +1761,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			ThemedMessageBox.Show(this, "Could not open the draw rate settings:\n" + ex.Message, "Draw Rates", MessageBoxButton.OK, MessageBoxImage.Hand);
+			ThemedMessageBox.Show(this, "เปิดการตั้งค่าอัตราการสุ่มไม่ได้:\n" + ex.Message, "อัตราการสุ่ม", MessageBoxButton.OK, MessageBoxImage.Hand);
 		}
 	}
 
@@ -1778,11 +1778,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		if (!File.Exists(AccountToolPythonPath))
 		{
-			return AccountToolFailure("tool_missing", "Python runtime not found: " + AccountToolPythonPath);
+			return AccountToolFailure("tool_missing", "ไม่พบรันไทม์ Python: " + AccountToolPythonPath);
 		}
 		if (!File.Exists(AccountToolScriptPath))
 		{
-			return AccountToolFailure("tool_missing", "Account tool script not found: " + AccountToolScriptPath);
+			return AccountToolFailure("tool_missing", "ไม่พบสคริปต์เครื่องมือบัญชี: " + AccountToolScriptPath);
 		}
 		ProcessStartInfo processStartInfo = new ProcessStartInfo
 		{
@@ -1821,7 +1821,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			catch
 			{
 			}
-			return AccountToolFailure("timeout", "The account tool timed out after 60 seconds");
+			return AccountToolFailure("timeout", "เครื่องมือบัญชีหมดเวลาหลังจาก 60 วินาที");
 		}
 		string stdout = await stdoutTask;
 		string stderr = await stderrTask;
@@ -1838,7 +1838,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			return new AccountToolResult
 			{
 				Error = "bad_output",
-				Message = "The account tool did not return valid JSON",
+				Message = "เครื่องมือบัญชีไม่ได้ส่งคืน JSON ที่ถูกต้อง",
 				Stderr = stderr,
 				RawOutput = stdout
 			};
@@ -1890,7 +1890,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		catch (Exception ex)
 		{
 			AppendAccountLog("Account operation error: " + ex.Message);
-			ThemedMessageBox.Show("Account operation failed:\n" + ex.Message, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
+			ThemedMessageBox.Show("การดำเนินการกับบัญชีล้มเหลว:\n" + ex.Message, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
 		}
 		finally
 		{
@@ -1920,13 +1920,13 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			lastKnownServerRunning = false;
 			AccountComboBox.ItemsSource = null;
 			ApplyOwnedCardFilter();
-			CurrentAccountText.Text = "Account tool unavailable";
+			CurrentAccountText.Text = "เครื่องมือบัญชีใช้งานไม่ได้";
 			CurrentAccessCodeText.Text = "—";
 			string text = (string.IsNullOrWhiteSpace(accountToolResult.Message) ? accountToolResult.Error : accountToolResult.Message);
 			AppendAccountLog("list failed: " + text);
 			if (showErrors)
 			{
-				ThemedMessageBox.Show("Could not read the local account list:\n" + text, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+				ThemedMessageBox.Show("อ่านรายการบัญชีในเครื่องไม่ได้:\n" + text, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			}
 			return;
 		}
@@ -1973,7 +1973,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		AccountEntry accountEntry = list.FirstOrDefault((AccountEntry account) => account.IsCurrent);
 		AccountEntry accountEntry2 = (previouslySelectedAimeId.HasValue ? list.FirstOrDefault((AccountEntry account) => account.AimeId == previouslySelectedAimeId.Value) : null);
 		AccountComboBox.SelectedItem = accountEntry2 ?? accountEntry ?? ((list.Count > 0) ? list[0] : null);
-		CurrentAccountText.Text = ((accountEntry != null) ? $"{accountEntry.MasterName} (ID {accountEntry.AimeId})" : ((list.Count == 0) ? "(no accounts yet - click New Account)" : "(not set)"));
+		CurrentAccountText.Text = ((accountEntry != null) ? $"{accountEntry.MasterName} (ID {accountEntry.AimeId})" : ((list.Count == 0) ? "(ยังไม่มีบัญชี - คลิกบัญชีใหม่)" : "(ยังไม่ได้ตั้งค่า)"));
 		CurrentAccessCodeText.Text = ((text2.Length > 0) ? text2 : "—");
 		AppendAccountLog($"Loaded {list.Count} local accounts; server {(lastKnownServerRunning ? "running" : "not running")}");
 		string accountProfilesPath = GetAccountProfilesPath();
@@ -2089,7 +2089,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		DeleteAccountButton.IsEnabled = selectedAccount != null && !lastKnownGameRunning && !accountToolRunning;
 		OwnedCardsOnlyCheckBox.IsEnabled = selectedAccount != null;
 		ApplyOwnedCardFilter();
-		CurrentSummonSummaryText.Text = ((selectedAccount == null) ? "Lv.1 - EXP 0 - 0 summons" : $"Lv.{selectedAccount.MasterLevel} - EXP {selectedAccount.MasterExp:N0} - Quests cleared {selectedAccount.ClearedQuestCount} - Cards printed {selectedAccount.OwnedCardCount} - Pending {selectedAccount.PendingPrintCount}");
+		CurrentSummonSummaryText.Text = ((selectedAccount == null) ? "Lv.1 - EXP 0 - ซัมมอน 0 ครั้ง" : $"Lv.{selectedAccount.MasterLevel} - EXP {selectedAccount.MasterExp:N0} - เควสต์ที่เคลียร์ {selectedAccount.ClearedQuestCount} - การ์ดที่พิมพ์ {selectedAccount.OwnedCardCount} - รอดำเนินการ {selectedAccount.PendingPrintCount}");
 	}
 
 	private void RefreshAccountDetails(AccountEntry? account)
@@ -2097,24 +2097,24 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		AccountDetailsTable.Items.Clear();
 		if (account != null)
 		{
-			string item = ((account.MasterNextLevelExp > 0) ? $"{account.MasterLevelExp:N0} / {account.MasterNextLevelExp:N0} ({account.MasterExpToNext:N0} to go)" : "Max level reached");
+			string item = ((account.MasterNextLevelExp > 0) ? $"{account.MasterLevelExp:N0} / {account.MasterNextLevelExp:N0} (เหลืออีก {account.MasterExpToNext:N0})" : "ถึงเลเวลสูงสุดแล้ว");
 			(string, string, string)[] array = new(string, string, string)[15]
 			{
-				("Master Name", account.MasterName, "master"),
+				("ชื่อมาสเตอร์", account.MasterName, "master"),
 				("Aime ID", account.AimeId.ToString(), ""),
-				("Account Mode", account.ModeLabel, ""),
-				("Master Level", $"Lv.{account.MasterLevel}", "master"),
-				("Total EXP", $"{account.MasterExp:N0}", ""),
-				("EXP This Level", item, ""),
+				("โหมดบัญชี", account.ModeLabel, ""),
+				("เลเวลมาสเตอร์", $"Lv.{account.MasterLevel}", "master"),
+				("EXP รวม", $"{account.MasterExp:N0}", ""),
+				("EXP เลเวลนี้", item, ""),
 				("QP", $"{account.QpAmount:N0}", "qp"),
 				("Friend Points", $"{account.FriendPointAmount:N0}", "friend"),
 				("Mana Prisms", $"{account.ManaPrismAmount:N0}", "prism"),
 				("Summon Points", $"{account.SummonPointAmount:N0}", "summon"),
-				("Quests Cleared", $"{account.ClearedQuestCount} / {account.TrackedQuestCount} tracked", ""),
-				("Servants Owned", $"{account.ServantCount:N0}", "master"),
-				("Printed Cards Owned", $"{account.OwnedCardCount:N0} unique / {account.OwnedCardCopyCount:N0} copies", ""),
-				("Prints Pending", $"{account.PendingPrintCount:N0}", ""),
-				("Print History", $"{account.SummonHistory.Count:N0} recent / {account.SummonResultCount:N0} total", "")
+				("เควสต์ที่เคลียร์", $"{account.ClearedQuestCount} / {account.TrackedQuestCount} ที่ติดตาม", ""),
+				("เซอร์แวนต์ที่มี", $"{account.ServantCount:N0}", "master"),
+				("การ์ดที่พิมพ์แล้ว", $"{account.OwnedCardCount:N0} แบบ / {account.OwnedCardCopyCount:N0} ใบ", ""),
+				("การพิมพ์ที่รอดำเนินการ", $"{account.PendingPrintCount:N0}", ""),
+				("ประวัติการพิมพ์การ์ด", $"ล่าสุด {account.SummonHistory.Count:N0} / ทั้งหมด {account.SummonResultCount:N0}", "")
 			};
 			for (int i = 0; i < array.Length; i++)
 			{
@@ -2142,50 +2142,50 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			};
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Time",
+				Header = "เวลา",
 				Binding = new Binding("ConfirmedAt"),
 				Width = 190.0
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Pool",
+				Header = "พูล",
 				Binding = new Binding("PoolLabel"),
 				Width = 150.0
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Position",
+				Header = "ตำแหน่ง",
 				Binding = new Binding("DrawPosition"),
 				Width = 80.0
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Result",
+				Header = "ผลลัพธ์",
 				Binding = new Binding("DisplayName"),
 				Width = new DataGridLength(1.0, DataGridLengthUnitType.Star)
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "TC ID",
+				Header = "รหัส TC",
 				Binding = new Binding("TradingCardId"),
 				Width = 80.0
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Type",
+				Header = "ประเภท",
 				Binding = new Binding("CardTypeLabel"),
 				Width = 115.0
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Entity ID",
+				Header = "รหัสเอนทิตี",
 				Binding = new Binding("EntityId"),
 				Width = 80.0
 			});
 			Window obj = new Window
 			{
 				Owner = this,
-				Title = $"Print History - {selectedAccount.MasterName} (Aime {selectedAccount.AimeId})",
+				Title = $"ประวัติการพิมพ์การ์ด - {selectedAccount.MasterName} (Aime {selectedAccount.AimeId})",
 				Width = 1050.0,
 				Height = 580.0,
 				MinWidth = 760.0,
@@ -2202,7 +2202,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 
 	private static void ShowServerRunningAccountWarning()
 	{
-		ThemedMessageBox.Show("The local server is running, so this account operation cannot run.\nClick Stop Server at the top, then try again.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+		ThemedMessageBox.Show("เซิร์ฟเวอร์ในเครื่องกำลังทำงานอยู่ จึงดำเนินการกับบัญชีนี้ไม่ได้\nคลิกปุ่มหยุดเซิร์ฟเวอร์ที่ด้านบน แล้วลองอีกครั้ง", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 	}
 
 	/// <summary>True when the game is running; shows the warning that account actions are blocked until it exits.</summary>
@@ -2233,7 +2233,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 
 	private static void ShowGameRunningAccountWarning()
 	{
-		ThemedMessageBox.Show("The game is running, so accounts cannot be switched, created, deleted, reset or repaired.\nEnd the current game session first, so the access code still matches the save that is logged in.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+		ThemedMessageBox.Show("เกมกำลังทำงานอยู่ จึงสลับ สร้าง ลบ รีเซ็ต หรือซ่อมแซมบัญชีไม่ได้\nจบเซสชันเกมปัจจุบันก่อน เพื่อให้รหัสเข้าใช้งานยังตรงกับเซฟที่ล็อกอินอยู่", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 	}
 
 	private bool ReportAccountToolFailure(AccountToolResult result, string operation)
@@ -2255,7 +2255,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		else
 		{
-			ThemedMessageBox.Show("Account operation (" + operation + ") failed:\n" + text, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
+			ThemedMessageBox.Show("การดำเนินการกับบัญชี (" + operation + ") ล้มเหลว:\n" + text, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
 		}
 		return true;
 	}
@@ -2278,7 +2278,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		AccountEntry account = SelectedAccount;
 		if (account == null)
 		{
-			ThemedMessageBox.Show("Pick an account in the Select drop-down first.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+			ThemedMessageBox.Show("เลือกบัญชีจากรายการแบบเลื่อนลงด้านบนก่อน", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			return;
 		}
 		await ExecuteAccountActionAsync(async delegate
@@ -2288,7 +2288,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				AppendAccountLog($"Current account set to {account.MasterName} (ID {account.AimeId}); access code written to DEVICE/aime.txt");
 				await RefreshAccountsAsync(showErrors: false);
-				ThemedMessageBox.Show($"Switched to the account {account.MasterName} (ID {account.AimeId}).", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+				ThemedMessageBox.Show($"สลับไปใช้บัญชี {account.MasterName} (ID {account.AimeId}) แล้ว", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			}
 		});
 	}
@@ -2323,15 +2323,15 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				AppendAccountLog($"Created account {name} (ID {aimeId}), mode {mode}, access code {accessCode}");
 				await RefreshAccountsAsync(showErrors: false);
 				SelectAccountById(aimeId);
-				ThemedMessageBox.Show($"Account created: {name} (ID {aimeId})\nAccess code: {accessCode}", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-				if (ThemedMessageBox.Show("Switch to the new account now?", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+				ThemedMessageBox.Show($"สร้างบัญชีแล้ว: {name} (ID {aimeId})\nรหัสเข้าใช้งาน: {accessCode}", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+				if (ThemedMessageBox.Show("สลับไปใช้บัญชีใหม่ตอนนี้เลยไหม", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
 					AccountToolResult result = await RunAccountToolAsync("use", "--aime-id", aimeId.ToString(), "--json");
 					if (!ReportAccountToolFailure(result, "use"))
 					{
 						AppendAccountLog($"Switched to the new account {name} (ID {aimeId})");
 						await RefreshAccountsAsync(showErrors: false);
-						ThemedMessageBox.Show($"Switched to the new account {name} (ID {aimeId}).", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+						ThemedMessageBox.Show($"สลับไปใช้บัญชีใหม่ {name} (ID {aimeId}) แล้ว", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 					}
 				}
 			}
@@ -2347,15 +2347,15 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		AccountEntry account = SelectedAccount;
 		if (account == null)
 		{
-			ThemedMessageBox.Show("Pick the account to delete in the Select drop-down first.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+			ThemedMessageBox.Show("เลือกบัญชีที่ต้องการลบจากรายการแบบเลื่อนลงด้านบนก่อน", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			return;
 		}
 		if (await ServerBlocksAccountActionAsync())
 		{
 			return;
 		}
-		string text = (account.IsCurrent ? "\n\nThis is the current account. After it is deleted the launcher switches to a remaining account; if none are left the current access code is cleared." : "");
-		if (ThemedMessageBox.Show($"Permanently delete the account {account.MasterName} (Aime ID {account.AimeId})?\n\nMaster level: Lv.{account.MasterLevel}\nPrinted cards: {account.OwnedCardCount} unique / {account.OwnedCardCopyCount} copies\nQuests cleared: {account.ClearedQuestCount}\n\n" + "The save data, the Aime database identity, the card mapping and any leftover account backups are deleted permanently, and no recoverable copy is kept." + text, "Confirm Account Deletion", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
+		string text = (account.IsCurrent ? "\n\nนี่คือบัญชีปัจจุบัน หลังจากลบแล้วตัวเรียกเกมจะสลับไปใช้บัญชีที่เหลืออยู่ หากไม่เหลือบัญชีใดเลย รหัสเข้าใช้งานปัจจุบันจะถูกล้าง" : "");
+		if (ThemedMessageBox.Show($"ลบบัญชี {account.MasterName} (Aime ID {account.AimeId}) อย่างถาวรหรือไม่\n\nเลเวลมาสเตอร์: Lv.{account.MasterLevel}\nการ์ดที่พิมพ์: {account.OwnedCardCount} แบบ / {account.OwnedCardCopyCount} ใบ\nเควสต์ที่เคลียร์: {account.ClearedQuestCount}\n\n" + "ข้อมูลเซฟ ตัวตนในฐานข้อมูล Aime การจับคู่การ์ด และไฟล์สำรองของบัญชีที่ยังเหลืออยู่ จะถูกลบอย่างถาวร และจะไม่มีสำเนาที่กู้คืนได้เหลือไว้" + text, "ยืนยันการลบบัญชี", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -2374,8 +2374,8 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					AppendAccountLog("The account was deleted, but some old backups could not be cleaned up: " + string.Join("; ", jsonArray.Select((JsonNode node) => node?.GetValue<string>() ?? "unknown error")));
 				}
 				await RefreshAccountsAsync(showErrors: false);
-				string value = ((!deletedCurrent) ? "" : ((replacementAimeId > 0) ? $"\nThe current account switched automatically to Aime ID {replacementAimeId}." : "\nThe current access code is cleared - create a new account before starting the game."));
-				ThemedMessageBox.Show($"The account {account.MasterName} (ID {account.AimeId}) was fully deleted.{value}\n\n" + (cleanupComplete ? "Its save data, Aime identity, card mapping and leftover backups have all been cleaned up; the lowest free ID will be reused by the next new account." : "The save data, Aime identity and card mapping were deleted, but some old backups could not be cleaned up - see the log on the right. The lowest free ID will still be reused by the next new account."), "FGOAC scooby", MessageBoxButton.OK, cleanupComplete ? MessageBoxImage.Asterisk : MessageBoxImage.Exclamation);
+				string value = ((!deletedCurrent) ? "" : ((replacementAimeId > 0) ? $"\nบัญชีปัจจุบันสลับไปเป็น Aime ID {replacementAimeId} โดยอัตโนมัติแล้ว" : "\nรหัสเข้าใช้งานปัจจุบันถูกล้างแล้ว - สร้างบัญชีใหม่ก่อนเริ่มเกม"));
+				ThemedMessageBox.Show($"ลบบัญชี {account.MasterName} (ID {account.AimeId}) ทั้งหมดเรียบร้อยแล้ว{value}\n\n" + (cleanupComplete ? "ข้อมูลเซฟ ตัวตน Aime การจับคู่การ์ด และไฟล์สำรองที่เหลืออยู่ ถูกล้างทั้งหมดแล้ว บัญชีใหม่ถัดไปจะนำ ID ว่างที่น้อยที่สุดกลับมาใช้" : "ข้อมูลเซฟ ตัวตน Aime และการจับคู่การ์ดถูกลบแล้ว แต่ล้างไฟล์สำรองเก่าบางส่วนไม่ได้ - ดูล็อกทางด้านขวา บัญชีใหม่ถัดไปจะยังนำ ID ว่างที่น้อยที่สุดกลับมาใช้"), "FGOAC scooby", MessageBoxButton.OK, cleanupComplete ? MessageBoxImage.Asterisk : MessageBoxImage.Exclamation);
 			}
 		});
 	}
@@ -2403,8 +2403,8 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		string action = button.Tag.ToString();
 		string title = button.Content.ToString();
-		string value = ((action == "clear-gifts") ? "This deletes every unclaimed present without collecting the rewards inside. All other progress is kept, and the save is backed up before anything is written." : "All other progress is kept, and the save is backed up before anything is written.");
-		if (ThemedMessageBox.Show(this, $"Run {title} on the account {account.MasterName} (ID {account.AimeId})?\n\n{value}", title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		string value = ((action == "clear-gifts") ? "การทำเช่นนี้จะลบของขวัญที่ยังไม่ได้รับทั้งหมด โดยไม่เก็บรางวัลข้างใน ความคืบหน้าอื่น ๆ ทั้งหมดจะยังอยู่ และจะสำรองเซฟไว้ก่อนเขียนข้อมูลใด ๆ" : "ความคืบหน้าอื่น ๆ ทั้งหมดจะยังอยู่ และจะสำรองเซฟไว้ก่อนเขียนข้อมูลใด ๆ");
+		if (ThemedMessageBox.Show(this, $"เรียกใช้ {title} กับบัญชี {account.MasterName} (ID {account.AimeId}) หรือไม่\n\n{value}", title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -2416,7 +2416,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				AppendAccountLog($"{title} finished: {account.MasterName}; backup: {accountToolResult.Root?["backup"]}");
 				await RefreshAccountsAsync(showErrors: false);
 				SelectAccountById(account.AimeId);
-				ThemedMessageBox.Show(this, $"Account {account.MasterName}: {title} finished.", title);
+				ThemedMessageBox.Show(this, $"บัญชี {account.MasterName}: {title} เสร็จสิ้น", title);
 			}
 		});
 	}
@@ -2430,14 +2430,14 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		AccountEntry account = SelectedAccount;
 		if (account == null)
 		{
-			ThemedMessageBox.Show("Pick the account to reset in the Select drop-down first.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+			ThemedMessageBox.Show("เลือกบัญชีที่ต้องการรีเซ็ตจากรายการแบบเลื่อนลงด้านบนก่อน", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			return;
 		}
 		if (await ServerBlocksAccountActionAsync())
 		{
 			return;
 		}
-		if (ThemedMessageBox.Show($"Reset the account {account.MasterName} (ID {account.AimeId}) to a brand new normal account?\n\nThis clears owned Servants, points, items, print history and all game progress. Resetting the current account also clears the sortie deck, and it cannot be undone.", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) != MessageBoxResult.Yes)
+		if (ThemedMessageBox.Show($"รีเซ็ตบัญชี {account.MasterName} (ID {account.AimeId}) ให้เป็นบัญชีปกติที่สร้างใหม่หรือไม่\n\nการทำเช่นนี้จะล้างเซอร์แวนต์ที่มี แต้ม ไอเทม ประวัติการพิมพ์ และความคืบหน้าในเกมทั้งหมด การรีเซ็ตบัญชีปัจจุบันจะล้างเด็คออกรบด้วย และย้อนกลับไม่ได้", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -2456,7 +2456,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				AppendAccountLog($"Account {account.MasterName} (ID {account.AimeId}) reset to a new normal account");
 				await RefreshAccountsAsync(showErrors: false);
 				SelectAccountById(account.AimeId);
-				ThemedMessageBox.Show("Reset finished: the account " + account.MasterName + " has had its Servants, resources and progress cleared.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+				ThemedMessageBox.Show("รีเซ็ตเสร็จสิ้น: บัญชี " + account.MasterName + " ถูกล้างเซอร์แวนต์ ทรัพยากร และความคืบหน้าแล้ว", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			}
 		});
 	}
@@ -2470,14 +2470,14 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		AccountEntry account = SelectedAccount;
 		if (account == null)
 		{
-			ThemedMessageBox.Show("Pick the account to repair first.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+			ThemedMessageBox.Show("เลือกบัญชีที่ต้องการซ่อมแซมก่อน", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			return;
 		}
 		if (await ServerBlocksAccountActionAsync())
 		{
 			return;
 		}
-		if (ThemedMessageBox.Show("This rebuilds the EXP, materials, Bond and quest progress of the account " + account.MasterName + " from the recorded cabinet traffic.\n\nThe account files are backed up first. Continue?", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+		if (ThemedMessageBox.Show("การทำเช่นนี้จะสร้าง EXP วัตถุดิบ Bond และความคืบหน้าเควสต์ของบัญชี " + account.MasterName + " ขึ้นใหม่จากทราฟฟิกของตู้เกมที่บันทึกไว้\n\nไฟล์บัญชีจะถูกสำรองไว้ก่อน ดำเนินการต่อหรือไม่", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -2491,7 +2491,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				AppendAccountLog($"Account {account.AimeId} repaired from history: {captures} results, {questRows} quest states");
 				await RefreshAccountsAsync(showErrors: false);
 				SelectAccountById(account.AimeId);
-				ThemedMessageBox.Show($"Repair finished: {captures} past results and {questRows} quest states processed.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+				ThemedMessageBox.Show($"ซ่อมแซมเสร็จสิ้น: ประมวลผลผลลัพธ์ย้อนหลัง {captures} รายการ และสถานะเควสต์ {questRows} รายการ", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			}
 		});
 	}
@@ -2501,7 +2501,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		AccountEntry account = SelectedAccount;
 		if (account == null)
 		{
-			ThemedMessageBox.Show("Pick the account that should receive the bonus items first.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+			ThemedMessageBox.Show("เลือกบัญชีที่จะรับไอเทมโบนัสก่อน", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			return;
 		}
 		await ExecuteAccountActionAsync(async delegate
@@ -2530,7 +2530,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				}
 				if (entries.Count == 0)
 				{
-					ThemedMessageBox.Show("The installed data has no bonus items that can be granted.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+					ThemedMessageBox.Show("ข้อมูลที่ติดตั้งไว้ไม่มีไอเทมโบนัสที่มอบให้ได้", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 				}
 				else
 				{
@@ -2547,14 +2547,14 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					};
 					table.Columns.Add(new DataGridTextColumn
 					{
-						Header = "Category",
+						Header = "หมวดหมู่",
 						Binding = new Binding("Category"),
 						Width = 120.0,
 						IsReadOnly = true
 					});
 					table.Columns.Add(new DataGridTextColumn
 					{
-						Header = "Item",
+						Header = "ไอเทม",
 						Binding = new Binding("Name"),
 						Width = new DataGridLength(1.0, DataGridLengthUnitType.Star),
 						IsReadOnly = true
@@ -2568,7 +2568,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					});
 					table.Columns.Add(new DataGridTextColumn
 					{
-						Header = "Current",
+						Header = "ปัจจุบัน",
 						Binding = new Binding("Current")
 						{
 							StringFormat = "N0"
@@ -2578,7 +2578,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					});
 					table.Columns.Add(new DataGridTextColumn
 					{
-						Header = "Max",
+						Header = "สูงสุด",
 						Binding = new Binding("MaxAmount")
 						{
 							StringFormat = "N0"
@@ -2588,7 +2588,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					});
 					table.Columns.Add(new DataGridTextColumn
 					{
-						Header = "Amount to Grant",
+						Header = "จำนวนที่จะมอบ",
 						Binding = new Binding("GrantText")
 						{
 							Mode = BindingMode.TwoWay,
@@ -2599,13 +2599,13 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					});
 					Button button = new Button
 					{
-						Content = "Send to Present Box",
+						Content = "ส่งไปยังกล่องของขวัญ",
 						MinWidth = 165.0,
 						Margin = new Thickness(5.0)
 					};
 					Button element = new Button
 					{
-						Content = "Cancel",
+						Content = "ยกเลิก",
 						MinWidth = 90.0,
 						Margin = new Thickness(5.0),
 						IsCancel = true
@@ -2620,12 +2620,12 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					stackPanel.Children.Add(button);
 					Button button2 = new Button
 					{
-						Content = "Fill All to Max",
+						Content = "เติมทั้งหมดจนเต็ม",
 						Margin = new Thickness(5.0)
 					};
 					Button button3 = new Button
 					{
-						Content = "Clear All",
+						Content = "ล้างทั้งหมด",
 						Margin = new Thickness(5.0)
 					};
 					stackPanel.Children.Insert(0, button2);
@@ -2653,7 +2653,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					DockPanel dockPanel = new DockPanel();
 					TextBlock element2 = new TextBlock
 					{
-						Text = "Enter an amount or use Fill All to Max; 0 sends nothing. The server puts the items in the Present Box on the game's next request, and they reach your inventory once you claim them. Amounts are capped at the maximum, counting what you already hold and what is still waiting in the Present Box. Only items with a verified gift protocol are listed.",
+						Text = "ใส่จำนวน หรือใช้เติมทั้งหมดจนเต็ม ค่า 0 คือไม่ส่งอะไรเลย เซิร์ฟเวอร์จะวางไอเทมไว้ในกล่องของขวัญเมื่อเกมร้องขอครั้งถัดไป และไอเทมจะเข้าคลังของคุณเมื่อคุณกดรับ จำนวนจะถูกจำกัดไม่เกินค่าสูงสุด โดยนับรวมสิ่งที่คุณถืออยู่แล้วและสิ่งที่ยังรออยู่ในกล่องของขวัญ รายการนี้แสดงเฉพาะไอเทมที่มีโปรโตคอลการมอบซึ่งยืนยันแล้วเท่านั้น",
 						Margin = new Thickness(12.0, 10.0, 12.0, 0.0),
 						Foreground = Brushes.LightGray,
 						TextWrapping = TextWrapping.Wrap
@@ -2666,7 +2666,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 					Window dialog = new Window
 					{
 						Owner = this,
-						Title = $"Grant Bonus Items - {account.MasterName} (Aime {account.AimeId})",
+						Title = $"มอบไอเทมโบนัส - {account.MasterName} (Aime {account.AimeId})",
 						Width = 980.0,
 						Height = 680.0,
 						MinWidth = 760.0,
@@ -2685,14 +2685,14 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 						{
 							if (!int.TryParse(item4.GrantText, NumberStyles.None, CultureInfo.InvariantCulture, out var result))
 							{
-								ThemedMessageBox.Show("The amount must be a whole number from 0 to 2,147,483,647.", "Bonus Items");
+								ThemedMessageBox.Show("จำนวนต้องเป็นจำนวนเต็มตั้งแต่ 0 ถึง 2,147,483,647", "ไอเทมโบนัส");
 								return;
 							}
 							item4.GrantAmount = result;
 						}
 						if (!entries.Any((BenefitGrantEntry item) => item.GrantAmount > 0))
 						{
-							ThemedMessageBox.Show("Enter an amount greater than 0 for at least one item.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+							ThemedMessageBox.Show("ใส่จำนวนมากกว่า 0 ให้อย่างน้อยหนึ่งไอเทม", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 						}
 						else
 						{
@@ -2723,18 +2723,18 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 								{
 									if (item6 is JsonObject jsonObject2)
 									{
-										string value = jsonObject2["name"]?.GetValue<string>() ?? "Item";
+										string value = jsonObject2["name"]?.GetValue<string>() ?? "ไอเทม";
 										int value2 = jsonObject2["applied"]?.GetValue<int>() ?? 0;
 										jsonObject2["after"]?.GetValue<int>();
 										jsonObject2["clamped"]?.GetValue<bool>();
-										summary.Add($"{value}: requested {value2:N0}");
+										summary.Add($"{value}: ขอ {value2:N0}");
 									}
 								}
 							}
 							AppendAccountLog($"Granted {summary.Count} bonus items to account {account.AimeId}");
 							await RefreshAccountsAsync(showErrors: false);
 							SelectAccountById(account.AimeId);
-							ThemedMessageBox.Show("Queued for the Present Box - reopen the Present Box in game to claim. The amount actually granted is capped at the maximum.\nAfter a first-time server code update the server has to be restarted once.\n\n" + string.Join("\n", summary), "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+							ThemedMessageBox.Show("เข้าคิวไปยังกล่องของขวัญแล้ว - เปิดกล่องของขวัญในเกมอีกครั้งเพื่อกดรับ จำนวนที่มอบจริงจะถูกจำกัดไม่เกินค่าสูงสุด\nหลังอัปเดตโค้ดเซิร์ฟเวอร์เป็นครั้งแรก ต้องเริ่มเซิร์ฟเวอร์ใหม่หนึ่งครั้ง\n\n" + string.Join("\n", summary), "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 						}
 					}
 				}
@@ -2794,7 +2794,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		LogPanelColumn.MinWidth = ((!collapsed) ? 310 : 0);
 		LogPanelColumn.Width = new GridLength(collapsed ? 0.0 : expandedLogWidth);
 		LogSplitterColumn.Width = new GridLength((!collapsed) ? 7 : 0);
-		ToggleLogsButton.Content = (collapsed ? "Show logs" : "Hide logs");
+		ToggleLogsButton.Content = (collapsed ? "แสดงล็อก" : "ซ่อนล็อก");
 	}
 
 	private void ToggleLogs_OnClick(object sender, RoutedEventArgs e)
@@ -3008,7 +3008,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		MonitorComboBox.Items.Clear();
 		MonitorComboBox.Items.Add(new ComboBoxItem
 		{
-			Content = "Follow Primary Display",
+			Content = "ตามจอหลัก",
 			Tag = ""
 		});
 		bool flag = string.IsNullOrEmpty(device);
@@ -3025,7 +3025,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		{
 			MonitorComboBox.Items.Add(new ComboBoxItem
 			{
-				Content = device + " (disconnected - using the primary display)",
+				Content = device + " (ไม่ได้เชื่อมต่อ - ใช้จอหลัก)",
 				Tag = device
 			});
 		}
@@ -3094,7 +3094,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			RuntimeStatusText.Text = "Could not read the display settings: " + ex.Message;
+			RuntimeStatusText.Text = "อ่านการตั้งค่าการแสดงผลไม่ได้: " + ex.Message;
 		}
 		SelectTag(DisplayModeComboBox, value);
 		PopulateMonitors(device);
@@ -3112,7 +3112,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		if (SaveLauncherSettings(out string _, out int _, out int _, out string _, out int _))
 		{
-			HoldStatus("Control settings saved - they take effect the next time the game starts.");
+			HoldStatus("บันทึกการตั้งค่าการควบคุมแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป");
 		}
 	}
 
@@ -3144,7 +3144,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		height = 0;
 		if (!int.TryParse(CustomWidthTextBox.Text, out width) || !int.TryParse(CustomHeightTextBox.Text, out height) || width < 480 || width > 7680 || height < 480 || height > 7680)
 		{
-			ThemedMessageBox.Show("Enter whole numbers from 480 to 7680 in the width and height boxes, for example 1920x1080, 720x1280 or 1080x2560.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show("ใส่จำนวนเต็มตั้งแต่ 480 ถึง 7680 ในช่องความกว้างและความสูง เช่น 1920x1080, 720x1280 หรือ 1080x2560", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			return false;
 		}
 		try
@@ -3222,7 +3222,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			ThemedMessageBox.Show("Could not save the launch settings:\n" + ex.Message, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
+			ThemedMessageBox.Show("บันทึกการตั้งค่าการเปิดเกมไม่ได้:\n" + ex.Message, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
 			return false;
 		}
 	}
@@ -3264,7 +3264,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	private void HideUiKeyButton_OnClick(object sender, RoutedEventArgs e)
 	{
 		bindingHideUiKey = true;
-		HideUiKeyButton.Content = "Press a key (Esc to cancel)";
+		HideUiKeyButton.Content = "กดปุ่มใดปุ่มหนึ่ง (Esc เพื่อยกเลิก)";
 		HideUiKeyButton.Focus();
 	}
 
@@ -3305,11 +3305,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The graphics compatibility layer could not be changed: " + ex.Message);
+			HoldStatus("เปลี่ยนเลเยอร์ความเข้ากันได้ไม่ได้: " + ex.Message);
 			return;
 		}
 		RefreshGpuCompatSection();
-		HoldStatus("Graphics settings saved - they take effect the next time the game starts.");
+		HoldStatus("บันทึกการตั้งค่ากราฟิกแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป");
 	}
 
 	/// <summary>
@@ -3329,53 +3329,53 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		switch (layer)
 		{
 		case GpuCompat.Layer.Foreign:
-			GpuCompatHelpText.Text = "On: an App\\opengl32.dll that is not the copy under compat\\amd-shim. Either the shim's own installer put it there, or a newer build was dropped into the compat folder. Off removes it.";
+			GpuCompatHelpText.Text = "เปิด: มี App\\opengl32.dll ที่ไม่ใช่สำเนาจาก compat\\amd-shim อาจเป็นเพราะตัวติดตั้งของ shim เองใส่ไว้ หรือมีบิลด์ใหม่กว่าถูกวางลงในโฟลเดอร์ compat การปิดจะลบไฟล์นั้นออก";
 			if (GpuCompat.LegacySourceAvailable)
 			{
-				GpuCompatSwitchButton.Content = "Go back to the older layer";
+				GpuCompatSwitchButton.Content = "กลับไปใช้เลเยอร์เดิม";
 				GpuCompatSwitchButton.Visibility = Visibility.Visible;
 			}
 			break;
 		case GpuCompat.Layer.Shim:
-			GpuCompatHelpText.Text = "On: fluphus's AMD layer (App\\opengl32.dll). Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap; other cards and resolutions can show rendering errors. To try a newer build, replace compat\\amd-shim\\opengl32.dll (and amdcfg\\amdOglpSettings.cfg if it ships one) and this page offers to install it.";
+			GpuCompatHelpText.Text = "เปิด: เลเยอร์ AMD ของ fluphus (App\\opengl32.dll) ผู้สร้างทดสอบบน RX 7900 XTX ที่ 1920x1080 เท่านั้น โดยจำกัดที่ 60 fps การ์ดจอและความละเอียดอื่นอาจแสดงผลผิดพลาดได้ หากต้องการลองบิลด์ใหม่กว่า ให้แทนที่ compat\\amd-shim\\opengl32.dll (และ amdcfg\\amdOglpSettings.cfg หากมีมาด้วย) แล้วหน้านี้จะเสนอให้ติดตั้ง";
 			if (GpuCompat.LegacySourceAvailable)
 			{
-				GpuCompatSwitchButton.Content = "Go back to the older layer";
+				GpuCompatSwitchButton.Content = "กลับไปใช้เลเยอร์เดิม";
 				GpuCompatSwitchButton.Visibility = Visibility.Visible;
 			}
 			break;
 		case GpuCompat.Layer.Legacy:
-			GpuCompatHelpText.Text = "On: the older layer (App\\fgoglcompat.dll), left as it was. The newer AMD layer by fluphus is one click away, and one click back. To try a newer build, replace compat\\fgoglcompat.dll and this page offers to install it.";
+			GpuCompatHelpText.Text = "เปิด: เลเยอร์เดิม (App\\fgoglcompat.dll) คงไว้ตามเดิม เลเยอร์ AMD ใหม่กว่าของ fluphus อยู่ห่างเพียงคลิกเดียว และกลับมาได้ด้วยคลิกเดียว หากต้องการลองบิลด์ใหม่กว่า ให้แทนที่ compat\\fgoglcompat.dll แล้วหน้านี้จะเสนอให้ติดตั้ง";
 			if (GpuCompat.ShimSourceAvailable)
 			{
-				GpuCompatSwitchButton.Content = "Switch to the newer AMD layer";
+				GpuCompatSwitchButton.Content = "สลับไปใช้เลเยอร์ AMD ใหม่กว่า";
 				GpuCompatSwitchButton.Visibility = Visibility.Visible;
 			}
 			break;
 		default:
 			if (!GpuCompat.SourceAvailable)
 			{
-				GpuCompatHelpText.Text = "The layer's files are missing: " + GpuCompat.ShimSourcePath;
+				GpuCompatHelpText.Text = "ไม่พบไฟล์ของเลเยอร์: " + GpuCompat.ShimSourcePath;
 			}
 			else if (nvidiaPresent)
 			{
-				GpuCompatHelpText.Text = "Off. An NVIDIA card is present, and on NVIDIA the layer turns the game into a white window; it is for AMD and Intel. The switch is yours all the same.";
+				GpuCompatHelpText.Text = "ปิด มีการ์ดจอ NVIDIA อยู่ในเครื่อง และบน NVIDIA เลเยอร์นี้จะทำให้เกมกลายเป็นหน้าต่างสีขาว เลเยอร์นี้มีไว้สำหรับ AMD และ Intel อย่างไรก็ตาม การเลือกเป็นสิทธิ์ของคุณ";
 			}
 			else
 			{
-				GpuCompatHelpText.Text = "Turned on by itself on a PC with no NVIDIA card. Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap. Leave it off on NVIDIA.";
+				GpuCompatHelpText.Text = "จะเปิดให้เองบนเครื่องที่ไม่มีการ์ดจอ NVIDIA ผู้สร้างทดสอบบน RX 7900 XTX ที่ 1920x1080 เท่านั้น โดยจำกัดที่ 60 fps หากใช้ NVIDIA ให้ปิดไว้";
 			}
 			break;
 		}
 		if (GpuCompat.CompatCopyDiffers)
 		{
 			GpuCompatInstallButton.Visibility = Visibility.Visible;
-			GpuCompatHelpText.Text += " The compat folder holds a different build of this layer; Install the layer from the compat folder puts it in.";
+			GpuCompatHelpText.Text += " โฟลเดอร์ compat มีบิลด์อื่นของเลเยอร์นี้อยู่ ปุ่มติดตั้งเลเยอร์จากโฟลเดอร์ compat จะนำบิลด์นั้นมาใช้";
 		}
 		List<string> stray = GpuCompat.StrayLegacyCopies();
 		if (stray.Count > 0)
 		{
-			GpuCompatHelpText.Text += ((stray.Count == 1) ? (" A copy of fgoglcompat.dll is at " + stray[0] + ". It belongs in the compat folder next to the launcher; move it there and the switch above uses it.") : (" Copies of fgoglcompat.dll are at " + string.Join(" and ", stray) + ". They belong in the compat folder next to the launcher; move them there and the switch above uses them."));
+			GpuCompatHelpText.Text += ((stray.Count == 1) ? (" มีสำเนาของ fgoglcompat.dll อยู่ที่ " + stray[0] + " ไฟล์นี้ควรอยู่ในโฟลเดอร์ compat ข้างตัวเรียกเกม ย้ายไปไว้ที่นั่นแล้วสวิตช์ด้านบนจะใช้ไฟล์นั้น") : (" มีสำเนาของ fgoglcompat.dll หลายไฟล์อยู่ที่ " + string.Join(" และ ", stray) + " ไฟล์เหล่านี้ควรอยู่ในโฟลเดอร์ compat ข้างตัวเรียกเกม ย้ายไปไว้ที่นั่นแล้วสวิตช์ด้านบนจะใช้ไฟล์เหล่านั้น"));
 		}
 	}
 
@@ -3394,11 +3394,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The graphics compatibility layer could not be switched: " + ex.Message);
+			HoldStatus("สลับเลเยอร์ความเข้ากันได้ไม่ได้: " + ex.Message);
 			return;
 		}
 		RefreshGpuCompatSection();
-		HoldStatus("Graphics compatibility layer switched - it is used the next time the game starts.");
+		HoldStatus("สลับเลเยอร์ความเข้ากันได้แล้ว - จะถูกใช้เมื่อเริ่มเกมครั้งถัดไป");
 	}
 
 	private void GpuCompatInstallButton_OnClick(object sender, RoutedEventArgs e)
@@ -3409,11 +3409,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The layer could not be installed from the compat folder: " + ex.Message);
+			HoldStatus("ติดตั้งเลเยอร์จากโฟลเดอร์ compat ไม่ได้: " + ex.Message);
 			return;
 		}
 		RefreshGpuCompatSection();
-		HoldStatus("Graphics compatibility layer installed from the compat folder - it is used the next time the game starts.");
+		HoldStatus("ติดตั้งเลเยอร์ความเข้ากันได้จากโฟลเดอร์ compat แล้ว - จะถูกใช้เมื่อเริ่มเกมครั้งถัดไป");
 	}
 
 	private void ResetDamageUi_OnClick(object sender, RoutedEventArgs e)
@@ -3433,21 +3433,21 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			return;
 		}
 		PublishDeck();
-		if (!SaveLauncherSettings(out string displayMode, out int width, out int height, out string inputMode, out int targetFps) || (cardCollection.SelectedCards.Count == 0 && ThemedMessageBox.Show("The deck is empty. Start the game anyway?", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) != MessageBoxResult.Yes))
+		if (!SaveLauncherSettings(out string displayMode, out int width, out int height, out string inputMode, out int targetFps) || (cardCollection.SelectedCards.Count == 0 && ThemedMessageBox.Show("เด็คว่างเปล่า จะเริ่มเกมต่อไปหรือไม่", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Exclamation) != MessageBoxResult.Yes))
 		{
 			return;
 		}
 		string launcher = Path.Combine(GamePaths.GameRoot, "FGO_Launcher.ps1");
 		if (!File.Exists(launcher))
 		{
-			ThemedMessageBox.Show("The launch script is missing:\n" + launcher, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
+			ThemedMessageBox.Show("ไม่พบสคริปต์เปิดเกม:\n" + launcher, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
 			return;
 		}
 		launcherCancellationRequested = false;
 		launcherProcessRunning = true;
 		StopGameButton.IsEnabled = true;
 		StartGameButton.IsEnabled = false;
-		RuntimeStatusText.Text = $"Starting {displayMode} {width}x{height} @ {targetFps} FPS; deck synced";
+		RuntimeStatusText.Text = $"กำลังเริ่ม {displayMode} {width}x{height} @ {targetFps} FPS; ซิงค์เด็คแล้ว";
 		BeginLauncherOutputCapture(launcher);
 		CapturedProcess launcherProcess;
 		try
@@ -3470,8 +3470,8 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			QueueLauncherOutput("[launcher] Could not start PowerShell: " + ex.Message, standardError: true);
 			CompleteLauncherOutputCapture(-1);
 			StartGameButton.IsEnabled = true;
-			RuntimeStatusText.Text = "The launcher did not start";
-			ThemedMessageBox.Show("Could not start the game script:\n" + ex.Message, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
+			RuntimeStatusText.Text = "ตัวเรียกเกมไม่เริ่มทำงาน";
+			ThemedMessageBox.Show("เริ่มสคริปต์เกมไม่ได้:\n" + ex.Message, "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Hand);
 			return;
 		}
 		runningLauncher = launcherProcess;
@@ -3515,7 +3515,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		await RefreshRuntimeStatusAsync();
 		if (exitCode != 0 && !launcherCancellationRequested && !windowClosing)
 		{
-			string text = $"Launcher code {exitCode}: {StartupDiagnostics.Explain(exitCode)}; the full output is in the Game Log panel.";
+			string text = $"รหัสตัวเรียกเกม {exitCode}: {StartupDiagnostics.Explain(exitCode)}; ผลลัพธ์ทั้งหมดอยู่ในแผงล็อกเกม";
 			RuntimeStatusText.Text = text;
 			QueueLauncherOutput(text, standardError: true);
 		}
@@ -3540,7 +3540,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	private async void StopGameButton_OnClick(object sender, RoutedEventArgs e)
 	{
 		// The game is in front when this is asked, so the question has to come with it.
-		if (ThemedMessageBox.Show(this, "Stop the current game session?", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes, foreground: true) != MessageBoxResult.Yes)
+		if (ThemedMessageBox.Show(this, "หยุดเซสชันเกมปัจจุบันหรือไม่", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes, foreground: true) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -3701,16 +3701,16 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		if (cardCollection.SelectedCards.Count == 0)
 		{
-			HoldStatus("The deck is empty - nothing to save.");
+			HoldStatus("เด็คว่างเปล่า - ไม่มีอะไรให้บันทึก");
 			return;
 		}
-		NamePromptDialog prompt = new NamePromptDialog(this, "Save loadout", "Name for this deck", LoadoutComboBox.SelectedItem as string ?? "");
+		NamePromptDialog prompt = new NamePromptDialog(this, "บันทึกชุดเด็ค", "ชื่อสำหรับเด็คนี้", LoadoutComboBox.SelectedItem as string ?? "");
 		if (prompt.ShowDialog() != true || prompt.Result == null)
 		{
 			return;
 		}
 		string target = PresetFolder.PathFor(PresetFolder.Ensure(LoadoutFolder), prompt.Result);
-		if (File.Exists(target) && ThemedMessageBox.Show(this, "Replace the loadout \"" + prompt.Result + "\"?", "Save loadout", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (File.Exists(target) && ThemedMessageBox.Show(this, "แทนที่ชุดเด็ค \"" + prompt.Result + "\" หรือไม่", "บันทึกชุดเด็ค", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -3718,11 +3718,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		{
 			AtomicFile.WriteAllText(target, LoadoutJson(prompt.Result));
 			RefreshLoadoutList(prompt.Result);
-			HoldStatus("Loadout saved: " + prompt.Result + ". Export sends a copy to share.");
+			HoldStatus("บันทึกชุดเด็คแล้ว: " + prompt.Result + " ใช้ปุ่มส่งออกเพื่อสร้างสำเนาไว้แบ่งปัน");
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The loadout could not be saved: " + ex.Message);
+			HoldStatus("บันทึกชุดเด็คไม่ได้: " + ex.Message);
 		}
 	}
 
@@ -3730,7 +3730,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		if (!(JsonNode.Parse(File.ReadAllText(path)) is JsonObject loadout) || !(loadout["cards"] is JsonArray cards))
 		{
-			HoldStatus("That file is not a deck loadout.");
+			HoldStatus("ไฟล์นั้นไม่ใช่ชุดเด็ค");
 			return;
 		}
 		List<string> paths = new List<string>();
@@ -3757,14 +3757,14 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		if (paths.Count == 0)
 		{
-			HoldStatus((missing > 0) ? "None of that loadout's cards are in your card folder." : "That loadout holds no cards.");
+			HoldStatus((missing > 0) ? "ไม่มีการ์ดของชุดเด็คนั้นอยู่ในโฟลเดอร์การ์ดของคุณเลย" : "ชุดเด็คนั้นไม่มีการ์ดอยู่เลย");
 			return;
 		}
 		cardCollection.Reload(paths, null, copies);
 		ApplyOwnedCardFilter();
 		PublishDeck();
 		string name = loadout["name"]?.GetValue<string>() ?? Path.GetFileNameWithoutExtension(path);
-		HoldStatus($"Loadout loaded: {name} - {cardCollection.SelectedCards.Count} cards" + ((missing == 1) ? "; 1 not in your card folder was left out." : ((missing > 1) ? $"; {missing} not in your card folder were left out." : ".")));
+		HoldStatus($"โหลดชุดเด็คแล้ว: {name} - {cardCollection.SelectedCards.Count} การ์ด" + ((missing == 1) ? "; มี 1 ใบที่ไม่อยู่ในโฟลเดอร์การ์ดของคุณ จึงถูกข้ามไป" : ((missing > 1) ? $"; มี {missing} ใบที่ไม่อยู่ในโฟลเดอร์การ์ดของคุณ จึงถูกข้ามไป" : ".")));
 	}
 
 	private void LoadoutLoadButton_OnClick(object sender, RoutedEventArgs e)
@@ -3779,38 +3779,38 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The loadout could not be loaded: " + ex.Message);
+			HoldStatus("โหลดชุดเด็คไม่ได้: " + ex.Message);
 		}
 	}
 
 	private void LoadoutDeleteButton_OnClick(object sender, RoutedEventArgs e)
 	{
-		if (!(LoadoutComboBox.SelectedItem is string name) || ThemedMessageBox.Show(this, "Delete the loadout \"" + name + "\"?", "Delete loadout", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (!(LoadoutComboBox.SelectedItem is string name) || ThemedMessageBox.Show(this, "ลบชุดเด็ค \"" + name + "\" หรือไม่", "ลบชุดเด็ค", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
 		File.Delete(PresetFolder.PathFor(LoadoutFolder, name));
 		RefreshLoadoutList();
-		HoldStatus("Loadout deleted: " + name);
+		HoldStatus("ลบชุดเด็คแล้ว: " + name);
 	}
 
 	private void LoadoutExportButton_OnClick(object sender, RoutedEventArgs e)
 	{
 		if (!(LoadoutComboBox.SelectedItem is string name))
 		{
-			HoldStatus("Select a loadout to export, or Save as first.");
+			HoldStatus("เลือกชุดเด็คที่จะส่งออก หรือใช้บันทึกเป็นก่อน");
 			return;
 		}
 		try
 		{
 			if (PresetFolder.Export(this, PresetFolder.PathFor(LoadoutFolder, name), name))
 			{
-				HoldStatus("Exported: " + name + ".json - send it to anyone with the launcher; they add it with Import.");
+				HoldStatus("ส่งออกแล้ว: " + name + ".json - ส่งไฟล์นี้ให้ใครก็ได้ที่มีตัวเรียกเกม แล้วเขาเพิ่มเข้าไปด้วยปุ่มนำเข้า");
 			}
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The loadout could not be exported: " + ex.Message);
+			HoldStatus("ส่งออกชุดเด็คไม่ได้: " + ex.Message);
 		}
 	}
 
@@ -3818,7 +3818,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		try
 		{
-			string? name = PresetFolder.Import(this, LoadoutFolder, LooksLikeLoadout, "That file is not a deck loadout. Pick a .json file that was exported from the Loadouts row.");
+			string? name = PresetFolder.Import(this, LoadoutFolder, LooksLikeLoadout, "ไฟล์นั้นไม่ใช่ชุดเด็ค เลือกไฟล์ .json ที่ส่งออกมาจากแถวชุดเด็ค");
 			if (name == null)
 			{
 				return;
@@ -3828,7 +3828,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The loadout could not be imported: " + ex.Message);
+			HoldStatus("นำเข้าชุดเด็คไม่ได้: " + ex.Message);
 		}
 	}
 

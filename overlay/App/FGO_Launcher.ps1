@@ -729,7 +729,7 @@ if (Test-Path -LiteralPath $pendingChineseHookPath -PathType Leaf) {
 Protect-FgoChildProcessStreams
 $launchStart = Get-Date
 
-Push-Location $gameRoot
+Push-Location -LiteralPath $gameRoot
 try {
     # PowerShell transcripts buffer native debugger output until inject.exe
     # exits. Drain both pipes and mirror complete lines to a dedicated file so

@@ -5,6 +5,7 @@
 **Fate/Grand Order Arcade, in English, on your own PC.**
 
 [![Latest release](https://img.shields.io/github/v/release/githubuser420x/FGOAC-scooby?label=latest%20release)](https://github.com/githubuser420x/FGOAC-scooby/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/githubuser420x/FGOAC-scooby/total?label=downloads)](https://github.com/githubuser420x/FGOAC-scooby/releases)
 [![Licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
 [![Discord](https://img.shields.io/badge/discord-join-5865F2?logo=discord&logoColor=white)](https://discord.gg/aNK3KXBQzw)
 
@@ -43,6 +44,10 @@ its own folders, allows the game and the local server through Windows Firewall, 
 **Master** with a full Servant and Craft Essence roster, and sets the display to windowed 1280x720 on
 your main monitor. Later starts go straight to Play.
 
+Already installed? The Play page shows a bar when a newer version is out; **Install now** downloads
+it, applies it and restarts the launcher, and a short window lists what changed. Your accounts, decks,
+settings and graphics layer stay as they are. Unzipping a newer release over the folder does the same.
+
 [`docs/GUIDE_EN.pdf`](docs/GUIDE_EN.pdf) is the full player guide: getting Servants, controls, a
 sortie step by step, the exchange shops and troubleshooting.
 
@@ -65,6 +70,9 @@ sortie step by step, the exchange shops and troubleshooting.
 
 - **No online play.** Everything runs against the local server; there is no matchmaking, and no
   official service left to connect to.
+- **No Intel graphics yet.** Intel integrated graphics (Iris Xe) and Intel Arc crash with both
+  compatibility layers, and so does Ryzen laptop graphics. A fix is being worked on; until then the
+  game needs an NVIDIA card or one of the AMD cards listed under What you need.
 - **A few event screens are still Japanese** - the co-op event banners, the co-op result screens and
   the later event shops. They are artwork rather than text, and nothing else is affected.
 

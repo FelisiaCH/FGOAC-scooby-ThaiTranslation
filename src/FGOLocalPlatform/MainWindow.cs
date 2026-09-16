@@ -2796,7 +2796,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				expandedLogWidth = LogPanelColumn.Width.Value;
 				SetLogsCollapsed(jsonObject2["logsCollapsed"]?.GetValue<bool>() ?? false);
 				SettingsPanelRow.Height = new GridLength(52.0);
-				DeckPanelRow.Height = new GridLength(ReadLayoutNumber(jsonObject2, "deckHeight", 195.0, 195.0, 700.0));
+				DeckPanelRow.Height = new GridLength(ReadLayoutNumber(jsonObject2, "deckHeight", 235.0, 235.0, 700.0));
 				ServerLogRow.Height = new GridLength(ReadLayoutNumber(jsonObject2, "serverLogHeight", 300.0, 150.0, 1400.0));
 				double num = ReadLayoutNumber(jsonObject2, "windowLeft", double.NaN, SystemParameters.VirtualScreenLeft, SystemParameters.VirtualScreenLeft + SystemParameters.VirtualScreenWidth);
 				double num2 = ReadLayoutNumber(jsonObject2, "windowTop", double.NaN, SystemParameters.VirtualScreenTop, SystemParameters.VirtualScreenTop + SystemParameters.VirtualScreenHeight);

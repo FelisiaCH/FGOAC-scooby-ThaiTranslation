@@ -368,7 +368,7 @@
                     <RowDefinition Height="7" />
                     <RowDefinition Name="CardBrowserRow" Height="*" MinHeight="240" />
                     <RowDefinition Height="7" />
-                    <RowDefinition Name="DeckPanelRow" Height="195" MinHeight="195" />
+                    <RowDefinition Name="DeckPanelRow" Height="235" MinHeight="235" />
                   </Grid.RowDefinitions>
                   <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>

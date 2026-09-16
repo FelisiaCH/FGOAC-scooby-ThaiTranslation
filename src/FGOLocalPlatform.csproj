@@ -50,6 +50,7 @@
     <Page Include="photocontrols.xaml" />
     <Page Include="serversettingsview.xaml" />
     <Page Include="summonsettingswindow.xaml" />
+    <Page Include="whatsnewdialog.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="platform.ico" />

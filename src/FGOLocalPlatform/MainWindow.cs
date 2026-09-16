@@ -514,15 +514,17 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			await RefreshRuntimeStatusAsync();
 			await RefreshLogPanelsAsync();
 			await RefreshAccountsAsync(showErrors: false);
-			await RunFirstRunAsync();
+			bool firstRunDidWork = await RunFirstRunAsync();
 			AboutVersionText.Text = "Version " + UpdateSettings.Version + ", an English build of the FGO Arcade local platform.";
 			SectionTabs.Tag = UpdateSettings.Version;
+			ShowWhatsNewIfUpdated(firstRunDidWork);
 			await CheckForUpdateAsync(announce: false);
 		};
 	}
 
-	private async Task RunFirstRunAsync()
+	private async Task<bool> RunFirstRunAsync()
 	{
+		bool didWork = false;
 		firstRunning = true;
 		accountToolRunning = true;
 		SetAccountControlsEnabled(enabled: false);
@@ -538,6 +540,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			}, AppendAccountLog);
 			if (await firstRun.RunAsync())
 			{
+				didWork = true;
 				LoadLauncherSettings();
 				await RefreshAccountsAsync(showErrors: false);
 			}
@@ -553,6 +556,87 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			accountToolRunning = false;
 			SetAccountControlsEnabled(enabled: true);
 			await RefreshRuntimeStatusAsync();
+		}
+		return didWork;
+	}
+
+	/// <summary>
+	/// The current version's own section of the CHANGELOG.md that ships beside the launcher, as
+	/// plain text: headings without their marks, bullets kept. Empty when the file or the section
+	/// is missing.
+	/// </summary>
+	private static string ReadReleaseNotes(string version)
+	{
+		string path = Path.Combine(GamePaths.GameRoot, "..", "CHANGELOG.md");
+		if (!File.Exists(path))
+		{
+			return "";
+		}
+		List<string> lines = new List<string>();
+		bool inside = false;
+		foreach (string raw in File.ReadLines(path))
+		{
+			string line = raw.TrimEnd();
+			if (line.StartsWith("## [", StringComparison.Ordinal))
+			{
+				if (inside)
+				{
+					break;
+				}
+				inside = line.StartsWith("## [" + version + "]", StringComparison.Ordinal);
+				continue;
+			}
+			if (!inside)
+			{
+				continue;
+			}
+			if (line.StartsWith("### ", StringComparison.Ordinal))
+			{
+				lines.Add("");
+				lines.Add(line.Substring(4));
+			}
+			else
+			{
+				lines.Add(line);
+			}
+		}
+		return string.Join("\n", lines).Trim();
+	}
+
+	/// <summary>
+	/// After an update, once: the recorded launcher version differs from the running one and the
+	/// first-run setup did nothing on this start. Records the running version either way.
+	/// </summary>
+	private void ShowWhatsNewIfUpdated(bool firstRunDidWork)
+	{
+		string path = Path.Combine(GamePaths.GameRoot, "fgo-launcher.json");
+		try
+		{
+			JsonObject settings = ((File.Exists(path) && JsonNode.Parse(File.ReadAllText(path)) is JsonObject existing) ? existing : new JsonObject());
+			string previous = settings["launcherVersion"]?.GetValue<string>() ?? "";
+			if (previous == UpdateSettings.Version)
+			{
+				return;
+			}
+			settings["launcherVersion"] = UpdateSettings.Version;
+			AtomicFile.WriteAllText(path, settings.ToJsonString(new JsonSerializerOptions
+			{
+				WriteIndented = true
+			}) + Environment.NewLine);
+			if (firstRunDidWork)
+			{
+				return;
+			}
+			string body = ReadReleaseNotes(UpdateSettings.Version);
+			if (body.Length == 0)
+			{
+				body = "The launcher is now version " + UpdateSettings.Version + ". Your accounts, decks and settings are as they were.";
+			}
+			new WhatsNewDialog(this, UpdateSettings.Version, body).ShowDialog();
+		}
+		catch (Exception ex)
+		{
+			AppendAccountLog("Could not show the release notes: " + ex.Message);
 		}
 	}
 

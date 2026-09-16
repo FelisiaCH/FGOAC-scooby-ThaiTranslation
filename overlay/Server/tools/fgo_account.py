@@ -33,7 +33,7 @@ import subprocess
 import sys
 import time
 from tempfile import TemporaryDirectory
-from datetime import datetime
+from datetime import datetime, timezone
 
 TOOLS_DIR = Path(__file__).resolve().parent
 # The packaged Python uses an isolated ._pth and omits the script directory.
@@ -62,6 +62,8 @@ SERVER_PROBE_PORT = int(json.loads((SERVER_DIR.parent / 'App' / 'fgo-launcher.js
 SERVER_RUNNING_MESSAGE = (
     "Stop the local server (Stop Server in the launcher, or Stop-FGOLocalServer.ps1), then try again"
 )
+
+UPGRADE_ACTIONS = ("master",)
 
 
 def configure_stdio() -> None:
@@ -403,6 +405,16 @@ def master_progress(total_exp: int, requirements: list) -> dict:
         "master_next_level_exp": 0,
         "master_exp_to_next": 0,
     }
+
+
+def max_master_exp(profile: dict, requirements: list) -> int:
+    """Raise the Master's total EXP to the top of the level table. Never lowers it."""
+    total = sum(max(0, int(value)) for value in requirements)
+    current = _profile_int(profile, "mstr_exp", 0)
+    if not requirements or current >= total:
+        return 0
+    profile["mstr_exp"] = total
+    return 1
 
 
 def quest_progress_counts(profile: dict) -> tuple[int, int]:
@@ -2011,7 +2023,14 @@ def command_upgrade(args) -> dict:
         return {"ok": False, "error": "account_not_found", "message": "The selected account was not found"}
     profile = deepcopy(original)
     try:
-        count = apply_action(servlet, profile, args.action, benefit_catalog(servlet, profile) if args.action == 'materials' else [])
+        if args.action == "master":
+            count = max_master_exp(profile, load_master_level_requirements())
+            profile.setdefault("local_admin_actions", {})["master"] = {
+                "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "changed": count,
+            }
+        else:
+            count = apply_action(servlet, profile, args.action, benefit_catalog(servlet, profile) if args.action == 'materials' else [])
         backup_name = backup_file(PROFILES_PATH)
         servlet._save_profiles(profile)
     except Exception as exc:
@@ -2207,7 +2226,7 @@ def main() -> int:
     upgrade_parser = subparsers.add_parser("upgrade", parents=[common], help="one-click inventory and growth actions for the selected account")
     upgrade_parser.add_argument("--aime-id", type=int, required=True)
     from fgo_account_actions import ACTIONS
-    upgrade_parser.add_argument("--action", choices=ACTIONS, required=True)
+    upgrade_parser.add_argument("--action", choices=tuple(ACTIONS) + UPGRADE_ACTIONS, required=True)
     args = parser.parse_args()
     handlers = {
         "list": command_list,

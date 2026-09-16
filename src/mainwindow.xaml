@@ -352,6 +352,7 @@
                   <Button Content="Unlock All Costumes" Tag="costumes" Click="AccountUpgrade_OnClick" />
                   <Button Content="Max All Materials" Tag="materials" ToolTip="Fills every enhancement material in the installed data to its own cap" Click="AccountUpgrade_OnClick" />
                   <Button Content="Max All Servants" Tag="levels" ToolTip="Raises level, Ascension, level cap, Skills, support Skills, Noble Phantasm and Bond to the highest value available" Click="AccountUpgrade_OnClick" />
+                  <Button Content="Max Master Level" Tag="master" ToolTip="Sets the Master's EXP to the top of the game's own level table. Nothing else on the account changes." Click="AccountUpgrade_OnClick" />
                 </WrapPanel>
                 <TextBlock Text="Account Details" Style="{StaticResource SectionTitleStyle}" Margin="0,12,0,10" />
                 <ItemsControl Name="AccountDetailsTable" />

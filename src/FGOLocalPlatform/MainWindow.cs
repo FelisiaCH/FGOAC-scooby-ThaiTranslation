@@ -1521,7 +1521,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				Path.GetFullPath(Path.Combine(GamePaths.GameRoot, "..", "Server"));
 				if (await RunServerCommandAsync(start: false) != 0)
 				{
-					throw new IOException("The server did not stop, so the settings were not changed - see logs/server-control.log.");
+					throw new IOException("เซิร์ฟเวอร์ไม่ได้หยุดทำงาน การตั้งค่าจึงไม่ถูกเปลี่ยน - ดูที่ logs/server-control.log");
 				}
 				if (windowClosing)
 				{
@@ -1611,7 +1611,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		if (serverCommandTask != null)
 		{
-			throw new InvalidOperationException("The previous server control command has not finished.");
+			throw new InvalidOperationException("คำสั่งควบคุมเซิร์ฟเวอร์ก่อนหน้ายังทำงานไม่เสร็จ");
 		}
 		using CancellationTokenSource cancellation = new CancellationTokenSource();
 		serverCommandCancellation = cancellation;
@@ -1632,7 +1632,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		string script = Path.GetFullPath(Path.Combine(GamePaths.GameRoot, "..", "Server", start ? "Start-FGOLocalServer.ps1" : "Stop-FGOLocalServer.ps1"));
 		if (!File.Exists(script))
 		{
-			throw new FileNotFoundException("The server control script is missing.", script);
+			throw new FileNotFoundException("ไม่พบสคริปต์ควบคุมเซิร์ฟเวอร์", script);
 		}
 		await Task.Run(() => PowerShellHost.Executable).WaitAsync(TimeSpan.FromSeconds(15.0), cancellation);
 		cancellation.ThrowIfCancellationRequested();
@@ -1702,7 +1702,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		await CancelServerCommandAsync();
 		if (await RunServerCommandAsync(start: false) != 0)
 		{
-			throw new IOException("The local server did not stop completely - see logs/server-control.log. The database is left running so writes are not cut off.");
+			throw new IOException("เซิร์ฟเวอร์ในเครื่องหยุดทำงานไม่สมบูรณ์ - ดูที่ logs/server-control.log ระบบปล่อยให้ฐานข้อมูลทำงานต่อไว้ เพื่อไม่ให้การเขียนข้อมูลถูกตัดกลางคัน");
 		}
 	}
 

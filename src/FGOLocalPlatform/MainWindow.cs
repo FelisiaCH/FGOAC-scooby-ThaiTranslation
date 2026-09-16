@@ -3696,6 +3696,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		List<string> paths = new List<string>();
 		List<int> copies = new List<int>();
+		int missing = 0;
 		foreach (JsonNode? entry in cards)
 		{
 			// GetFileName drops any folder part, so a shared file cannot point outside the card folder.
@@ -3704,18 +3705,25 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				continue;
 			}
-			paths.Add(Path.Combine(cardCollection.Path, file));
+			// Counted here rather than from what Reload keeps: Reload also stops at 30 cards and
+			// drops duplicates, and neither of those is a card the player is missing.
+			string cardPath = Path.Combine(cardCollection.Path, file);
+			if (!File.Exists(cardPath))
+			{
+				missing++;
+				continue;
+			}
+			paths.Add(cardPath);
 			copies.Add(Math.Clamp(entry?["copy"]?.GetValue<int>() ?? 1, 1, 30));
 		}
 		if (paths.Count == 0)
 		{
-			HoldStatus("That loadout holds no cards.");
+			HoldStatus((missing > 0) ? "None of that loadout's cards are in your card folder." : "That loadout holds no cards.");
 			return;
 		}
 		cardCollection.Reload(paths, null, copies);
 		ApplyOwnedCardFilter();
 		PublishDeck();
-		int missing = paths.Count - cardCollection.SelectedCards.Count;
 		string name = loadout["name"]?.GetValue<string>() ?? Path.GetFileNameWithoutExtension(path);
 		HoldStatus($"Loadout loaded: {name} - {cardCollection.SelectedCards.Count} cards" + ((missing == 1) ? "; 1 not in your card folder was left out." : ((missing > 1) ? $"; {missing} not in your card folder were left out." : ".")));
 	}

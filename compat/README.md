@@ -17,13 +17,12 @@ recognised by its hash and left alone.
 His limits, as published: tested only on an RX 7900 XTX, 60 fps guaranteed only in PvP battles on
 that card, 1920x1080 only, with a built-in 60 fps cap.
 
-Installs from before 1.1.1 carry the older layer, `compat\fgoglcompat.dll`, and keep running it as
-they are; the Display page offers the switch to this one and back.
-
-`fgoglcompat.dll` is the older layer that shipped with 1.1.0. It is the one that works on RX 500,
-RX 6000 and RX 7600 cards and on desktop Ryzen graphics; the newer layer fails on those at the
-first battle. It arrived through the community without a licence file; it is shipped as received
-and is not modified here.
+`fgoglcompat.dll` is the older layer that shipped with 1.1.0, and the package ships it again. It is
+the one that works on RX 500, RX 6000 and RX 7600 cards and on desktop Ryzen graphics; the newer
+layer fails on those at the first battle. A fresh install on a PC with no NVIDIA adapter gets this
+one, and installs from before 1.1.1 already carry it and keep running it as they are; the Display
+page switches between the two layers and back. It arrived through the community without a licence
+file; it is shipped as received and is not modified here.
 
 | File | SHA-256 |
 | --- | --- |

@@ -10,7 +10,14 @@ Checks
   C1 json-invariants      card JSONs parse, keys/counts/Japanese fields frozen
   C2 thai-digits          no U+0E50..U+0E59 under src/ overlay/ patch/ docs/
   C3 xaml-structure       src/*.xaml parses; Tag and SelectedIndex multisets frozen
-  C4 placeholders         changed strings keep their {...} placeholder multiset
+  C4 placeholders         changed strings keep their {...} placeholder multiset.
+                          Inside StringFormat=, and inside a C# interpolation
+                          expression, only the structure is compared, because
+                          the literal text there renders on screen as prose.
+     contract-literal     but a literal that is PARSED rather than displayed
+                          (.Equals/.Contains/.StartsWith/.EndsWith/.IndexOf
+                          argument, == or != operand, .Replace search term,
+                          case label) must stay byte-identical
   C5 dialog-filters       OpenFileDialog filter literals keep their '|' count
   C6 config-tokens        per-file counts of windowed/borderless/... frozen,
                           counted only as whole quoted values, never as prose
@@ -211,6 +218,88 @@ def is_binary_path(path: str) -> bool:
 # placeholder extraction
 # --------------------------------------------------------------------------
 
+def _split_top_level_commas(body: str) -> list[str]:
+    """Split a markup-extension body on commas that are not inside nested {}."""
+    parts: list[str] = []
+    depth = 0
+    cur: list[str] = []
+    for char in body:
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+        if char == "," and depth == 0:
+            parts.append("".join(cur))
+            cur = []
+        else:
+            cur.append(char)
+    parts.append("".join(cur))
+    return parts
+
+
+# A trailing unit is a short Latin/percent run right after the last format
+# token -- "px", "%", "ms".  Anything longer or further along is prose.
+UNIT_RE = re.compile(r"^[ \t]?([%A-Za-z]{1,4})(?=$|[\s(,.])")
+
+
+def placeholder_signature(placeholder: str) -> str:
+    """Reduce a `{...}` placeholder to the part that must stay byte-identical.
+
+    A markup extension carrying a StringFormat renders its literal text on
+    screen, so that text is translatable prose.  Its signature keeps:
+      * the extension name and every Name=Value pair (ElementName=, Path=, ...)
+      * the inner {...} format tokens of the StringFormat value, in order
+      * any trailing unit such as px or %
+    and drops the human-readable text around those tokens.
+
+    A C# interpolation hole renders the result of an expression, and a string
+    literal embedded in that expression is usually display text.  Its signature
+    keeps the whole expression -- identifiers, member access, operators,
+    argument counts, format specifiers such as :D5, and the number and position
+    of the embedded literals -- but blanks each literal's contents.  Literals
+    sitting in a comparison position are a separate, sharper check: see
+    check_contract_literals.
+
+    Everything else -- {StaticResource ...} and a StringFormat whose value is a
+    bare .NET format string such as F1 -- is compared verbatim.
+    """
+    if not (placeholder.startswith("{") and placeholder.endswith("}")):
+        return placeholder
+    body = placeholder[1:-1]
+    if "StringFormat" not in body:
+        if '"' in body:
+            return "{" + _blank_literals_in_code(body) + "}"
+        return placeholder
+
+    reduced: list[str] = []
+    narrowed = False
+    for part in _split_top_level_commas(body):
+        stripped = part.strip()
+        if not stripped.startswith("StringFormat="):
+            reduced.append(stripped)
+            continue
+        value = stripped[len("StringFormat="):]
+        tokens = brace_placeholders(value)
+        if not tokens:
+            # e.g. StringFormat=F1 -- a .NET format specifier, not a template.
+            reduced.append(stripped)
+            continue
+        narrowed = True
+        last = value.rfind("}")
+        tail = value[last + 1:] if last >= 0 else ""
+        match = UNIT_RE.match(tail)
+        unit = match.group(1) if match else ""
+        reduced.append("StringFormat=" + "|".join(tokens) + (("|" + unit) if unit else ""))
+
+    if not narrowed:
+        return placeholder
+    return "{" + ",".join(reduced) + "}"
+
+
+def signature_counter(placeholders: list[str]) -> Counter[str]:
+    return Counter(placeholder_signature(p) for p in placeholders)
+
+
 def brace_placeholders(text: str) -> list[str]:
     """Multiset (as an ordered list) of `{...}` groups, honouring {{ and }}."""
     out: list[str] = []
@@ -294,7 +383,7 @@ def _scan_hole(src: str, i: int) -> int:
                 else:
                     verbatim = True
                 k -= 1
-            _, j, _ = _scan_string(src, j, interp, verbatim)
+            _, j, _, _ = _scan_string(src, j, interp, verbatim)
             continue
         if char == "'":
             j = _scan_char_literal(src, j)
@@ -303,12 +392,19 @@ def _scan_hole(src: str, i: int) -> int:
     return n
 
 
-def _scan_string(src: str, i: int, interp: bool, verbatim: bool) -> tuple[str, int, list[str]]:
-    """src[i] == '"'.  Returns (content, index past closing quote, holes)."""
+def _scan_string(src: str, i: int, interp: bool,
+                 verbatim: bool) -> tuple[str, int, list[str], list[tuple[int, int]]]:
+    """src[i] == '"'.
+
+    Returns (content, index past closing quote, holes, hole spans).  The spans
+    are absolute (start, end) offsets into `src` for each `{...}` hole, so a
+    caller can recurse into the C# expression a hole contains.
+    """
     n = len(src)
     i += 1
     parts: list[str] = []
     holes: list[str] = []
+    spans: list[tuple[int, int]] = []
     while i < n:
         char = src[i]
         if not verbatim and char == "\\":
@@ -333,6 +429,7 @@ def _scan_string(src: str, i: int, interp: bool, verbatim: bool) -> tuple[str, i
             end = _scan_hole(src, i)
             parts.append(src[i:end])
             holes.append(src[i:end])
+            spans.append((i, end))
             i = end
             continue
         if interp and char == "}" and i + 1 < n and src[i + 1] == "}":
@@ -341,7 +438,183 @@ def _scan_string(src: str, i: int, interp: bool, verbatim: bool) -> tuple[str, i
             continue
         parts.append(char)
         i += 1
-    return "".join(parts), i, holes
+    return "".join(parts), i, holes, spans
+
+
+# --------------------------------------------------------------------------
+# contract literals: a string that is parsed rather than displayed
+# --------------------------------------------------------------------------
+
+# A literal handed to one of these is matched against, never shown.
+CONTRACT_METHODS = ("Equals", "Contains", "StartsWith", "EndsWith", "IndexOf")
+# .Replace(search, replacement): the search term is a contract, the
+# replacement is display text and is free to be translated.
+SEARCH_ARG_METHODS = ("Replace",)
+
+_IDENT_TAIL_RE = re.compile(r"([A-Za-z_][A-Za-z0-9_]*)\s*$")
+_CASE_TAIL_RE = re.compile(r"(?:^|[^A-Za-z0-9_])case\s*$")
+_RECEIVER_HEAD_RE = re.compile(
+    r"^\.\s*(" + "|".join(CONTRACT_METHODS + SEARCH_ARG_METHODS) + r")\s*\(")
+# How far around a literal we look for ==, !=, case and =>.
+_CONTEXT_WINDOW = 80
+
+
+def _blank_literals_in_code(code: str) -> str:
+    """Replace every string literal's contents with a marker, keeping structure.
+
+    `x.Equals("HOLO") ? "Fatal Foil" : "Normal"` becomes
+    `x.Equals("<str>") ? "<str>" : "<str>"`, so translating display text does
+    not read as a structural change while the shape of the expression, the
+    argument count and the literal positions all still compare.
+    """
+    out: list[str] = []
+    i, n = 0, len(code)
+    while i < n:
+        char = code[i]
+        if char == "'":
+            j = _scan_char_literal(code, i)
+            out.append(code[i:j])  # char literals are structural, keep verbatim
+            i = j
+            continue
+        if char == '"' or char in "$@":
+            j = i
+            interp = verbatim = False
+            while j < n and code[j] in "$@":
+                if code[j] == "$":
+                    interp = True
+                else:
+                    verbatim = True
+                j += 1
+            if j < n and code[j] == '"':
+                _, end, _, _ = _scan_string(code, j, interp, verbatim)
+                out.append('"<str>"')
+                i = end
+                continue
+            out.append(code[i:j] if j > i else char)
+            i = j if j > i else i + 1
+            continue
+        out.append(char)
+        i += 1
+    return "".join(out)
+
+
+def _method_before_paren(src: str, paren: int, low: int) -> str | None:
+    """Name of the member call whose argument list opens at `paren`, if any."""
+    start = max(low, paren - _CONTEXT_WINDOW)
+    match = _IDENT_TAIL_RE.search(src[start:paren])
+    if not match:
+        return None
+    ident_start = start + match.start(1)
+    before = src[start:ident_start].rstrip()
+    if not before.endswith("."):
+        return None
+    return match.group(1)
+
+
+class CsLiteral:
+    __slots__ = ("line", "content", "contract", "reason")
+
+    def __init__(self, line: int, content: str, contract: bool, reason: str) -> None:
+        self.line = line
+        self.content = content
+        self.contract = contract
+        self.reason = reason
+
+
+def _classify_literal(src: str, lit_start: int, lit_end: int,
+                      stack: list[list], low: int, high: int) -> tuple[bool, str]:
+    """Is this literal parsed (a contract) or merely displayed?"""
+    if stack:
+        method, argidx = stack[-1]
+        if method in CONTRACT_METHODS:
+            return True, "argument to .%s(" % method
+        if method in SEARCH_ARG_METHODS and argidx == 0:
+            return True, "search argument of .%s(" % method
+
+    before = src[max(low, lit_start - _CONTEXT_WINDOW):lit_start].rstrip()
+    if before.endswith("==") or before.endswith("!="):
+        return True, "operand of %s" % before[-2:]
+    if _CASE_TAIL_RE.search(before):
+        return True, "case label"
+
+    after = src[lit_end:min(high, lit_end + _CONTEXT_WINDOW)].lstrip()
+    if after.startswith("==") or after.startswith("!="):
+        return True, "operand of %s" % after[:2]
+    if after.startswith("=>"):
+        return True, "switch arm pattern"
+    match = _RECEIVER_HEAD_RE.match(after)
+    if match:
+        return True, "receiver of .%s(" % match.group(1)
+
+    return False, "display text"
+
+
+def scan_cs_literals(src: str) -> list[CsLiteral]:
+    """Every string literal in a C# file, in source order, classified.
+
+    Recurses into interpolation holes, so a literal embedded in an expression
+    is classified by the code that actually surrounds it.
+    """
+    newlines = [m.start() for m in re.finditer("\n", src)]
+
+    def line_of(idx: int) -> int:
+        return bisect.bisect_right(newlines, idx) + 1
+
+    out: list[CsLiteral] = []
+
+    def scan_code(low: int, high: int) -> None:
+        stack: list[list] = []
+        i = low
+        while i < high:
+            char = src[i]
+            if char == "/" and i + 1 < high:
+                if src[i + 1] == "/":
+                    j = src.find("\n", i)
+                    i = high if j < 0 or j >= high else j + 1
+                    continue
+                if src[i + 1] == "*":
+                    j = src.find("*/", i + 2)
+                    i = high if j < 0 or j >= high else j + 2
+                    continue
+            if char == "'":
+                i = _scan_char_literal(src, i)
+                continue
+            if char == "(":
+                stack.append([_method_before_paren(src, i, low), 0])
+                i += 1
+                continue
+            if char == ")":
+                if stack:
+                    stack.pop()
+                i += 1
+                continue
+            if char == "," and stack:
+                stack[-1][1] += 1
+                i += 1
+                continue
+            if char == '"' or char in "$@":
+                j = i
+                interp = verbatim = False
+                while j < high and src[j] in "$@":
+                    if src[j] == "$":
+                        interp = True
+                    else:
+                        verbatim = True
+                    j += 1
+                if j < high and src[j] == '"':
+                    content, end, _, spans = _scan_string(src, j, interp, verbatim)
+                    contract, reason = _classify_literal(src, i, end, stack, low, high)
+                    out.append(CsLiteral(line_of(i), content, contract, reason))
+                    for hole_start, hole_end in spans:
+                        scan_code(hole_start + 1, hole_end - 1)
+                    i = end
+                    continue
+                i = j if j > i else i + 1
+                continue
+            i += 1
+
+    scan_code(0, len(src))
+    return out
 
 
 def cs_strings(src: str) -> list[StringLit]:
@@ -377,7 +650,7 @@ def cs_strings(src: str) -> list[StringLit]:
                     verbatim = True
                 j += 1
             if j < n and src[j] == '"':
-                text, end, holes = _scan_string(src, j, interp, verbatim)
+                text, end, holes, _ = _scan_string(src, j, interp, verbatim)
                 out.append(StringLit(line_of(i), text, interp,
                                      holes if interp else brace_placeholders(text)))
                 i = end
@@ -385,7 +658,7 @@ def cs_strings(src: str) -> list[StringLit]:
             i = j if j > i else i + 1
             continue
         if char == '"':
-            text, end, _ = _scan_string(src, i, False, False)
+            text, end, _, _ = _scan_string(src, i, False, False)
             out.append(StringLit(line_of(i), text, False, brace_placeholders(text)))
             i = end
             continue
@@ -639,11 +912,12 @@ def check_placeholders_and_resolutions(
             positional += 1
             for idx, (bs, ws) in enumerate(zip(base, work)):
                 if bs.text != ws.text:
-                    bph, wph = Counter(bs.placeholders), Counter(ws.placeholders)
+                    bph = signature_counter(bs.placeholders)
+                    wph = signature_counter(ws.placeholders)
                     if bph != wph:
                         rep.fail(ph_tag, "%s:%d" % (path, ws.line),
                                  "string #%d changed and its {...} placeholders changed" % idx,
-                                 sorted(bph.elements()), sorted(wph.elements()))
+                                 sorted(bs.placeholders), sorted(ws.placeholders))
                 if RESOLUTION_RE.match(bs.text) and not RESOLUTION_RE.match(ws.text):
                     rep.fail(res_tag, "%s:%d" % (path, ws.line),
                              "string #%d no longer matches the resolution pattern" % idx,
@@ -654,8 +928,8 @@ def check_placeholders_and_resolutions(
                      "%s: string count changed (%d -> %d); positional matching not possible, "
                      "falling back to whole-file placeholder multiset comparison"
                      % (path, len(base), len(work)))
-            bph = Counter(p for s in base for p in s.placeholders)
-            wph = Counter(p for s in work for p in s.placeholders)
+            bph = signature_counter([p for s in base for p in s.placeholders])
+            wph = signature_counter([p for s in work for p in s.placeholders])
             if bph != wph:
                 lost, gained = bph - wph, wph - bph
                 detail = []
@@ -681,8 +955,62 @@ def check_placeholders_and_resolutions(
                              "%r x%d" % (k, v) for k, v in sorted(missing.items())))
 
     rep.method(ph_tag, "%d file(s) compared string-by-string (positional), "
-                       "%d file(s) fell back to whole-file placeholder multisets"
+                       "%d file(s) fell back to whole-file placeholder multisets; "
+                       "inside a StringFormat= markup extension only the structure is "
+                       "compared (extension name, every Name=Value pair, the inner {...} "
+                       "format tokens in order, any trailing unit) -- its on-screen prose "
+                       "is translatable and is not compared"
                        % (positional, fallback))
+
+
+# --------------------------------------------------------------------------
+# check 4b -- contract literals must not be translated
+# --------------------------------------------------------------------------
+
+def check_contract_literals(repo: Repo, rep: Report) -> None:
+    """A literal that is parsed, not displayed, must stay byte-identical.
+
+    Translating one silently changes behaviour: it reads like prose but
+    something matches against it.  Display text in the same expression is free.
+    """
+    tag = "C4 contract-literal"
+    rep.method(tag, "string literals in src/**/*.cs are classified by the code around "
+                    "them; a changed literal fails when it is an argument to .%s(, an "
+                    "operand of == or !=, the FIRST argument of .Replace(, or a case "
+                    "label / switch arm pattern -- displayed literals are free"
+                    % "(, .".join(CONTRACT_METHODS))
+    for path in sorted(p for p in repo.work_files
+                       if p.startswith("src/") and p.endswith(".cs")):
+        base_text, work_text = repo.both_text(path)
+        if base_text is None or work_text is None:
+            continue
+        base = scan_cs_literals(base_text)
+        work = scan_cs_literals(work_text)
+
+        if len(base) != len(work):
+            rep.note(tag, "%s: literal count changed (%d -> %d); comparing the multiset "
+                          "of contract literals instead of matching positionally"
+                     % (path, len(base), len(work)))
+            bset = Counter(lit.content for lit in base if lit.contract)
+            wset = Counter(lit.content for lit in work if lit.contract)
+            missing = bset - wset
+            if missing:
+                rep.fail(tag, path,
+                         "contract literal(s) no longer present (fallback method)",
+                         ", ".join("%r x%d" % (k, v) for k, v in sorted(missing.items())),
+                         "gone")
+            continue
+
+        for bl, wl in zip(base, work):
+            if bl.contract and bl.content != wl.content:
+                rep.fail(tag, "%s:%d" % (path, wl.line),
+                         "a literal in a comparison position was changed (%s) -- it is "
+                         "matched against, not displayed" % bl.reason,
+                         bl.content, wl.content)
+            elif bl.contract != wl.contract:
+                rep.fail(tag, "%s:%d" % (path, wl.line),
+                         "literal %r moved between a comparison position and display "
+                         "text" % wl.content, bl.reason, wl.reason)
 
 
 # --------------------------------------------------------------------------
@@ -889,6 +1217,7 @@ def main(argv: list[str] | None = None) -> int:
     docs = check_xaml(repo, rep)
     strings = _collect_strings(repo, docs)
     check_placeholders_and_resolutions(repo, rep, strings)
+    check_contract_literals(repo, rep)
     check_dialog_filters(repo, rep, strings)
     check_config_tokens(repo, rep)
     check_encoding(repo, rep)

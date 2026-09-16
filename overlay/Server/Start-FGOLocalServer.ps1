@@ -52,7 +52,7 @@ function Assert-FgoPortOwner {
     foreach ($listener in $listeners) {
         $owner = Get-CimInstance Win32_Process -Filter "ProcessId=$($listener.OwningProcess)"
         if (-not $owner -or -not [string]::Equals($owner.ExecutablePath, $Executable, [StringComparison]::OrdinalIgnoreCase)) {
-            throw "[FGO-SERVER:PORT] Port $Port is in use by another program (PID $($listener.OwningProcess)). Change the server port, or close that program."
+            throw "[FGO-SERVER:PORT] พอร์ต $Port ถูกใช้งานโดยโปรแกรมอื่น (PID $($listener.OwningProcess)) กรุณาเปลี่ยนพอร์ตของเซิร์ฟเวอร์ หรือปิดโปรแกรมนั้น"
         }
     }
 }
@@ -69,7 +69,7 @@ function Wait-TcpPort {
 
 foreach ($required in @($artemisRoot, $pythonPath, $mariaDaemon, $mariaIni, $mariaData, $coreConfig)) {
     if (-not (Test-Path -LiteralPath $required)) {
-        throw "Local server component is missing: $required"
+        throw "ไม่พบส่วนประกอบของเซิร์ฟเวอร์ในเครื่อง: $required"
     }
 }
 
@@ -79,7 +79,7 @@ New-Item -ItemType Directory -Path $logDir -Force | Out-Null
 $startLock = $null
 try {
     $startLock = [IO.File]::Open((Join-Path $stateDir 'server-start.lock'),[IO.FileMode]::OpenOrCreate,[IO.FileAccess]::ReadWrite,[IO.FileShare]::None)
-} catch { throw '[FGO-SERVER:BUSY] Another launcher is starting the server, or the state folder is not writable. Wait for the current startup to finish.' }
+} catch { throw '[FGO-SERVER:BUSY] มีตัวเรียกเกมอื่นกำลังเริ่มเซิร์ฟเวอร์อยู่ หรือโฟลเดอร์ state เขียนไม่ได้ กรุณารอให้การเริ่มระบบครั้งปัจจุบันเสร็จสิ้น' }
 try {
 if ([string]::IsNullOrWhiteSpace($ServerHost)) {
     $ServerHost = if ($serverSettings.host -and $serverSettings.host -ne "auto") { $serverSettings.host } else { "192.168.100.1" }
@@ -101,11 +101,11 @@ $updatedYaml = [Regex]::Replace(
     1
 )
 if ($updatedYaml -eq $yaml -and $yaml -notmatch ('(?m)^\s{2}hostname:\s*"?' + [Regex]::Escape($ServerHost))) {
-    throw "Could not update the ARTEMiS hostname in $coreConfig"
+    throw "ไม่สามารถอัปเดตชื่อโฮสต์ของ ARTEMiS ใน $coreConfig ได้"
 }
 if ($updatedYaml -ne $yaml) {
     if (Test-TcpPort -HostName '127.0.0.1' -Port $serverSettings.http) {
-        throw '[FGO-SERVER:HOST] The server is still using the old address. Stop the local server, then start it again to enable the offline virtual network.'
+        throw '[FGO-SERVER:HOST] เซิร์ฟเวอร์ยังใช้ที่อยู่เดิมอยู่ กรุณาหยุดเซิร์ฟเวอร์ในเครื่องแล้วเริ่มใหม่ เพื่อเปิดใช้งานเครือข่ายเสมือนแบบออฟไลน์'
     }
     [System.IO.File]::WriteAllText($coreConfig, $updatedYaml, $encoding)
 }
@@ -131,7 +131,7 @@ if (-not (Test-TcpPort -HostName "127.0.0.1" -Port $serverSettings.database)) {
         $encoding
     )
     if (-not (Wait-TcpPort -HostName "127.0.0.1" -Port $serverSettings.database -TimeoutSeconds 20)) {
-        throw "The local database did not start. See $dbErr and $logDir\mariadb.log"
+        throw "ฐานข้อมูลในเครื่องเริ่มทำงานไม่สำเร็จ ดูรายละเอียดได้ที่ $dbErr และ $logDir\mariadb.log"
     }
 }
 
@@ -143,7 +143,7 @@ if (Test-TcpPort -HostName "127.0.0.1" -Port $serverSettings.http) {
     }
     catch { $serviceOk = $false }
     if (-not $serviceOk) {
-        throw "Port $($serverSettings.http) is already occupied by another program. Stop it before starting the FGO local server."
+        throw "พอร์ต $($serverSettings.http) ถูกโปรแกรมอื่นใช้งานอยู่แล้ว กรุณาปิดโปรแกรมนั้นก่อนเริ่มเซิร์ฟเวอร์ FGO ในเครื่อง"
     }
 }
 
@@ -167,15 +167,15 @@ if (-not $serviceOk) {
 
 foreach ($port in @($serverSettings.http, $serverSettings.billing, $serverSettings.aime)) {
     if (-not (Wait-TcpPort -HostName "127.0.0.1" -Port $port -TimeoutSeconds 30)) {
-        throw "ARTEMiS did not open required port $port. See $logDir\artemis-stderr.log"
+        throw "ARTEMiS ไม่ได้เปิดพอร์ต $port ที่จำเป็น ดูรายละเอียดได้ที่ $logDir\artemis-stderr.log"
     }
 }
 
 $health = Get-FgoLocalHealth
 if ($health.StatusCode -ne 200 -or $health.Content -notmatch "Service OK") {
-    throw "The local ALL.Net service did not pass its health check."
+    throw "บริการ ALL.Net ในเครื่องไม่ผ่านการตรวจสอบสถานะ"
 }
 
-Write-Host "FGO local server is ready at $ServerHost ($($serverSettings.http)/$($serverSettings.billing)/$($serverSettings.aime))." -ForegroundColor Green
+Write-Host "เซิร์ฟเวอร์ FGO ในเครื่องพร้อมใช้งานที่ $ServerHost ($($serverSettings.http)/$($serverSettings.billing)/$($serverSettings.aime))" -ForegroundColor Green
 
 } finally { if ($startLock) { $startLock.Dispose() } }

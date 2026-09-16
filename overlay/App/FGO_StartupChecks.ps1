@@ -19,7 +19,7 @@
             }
             [IO.File]::Delete($probe)
         } catch {
-            throw "[FGO-LAUNCHER:4] Cannot write to $path. Run the launcher as administrator and make sure the drive is not full, write-protected, or blocked by your security software. Original error: $($_.Exception.Message)"
+            throw "[FGO-LAUNCHER:4] ไม่สามารถเขียนข้อมูลลงที่ $path ได้ กรุณาเรียกใช้ตัวเรียกเกมในฐานะผู้ดูแลระบบ และตรวจสอบว่าไดรฟ์ไม่เต็ม ไม่ได้ถูกป้องกันการเขียน และไม่ถูกบล็อกโดยโปรแกรมความปลอดภัย ข้อผิดพลาดต้นทาง: $($_.Exception.Message)"
         }
     }
     $files = @('App\fgo-launcher.json','App\deck.json','App\segatools.ini',

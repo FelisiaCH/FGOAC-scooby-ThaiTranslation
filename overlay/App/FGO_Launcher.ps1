@@ -60,7 +60,7 @@ function Stop-WithMessage {
     )
 
     Write-Host ""
-    Write-Host "ERROR: $Message" -ForegroundColor Red
+    Write-Host "ข้อผิดพลาด: $Message" -ForegroundColor Red
     if ($script:transcriptActive) {
         Stop-Transcript | Out-Null
         $script:transcriptActive = $false
@@ -229,8 +229,8 @@ function Get-ActiveAudioRenderEndpoints {
     )
 }
 
-Write-Host "FGO Arcade safe launcher" -ForegroundColor Cyan
-Write-Host "Windows locale will not be changed. Segatools will provide JST and UTF conversion for the game process."
+Write-Host "ตัวเรียกเกม FGO Arcade แบบปลอดภัย" -ForegroundColor Cyan
+Write-Host "จะไม่มีการเปลี่ยนโลแคลของ Windows โดย Segatools จะจัดการแปลงเวลา JST และ UTF ให้กับโปรเซสของเกมเอง"
 
 $requiredFiles = @(
     (Join-Path $gameRoot "FGO_LocalNetwork.ps1"),
@@ -250,7 +250,7 @@ $requiredFiles = @(
 
 $missingFiles = $requiredFiles | Where-Object { -not (Test-Path -LiteralPath $_) }
 if ($missingFiles) {
-    Stop-WithMessage ("Required files are missing:`r`n" + ($missingFiles -join "`r`n")) 2
+    Stop-WithMessage ("ไม่พบไฟล์ที่จำเป็น:`r`n" + ($missingFiles -join "`r`n")) 2
 }
 
 $audioEndpointInspectionSucceeded = $false
@@ -260,21 +260,21 @@ try {
     $audioEndpointInspectionSucceeded = $true
 }
 catch {
-    Write-Warning "Could not inspect Windows audio render endpoints: $($_.Exception.Message)"
+    Write-Warning "ไม่สามารถตรวจสอบอุปกรณ์ส่งออกเสียงของ Windows ได้: $($_.Exception.Message)"
 }
 
 if ($audioEndpointInspectionSucceeded -and $activeAudioEndpoints.Count -eq 0) {
     Stop-WithMessage (
-        "No active Windows audio output endpoint was found. " +
-        "Connect or enable the intended headphones/speakers before launching FGO; " +
-        "revision 11.00 binds its WASAPI endpoint only during startup."
+        "ไม่พบอุปกรณ์ส่งออกเสียงของ Windows ที่ใช้งานอยู่ " +
+        "กรุณาเชื่อมต่อหรือเปิดใช้งานหูฟัง/ลำโพงที่ต้องการก่อนเริ่มเกม FGO " +
+        "เนื่องจากเวอร์ชัน 11.00 จะผูกอุปกรณ์ WASAPI เฉพาะตอนเริ่มเกมเท่านั้น"
     ) 5
 }
 
 try {
     $launcherConfig = Get-Content -LiteralPath $launcherConfigPath -Raw -Encoding UTF8 | ConvertFrom-Json
     $mainConfig = Get-Content -LiteralPath (Join-Path $gameRoot 'config.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-} catch { Stop-WithMessage "Configuration JSON is invalid: $($_.Exception.Message)" 13 }
+} catch { Stop-WithMessage "ไฟล์ JSON การตั้งค่าไม่ถูกต้อง: $($_.Exception.Message)" 13 }
 try {
     . (Join-Path $gameRoot 'FGO_StartupChecks.ps1')
     Test-FgoWritableLayout -InstallRoot $installRoot
@@ -286,7 +286,7 @@ try {
     if ($environmentFailures.Count -gt 0) {
         Stop-WithMessage (($environmentFailures | ForEach-Object { "$($_.Name): $($_.Detail)" }) -join "`r`n") 15
     }
-} catch { Stop-WithMessage ("Environment check failed: "+$_.Exception.Message) 15 }
+} catch { Stop-WithMessage ("การตรวจสอบสภาพแวดล้อมล้มเหลว: "+$_.Exception.Message) 15 }
 . (Join-Path $gameRoot 'FGO_LocalNetwork.ps1')
 $network = Get-FgoNetworkPlan -ServerHost ([string]$launcherConfig.serverHost)
 $localIp = $network.Cabinet
@@ -310,15 +310,15 @@ if ($shouldStartLocalServer -and -not $SkipServerCheck) {
     }
     $localServerLauncher = [System.IO.Path]::GetFullPath((Join-Path $gameRoot $localServerSetting))
     if (-not (Test-Path -LiteralPath $localServerLauncher)) {
-        Stop-WithMessage "The local FGO server launcher is missing: $localServerLauncher" 10
+        Stop-WithMessage "ไม่พบสคริปต์เริ่มเซิร์ฟเวอร์ FGO ในเครื่อง: $localServerLauncher" 10
     }
 
-    Write-Host "Starting/checking the local ALL.Net, billing, AimeDB, and SDEJ capture services..."
+    Write-Host "กำลังเริ่ม/ตรวจสอบบริการ ALL.Net, billing, AimeDB และ SDEJ capture ในเครื่อง..."
     try {
         & $localServerLauncher -ServerHost $serverHost
     }
     catch {
-        Stop-WithMessage "The local FGO server could not start: $($_.Exception.Message)" 10
+        Stop-WithMessage "เซิร์ฟเวอร์ FGO ในเครื่องเริ่มทำงานไม่สำเร็จ: $($_.Exception.Message)" 10
     }
     # Independent watcher survives a launcher cancellation and does not wait for
     # the frontend to close. It only stops services from this installation.
@@ -338,7 +338,7 @@ if (-not $SkipServerCheck) {
     }
 
     if ($closedPorts.Count -gt 0) {
-        Stop-WithMessage "The configured server $serverHost is not reachable on required port(s): $($closedPorts -join ', ')." 11
+        Stop-WithMessage "ไม่สามารถติดต่อเซิร์ฟเวอร์ $serverHost ที่ตั้งค่าไว้ บนพอร์ตที่จำเป็น: $($closedPorts -join ', ')" 11
     }
 }
 
@@ -355,7 +355,7 @@ if ([string]::IsNullOrWhiteSpace($effectiveGameVersion)) {
     $effectiveGameVersion = "11.00"
 }
 if ($effectiveGameVersion -notmatch '^\d{1,2}\.\d{2}$') {
-    Stop-WithMessage "Invalid gameVersion '$effectiveGameVersion'. Expected a value such as 11.00." 13
+    Stop-WithMessage "ค่า gameVersion '$effectiveGameVersion' ไม่ถูกต้อง ต้องเป็นค่าในรูปแบบเช่น 11.00" 13
 }
 $configuredDisplayMode = [string]$launcherConfig.displayMode
 if ($configuredDisplayMode -notin @("windowed", "borderless", "exclusive")) {
@@ -366,13 +366,13 @@ $effectiveWindowed = $effectiveDisplayMode -ne "exclusive"
 $effectiveFramed = $effectiveDisplayMode -eq "windowed"
 $effectiveMonitorDevice = if ($PSBoundParameters.ContainsKey('MonitorDevice')) { $MonitorDevice } else { [string]$launcherConfig.monitorDevice }
 if ($effectiveMonitorDevice -and $effectiveMonitorDevice -notmatch '^\\\\\.\\DISPLAY\d+$') {
-    Stop-WithMessage "Invalid monitor device '$effectiveMonitorDevice'. Expected a Windows display device such as \\.\DISPLAY1." 14
+    Stop-WithMessage "อุปกรณ์จอภาพ '$effectiveMonitorDevice' ไม่ถูกต้อง ต้องเป็นชื่ออุปกรณ์แสดงผลของ Windows เช่น \\.\DISPLAY1" 14
 }
 $effectiveResolutionWidth = if ($ResolutionWidth -gt 0) { $ResolutionWidth } else { [int]$launcherConfig.resolutionWidth }
 $effectiveResolutionHeight = if ($ResolutionHeight -gt 0) { $ResolutionHeight } else { [int]$launcherConfig.resolutionHeight }
 if ($effectiveResolutionWidth -lt 480 -or $effectiveResolutionWidth -gt 7680 -or
         $effectiveResolutionHeight -lt 480 -or $effectiveResolutionHeight -gt 7680) {
-    Stop-WithMessage "Invalid render resolution $($effectiveResolutionWidth)x$($effectiveResolutionHeight)." 14
+    Stop-WithMessage "ความละเอียดการเรนเดอร์ $($effectiveResolutionWidth)x$($effectiveResolutionHeight) ไม่ถูกต้อง" 14
 }
 
 # ago.exe exposes a full render surface plus a separate centered 16:9 UI safe
@@ -412,11 +412,11 @@ if ($configuredTargetFps -notin @(60, 90, 120, 144)) {
 $requestedTargetFps = if ($TargetFps -gt 0) { $TargetFps } else { $configuredTargetFps }
 $effectiveTargetFps = $requestedTargetFps
 if ($effectiveTargetFps -gt 60) {
-    Write-Warning "High-FPS engine scheduling is suspended after UI/touch regressions; using native 60 FPS."
+    Write-Warning "การกำหนดจังหวะเอนจินแบบ FPS สูงถูกระงับไว้ เนื่องจากพบปัญหากับ UI และระบบสัมผัส จะใช้ค่าเนทีฟ 60 FPS แทน"
     $effectiveTargetFps = 60
 }
 $useAudioHook = [bool]$EnableExperimentalAudio
-if ($launcherConfig.audioHook -and -not $EnableExperimentalAudio) { Write-Warning "Ignored legacy audioHook setting; using built-in shared audio for 11.00." }
+if ($launcherConfig.audioHook -and -not $EnableExperimentalAudio) { Write-Warning "ข้ามการตั้งค่า audioHook แบบเก่า และใช้ระบบเสียงแบบแชร์ที่มีมาในตัวสำหรับ 11.00" }
 $useProcessJapaneseLocale = [bool]$launcherConfig.processJapaneseLocale
 $useWasapiShared = [bool]$launcherConfig.wasapiShared
 $preferHighPerformanceGpu = $null -eq $launcherConfig.preferHighPerformanceGpu -or [bool]$launcherConfig.preferHighPerformanceGpu
@@ -430,11 +430,11 @@ else {
 }
 
 if ($useAudioHook -and -not (Test-Path -LiteralPath $audioHookPath)) {
-    Stop-WithMessage "FGOAudio.dll is missing." 12
+    Stop-WithMessage "ไม่พบไฟล์ FGOAudio.dll" 12
 }
 
 if ($useAudioHook) {
-    Write-Warning "FGOAudio.dll documents support for FGO 10.70/10.80. This $effectiveGameVersion installation is unsupported by that optional hook, so it remains experimental."
+    Write-Warning "FGOAudio.dll ระบุว่ารองรับ FGO 10.70/10.80 การติดตั้งเวอร์ชัน $effectiveGameVersion นี้ไม่ได้รับการรองรับจากฮุกเสริมดังกล่าว จึงยังถือเป็นฟีเจอร์ทดลอง"
 }
 
 New-Item -ItemType Directory -Path $runtimeDirectory -Force | Out-Null
@@ -443,7 +443,7 @@ New-Item -ItemType Directory -Path (Join-Path $deviceRoot "print") -Force | Out-
 $launchLogPath = Join-Path $logDirectory "fgo-last-launch.log"
 [System.IO.File]::WriteAllText(
     $injectLiveLogPath,
-    "Waiting for the injector to start and stream live debug output...`r`n",
+    "กำลังรอให้ inject.exe เริ่มทำงานและส่งข้อมูลดีบักแบบเรียลไทม์...`r`n",
     (New-Object System.Text.UTF8Encoding($false))
 )
 Start-Transcript -LiteralPath $launchLogPath -Force | Out-Null
@@ -615,12 +615,12 @@ $easterSettings = Join-Path $gameRoot 'BGM\settings.ini'
 $useMasterEaster = (Test-Path -LiteralPath $easterSettings) -and [bool](Select-String -LiteralPath $easterSettings -Pattern '^\s*enabled\s*=\s*1\s*$' -Quiet)
 if ($useChinese -or $useMasterEaster) {
     if (-not (Test-Path -LiteralPath $chineseHookPath -PathType Leaf)) {
-        Stop-WithMessage "Chinese resource hook is missing: $chineseHookPath"
+        Stop-WithMessage "ไม่พบฮุกทรัพยากรภาษาจีน: $chineseHookPath"
     }
     $launchArguments.Add("-k")
     $launchArguments.Add($chineseHookPath)
-    if ($useChinese) { Write-Output "[zh] Chinese resources enabled: $gameRoot\zh (missing resources use original files)." }
-    if ($useMasterEaster) { Write-Output "[easter] Master portraits enabled: $gameRoot\EasterEgg" }
+    if ($useChinese) { Write-Output "[zh] เปิดใช้งานทรัพยากรภาษาจีน: $gameRoot\zh (ทรัพยากรที่ไม่มีจะใช้ไฟล์ต้นฉบับแทน)" }
+    if ($useMasterEaster) { Write-Output "[easter] เปิดใช้งานภาพ Master: $gameRoot\EasterEgg" }
 }
 if ($useAudioHook) {
     $launchArguments.Add("-k")
@@ -639,36 +639,36 @@ if ($useWasapiShared) {
     $launchArguments.Add("--wasapi-shared")
 }
 
-Write-Host "Virtual LAN: $localIp (local bridge=$($network.Local))"
-Write-Host "Server     : $serverHost"
-Write-Host "Version    : $effectiveGameVersion"
-Write-Host "Input      : $effectiveInputMode"
-Write-Host "Display    : $effectiveDisplayMode $($effectiveResolutionWidth)x$($effectiveResolutionHeight)"
-Write-Host "Monitor    : $(if ($effectiveMonitorDevice) { $effectiveMonitorDevice } else { 'primary' }) (disconnected device falls back to primary)"
+Write-Host "LAN เสมือน: $localIp (บริดจ์ในเครื่อง=$($network.Local))"
+Write-Host "เซิร์ฟเวอร์: $serverHost"
+Write-Host "เวอร์ชัน: $effectiveGameVersion"
+Write-Host "อินพุต: $effectiveInputMode"
+Write-Host "การแสดงผล: $effectiveDisplayMode $($effectiveResolutionWidth)x$($effectiveResolutionHeight)"
+Write-Host "จอภาพ: $(if ($effectiveMonitorDevice) { $effectiveMonitorDevice } else { 'จอหลัก' }) (หากอุปกรณ์ถูกถอดออกจะกลับไปใช้จอหลัก)"
 if ($effectiveDisplayMode -eq "borderless") {
-    Write-Host "Borderless : desktop-composed guard enabled (no display-mode change)"
+    Write-Host "แบบไร้ขอบ: เปิดการป้องกันแบบ desktop-composed (ไม่เปลี่ยนโหมดการแสดงผล)"
 }
-Write-Host "Renderer   : $nativeRenderArgument $($nativeRenderWidth)x$($nativeRenderHeight) native; UI/touch safe area 1920x1080"
-Write-Host "Frame rate : $effectiveTargetFps FPS (engine-normalized)"
-Write-Host "Audio hook : $useAudioHook"
-Write-Host "Process JP : $useProcessJapaneseLocale"
-Write-Host "WASAPI     : $useWasapiShared"
+Write-Host "ตัวเรนเดอร์: $nativeRenderArgument $($nativeRenderWidth)x$($nativeRenderHeight) แบบเนทีฟ พื้นที่ปลอดภัยของ UI และระบบสัมผัส 1920x1080"
+Write-Host "อัตราเฟรม: $effectiveTargetFps FPS (ปรับมาตรฐานโดยเอนจิน)"
+Write-Host "ฮุกเสียง: $useAudioHook"
+Write-Host "โลแคล JP ของโปรเซส: $useProcessJapaneseLocale"
+Write-Host "WASAPI: $useWasapiShared"
 if ($audioEndpointInspectionSucceeded) {
-    Write-Host "Audio out  : $($activeAudioEndpoints.Name -join ', ')"
+    Write-Host "เสียงออก: $($activeAudioEndpoints.Name -join ', ')"
 }
-Write-Host "High GPU   : $preferHighPerformanceGpu"
-Write-Host "GL compat  : $(if (Test-Path -LiteralPath $glCompatPath -PathType Leaf) { 'fgoglcompat.dll (before fgohook)' } elseif (Test-Path -LiteralPath (Join-Path $gameRoot 'opengl32.dll') -PathType Leaf) { 'opengl32.dll shim in App' } else { 'not installed' })"
-Write-Host "GP lock    : 2333 (consumption disabled)"
-Write-Host "Diagnostics: $enableDiagnostics"
-Write-Host "Protocol diag: $enableProtocolDiagnostics"
-Write-Host "Crypto diag: $enableCryptoDiagnostics"
-Write-Host "Launch log  : $launchLogPath"
+Write-Host "GPU ประสิทธิภาพสูง: $preferHighPerformanceGpu"
+Write-Host "ความเข้ากันได้ GL: $(if (Test-Path -LiteralPath $glCompatPath -PathType Leaf) { 'fgoglcompat.dll (โหลดก่อน fgohook)' } elseif (Test-Path -LiteralPath (Join-Path $gameRoot 'opengl32.dll') -PathType Leaf) { 'ชิม opengl32.dll ในโฟลเดอร์ App' } else { 'ไม่ได้ติดตั้ง' })"
+Write-Host "ล็อก GP: 2333 (ปิดการหักค่า GP)"
+Write-Host "การวินิจฉัย: $enableDiagnostics"
+Write-Host "การวินิจฉัยโปรโตคอล: $enableProtocolDiagnostics"
+Write-Host "การวินิจฉัยการเข้ารหัส: $enableCryptoDiagnostics"
+Write-Host "บันทึกการเริ่มเกม: $launchLogPath"
 
 # Let ago.exe create and own AMDaemon.  FGO's generated amdaemon_aux.json
 # contains the cabinet role selected by -sm; pre-starting or proxying the
 # daemon breaks the game's process-state handshake.
 if ($CheckOnly) {
-    Write-Host 'FGO startup checks passed; runtime configuration prepared.' -ForegroundColor Green
+    Write-Host 'การตรวจสอบก่อนเริ่มเกม FGO ผ่านทั้งหมด และเตรียมการตั้งค่ารันไทม์เรียบร้อยแล้ว' -ForegroundColor Green
     if ($script:transcriptActive) { Stop-Transcript | Out-Null; $script:transcriptActive = $false }
     exit 0
 }
@@ -692,7 +692,7 @@ if (Test-Path -LiteralPath $pendingHookPath) {
     Copy-Item -LiteralPath $hookPath -Destination $hookBackup -Force
     Copy-Item -LiteralPath $pendingHookPath -Destination $hookPath -Force
     Remove-Item -LiteralPath $pendingHookPath -Force
-    Write-Host "Installed staged FGO compatibility hook; backup: $hookBackup" -ForegroundColor Green
+    Write-Host "ติดตั้งฮุกความเข้ากันได้ของ FGO ที่เตรียมไว้แล้ว โดยสำรองไฟล์เดิมไว้ที่: $hookBackup" -ForegroundColor Green
 }
 
 # Install audio files that were held open by the previous game session.
@@ -723,7 +723,7 @@ if (Test-Path -LiteralPath $pendingChineseHookPath -PathType Leaf) {
     }
     Copy-Item -LiteralPath $pendingChineseHookPath -Destination $chineseHookPath -Force
     Remove-Item -LiteralPath $pendingChineseHookPath -Force
-    Write-Output "[zh] Installed staged Chinese hook update."
+    Write-Output "[zh] ติดตั้งอัปเดตฮุกภาษาจีนที่เตรียมไว้แล้ว"
 }
 
 Protect-FgoChildProcessStreams
@@ -745,7 +745,7 @@ try {
     $injectLogStream = $null
     $injectLogWriter = $null
     try {
-        Write-Output "[inject] starting; stdout and stderr are live."
+        Write-Output "[inject] กำลังเริ่มทำงาน โดยแสดง stdout และ stderr แบบเรียลไทม์"
 
         $quotedLaunchArguments = @(
             $launchArguments |
@@ -945,10 +945,10 @@ try {
 
         $injectProcess.WaitForExit()
         $gameExitCode = $injectProcess.ExitCode
-        Write-Output "[inject] exited with code $gameExitCode."
+        Write-Output "[inject] จบการทำงานด้วยรหัส $gameExitCode"
     }
     catch {
-        $captureFailure = "[inject:stderr] inject process/capture failed: $($_.Exception.Message)"
+        $captureFailure = "[inject:stderr] โปรเซส inject หรือการเก็บเอาต์พุตล้มเหลว: $($_.Exception.Message)"
         if ($null -ne $injectLogWriter) {
             $injectLogWriter.WriteLine($captureFailure)
         }
@@ -1014,16 +1014,16 @@ foreach ($diagnosticName in @('amdaemon.exe.log', 'tmp.dmp')) {
 $roundedSeconds = [Math]::Round($sessionSeconds, 1)
 if ($gameExitCode -ne 0) {
     if ($gameExitCode -eq -1073741819) {
-        Stop-WithMessage "ago.exe crashed after $roundedSeconds seconds with access violation 0xC0000005. Check the logs folder for crash diagnostics." 22
+        Stop-WithMessage "ago.exe หยุดทำงานหลังผ่านไป $roundedSeconds วินาที ด้วย access violation 0xC0000005 กรุณาตรวจสอบข้อมูลการวินิจฉัยในโฟลเดอร์ logs" 22
     }
-    Stop-WithMessage "ago.exe crashed after $roundedSeconds seconds (exit $gameExitCode). Check the logs folder." 22
+    Stop-WithMessage "ago.exe หยุดทำงานหลังผ่านไป $roundedSeconds วินาที (รหัสออก $gameExitCode) กรุณาตรวจสอบโฟลเดอร์ logs" 22
 }
 
 if ($sessionSeconds -lt 60) {
-    Stop-WithMessage "ago.exe closed after $roundedSeconds seconds without a crash code. Check the logs folder." 22
+    Stop-WithMessage "ago.exe ปิดตัวลงหลังผ่านไป $roundedSeconds วินาที โดยไม่มีรหัสข้อผิดพลาด กรุณาตรวจสอบโฟลเดอร์ logs" 22
 }
 
-Write-Host "FGO session ended normally." -ForegroundColor Green
+Write-Host "เซสชัน FGO จบการทำงานตามปกติ" -ForegroundColor Green
 if ($script:transcriptActive) {
     Stop-Transcript | Out-Null
     $script:transcriptActive = $false

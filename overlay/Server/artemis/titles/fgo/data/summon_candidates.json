@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "policy": "Local canonical cards, regular and supplemental share custom weights. Story/first-clear fixed rewards are listed separately and cannot be drawn. Not retail rates.",
+  "policy": "การ์ดหลักในเครื่อง โดยการ์ดปกติและการ์ดเสริมใช้ค่าน้ำหนักที่กำหนดเองร่วมกัน ส่วนรางวัลตายตัวจากเนื้อเรื่องและการเคลียร์ครั้งแรกจะแสดงแยกไว้ต่างหากและสุ่มไม่ได้ อัตรานี้ไม่ใช่อัตราของเครื่องจริง",
   "sources": [
     "https://info-arcade-fate-go.sega.jp/2023/2023-05-24-6/",
     "https://info-arcade-fate-go.sega.jp/2022/2022-06-22-4/",
@@ -6551,7 +6551,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "obtained only through the Chapter 8 final-clear flow"
+        "ได้รับจากขั้นตอนการเคลียร์ตอนจบของบทที่ 8 เท่านั้น"
       ],
       "holo_type": 0,
       "tc_id": 3316,
@@ -6565,7 +6565,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "granted by the opening story; Ascension follows main-quest progress"
+        "ได้รับจากเนื้อเรื่องเปิด โดยการ Ascension จะเป็นไปตามความคืบหน้าของเควสต์หลัก"
       ],
       "holo_type": 0,
       "tc_id": 130,
@@ -6579,7 +6579,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "五階　四号室 · fixed first-clear reward (quest_prop_000259.txt / gift 1247)"
+        "五階　四号室 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000259.txt / gift 1247)"
       ],
       "holo_type": 0,
       "tc_id": 735,
@@ -6593,14 +6593,14 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "第一幕 奇襲！！ ぐだぐだ桶狭間 · fixed first-clear reward (quest_prop_000208.txt / gift 1198)",
-        "第二幕 颯爽！！　ぐだぐだ三段撃ち · fixed first-clear reward (quest_prop_000209.txt / gift 1219)",
-        "第三幕 窮地！！　ぐだぐだ包囲網 · fixed first-clear reward (quest_prop_000210.txt / gift 1220)",
-        "第四幕 大勝利！！　ぐだぐだ天下布武 · fixed first-clear reward (quest_prop_000211.txt / gift 1221)",
-        "第五幕 大炎上！！　ぐだぐだ本能寺 · fixed first-clear reward (quest_prop_000212.txt / gift 1222)",
-        "ぐだぐだ本能寺 地獄変 ～大焦熱地獄～ · fixed first-clear reward (quest_prop_000219.txt / gift 1203)",
-        "第二幕 颯爽！！　ぐだぐだ三段撃ち · fixed first-clear reward (quest_prop_000562.txt / gift 1777)",
-        "ぐだぐだ本能寺 地獄変 ～大焦熱地獄～ · fixed first-clear reward (quest_prop_000572.txt / gift 1778)"
+        "第一幕 奇襲！！ ぐだぐだ桶狭間 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000208.txt / gift 1198)",
+        "第二幕 颯爽！！　ぐだぐだ三段撃ち · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000209.txt / gift 1219)",
+        "第三幕 窮地！！　ぐだぐだ包囲網 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000210.txt / gift 1220)",
+        "第四幕 大勝利！！　ぐだぐだ天下布武 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000211.txt / gift 1221)",
+        "第五幕 大炎上！！　ぐだぐだ本能寺 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000212.txt / gift 1222)",
+        "ぐだぐだ本能寺 地獄変 ～大焦熱地獄～ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000219.txt / gift 1203)",
+        "第二幕 颯爽！！　ぐだぐだ三段撃ち · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000562.txt / gift 1777)",
+        "ぐだぐだ本能寺 地獄変 ～大焦熱地獄～ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000572.txt / gift 1778)"
       ],
       "holo_type": 0,
       "tc_id": 975,
@@ -6614,8 +6614,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "ダ・ヴィンチ強化応援クエスト 非凡級 · fixed first-clear reward (quest_prop_000549.txt / gift 1753)",
-        "ダ・ヴィンチ強化応援クエスト 万能級 · fixed first-clear reward (quest_prop_000552.txt / gift 1754)"
+        "ダ・ヴィンチ強化応援クエスト 非凡級 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000549.txt / gift 1753)",
+        "ダ・ヴィンチ強化応援クエスト 万能級 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000552.txt / gift 1754)"
       ],
       "holo_type": 0,
       "tc_id": 615,
@@ -6629,10 +6629,10 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "サンタへの道　１本目 · fixed first-clear reward (quest_prop_000442.txt / gift 1558)",
-        "サンタへの道　３本目 · fixed first-clear reward (quest_prop_000444.txt / gift 1559)",
-        "サンタへの道　４本目 · fixed first-clear reward (quest_prop_000445.txt / gift 1560)",
-        "サンタへの道　２本目 · fixed first-clear reward (quest_prop_000697.txt / gift 2176)"
+        "サンタへの道　１本目 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000442.txt / gift 1558)",
+        "サンタへの道　３本目 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000444.txt / gift 1559)",
+        "サンタへの道　４本目 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000445.txt / gift 1560)",
+        "サンタへの道　２本目 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000697.txt / gift 2176)"
       ],
       "holo_type": 0,
       "tc_id": 1025,
@@ -6646,8 +6646,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "カルデア・バトル・サマーリーグ ２回戦 · fixed first-clear reward (quest_prop_000365.txt / gift 1314)",
-        "カルデア・バトル・サマーリーグ １回戦 · fixed first-clear reward (quest_prop_000790.txt / gift 2495)"
+        "カルデア・バトル・サマーリーグ ２回戦 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000365.txt / gift 1314)",
+        "カルデア・バトル・サマーリーグ １回戦 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000790.txt / gift 2495)"
       ],
       "holo_type": 0,
       "tc_id": 861,
@@ -6661,11 +6661,11 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "第１試練 スパルタ式準備運動 · fixed first-clear reward (quest_prop_000448.txt / gift 1610)",
-        "第３試練 時間を稼ぐ弓兵には速攻せよ · fixed first-clear reward (quest_prop_000450.txt / gift 1611)",
-        "第１試練 スパルタ式準備運動 · fixed first-clear reward (quest_prop_000619.txt / gift 1899)",
-        "第３試練 時間を稼ぐ弓兵には速攻せよ · fixed first-clear reward (quest_prop_000621.txt / gift 1900)",
-        "第１試練 スパルタ式準備運動 · fixed first-clear reward (quest_prop_000780.txt / gift 2475)"
+        "第１試練 スパルタ式準備運動 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000448.txt / gift 1610)",
+        "第３試練 時間を稼ぐ弓兵には速攻せよ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000450.txt / gift 1611)",
+        "第１試練 スパルタ式準備運動 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000619.txt / gift 1899)",
+        "第３試練 時間を稼ぐ弓兵には速攻せよ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000621.txt / gift 1900)",
+        "第１試練 スパルタ式準備運動 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000780.txt / gift 2475)"
       ],
       "holo_type": 0,
       "tc_id": 2082,
@@ -6679,10 +6679,10 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "World End Match レオナルド☆ダ☆ヴィンチ · fixed first-clear reward (quest_prop_000293.txt / gift 1282)",
-        "World End Match ファースト・レディ(3/3) · fixed first-clear reward (quest_prop_000319.txt / gift 1283)",
-        "World End Match レオナルド☆ダ☆ヴィンチ · fixed first-clear reward (quest_prop_000472.txt / gift 1674)",
-        "World End Match ファースト・レディ(3/3) · fixed first-clear reward (quest_prop_000498.txt / gift 1675)"
+        "World End Match レオナルド☆ダ☆ヴィンチ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000293.txt / gift 1282)",
+        "World End Match ファースト・レディ(3/3) · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000319.txt / gift 1283)",
+        "World End Match レオナルド☆ダ☆ヴィンチ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000472.txt / gift 1674)",
+        "World End Match ファースト・レディ(3/3) · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000498.txt / gift 1675)"
       ],
       "holo_type": 0,
       "tc_id": 1323,
@@ -6696,8 +6696,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "一筆勝負　東の宇宙警察 · fixed first-clear reward (quest_prop_000387.txt / gift 1407)",
-        "一筆勝負　東の宇宙警察 · fixed first-clear reward (quest_prop_000535.txt / gift 1719)"
+        "一筆勝負　東の宇宙警察 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000387.txt / gift 1407)",
+        "一筆勝負　東の宇宙警察 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000535.txt / gift 1719)"
       ],
       "holo_type": 0,
       "tc_id": 1454,
@@ -6711,11 +6711,11 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "雑念ボス 財への執念 · fixed first-clear reward (quest_prop_000435.txt / gift 1535)",
-        "雑念ボス 恋への執念 · fixed first-clear reward (quest_prop_000437.txt / gift 1536)",
-        "雑念ボス 財への執念 · fixed first-clear reward (quest_prop_000596.txt / gift 1813)",
-        "雑念ボス 恋への執念 · fixed first-clear reward (quest_prop_000598.txt / gift 1814)",
-        "雑念ボス 財への執念 · fixed first-clear reward (quest_prop_000759.txt / gift 2410)"
+        "雑念ボス 財への執念 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000435.txt / gift 1535)",
+        "雑念ボス 恋への執念 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000437.txt / gift 1536)",
+        "雑念ボス 財への執念 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000596.txt / gift 1813)",
+        "雑念ボス 恋への執念 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000598.txt / gift 1814)",
+        "雑念ボス 財への執念 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000759.txt / gift 2410)"
       ],
       "holo_type": 0,
       "tc_id": 1537,
@@ -6729,10 +6729,10 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "【推奨ランクＤ】鮮血アイドルのアリーナライブ · fixed first-clear reward (quest_prop_000629.txt / gift 1931)",
-        "【推奨ランクＢ】ＡＵＯ・オンステージ！ · fixed first-clear reward (quest_prop_000632.txt / gift 1913)",
-        "【推奨ランクＤ】鮮血アイドルのアリーナライブ · fixed first-clear reward (quest_prop_000716.txt / gift 2232)",
-        "【推奨ランクＢ】ＡＵＯ・オンステージ！ · fixed first-clear reward (quest_prop_000719.txt / gift 2235)"
+        "【推奨ランクＤ】鮮血アイドルのアリーナライブ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000629.txt / gift 1931)",
+        "【推奨ランクＢ】ＡＵＯ・オンステージ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000632.txt / gift 1913)",
+        "【推奨ランクＤ】鮮血アイドルのアリーナライブ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000716.txt / gift 2232)",
+        "【推奨ランクＢ】ＡＵＯ・オンステージ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000719.txt / gift 2235)"
       ],
       "holo_type": 0,
       "tc_id": 3234,
@@ -6746,8 +6746,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "１次試験 ｖｓオーシャン部隊 · fixed first-clear reward (quest_prop_000554.txt / gift 1759)",
-        "１次試験 ｖｓオーシャン部隊 · fixed first-clear reward (quest_prop_000675.txt / gift 2093)"
+        "１次試験 ｖｓオーシャン部隊 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000554.txt / gift 1759)",
+        "１次試験 ｖｓオーシャン部隊 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000675.txt / gift 2093)"
       ],
       "holo_type": 0,
       "tc_id": 2898,
@@ -6761,9 +6761,9 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "とっくん１ マハトマ流プレゼント術 · fixed first-clear reward (quest_prop_000604.txt / gift 1848)",
-        "とっくん１ マハトマ流プレゼント術 · fixed first-clear reward (quest_prop_000743.txt / gift 2345)",
-        "とっくん１ マハトマ流プレゼント術 · fixed first-clear reward (quest_prop_000800.txt / gift 2517)"
+        "とっくん１ マハトマ流プレゼント術 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000604.txt / gift 1848)",
+        "とっくん１ マハトマ流プレゼント術 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000743.txt / gift 2345)",
+        "とっくん１ マハトマ流プレゼント術 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000800.txt / gift 2517)"
       ],
       "holo_type": 0,
       "tc_id": 3116,
@@ -6777,8 +6777,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "第二節 偽りの英霊 · fixed first-clear reward (quest_prop_000514.txt / gift 1686)",
-        "第二節 偽りの英霊 · fixed first-clear reward (quest_prop_000575.txt / gift 1782)"
+        "第二節 偽りの英霊 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000514.txt / gift 1686)",
+        "第二節 偽りの英霊 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000575.txt / gift 1782)"
       ],
       "holo_type": 0,
       "tc_id": 2408,
@@ -6792,8 +6792,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "カルデア・バトル・サマーリーグ １回戦 · fixed first-clear reward (quest_prop_000364.txt / gift 1313)",
-        "オープニングセレモニー · fixed first-clear reward (quest_prop_000789.txt / gift 2494)"
+        "カルデア・バトル・サマーリーグ １回戦 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000364.txt / gift 1313)",
+        "オープニングセレモニー · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000789.txt / gift 2494)"
       ],
       "holo_type": 0,
       "tc_id": 900,
@@ -6807,7 +6807,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "世はまさに英霊割拠の戦国時代 · fixed first-clear reward (quest_prop_000560.txt / gift 1774)"
+        "世はまさに英霊割拠の戦国時代 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000560.txt / gift 1774)"
       ],
       "holo_type": 0,
       "tc_id": 995,
@@ -6821,7 +6821,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "サンタへの道　１本目 · fixed first-clear reward (quest_prop_000696.txt / gift 2175)"
+        "サンタへの道　１本目 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000696.txt / gift 2175)"
       ],
       "holo_type": 0,
       "tc_id": 1035,
@@ -6835,8 +6835,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "いざ武者修行の旅！ · fixed first-clear reward (quest_prop_000386.txt / gift 1406)",
-        "いざ武者修行の旅！ · fixed first-clear reward (quest_prop_000534.txt / gift 1718)"
+        "いざ武者修行の旅！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000386.txt / gift 1406)",
+        "いざ武者修行の旅！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000534.txt / gift 1718)"
       ],
       "holo_type": 0,
       "tc_id": 1487,
@@ -6850,9 +6850,9 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "サンタクロースになったＪＫ · fixed first-clear reward (quest_prop_000434.txt / gift 1530)",
-        "サンタクロースになったＪＫ · fixed first-clear reward (quest_prop_000595.txt / gift 1812)",
-        "サンタクロースになったＪＫ · fixed first-clear reward (quest_prop_000758.txt / gift 2409)"
+        "サンタクロースになったＪＫ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000434.txt / gift 1530)",
+        "サンタクロースになったＪＫ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000595.txt / gift 1812)",
+        "サンタクロースになったＪＫ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000758.txt / gift 2409)"
       ],
       "holo_type": 0,
       "tc_id": 1548,
@@ -6866,9 +6866,9 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "プロローグ 影郷の修練、ふたたび · fixed first-clear reward (quest_prop_000447.txt / gift 1612)",
-        "プロローグ 影郷の修練、ふたたび · fixed first-clear reward (quest_prop_000618.txt / gift 1901)",
-        "プロローグ 影郷の修練、ふたたび · fixed first-clear reward (quest_prop_000779.txt / gift 2474)"
+        "プロローグ 影郷の修練、ふたたび · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000447.txt / gift 1612)",
+        "プロローグ 影郷の修練、ふたたび · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000618.txt / gift 1901)",
+        "プロローグ 影郷の修練、ふたたび · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000779.txt / gift 2474)"
       ],
       "holo_type": 0,
       "tc_id": 2093,
@@ -6882,34 +6882,34 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "記憶追想『炎上都市』 · fixed first-clear reward (quest_prop_000519.txt / gift 1688)",
-        "記憶追想『竜の棲む城』 · fixed first-clear reward (quest_prop_000520.txt / gift 1688)",
-        "記憶追想『永遠の都』 · fixed first-clear reward (quest_prop_000521.txt / gift 1688)",
-        "記憶追想『繁栄の海』 · fixed first-clear reward (quest_prop_000522.txt / gift 1688)",
-        "記憶追想『霧煙る街』 · fixed first-clear reward (quest_prop_000523.txt / gift 1688)",
-        "記憶追想『希望の街』 · fixed first-clear reward (quest_prop_000524.txt / gift 1688)",
-        "記憶追想『信仰都市』 · fixed first-clear reward (quest_prop_000525.txt / gift 1688)",
-        "記憶追想『鬼ごっこin羅生門』 · fixed first-clear reward (quest_prop_000526.txt / gift 1688)",
-        "記憶追想『バトル・オン・ザ・ビーチ』 · fixed first-clear reward (quest_prop_000527.txt / gift 1688)",
-        "記憶追想『燃え燃え本能寺』 · fixed first-clear reward (quest_prop_000528.txt / gift 1688)",
-        "記憶追想『クリスマスの月灯り』 · fixed first-clear reward (quest_prop_000529.txt / gift 1688)",
-        "記憶追想『トロピカル・アイランド』 · fixed first-clear reward (quest_prop_000530.txt / gift 1688)",
-        "記憶追想『イルミネーション・シティ』 · fixed first-clear reward (quest_prop_000531.txt / gift 1688)",
-        "記憶追想『修練の荒野』 · fixed first-clear reward (quest_prop_000532.txt / gift 1688)",
-        "記憶追想『炎上都市』 · fixed first-clear reward (quest_prop_000580.txt / gift 1783)",
-        "記憶追想『竜の棲む城』 · fixed first-clear reward (quest_prop_000581.txt / gift 1783)",
-        "記憶追想『永遠の都』 · fixed first-clear reward (quest_prop_000582.txt / gift 1783)",
-        "記憶追想『繁栄の海』 · fixed first-clear reward (quest_prop_000583.txt / gift 1783)",
-        "記憶追想『霧煙る街』 · fixed first-clear reward (quest_prop_000584.txt / gift 1783)",
-        "記憶追想『希望の街』 · fixed first-clear reward (quest_prop_000585.txt / gift 1783)",
-        "記憶追想『信仰都市』 · fixed first-clear reward (quest_prop_000586.txt / gift 1783)",
-        "記憶追想『鬼ごっこin羅生門』 · fixed first-clear reward (quest_prop_000587.txt / gift 1783)",
-        "記憶追想『バトル・オン・ザ・ビーチ』 · fixed first-clear reward (quest_prop_000588.txt / gift 1783)",
-        "記憶追想『燃え燃え本能寺』 · fixed first-clear reward (quest_prop_000589.txt / gift 1783)",
-        "記憶追想『クリスマスの月灯り』 · fixed first-clear reward (quest_prop_000590.txt / gift 1783)",
-        "記憶追想『トロピカル・アイランド』 · fixed first-clear reward (quest_prop_000591.txt / gift 1783)",
-        "記憶追想『イルミネーション・シティ』 · fixed first-clear reward (quest_prop_000592.txt / gift 1783)",
-        "記憶追想『修練の荒野』 · fixed first-clear reward (quest_prop_000593.txt / gift 1783)"
+        "記憶追想『炎上都市』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000519.txt / gift 1688)",
+        "記憶追想『竜の棲む城』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000520.txt / gift 1688)",
+        "記憶追想『永遠の都』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000521.txt / gift 1688)",
+        "記憶追想『繁栄の海』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000522.txt / gift 1688)",
+        "記憶追想『霧煙る街』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000523.txt / gift 1688)",
+        "記憶追想『希望の街』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000524.txt / gift 1688)",
+        "記憶追想『信仰都市』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000525.txt / gift 1688)",
+        "記憶追想『鬼ごっこin羅生門』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000526.txt / gift 1688)",
+        "記憶追想『バトル・オン・ザ・ビーチ』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000527.txt / gift 1688)",
+        "記憶追想『燃え燃え本能寺』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000528.txt / gift 1688)",
+        "記憶追想『クリスマスの月灯り』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000529.txt / gift 1688)",
+        "記憶追想『トロピカル・アイランド』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000530.txt / gift 1688)",
+        "記憶追想『イルミネーション・シティ』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000531.txt / gift 1688)",
+        "記憶追想『修練の荒野』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000532.txt / gift 1688)",
+        "記憶追想『炎上都市』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000580.txt / gift 1783)",
+        "記憶追想『竜の棲む城』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000581.txt / gift 1783)",
+        "記憶追想『永遠の都』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000582.txt / gift 1783)",
+        "記憶追想『繁栄の海』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000583.txt / gift 1783)",
+        "記憶追想『霧煙る街』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000584.txt / gift 1783)",
+        "記憶追想『希望の街』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000585.txt / gift 1783)",
+        "記憶追想『信仰都市』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000586.txt / gift 1783)",
+        "記憶追想『鬼ごっこin羅生門』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000587.txt / gift 1783)",
+        "記憶追想『バトル・オン・ザ・ビーチ』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000588.txt / gift 1783)",
+        "記憶追想『燃え燃え本能寺』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000589.txt / gift 1783)",
+        "記憶追想『クリスマスの月灯り』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000590.txt / gift 1783)",
+        "記憶追想『トロピカル・アイランド』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000591.txt / gift 1783)",
+        "記憶追想『イルミネーション・シティ』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000592.txt / gift 1783)",
+        "記憶追想『修練の荒野』 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000593.txt / gift 1783)"
       ],
       "holo_type": 0,
       "tc_id": 2433,
@@ -6923,8 +6923,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "入隊式 ようこそブートキャンプへ！ · fixed first-clear reward (quest_prop_000553.txt / gift 1758)",
-        "入隊式 ようこそブートキャンプへ！ · fixed first-clear reward (quest_prop_000674.txt / gift 2092)"
+        "入隊式 ようこそブートキャンプへ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000553.txt / gift 1758)",
+        "入隊式 ようこそブートキャンプへ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000674.txt / gift 2092)"
       ],
       "holo_type": 0,
       "tc_id": 2931,
@@ -6938,9 +6938,9 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "はじめてのサンタクロース · fixed first-clear reward (quest_prop_000603.txt / gift 1847)",
-        "はじめてのサンタクロース · fixed first-clear reward (quest_prop_000742.txt / gift 2344)",
-        "はじめてのサンタクロース · fixed first-clear reward (quest_prop_000799.txt / gift 2516)"
+        "はじめてのサンタクロース · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000603.txt / gift 1847)",
+        "はじめてのサンタクロース · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000742.txt / gift 2344)",
+        "はじめてのサンタクロース · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000799.txt / gift 2516)"
       ],
       "holo_type": 0,
       "tc_id": 3130,
@@ -6954,8 +6954,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "電子の海へようこそ！ · fixed first-clear reward (quest_prop_000628.txt / gift 1912)",
-        "電子の海へようこそ！ · fixed first-clear reward (quest_prop_000715.txt / gift 2231)"
+        "電子の海へようこそ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000628.txt / gift 1912)",
+        "電子の海へようこそ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000715.txt / gift 2231)"
       ],
       "holo_type": 0,
       "tc_id": 3248,
@@ -6969,7 +6969,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "とある地方都市、戦場と化した街での邂逅 · fixed first-clear reward (quest_prop_000652.txt / gift 1987)"
+        "とある地方都市、戦場と化した街での邂逅 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000652.txt / gift 1987)"
       ],
       "holo_type": 0,
       "tc_id": 3340,
@@ -6983,7 +6983,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "セレブなコノート女王 · fixed first-clear reward (quest_prop_000654.txt / gift 1989)"
+        "セレブなコノート女王 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000654.txt / gift 1989)"
       ],
       "holo_type": 0,
       "tc_id": 3341,
@@ -6997,7 +6997,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "ローマの薔薇皇帝 · fixed first-clear reward (quest_prop_000653.txt / gift 1988)"
+        "ローマの薔薇皇帝 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000653.txt / gift 1988)"
       ],
       "holo_type": 0,
       "tc_id": 3342,
@@ -7011,7 +7011,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "夢の怪物、青髭 · fixed first-clear reward (quest_prop_000663.txt / gift 2059)"
+        "夢の怪物、青髭 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000663.txt / gift 2059)"
       ],
       "holo_type": 0,
       "tc_id": 3448,
@@ -7025,7 +7025,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "ようこそ、夢の国へ！ · fixed first-clear reward (quest_prop_000662.txt / gift 2058)"
+        "ようこそ、夢の国へ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000662.txt / gift 2058)"
       ],
       "holo_type": 0,
       "tc_id": 3449,
@@ -7039,7 +7039,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "夏仕様のマイルーム、面白いだろう？ · fixed first-clear reward (quest_prop_000681.txt / gift 2138)"
+        "夏仕様のマイルーム、面白いだろう？ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000681.txt / gift 2138)"
       ],
       "holo_type": 0,
       "tc_id": 3492,
@@ -7053,7 +7053,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "第一試練　ウォーデンの使者 · fixed first-clear reward (quest_prop_000702.txt / gift 2197)"
+        "第一試練　ウォーデンの使者 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000702.txt / gift 2197)"
       ],
       "holo_type": 0,
       "tc_id": 3678,
@@ -7067,7 +7067,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "第二試練　鍛えの聖女 · fixed first-clear reward (quest_prop_000703.txt / gift 2198)"
+        "第二試練　鍛えの聖女 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000703.txt / gift 2198)"
       ],
       "holo_type": 0,
       "tc_id": 3679,
@@ -7081,7 +7081,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "託宣は突然に。女神からのオーダー · fixed first-clear reward (quest_prop_000701.txt / gift 2196)"
+        "託宣は突然に。女神からのオーダー · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000701.txt / gift 2196)"
       ],
       "holo_type": 0,
       "tc_id": 3680,
@@ -7095,7 +7095,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "年の瀬は愛の女神と · fixed first-clear reward (quest_prop_000730.txt / gift 2310)"
+        "年の瀬は愛の女神と · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000730.txt / gift 2310)"
       ],
       "holo_type": 0,
       "tc_id": 3736,
@@ -7109,7 +7109,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "恋心の重要性 · fixed first-clear reward (quest_prop_000731.txt / gift 2311)"
+        "恋心の重要性 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000731.txt / gift 2311)"
       ],
       "holo_type": 0,
       "tc_id": 3737,
@@ -7123,7 +7123,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "プレミアムツアーへご招待 · fixed first-clear reward (quest_prop_000748.txt / gift 2374)"
+        "プレミアムツアーへご招待 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000748.txt / gift 2374)"
       ],
       "holo_type": 0,
       "tc_id": 3835,
@@ -7137,7 +7137,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "金星の女神はご執心？ · fixed first-clear reward (quest_prop_000749.txt / gift 2376)"
+        "金星の女神はご執心？ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000749.txt / gift 2376)"
       ],
       "holo_type": 0,
       "tc_id": 3836,
@@ -7151,7 +7151,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "街案内も愛のメイド（？）におまかせ！ · fixed first-clear reward (quest_prop_000750.txt / gift 2375)"
+        "街案内も愛のメイド（？）におまかせ！ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000750.txt / gift 2375)"
       ],
       "holo_type": 0,
       "tc_id": 3837,
@@ -7165,7 +7165,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "因果を断つ者たち · fixed first-clear reward (quest_prop_000766.txt / gift 2432)"
+        "因果を断つ者たち · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000766.txt / gift 2432)"
       ],
       "holo_type": 0,
       "tc_id": 3864,
@@ -7179,7 +7179,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "最奥より出ずる影（１） · fixed first-clear reward (quest_prop_000767.txt / gift 2433)"
+        "最奥より出ずる影（１） · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000767.txt / gift 2433)"
       ],
       "holo_type": 0,
       "tc_id": 3865,
@@ -7193,7 +7193,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "最奥より出ずる影（２） · fixed first-clear reward (quest_prop_000768.txt / gift 2441)"
+        "最奥より出ずる影（２） · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000768.txt / gift 2441)"
       ],
       "holo_type": 0,
       "tc_id": 3866,
@@ -7207,7 +7207,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "稼働２周年記念クエスト · fixed first-clear reward (quest_prop_000377.txt / gift 1328)"
+        "稼働２周年記念クエスト · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000377.txt / gift 1328)"
       ],
       "holo_type": 0,
       "tc_id": 886,
@@ -7221,7 +7221,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "マスター60万人突破記念クエスト · fixed first-clear reward (quest_prop_000286.txt / gift 1170)"
+        "マスター60万人突破記念クエスト · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000286.txt / gift 1170)"
       ],
       "holo_type": 0,
       "tc_id": 887,
@@ -7235,7 +7235,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "素材交換券リリース記念クエスト · fixed first-clear reward (quest_prop_000334.txt / gift 1276)"
+        "素材交換券リリース記念クエスト · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000334.txt / gift 1276)"
       ],
       "holo_type": 0,
       "tc_id": 888,
@@ -7249,12 +7249,12 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "【１回限定！】ぐだぐだ黄金天国 弐 · fixed first-clear reward (quest_prop_000222.txt / gift 1197)",
-        "【１回限定！】ぐだぐだ黄金天国 肆 · fixed first-clear reward (quest_prop_000224.txt / gift 1215)",
-        "【１回限定！】ぐだぐだ黄金天国 陸 · fixed first-clear reward (quest_prop_000226.txt / gift 1216)",
-        "【１回限定！】ぐだぐだ黄金天国 捌 · fixed first-clear reward (quest_prop_000228.txt / gift 1217)",
-        "【１回限定！】ぐだぐだ黄金天国 拾 · fixed first-clear reward (quest_prop_000230.txt / gift 1218)",
-        "ぐだぐだ本能寺 地獄変 ～大叫喚地獄～ · fixed first-clear reward (quest_prop_000570.txt / gift 1776)"
+        "【１回限定！】ぐだぐだ黄金天国 弐 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000222.txt / gift 1197)",
+        "【１回限定！】ぐだぐだ黄金天国 肆 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000224.txt / gift 1215)",
+        "【１回限定！】ぐだぐだ黄金天国 陸 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000226.txt / gift 1216)",
+        "【１回限定！】ぐだぐだ黄金天国 捌 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000228.txt / gift 1217)",
+        "【１回限定！】ぐだぐだ黄金天国 拾 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000230.txt / gift 1218)",
+        "ぐだぐだ本能寺 地獄変 ～大叫喚地獄～ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000570.txt / gift 1776)"
       ],
       "holo_type": 0,
       "tc_id": 997,
@@ -7268,7 +7268,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "大橋を調べる · fixed first-clear reward (quest_prop_000007.txt / gift 1434)"
+        "大橋を調べる · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000007.txt / gift 1434)"
       ],
       "holo_type": 0,
       "tc_id": 1269,
@@ -7282,8 +7282,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "ジャンヌの謎 · fixed first-clear reward (quest_prop_000072.txt / gift 1441)",
-        "Ⅰ／偽溶鉱炉ナベリウス · fixed first-clear reward (quest_prop_000642.txt / gift 1970)"
+        "ジャンヌの謎 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000072.txt / gift 1441)",
+        "Ⅰ／偽溶鉱炉ナベリウス · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000642.txt / gift 1970)"
       ],
       "holo_type": 0,
       "tc_id": 1270,
@@ -7297,8 +7297,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "永遠の都 · fixed first-clear reward (quest_prop_000111.txt / gift 1449)",
-        "Ⅱ／偽情報室フラウロス · fixed first-clear reward (quest_prop_000643.txt / gift 1971)"
+        "永遠の都 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000111.txt / gift 1449)",
+        "Ⅱ／偽情報室フラウロス · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000643.txt / gift 1971)"
       ],
       "holo_type": 0,
       "tc_id": 1271,
@@ -7312,8 +7312,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "星を開拓する海賊女王 · fixed first-clear reward (quest_prop_000197.txt / gift 1460)",
-        "Ⅲ／偽観測所フォルネウス · fixed first-clear reward (quest_prop_000644.txt / gift 1972)"
+        "星を開拓する海賊女王 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000197.txt / gift 1460)",
+        "Ⅲ／偽観測所フォルネウス · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000644.txt / gift 1972)"
       ],
       "holo_type": 0,
       "tc_id": 1272,
@@ -7327,8 +7327,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "魔霧は嘲笑う · fixed first-clear reward (quest_prop_000279.txt / gift 1469)",
-        "Ⅳ／偽管制塔バルバトス · fixed first-clear reward (quest_prop_000645.txt / gift 1973)"
+        "魔霧は嘲笑う · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000279.txt / gift 1469)",
+        "Ⅳ／偽管制塔バルバトス · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000645.txt / gift 1973)"
       ],
       "holo_type": 0,
       "tc_id": 1273,
@@ -7342,8 +7342,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "クリミアの天使 · fixed first-clear reward (quest_prop_000378.txt / gift 1475)",
-        "Ⅴ／偽兵装舍ハルファス · fixed first-clear reward (quest_prop_000646.txt / gift 1974)"
+        "クリミアの天使 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000378.txt / gift 1475)",
+        "Ⅴ／偽兵装舍ハルファス · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000646.txt / gift 1974)"
       ],
       "holo_type": 0,
       "tc_id": 1407,
@@ -7357,8 +7357,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "砂の洗礼 · fixed first-clear reward (quest_prop_000457.txt / gift 1655)",
-        "Ⅵ／覗死星アロケル · fixed first-clear reward (quest_prop_000647.txt / gift 1975)"
+        "砂の洗礼 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000457.txt / gift 1655)",
+        "Ⅵ／覗死星アロケル · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000647.txt / gift 1975)"
       ],
       "holo_type": 0,
       "tc_id": 2188,
@@ -7372,8 +7372,8 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "黄金都市バビロン · fixed first-clear reward (quest_prop_000609.txt / gift 1875)",
-        "Ⅶ／妖妃ドラコー · fixed first-clear reward (quest_prop_000648.txt / gift 1976)"
+        "黄金都市バビロン · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000609.txt / gift 1875)",
+        "Ⅶ／妖妃ドラコー · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000648.txt / gift 1976)"
       ],
       "holo_type": 0,
       "tc_id": 3186,
@@ -7387,7 +7387,7 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "赫き獣の願い · fixed first-clear reward (quest_prop_000775.txt / gift 2439)"
+        "赫き獣の願い · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000775.txt / gift 2439)"
       ],
       "holo_type": 0,
       "tc_id": 3867,
@@ -7401,12 +7401,12 @@
       "sources": [],
       "category": "story",
       "acquisition_notes": [
-        "【１回限定！】ぐだぐだ黄金天国 壱 · fixed first-clear reward (quest_prop_000221.txt / gift 1195)",
-        "【１回限定！】ぐだぐだ黄金天国 参 · fixed first-clear reward (quest_prop_000223.txt / gift 1211)",
-        "【１回限定！】ぐだぐだ黄金天国 伍 · fixed first-clear reward (quest_prop_000225.txt / gift 1212)",
-        "【１回限定！】ぐだぐだ黄金天国 漆 · fixed first-clear reward (quest_prop_000227.txt / gift 1213)",
-        "【１回限定！】ぐだぐだ黄金天国 玖 · fixed first-clear reward (quest_prop_000229.txt / gift 1214)",
-        "ぐだぐだ本能寺 地獄変 ～衆合地獄～ · fixed first-clear reward (quest_prop_000568.txt / gift 1775)"
+        "【１回限定！】ぐだぐだ黄金天国 壱 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000221.txt / gift 1195)",
+        "【１回限定！】ぐだぐだ黄金天国 参 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000223.txt / gift 1211)",
+        "【１回限定！】ぐだぐだ黄金天国 伍 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000225.txt / gift 1212)",
+        "【１回限定！】ぐだぐだ黄金天国 漆 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000227.txt / gift 1213)",
+        "【１回限定！】ぐだぐだ黄金天国 玖 · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000229.txt / gift 1214)",
+        "ぐだぐだ本能寺 地獄変 ～衆合地獄～ · รางวัลตายตัวจากการเคลียร์ครั้งแรก (quest_prop_000568.txt / gift 1775)"
       ],
       "holo_type": 0,
       "tc_id": 996,

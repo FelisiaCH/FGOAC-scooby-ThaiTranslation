@@ -21,17 +21,17 @@ def load(root=ROOT):
 def validate(values):
     ports = [values[k] for k in ('http', 'billing', 'aime', 'database')]
     if any(type(p) is not int or not 1 <= p <= 65535 for p in ports):
-        raise ValueError('Ports must be whole numbers between 1 and 65535.')
+        raise ValueError('พอร์ตต้องเป็นจำนวนเต็มระหว่าง 1 ถึง 65535')
     if len(set(ports)) != len(ports):
-        raise ValueError('The four services cannot share a port.')
+        raise ValueError('บริการทั้งสี่ตัวใช้พอร์ตเดียวกันไม่ได้')
     defaults = {'http':80, 'billing':8443, 'aime':22345}
     for key, original in defaults.items():
         if values[key] in set(defaults.values()) - {original}:
-            raise ValueError('The game, billing and Aime ports cannot be swapped with each other, or the game port mapping breaks.')
+            raise ValueError('พอร์ตของเกม, billing และ Aime สลับกันไม่ได้ มิฉะนั้นการแมปพอร์ตของเกมจะเสียหาย')
     if values['host'] not in ('auto', 'local', 'localhost', '127.0.0.1'):
         address = ipaddress.IPv4Address(values['host'])
         if address.is_loopback or address.is_unspecified or address.is_multicast:
-            raise ValueError('Use auto for a local offline server, or an IPv4 address for a remote one.')
+            raise ValueError('ใช้ auto สำหรับเซิร์ฟเวอร์ออฟไลน์ในเครื่อง หรือระบุที่อยู่ IPv4 สำหรับเซิร์ฟเวอร์ระยะไกล')
 
 
 def open_port(port):
@@ -59,10 +59,10 @@ def apply(values, root=ROOT, check_running=True):
     current = load(root)
     if check_running:
         if any(open_port(current[k]) for k in ('http', 'billing', 'aime', 'database')):
-            raise ValueError('Stop the local server before saving port settings.')
+            raise ValueError('กรุณาหยุดเซิร์ฟเวอร์ในเครื่องก่อนบันทึกการตั้งค่าพอร์ต')
         for key in ('http', 'billing', 'aime', 'database'):
             if open_port(values[key]):
-                raise ValueError(f"Port {values[key]} is already in use by another program.")
+                raise ValueError(f"พอร์ต {values[key]} ถูกโปรแกรมอื่นใช้งานอยู่แล้ว")
     core_path = root / 'Server/artemis/config/core.yaml'
     launcher_path = root / 'App/fgo-launcher.json'
     ini_path = root / 'App/segatools.ini'

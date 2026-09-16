@@ -60,7 +60,7 @@ SERVER_PROBE_HOST = "127.0.0.1"
 SERVER_PROBE_PORT = int(json.loads((SERVER_DIR.parent / 'App' / 'fgo-launcher.json').read_text(encoding='utf-8')).get('serverPorts', {}).get('http', 80))
 
 SERVER_RUNNING_MESSAGE = (
-    "Stop the local server (Stop Server in the launcher, or Stop-FGOLocalServer.ps1), then try again"
+    "กรุณาหยุดเซิร์ฟเวอร์ในเครื่อง (กดปุ่มหยุดเซิร์ฟเวอร์ในตัวเรียกเกม หรือใช้ Stop-FGOLocalServer.ps1) แล้วลองใหม่อีกครั้ง"
 )
 
 UPGRADE_ACTIONS = ("master",)
@@ -1074,7 +1074,7 @@ def command_create(args) -> dict:
 
     name = str(args.name).strip()
     if not name:
-        return {"ok": False, "error": "invalid_name", "message": "--name cannot be empty"}
+        return {"ok": False, "error": "invalid_name", "message": "--name ต้องไม่เว้นว่าง"}
 
     try:
         connection = connect_aime_db()
@@ -1082,7 +1082,7 @@ def command_create(args) -> dict:
         return {
             "ok": False,
             "error": "db_unavailable",
-            "message": f"Cannot connect to the Aime database: {exc}",
+            "message": f"เชื่อมต่อฐานข้อมูล Aime ไม่สำเร็จ: {exc}",
         }
 
     backup_name = ""
@@ -1149,11 +1149,11 @@ def command_create(args) -> dict:
             try:
                 shutil.copy2(backup_name, PROFILES_PATH)
             except OSError as restore_exc:
-                restore_error = f"; restoring the account file failed: {restore_exc}"
+                restore_error = f"; และการคืนค่าไฟล์บัญชีล้มเหลว: {restore_exc}"
         return {
             "ok": False,
             "error": "create_failed",
-            "message": f"Account creation was rolled back: {exc}{restore_error}",
+            "message": f"การสร้างบัญชีถูกย้อนกลับ: {exc}{restore_error}",
         }
     finally:
         connection.close()
@@ -1173,7 +1173,7 @@ def command_use(args) -> dict:
         return {
             "ok": False,
             "error": "account_not_found",
-            "message": f"No account found with aime_id={args.aime_id}",
+            "message": f"ไม่พบบัญชีที่มี aime_id={args.aime_id}",
         }
     access_code = resolve_access_code(args.aime_id, profile)
     if not access_code:
@@ -1181,7 +1181,7 @@ def command_use(args) -> dict:
             "ok": False,
             "error": "access_code_missing",
             "message": (
-                f"Account aime_id={args.aime_id} has no access_code in its profile or in the aime_card table"
+                f"บัญชี aime_id={args.aime_id} ไม่มี access_code ทั้งในโปรไฟล์และในตาราง aime_card"
             ),
         }
     if not is_scannable_access_code(access_code):
@@ -1194,7 +1194,7 @@ def command_use(args) -> dict:
                 "ok": False,
                 "error": "legacy_access_code_repair_failed",
                 "message": repair.get(
-                    "message", "Automatic repair of the legacy Aime card number failed"
+                    "message", "การซ่อมแซมหมายเลขการ์ด Aime แบบเก่าโดยอัตโนมัติล้มเหลว"
                 ),
             }
         profiles = load_profiles_file()
@@ -1209,7 +1209,7 @@ def command_use(args) -> dict:
                 "ok": False,
                 "error": "legacy_access_code_not_repaired",
                 "message": (
-                    f"The legacy card number for account aime_id={args.aime_id} is still not scannable"
+                    f"หมายเลขการ์ดแบบเก่าของบัญชี aime_id={args.aime_id} ยังสแกนไม่ได้"
                 ),
             }
 
@@ -1256,7 +1256,7 @@ def command_delete(args) -> dict:
         return {
             "ok": False,
             "error": "confirmation_required",
-            "message": "Deleting an account requires --yes",
+            "message": "การลบบัญชีต้องระบุ --yes",
         }
 
     profiles = load_profiles_file()
@@ -1265,7 +1265,7 @@ def command_delete(args) -> dict:
         return {
             "ok": False,
             "error": "account_not_found",
-            "message": f"No account found with aime_id={args.aime_id}",
+            "message": f"ไม่พบบัญชีที่มี aime_id={args.aime_id}",
         }
 
     aime_id = _profile_int(profile, "aime_id", args.aime_id)
@@ -1296,8 +1296,8 @@ def command_delete(args) -> dict:
                 "ok": False,
                 "error": "replacement_access_code_missing",
                 "message": (
-                    f"Cannot read the card number of the fallback account aime_id={replacement_aime_id}, "
-                    "so the deletion was cancelled"
+                    f"อ่านหมายเลขการ์ดของบัญชีสำรอง aime_id={replacement_aime_id} ไม่ได้ "
+                    "จึงยกเลิกการลบบัญชี"
                 ),
             }
 
@@ -1307,7 +1307,7 @@ def command_delete(args) -> dict:
         return {
             "ok": False,
             "error": "db_unavailable",
-            "message": f"Cannot connect to the Aime database: {exc}",
+            "message": f"เชื่อมต่อฐานข้อมูล Aime ไม่สำเร็จ: {exc}",
         }
 
     profile_backup = ""
@@ -1352,20 +1352,20 @@ def command_delete(args) -> dict:
         connection.rollback()
         restore_errors = []
         for backup, destination, label in (
-            (profile_backup, PROFILES_PATH, "the account profile"),
-            (aime_backup, AIME_TXT_PATH, "the current card number"),
+            (profile_backup, PROFILES_PATH, "โปรไฟล์บัญชี"),
+            (aime_backup, AIME_TXT_PATH, "หมายเลขการ์ดปัจจุบัน"),
         ):
             if not backup:
                 continue
             try:
                 shutil.copy2(backup, destination)
             except OSError as restore_exc:
-                restore_errors.append(f"restoring {label} failed: {restore_exc}")
+                restore_errors.append(f"การคืนค่า{label}ล้มเหลว: {restore_exc}")
         suffix = "; " + "; ".join(restore_errors) if restore_errors else ""
         return {
             "ok": False,
             "error": "delete_failed",
-            "message": f"Account deletion was rolled back: {exc}{suffix}",
+            "message": f"การลบบัญชีถูกย้อนกลับ: {exc}{suffix}",
         }
     finally:
         connection.close()
@@ -1416,7 +1416,7 @@ def command_repair_card_codes(args) -> dict:
         return {
             "ok": False,
             "error": "db_unavailable",
-            "message": f"Cannot connect to the Aime database: {exc}",
+            "message": f"เชื่อมต่อฐานข้อมูล Aime ไม่สำเร็จ: {exc}",
         }
 
     profile_backup = ""
@@ -1611,20 +1611,20 @@ def command_repair_card_codes(args) -> dict:
         connection.rollback()
         restore_errors = []
         for backup, destination, label in (
-            (profile_backup, PROFILES_PATH, "the account profile"),
-            (aime_backup, AIME_TXT_PATH, "the current card number"),
+            (profile_backup, PROFILES_PATH, "โปรไฟล์บัญชี"),
+            (aime_backup, AIME_TXT_PATH, "หมายเลขการ์ดปัจจุบัน"),
         ):
             if not backup:
                 continue
             try:
                 shutil.copy2(backup, destination)
             except OSError as restore_exc:
-                restore_errors.append(f"restoring {label} failed: {restore_exc}")
+                restore_errors.append(f"การคืนค่า{label}ล้มเหลว: {restore_exc}")
         suffix = "; " + "; ".join(restore_errors) if restore_errors else ""
         return {
             "ok": False,
             "error": "repair_card_codes_failed",
-            "message": f"Card number repair was rolled back: {exc}{suffix}",
+            "message": f"การซ่อมแซมหมายเลขการ์ดถูกย้อนกลับ: {exc}{suffix}",
         }
     finally:
         connection.close()
@@ -1651,7 +1651,7 @@ def command_reset(args) -> dict:
         return {
             "ok": False,
             "error": "account_not_found",
-            "message": f"No account found with aime_id={args.aime_id}",
+            "message": f"ไม่พบบัญชีที่มี aime_id={args.aime_id}",
         }
 
     aime_id = _profile_int(existing, "aime_id", args.aime_id)
@@ -1707,7 +1707,7 @@ def command_repair(args) -> dict:
         return {
             "ok": False,
             "error": "account_not_found",
-            "message": f"No account found with aime_id={args.aime_id}",
+            "message": f"ไม่พบบัญชีที่มี aime_id={args.aime_id}",
         }
     repair = replay_captured_battle_settlements(servlet, profile)
     if repair["captures"]:
@@ -1860,7 +1860,7 @@ def command_catalog(args) -> dict:
         return {
             "ok": False,
             "error": "account_not_found",
-            "message": f"No account found with aime_id={args.aime_id}",
+            "message": f"ไม่พบบัญชีที่มี aime_id={args.aime_id}",
         }
     return {
         "ok": True,
@@ -1918,16 +1918,16 @@ def _parse_grant_specs(raw_specs: list) -> tuple[dict, str]:
         key, separator, raw_amount = str(raw_spec).rpartition("=")
         key = key.strip()
         if not separator or not key:
-            return {}, f"Invalid grant entry: {raw_spec} (expected key=amount)"
+            return {}, f"รายการที่จะมอบให้ไม่ถูกต้อง: {raw_spec} (ต้องอยู่ในรูปแบบ key=amount)"
         try:
             amount = int(raw_amount)
         except (TypeError, ValueError):
-            return {}, f"Invalid grant amount: {raw_spec}"
+            return {}, f"จำนวนที่จะมอบให้ไม่ถูกต้อง: {raw_spec}"
         if amount <= 0:
-            return {}, f"Grant amounts must be greater than 0: {raw_spec}"
+            return {}, f"จำนวนที่จะมอบให้ต้องมากกว่า 0: {raw_spec}"
         grants[key] = grants.get(key, 0) + amount
     if not grants:
-        return {}, "Pick at least one item and enter an amount above zero"
+        return {}, "กรุณาเลือกไอเทมอย่างน้อยหนึ่งรายการ และระบุจำนวนมากกว่าศูนย์"
     return grants, ""
 
 
@@ -1948,7 +1948,7 @@ def command_grant(args) -> dict:
         return {
             "ok": False,
             "error": "account_not_found",
-            "message": f"No account found with aime_id={args.aime_id}",
+            "message": f"ไม่พบบัญชีที่มี aime_id={args.aime_id}",
         }
     catalog_by_key = {
         row["key"]: row for row in benefit_catalog(servlet, profile)
@@ -1958,7 +1958,7 @@ def command_grant(args) -> dict:
         return {
             "ok": False,
             "error": "unknown_grant_item",
-            "message": "Unknown grant item: " + ", ".join(unknown),
+            "message": "ไม่รู้จักไอเทมที่จะมอบให้: " + ", ".join(unknown),
         }
 
     backup_name = backup_file(PROFILES_PATH)
@@ -2030,7 +2030,7 @@ def command_upgrade(args) -> dict:
     servlet = build_servlet()
     _key, original = find_profile_by_aime_id(servlet._profiles, args.aime_id)
     if original is None:
-        return {"ok": False, "error": "account_not_found", "message": "The selected account was not found"}
+        return {"ok": False, "error": "account_not_found", "message": "ไม่พบบัญชีที่เลือกไว้"}
     profile = deepcopy(original)
     try:
         if args.action == "master":
@@ -2039,7 +2039,7 @@ def command_upgrade(args) -> dict:
                 return {
                     "ok": False,
                     "error": "master_table_missing",
-                    "message": "The Master level table could not be read from the game data, so nothing was changed. Check that the game files are complete",
+                    "message": "ไม่สามารถอ่านตารางเลเวล Master จากข้อมูลเกมได้ จึงไม่มีการเปลี่ยนแปลงใด ๆ กรุณาตรวจสอบว่าไฟล์เกมครบถ้วน",
                 }
             count = max_master_exp(profile, requirements)
             profile.setdefault("local_admin_actions", {})["master"] = {

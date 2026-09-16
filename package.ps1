@@ -97,7 +97,7 @@ try {
         if (!(Test-Path -LiteralPath $source -PathType Leaf)) { Stop-WithMessage "The user guide is missing: $source" 2 }
         Copy-Item -LiteralPath $source -Destination ([IO.Path]::Combine($packageRoot, $guide)) -Force
     }
-    $shimFiles = @('compat\amd-shim\opengl32.dll', 'compat\amd-shim\amdcfg\amdOglpSettings.cfg', 'compat\amd-shim\LICENSE')
+    $shimFiles = @('compat\amd-shim\opengl32.dll', 'compat\amd-shim\amdcfg\amdOglpSettings.cfg', 'compat\amd-shim\LICENSE', 'compat\fgoglcompat.dll')
     foreach ($relative in $shimFiles) {
         $source = [IO.Path]::Combine($repository, $relative)
         if (!(Test-Path -LiteralPath $source -PathType Leaf)) { Stop-WithMessage "The graphics compatibility layer is missing: $source" 2 }

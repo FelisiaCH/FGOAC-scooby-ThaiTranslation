@@ -6,12 +6,13 @@ namespace FGOLocalPlatform;
 
 /// <summary>
 /// The OpenGL compatibility layer for AMD and Intel graphics. The game asks for NVIDIA-only
-/// extensions, and a layer in App\ translates them. Two layers exist: fluphus's shim, which the
-/// package ships under compat\amd-shim as App\opengl32.dll beside a copy of the system DLL and a
-/// driver profile, and the older fgoglcompat.dll that installs from before 1.1.1 still carry
-/// under compat\. An install keeps whichever layer it has; nothing here changes a layer except
-/// the switch on the Display page, which is the player's to use, and the first run of a fresh
-/// install without an NVIDIA card.
+/// extensions, and a layer in App\ translates them. Two layers exist, and the package ships both:
+/// fluphus's shim under compat\amd-shim, installed as App\opengl32.dll beside a copy of the system
+/// DLL and a driver profile, and the older fgoglcompat.dll under compat\. An install keeps
+/// whichever layer it has; nothing here changes a layer except the switch on the Display page,
+/// which is the player's to use, and the first run of a fresh install without an NVIDIA card.
+/// A fresh install without an NVIDIA card gets the older layer, which is the one that works on the
+/// AMD cards players report; the newer one is a click away on the Display page.
 /// </summary>
 internal static class GpuCompat
 {
@@ -70,8 +71,9 @@ internal static class GpuCompat
 
 	/// <summary>
 	/// Turns the layer on or off. On keeps the layer the install already has and gives a fresh
-	/// install the shim; off removes what is there, a foreign opengl32.dll included, since the
-	/// switch is only ever moved by the player. Throws on an I/O failure so the caller can say so.
+	/// install the older layer, or the shim when compat\ has no older layer; off removes what is
+	/// there, a foreign opengl32.dll included, since the switch is only ever moved by the player.
+	/// Throws on an I/O failure so the caller can say so.
 	/// </summary>
 	public static void Apply(bool enabled)
 	{
@@ -99,13 +101,13 @@ internal static class GpuCompat
 			{
 				return;
 			}
-			if (ShimSourceAvailable)
+			if (LegacySourceAvailable)
 			{
-				InstallShim();
+				File.Copy(LegacySourcePath, LegacyTargetPath, overwrite: true);
 			}
 			else
 			{
-				File.Copy(LegacySourcePath, LegacyTargetPath, overwrite: true);
+				InstallShim();
 			}
 			return;
 		}

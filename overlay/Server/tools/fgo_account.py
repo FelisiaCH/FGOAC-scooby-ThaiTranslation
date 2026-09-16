@@ -409,7 +409,7 @@ def master_progress(total_exp: int, requirements: list) -> dict:
 
 def max_master_exp(profile: dict, requirements: list) -> int:
     """Raise the Master's total EXP to the top of the level table. Never lowers it."""
-    total = sum(max(0, int(value)) for value in requirements)
+    total = sum(max(1, int(value)) for value in requirements)
     current = _profile_int(profile, "mstr_exp", 0)
     if not requirements or current >= total:
         return 0
@@ -2024,7 +2024,14 @@ def command_upgrade(args) -> dict:
     profile = deepcopy(original)
     try:
         if args.action == "master":
-            count = max_master_exp(profile, load_master_level_requirements())
+            requirements = load_master_level_requirements()
+            if not requirements:
+                return {
+                    "ok": False,
+                    "error": "master_table_missing",
+                    "message": "The Master level table could not be read from the game data, so nothing was changed. Check that the game files are complete",
+                }
+            count = max_master_exp(profile, requirements)
             profile.setdefault("local_admin_actions", {})["master"] = {
                 "at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                 "changed": count,

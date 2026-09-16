@@ -3351,7 +3351,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		List<string> stray = GpuCompat.StrayLegacyCopies();
 		if (stray.Count > 0)
 		{
-			GpuCompatHelpText.Text += " A copy of fgoglcompat.dll is at " + string.Join(" and ", stray) + ". It belongs in the compat folder next to the launcher; move it there and the button above uses it.";
+			GpuCompatHelpText.Text += ((stray.Count == 1) ? (" A copy of fgoglcompat.dll is at " + stray[0] + ". It belongs in the compat folder next to the launcher; move it there and the switch above uses it.") : (" Copies of fgoglcompat.dll are at " + string.Join(" and ", stray) + ". They belong in the compat folder next to the launcher; move them there and the switch above uses them."));
 		}
 	}
 

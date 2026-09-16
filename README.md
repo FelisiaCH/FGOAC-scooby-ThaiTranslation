@@ -2,137 +2,143 @@
 
 # FGOAC scooby
 
-**Fate/Grand Order Arcade, in English, on your own PC.**
+**Fate/Grand Order Arcade เป็นภาษาไทย บนพีซีของคุณเอง**
 
-[![Latest release](https://img.shields.io/github/v/release/githubuser420x/FGOAC-scooby?label=latest%20release)](https://github.com/githubuser420x/FGOAC-scooby/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/githubuser420x/FGOAC-scooby/total?label=downloads)](https://github.com/githubuser420x/FGOAC-scooby/releases)
-[![Licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
+[![รีลีสล่าสุด](https://img.shields.io/github/v/release/felisiach/fgoac-scooby-thaitranslation?label=latest%20release)](https://github.com/felisiach/fgoac-scooby-thaitranslation/releases/latest)
+[![ยอดดาวน์โหลด](https://img.shields.io/github/downloads/felisiach/fgoac-scooby-thaitranslation/total?label=downloads)](https://github.com/felisiach/fgoac-scooby-thaitranslation/releases)
+[![สัญญาอนุญาต](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
 [![Discord](https://img.shields.io/badge/discord-join-5865F2?logo=discord&logoColor=white)](https://discord.gg/aNK3KXBQzw)
 
-![The Play page](docs/screenshots/play.png)
+![หน้าเล่น](docs/screenshots/play.png)
 
 </div>
 
-FGOAC scooby is a fan-made English patch and launcher for the FGO Arcade local platform. It puts the
-game itself into English - menus, tutorial, story, battle screens, shops, help - and replaces the
-platform's Chinese front end with an English one that starts the local server, manages your Master
-account, and builds your thirty-card deck from the real card art. It is not a game download and it
-carries no game files: it is applied on top of an FGO Arcade local platform install you already have.
+FGOAC scooby คือแพตช์ภาษาไทยที่ทำโดยแฟนเกม พร้อมตัวเรียกเกมสำหรับ FGO Arcade local platform
+แพตช์นี้แปลตัวเกมเองเป็นภาษาไทย ทั้งเมนู บทเรียนเริ่มต้น เนื้อเรื่อง หน้าจอต่อสู้ ร้านค้า และหน้าช่วยเหลือ
+แล้วแทนที่หน้าจอหลักภาษาจีนของแพลตฟอร์มด้วยหน้าจอภาษาไทยที่เริ่มเซิร์ฟเวอร์ในเครื่องให้
+จัดการบัญชี Master ของคุณ และประกอบเด็ค 30 ใบจากภาพการ์ดจริง
+นี่ไม่ใช่ไฟล์เกมสำหรับดาวน์โหลดและไม่มีไฟล์เกมติดมาด้วย
+เพราะจะถูกนำไปวางทับบน FGO Arcade local platform ที่คุณติดตั้งไว้อยู่แล้ว
 
-## What you need
+## สิ่งที่คุณต้องมี
 
 | | |
 | --- | --- |
-| The game | An existing **FGO Arcade local platform V1.01 or V1.02** install (Cloud23333's package) - the folder that holds `App` and `Server`. V1.02 is the one to be on: it fixes ERROR 4102, the blank Servant records and the sync error after enhancing a Servant |
-| OS | Windows 10 or 11, 64-bit |
-| GPU | NVIDIA on a current driver. AMD: the launcher installs the older compatibility layer on a fresh install without an NVIDIA card; it runs on RX 500, RX 6000, RX 7600 and desktop Ryzen graphics. The newer layer by fluphus (Settings > Display) runs on the RX 7900 XTX; on other cards it crashes at the first battle. Intel integrated graphics and Ryzen laptop graphics are not covered by either layer yet. Both layers are community work and not fully optimized yet: expect lower frame rates and some rendering errors than on NVIDIA. A newer build of a layer can be dropped into the compat folder and installed from Settings > Display |
-| CPU | Intel Core 3rd generation (2012) or newer, or any Ryzen. Pentium and Celeron chips before the 12th generation lack F16C, an instruction set the game uses, and stop with 0xC000001D at start |
-| Drive | Any drive **except E: or Y:** - see the table further down |
-| Rights | Administrator: one Windows prompt when the launcher starts |
+| ตัวเกม | ต้องมี **FGO Arcade local platform V1.01 หรือ V1.02** ติดตั้งอยู่แล้ว (แพ็กเกจของ Cloud23333) คือโฟลเดอร์ที่มี `App` และ `Server` อยู่ ควรใช้ V1.02 เพราะแก้ ERROR 4102 ประวัติเซอร์แวนต์ที่ว่างเปล่า และข้อผิดพลาดการซิงค์หลังจากอัปเกรดเซอร์แวนต์ |
+| ระบบปฏิบัติการ | Windows 10 หรือ 11 แบบ 64-bit |
+| การ์ดจอ | NVIDIA ที่ใช้ไดรเวอร์รุ่นปัจจุบัน สำหรับ AMD ตัวเรียกเกมจะติดตั้งเลเยอร์ความเข้ากันได้รุ่นเก่าให้เองเมื่อเป็นการติดตั้งใหม่บนเครื่องที่ไม่มีการ์ด NVIDIA เลเยอร์นี้ใช้ได้กับ RX 500, RX 6000, RX 7600 และกราฟิก Ryzen รุ่นเดสก์ท็อป ส่วนเลเยอร์รุ่นใหม่ของ fluphus (การตั้งค่า > การแสดงผล) ใช้ได้กับ RX 7900 XTX แต่บนการ์ดรุ่นอื่นจะหยุดทำงานตอนเข้าการต่อสู้ครั้งแรก กราฟิกออนบอร์ดของ Intel และกราฟิก Ryzen รุ่นโน้ตบุ๊กยังไม่รองรับด้วยเลเยอร์ทั้งสองตัว เลเยอร์ทั้งสองเป็นผลงานของชุมชนและยังปรับแต่งไม่เสร็จสมบูรณ์ ให้คาดหวังอัตราเฟรมที่ต่ำกว่าและข้อผิดพลาดในการแสดงผลบางส่วนเมื่อเทียบกับ NVIDIA หากมีเลเยอร์รุ่นใหม่กว่า สามารถวางไฟล์ลงในโฟลเดอร์ compat แล้วติดตั้งจากการตั้งค่า > การแสดงผลได้ |
+| ซีพียู | Intel Core รุ่นที่ 3 (ปี 2012) ขึ้นไป หรือ Ryzen รุ่นใดก็ได้ ชิป Pentium และ Celeron ก่อนรุ่นที่ 12 ไม่มี F16C ซึ่งเป็นชุดคำสั่งที่เกมใช้ และจะหยุดทำงานพร้อม 0xC000001D ตอนเริ่ม |
+| ไดรฟ์ | ไดรฟ์ใดก็ได้ **ยกเว้น E: หรือ Y:** ดูตารางด้านล่าง |
+| สิทธิ์ | ผู้ดูแลระบบ มีหน้าต่างขออนุญาตของ Windows หนึ่งครั้งตอนตัวเรียกเกมเริ่มทำงาน |
 
-.NET and Python are not needed. The launcher carries its own runtime, and the platform brings its own
-Python.
+ไม่จำเป็นต้องมี .NET และ Python เพราะตัวเรียกเกมมีรันไทม์ของตัวเองมาด้วย
+และแพลตฟอร์มก็มี Python ของตัวเองมาให้
 
-## Install
+## การติดตั้ง
 
-1. Download the latest release zip and unzip it into your FGO Arcade folder, beside `App` and `Server`.
-2. Run **FGOAC scooby.exe** and click **Yes** on the Windows permission prompt.
-3. Press **Play**. The game takes about a minute to reach the title screen.
+**คำเตือน:** ภาษาไทยและภาษาอังกฤษใช้ช่อง `App\zh` ช่องเดียวกัน
+จึงติดตั้งทั้งสองภาษาพร้อมกันในเวอร์ชันเดียวกันไม่ได้
 
-The first start does the rest on its own: it installs the English files, checks the game can write to
-its own folders, allows the game and the local server through Windows Firewall, creates the account
-**Master** with a full Servant and Craft Essence roster, and sets the display to windowed 1280x720 on
-your main monitor. Later starts go straight to Play.
+1. ดาวน์โหลดไฟล์ zip ของรีลีสล่าสุด แล้วแตกไฟล์ลงในโฟลเดอร์ FGO Arcade ของคุณ ข้าง `App` และ `Server`
+2. เรียกใช้ **FGOAC scooby.exe** แล้วคลิก **Yes** ในหน้าต่างขออนุญาตของ Windows
+3. กด **เล่น (Play)** เกมจะใช้เวลาราวหนึ่งนาทีกว่าจะถึงหน้าจอไตเติล
 
-Already installed? The Play page shows a bar when a newer version is out; **Install now** downloads
-it, applies it and restarts the launcher, and a short window lists what changed. Your accounts, decks,
-settings and graphics layer stay as they are. Unzipping a newer release over the folder does the same.
+การเริ่มครั้งแรกจะจัดการส่วนที่เหลือให้เองทั้งหมด คือติดตั้งไฟล์ภาษาไทย ตรวจสอบว่าเกมเขียนลงโฟลเดอร์ของตัวเองได้
+อนุญาตให้เกมและเซิร์ฟเวอร์ในเครื่องผ่าน Windows Firewall สร้างบัญชี **Master** พร้อมชุดเซอร์แวนต์และ
+Craft Essence ครบทั้งหมด และตั้งการแสดงผลเป็นโหมดหน้าต่าง 1280x720 บนจอหลักของคุณ
+การเริ่มครั้งต่อ ๆ ไปจะไปที่หน้าเล่นทันที
 
-[`docs/GUIDE_EN.pdf`](docs/GUIDE_EN.pdf) is the full player guide: getting Servants, controls, a
-sortie step by step, the exchange shops and troubleshooting.
+ติดตั้งไว้อยู่แล้วใช่ไหม หน้าเล่นจะขึ้นแถบแจ้งเมื่อมีเวอร์ชันใหม่ ปุ่ม **ติดตั้งตอนนี้ (Install now)**
+จะดาวน์โหลด ติดตั้ง แล้วเริ่มตัวเรียกเกมใหม่ และมีหน้าต่างเล็ก ๆ บอกว่ามีอะไรเปลี่ยนไปบ้าง
+บัญชี เด็ค การตั้งค่า และเลเยอร์กราฟิกของคุณจะคงอยู่เหมือนเดิม
+การแตกไฟล์รีลีสใหม่ทับโฟลเดอร์เดิมก็ให้ผลเหมือนกัน
 
-## What works
+[`docs/GUIDE_EN.pdf`](docs/GUIDE_EN.pdf) คือคู่มือผู้เล่นฉบับเต็ม ครอบคลุมวิธีได้เซอร์แวนต์ การควบคุม
+การออกรบทีละขั้นตอน ร้านแลกเปลี่ยน และการแก้ปัญหา
 
-- **The game text** - 65,266 translated rows: story, quests, Servant and Craft Essence profiles,
-  skills, items, missions and every menu. Names follow the English release.
-- **The game artwork** - 240 rebuilt sprite archives: title, tutorial, terminal, formation, battle
-  HUD, results, shops, synthesis, present box, master missions, rankings, help, title editor.
-- **Offline single player, end to end** - the tutorial, solo sorties, the terminal, the exchange
-  shops, synthesis, My Room, rankings and the title editor.
-- **The launcher**, all five pages, with the official English card names and Craft Essence effects.
-- **The in-game summon** - it draws from the local server's pool with the weights from the Draw Rates
-  page. You do not need it for a roster: the Account page grants a full one in one click, and the
-  card library holds all 1,384 cards.
-- **Deck loadouts and draw-rate presets** - save, load and delete as many as you like from the Cards
-  and Deck and Draw Rates pages, and Export/Import to send one to another player as a small file.
+## สิ่งที่ใช้งานได้
 
-## What does not work
+- **ข้อความในเกม** - แปลแล้ว 65,266 บรรทัด ทั้งเนื้อเรื่อง เควสต์ ประวัติเซอร์แวนต์และ Craft Essence
+  สกิล ไอเทม ภารกิจ และทุกเมนู ชื่อต่าง ๆ อ้างอิงตามฉบับภาษาอังกฤษ
+- **งานภาพในเกม** - คลังสไปรต์ที่สร้างใหม่ 240 ชุด ทั้งหน้าไตเติล บทเรียนเริ่มต้น เทอร์มินัล การจัดทีม
+  HUD การต่อสู้ หน้าผลลัพธ์ ร้านค้า การสังเคราะห์ กล่องของขวัญ ภารกิจมาสเตอร์ อันดับ หน้าช่วยเหลือ
+  และตัวแก้ไขไตเติล
+- **เล่นคนเดียวแบบออฟไลน์ได้ครบวงจร** - ทั้งบทเรียนเริ่มต้น การออกรบเดี่ยว เทอร์มินัล ร้านแลกเปลี่ยน
+  การสังเคราะห์ My Room อันดับ และตัวแก้ไขไตเติล
+- **ตัวเรียกเกม** ครบทั้งห้าหน้า พร้อมชื่อการ์ดภาษาอังกฤษอย่างเป็นทางการและเอฟเฟกต์ของ Craft Essence
+- **การซัมมอนในเกม** - สุ่มจากพูลของเซิร์ฟเวอร์ในเครื่องตามน้ำหนักที่ตั้งไว้ในหน้าอัตราการสุ่ม
+  คุณไม่จำเป็นต้องพึ่งมันเพื่อให้ได้การ์ดครบ เพราะหน้าบัญชีมอบให้ครบได้ในคลิกเดียว
+  และคลังการ์ดมีการ์ดครบทั้ง 1,384 ใบ
+- **ชุดเด็คและพรีเซ็ตอัตราการสุ่ม** - บันทึก โหลด และลบได้ไม่จำกัดจำนวนจากหน้าการ์ดและเด็ค
+  และหน้าอัตราการสุ่ม พร้อมส่งออกและนำเข้าเพื่อส่งให้ผู้เล่นคนอื่นเป็นไฟล์เล็ก ๆ
 
-- **No online play.** Everything runs against the local server; there is no matchmaking, and no
-  official service left to connect to.
-- **No Intel graphics yet.** Intel integrated graphics (Iris Xe) and Intel Arc crash with both
-  compatibility layers, and so does Ryzen laptop graphics. A fix is being worked on; until then the
-  game needs an NVIDIA card or one of the AMD cards listed under What you need.
-- **A few event screens are still Japanese** - the co-op event banners, the co-op result screens and
-  the later event shops. They are artwork rather than text, and nothing else is affected.
+## สิ่งที่ยังใช้งานไม่ได้
 
-## The launcher
+- **ไม่มีการเล่นออนไลน์** ทุกอย่างทำงานกับเซิร์ฟเวอร์ในเครื่อง ไม่มีการจับคู่ผู้เล่น
+  และไม่มีบริการอย่างเป็นทางการให้เชื่อมต่ออีกแล้ว
+- **ยังไม่รองรับกราฟิก Intel** กราฟิกออนบอร์ดของ Intel (Iris Xe) และ Intel Arc หยุดทำงานกับเลเยอร์
+  ความเข้ากันได้ทั้งสองตัว เช่นเดียวกับกราฟิก Ryzen รุ่นโน้ตบุ๊ก กำลังหาทางแก้อยู่
+  จนกว่าจะแก้ได้ เกมต้องใช้การ์ด NVIDIA หรือการ์ด AMD ที่ระบุไว้ในหัวข้อสิ่งที่คุณต้องมี
+- **หน้าจออีเวนต์บางหน้ายังเป็นภาษาญี่ปุ่น** ได้แก่ แบนเนอร์อีเวนต์ co-op หน้าจอผลลัพธ์ co-op
+  และร้านค้าอีเวนต์รุ่นหลัง ๆ ทั้งหมดเป็นงานภาพ ไม่ใช่ข้อความ และไม่กระทบส่วนอื่นเลย
 
-| Page | What it does |
+## ตัวเรียกเกม
+
+| หน้า | หน้าที่ |
 | --- | --- |
-| **Play** | Play and Stop Game, start and stop the local server, open the logs, and live readouts for the server, the selected Master and the deck. The page to leave open while the game runs. |
-| **Account** | Create, select and delete Master accounts, and grant one of them a full Servant, Craft Essence and item roster in a single click, with levels, bond, costumes and clear rewards. |
-| **Cards and Deck** | The card library and the deck editor, searchable by official English name, with Craft Essence effects in FGO NA phrasing. The deck is sent to the game every time you press Play. |
-| **Settings** | Display - monitor, resolution, aspect ratio, frame rate, display mode. Controls - keyboard, XInput or native DualSense, with dead zone, rumble and a controller test. Audio. |
-| **Advanced** | The local server and its settings, Diagnostics and Help with every game error code and its fix, mouse cursor, debug, photo mode, and About. |
+| **เล่น (Play)** | เล่นเกมและหยุดเกม เริ่มเซิร์ฟเวอร์และหยุดเซิร์ฟเวอร์ในเครื่อง เปิดล็อก และแสดงสถานะแบบเรียลไทม์ของเซิร์ฟเวอร์ มาสเตอร์ที่เลือกอยู่ และเด็ค เป็นหน้าที่ควรเปิดค้างไว้ขณะเกมกำลังทำงาน |
+| **บัญชี (Account)** | สร้าง เลือก และลบบัญชีมาสเตอร์ และมอบชุดเซอร์แวนต์ Craft Essence และไอเทมครบทั้งหมดให้บัญชีใดบัญชีหนึ่งได้ในคลิกเดียว พร้อมเลเวล สายสัมพันธ์ คอสตูม และรางวัลผ่านด่าน |
+| **การ์ดและเด็ค (Cards and Deck)** | คลังการ์ดและตัวแก้ไขเด็ค ค้นหาด้วยชื่อภาษาอังกฤษอย่างเป็นทางการได้ พร้อมเอฟเฟกต์ของ Craft Essence ตามสำนวนของ FGO NA เด็คจะถูกส่งให้เกมทุกครั้งที่คุณกดเล่น |
+| **การตั้งค่า (Settings)** | การแสดงผล ได้แก่ จอภาพ ความละเอียด สัดส่วนภาพ อัตราเฟรม และโหมดการแสดงผล การควบคุม ได้แก่ คีย์บอร์ด XInput หรือ DualSense แบบเนทีฟ พร้อมเดดโซน การสั่น และการทดสอบคอนโทรลเลอร์ และเสียง |
+| **ขั้นสูง (Advanced)** | เซิร์ฟเวอร์ในเครื่องและการตั้งค่าของมัน การวินิจฉัยและความช่วยเหลือที่มีรหัสข้อผิดพลาดของเกมทุกรหัสพร้อมวิธีแก้ ตัวชี้เมาส์ ดีบัก โหมดถ่ายภาพ และเกี่ยวกับ |
 
-It keeps itself up to date: the launcher asks GitHub Releases whether there is a newer version and
-offers to fetch and apply it, so a translation fix reaches you without a reinstall.
+ตัวเรียกเกมอัปเดตตัวเองได้ โดยถาม GitHub Releases ว่ามีเวอร์ชันใหม่กว่าหรือไม่
+แล้วเสนอที่จะดาวน์โหลดและติดตั้งให้ การแก้คำแปลจึงถึงมือคุณได้โดยไม่ต้องติดตั้งใหม่
 
 <p align="center">
-  <img src="docs/screenshots/cards.png" width="32%" alt="Cards and Deck" />
-  <img src="docs/screenshots/controls.png" width="32%" alt="Settings, Controls" />
-  <img src="docs/screenshots/diagnostics.png" width="32%" alt="Diagnostics and Help" />
+  <img src="docs/screenshots/cards.png" width="32%" alt="การ์ดและเด็ค" />
+  <img src="docs/screenshots/controls.png" width="32%" alt="การตั้งค่า การควบคุม" />
+  <img src="docs/screenshots/diagnostics.png" width="32%" alt="การวินิจฉัยและความช่วยเหลือ" />
 </p>
 
-## If something goes wrong
+## ถ้ามีอะไรผิดพลาด
 
-Open **Advanced > Diagnostics and Help** first. It lists every game error code with the fix, and the
-answer is usually there.
+เปิด **ขั้นสูง > การวินิจฉัยและความช่วยเหลือ** ก่อนเป็นอันดับแรก หน้านั้นแสดงรหัสข้อผิดพลาดของเกมทุกรหัส
+พร้อมวิธีแก้ และคำตอบมักอยู่ที่นั่น
 
-| What you see | What it means | What to do |
+| อาการที่เห็น | สาเหตุ | สิ่งที่ต้องทำ |
 | --- | --- | --- |
-| **ERROR 4102** | The game cannot reach the local server. On V1.01 it also happens when the computer name equals the user name. | Start the server from the Play page, wait for it to report ready, then press Play again. If it keeps happening on V1.01, update to Cloud23333's V1.02, which fixes it. |
-| **ERROR 8404** at boot | The game's own Startup Mode was saved as Satellite (Sub Unit), so it waits for a main unit that does not exist. | On the error screen press **F1** for the Game Test Menu (**F2** moves the arrow, **F1** confirms), open **Game Settings**, set **Startup Mode** to **Main Unit**, then choose **Exit**. The next boot reaches the title. |
-| **Cannot use Aime card** at the title screen | The game's first message to the local server timed out on that boot. | Close the game, check that the server shows ready on the Play page, and press Play again. |
-| **0x80131515** at Play, or the server stops with a message about `FGO_Runtime.dll` | Windows marked `App\FGO_Runtime.dll` as downloaded from the internet, and PowerShell refuses to load a file with that mark. | The launcher clears the mark itself. If it comes back, right-click the file, open Properties and tick **Unblock**. |
-| **"Some of the files the game needs are missing"** when the launcher starts | The zip was unzipped somewhere other than the game folder, or the folder never had Cloud23333's V1.01 update. | Unzip into the folder that holds `App` and `Server`, so `FGOAC scooby.exe` sits beside them, and apply V1.01 or V1.02 first. |
-| **The game window opens and closes again** (exit code 22) although the environment check passes | Not pinned down yet. | Try windowed 1280x720 on the primary monitor. When reporting it, attach `logs\ago-crash-*.dmp` and say which graphics card and driver version you have. |
-| **"Update failed" at the end of Cloud23333's V1.02 updater**, after it printed that the patch files are installed | His files are in place. Only the last step stopped, a recovery of Servants enhanced before V1.02, because his bundled Python environment points at a folder that exists only on his PC. | Run FGOAC scooby as usual. If you had enhanced Servants before V1.02 and want them recovered, run once from the game folder: `Server\python\python.exe Server\tools\repair_fgo_grail.py --logs logs --report logs\grail-recovery.json --apply` |
-| **ERROR 4104** | The install is on drive **E:** or **Y:**. The game's own file hook sends every path on those drives to the cabinet data mount, so it cannot open its own files. | Move the whole game folder to any other drive. |
-| **ERROR 4105**, about ninety seconds after launch | The game was not started as administrator. | Click **Yes** on the Windows permission prompt when the launcher starts. |
-| **0xC0000005**, a few seconds after launch | Windows Defender **Controlled Folder Access** is blocking the game from writing its own files. | Allow the game folder, or `App\ago.exe`, under Windows Security, Virus and threat protection, Ransomware protection. |
-| **A black screen at launch** | Almost always the NVIDIA driver rather than the patch. | Update the driver and try again. |
-| **The game hangs at a black screen on the very first launch** | A Windows Firewall prompt is waiting behind the game window. The launcher normally creates those rules itself, but a company policy or a security suite can stop it. | Look in the task bar for the prompt and allow both `Server\python\python.exe` and `App\ago.exe`. |
-| **The main menu misbehaves right after the tutorial** | A known quirk of the tutorial-to-main-menu handoff. | Restart the game once. |
-| **The game crashes when the first battle loads on an AMD card**, exit code 22 | The newer layer fails to build the game's shaders on that card. | Settings > Display > Go back to the older layer, then Play. |
-| **Exit code 22 with 0xC000001D** right after start | The CPU has no F16C. | Not fixable on that CPU. |
-| **ERROR 6401** at start with a controller or a USB device | Not pinned down yet. | Players report this goes away with Windows USB selective suspend turned off (Power Options > Change plan settings > Change advanced power settings > USB settings). |
-| **The launcher says the folder never had V1.01**, or that fgohook.dll is still 11.00 | Cloud23333's V1.01 update was never applied, or it stopped partway through. | Unzip Cloud23333's V1.02 over the game folder and let it overwrite, then start the launcher again. |
-| **No cards after the first run**, ERROR 0949, or ERROR 0087 with the game on a Storage Spaces or ReFS drive | A RAR part failed to extract, or the drive refuses the game's save writes. | Re-extract the base game and let it overwrite; keep the install on a plain NTFS drive. |
-| **Google Drive renamed the RAR parts** (part1-003 and so on) | Google Drive renames matching downloads instead of keeping their original part numbers. | Rename them back to FGOA_Cloud23333.part1.rar, part2.rar ... and unzip the small zip to get part5.rar before extracting part1. |
-| **Download links from 123 Pan** | Not Cloud23333's. | Use the links in his Bilibili description only. |
+| **ERROR 4102** | เกมติดต่อเซิร์ฟเวอร์ในเครื่องไม่ได้ บน V1.01 ยังเกิดขึ้นเมื่อชื่อเครื่องตรงกับชื่อผู้ใช้ด้วย | เริ่มเซิร์ฟเวอร์จากหน้าเล่น รอจนกว่าจะรายงานว่าพร้อม แล้วกดเล่นอีกครั้ง ถ้ายังเกิดซ้ำบน V1.01 ให้อัปเดตเป็น V1.02 ของ Cloud23333 ซึ่งแก้ปัญหานี้แล้ว |
+| **ERROR 8404** ตอนบูต | Startup Mode ของตัวเกมเองถูกบันทึกไว้เป็น Satellite (Sub Unit) เกมจึงรอเครื่องหลักที่ไม่มีอยู่จริง | ที่หน้าจอข้อผิดพลาดให้กด **F1** เพื่อเข้า Game Test Menu (**F2** เลื่อนลูกศร **F1** ยืนยัน) เปิด **Game Settings** ตั้ง **Startup Mode** เป็น **Main Unit** แล้วเลือก **Exit** การบูตครั้งถัดไปจะถึงหน้าไตเติล |
+| **Cannot use Aime card** ที่หน้าจอไตเติล | ข้อความแรกที่เกมส่งไปยังเซิร์ฟเวอร์ในเครื่องหมดเวลาในการบูตครั้งนั้น | ปิดเกม ตรวจว่าเซิร์ฟเวอร์ขึ้นว่าพร้อมในหน้าเล่น แล้วกดเล่นอีกครั้ง |
+| **0x80131515** ตอนกดเล่น หรือเซิร์ฟเวอร์หยุดพร้อมข้อความเกี่ยวกับ `FGO_Runtime.dll` | Windows ทำเครื่องหมายว่า `App\FGO_Runtime.dll` ถูกดาวน์โหลดมาจากอินเทอร์เน็ต และ PowerShell ปฏิเสธที่จะโหลดไฟล์ที่มีเครื่องหมายนั้น | ตัวเรียกเกมจะล้างเครื่องหมายนี้ให้เอง ถ้ายังกลับมาอีก ให้คลิกขวาที่ไฟล์ เปิด Properties แล้วติ๊ก **Unblock** |
+| **"ไฟล์บางไฟล์ที่เกมต้องใช้หายไป"** ตอนตัวเรียกเกมเริ่มทำงาน | ไฟล์ zip ถูกแตกไว้ที่อื่นที่ไม่ใช่โฟลเดอร์เกม หรือโฟลเดอร์นั้นไม่เคยได้รับอัปเดต V1.01 ของ Cloud23333 | แตกไฟล์ลงในโฟลเดอร์ที่มี `App` และ `Server` อยู่ ให้ `FGOAC scooby.exe` วางอยู่ข้างกัน และติดตั้ง V1.01 หรือ V1.02 ก่อน |
+| **หน้าต่างเกมเปิดขึ้นแล้วปิดไปเอง** (exit code 22) ทั้งที่การตรวจสอบสภาพแวดล้อมผ่าน | ยังระบุสาเหตุไม่ได้ | ลองใช้โหมดหน้าต่าง 1280x720 บนจอหลัก เวลารายงานปัญหา ให้แนบ `logs\ago-crash-*.dmp` และบอกรุ่นการ์ดจอกับเวอร์ชันไดรเวอร์ของคุณ |
+| **"Update failed" ตอนท้ายของตัวอัปเดต V1.02 ของ Cloud23333** หลังจากที่มันขึ้นว่าติดตั้งไฟล์แพตช์แล้ว | ไฟล์ของเขาลงครบแล้ว มีเพียงขั้นตอนสุดท้ายที่หยุดไป คือการกู้คืนเซอร์แวนต์ที่อัปเกรดไว้ก่อน V1.02 เพราะสภาพแวดล้อม Python ที่เขาแถมมาชี้ไปยังโฟลเดอร์ที่มีอยู่เฉพาะบนเครื่องของเขา | ใช้ FGOAC scooby ตามปกติ ถ้าคุณเคยอัปเกรดเซอร์แวนต์ไว้ก่อน V1.02 และอยากกู้คืน ให้รันคำสั่งนี้หนึ่งครั้งจากโฟลเดอร์เกม: `Server\python\python.exe Server\tools\repair_fgo_grail.py --logs logs --report logs\grail-recovery.json --apply` |
+| **ERROR 4104** | ติดตั้งอยู่บนไดรฟ์ **E:** หรือ **Y:** ฮุกไฟล์ของตัวเกมเองส่งทุกพาธบนไดรฟ์เหล่านั้นไปยังจุดเชื่อมข้อมูลของตู้ เกมจึงเปิดไฟล์ของตัวเองไม่ได้ | ย้ายทั้งโฟลเดอร์เกมไปไว้ที่ไดรฟ์อื่น |
+| **ERROR 4105** ราวเก้าสิบวินาทีหลังเปิดเกม | เกมไม่ได้ถูกเรียกใช้ในฐานะผู้ดูแลระบบ | คลิก **Yes** ในหน้าต่างขออนุญาตของ Windows ตอนตัวเรียกเกมเริ่มทำงาน |
+| **0xC0000005** ไม่กี่วินาทีหลังเปิดเกม | Windows Defender **Controlled Folder Access** กำลังบล็อกไม่ให้เกมเขียนไฟล์ของตัวเอง | อนุญาตโฟลเดอร์เกมหรือ `App\ago.exe` ใน Windows Security > Virus and threat protection > Ransomware protection |
+| **จอดำตอนเปิดเกม** | เกือบทุกครั้งเป็นเรื่องไดรเวอร์ NVIDIA ไม่ใช่ตัวแพตช์ | อัปเดตไดรเวอร์แล้วลองใหม่ |
+| **เกมค้างที่จอดำในการเปิดครั้งแรกสุด** | มีหน้าต่างถามของ Windows Firewall รออยู่หลังหน้าต่างเกม ปกติตัวเรียกเกมสร้างกฎเหล่านั้นให้เอง แต่นโยบายขององค์กรหรือชุดโปรแกรมความปลอดภัยอาจขัดขวางได้ | มองหาหน้าต่างนั้นในแถบงาน แล้วอนุญาตทั้ง `Server\python\python.exe` และ `App\ago.exe` |
+| **เมนูหลักทำงานผิดปกติทันทีหลังจบบทเรียนเริ่มต้น** | เป็นอาการที่ทราบกันดีของช่วงส่งต่อจากบทเรียนไปยังเมนูหลัก | เริ่มเกมใหม่หนึ่งครั้ง |
+| **เกมหยุดทำงานตอนโหลดการต่อสู้ครั้งแรกบนการ์ด AMD** exit code 22 | เลเยอร์รุ่นใหม่สร้างเชเดอร์ของเกมบนการ์ดใบนั้นไม่สำเร็จ | ไปที่ การตั้งค่า > การแสดงผล > ย้อนกลับไปใช้เลเยอร์รุ่นเก่า แล้วกดเล่น |
+| **exit code 22 พร้อม 0xC000001D** ทันทีหลังเริ่ม | ซีพียูไม่มี F16C | แก้ไม่ได้บนซีพียูตัวนั้น |
+| **ERROR 6401** ตอนเริ่ม เมื่อต่อคอนโทรลเลอร์หรืออุปกรณ์ USB | ยังระบุสาเหตุไม่ได้ | ผู้เล่นรายงานว่าอาการหายไปเมื่อปิด USB selective suspend ของ Windows (Power Options > Change plan settings > Change advanced power settings > USB settings) |
+| **ตัวเรียกเกมบอกว่าโฟลเดอร์นี้ไม่เคยได้รับ V1.01** หรือบอกว่า fgohook.dll ยังเป็น 11.00 | อัปเดต V1.01 ของ Cloud23333 ไม่เคยถูกติดตั้ง หรือติดตั้งค้างกลางคัน | แตกไฟล์ V1.02 ของ Cloud23333 ทับโฟลเดอร์เกมและปล่อยให้เขียนทับ แล้วเปิดตัวเรียกเกมอีกครั้ง |
+| **ไม่มีการ์ดเลยหลังการเริ่มครั้งแรก**, ERROR 0949 หรือ ERROR 0087 เมื่อเกมอยู่บนไดรฟ์แบบ Storage Spaces หรือ ReFS | ไฟล์ RAR บางส่วนแตกไม่สำเร็จ หรือไดรฟ์ปฏิเสธการเขียนเซฟของเกม | แตกไฟล์เกมหลักใหม่และปล่อยให้เขียนทับ และเก็บการติดตั้งไว้บนไดรฟ์ NTFS ธรรมดา |
+| **Google Drive เปลี่ยนชื่อไฟล์ RAR** (เป็น part1-003 และอื่น ๆ) | Google Drive เปลี่ยนชื่อไฟล์ที่ดาวน์โหลดพร้อมกันแทนที่จะคงหมายเลขส่วนเดิมไว้ | เปลี่ยนชื่อกลับเป็น FGOA_Cloud23333.part1.rar, part2.rar ... และแตกไฟล์ zip เล็กเพื่อให้ได้ part5.rar ก่อนจะแตก part1 |
+| **ลิงก์ดาวน์โหลดจาก 123 Pan** | ไม่ใช่ของ Cloud23333 | ใช้เฉพาะลิงก์ในคำอธิบาย Bilibili ของเขาเท่านั้น |
 
-To report a problem, open an issue and say which screen you were on and what you expected. Attach
-what you have from the `logs` folder next to `App`: `fgo-last-launch.log`, `fgozh.log`,
-`server-control.log`, `artemis-stderr.log`, `mariadb.log`, and `environment-check.txt`, which
-Diagnostics and Help writes for you.
+เวลารายงานปัญหา ให้เปิด issue แล้วบอกว่าคุณอยู่ที่หน้าจอไหนและคาดหวังอะไร แนบเท่าที่คุณมีจากโฟลเดอร์
+`logs` ที่อยู่ข้าง `App` ได้แก่ `fgo-last-launch.log`, `fgozh.log`, `server-control.log`,
+`artemis-stderr.log`, `mariadb.log` และ `environment-check.txt` ซึ่งหน้าการวินิจฉัยและความช่วยเหลือ
+เขียนให้คุณเอง
 
-## Building from source
+## การคอมไพล์จากซอร์ส
 
-You need the .NET SDK (10.x is what this is developed on) and Windows 10 or 11 x64. Everything else -
-the .NET 6 reference and runtime packs, and the one package dependency - is restored from nuget.org
-on the first build.
+คุณต้องมี .NET SDK (รุ่นที่ใช้พัฒนาคือ 10.x) และ Windows 10 หรือ 11 x64 ส่วนที่เหลือทั้งหมด
+ทั้ง reference และ runtime pack ของ .NET 6 กับแพ็กเกจที่ต้องพึ่งพาอีกหนึ่งตัว
+จะถูกดึงมาจาก nuget.org ตอนคอมไพล์ครั้งแรก
 
 ```
 build.cmd                     compile check only
@@ -140,41 +146,40 @@ publish.cmd                   self-contained single file, into dist\
 deploy.cmd <install root>     copy the published launcher into an install
 ```
 
-`publish.cmd` writes `dist\FGOAC scooby.exe`. Expect zero warnings and zero errors.
+`publish.cmd` จะเขียน `dist\FGOAC scooby.exe` ออกมา และควรได้คำเตือนศูนย์รายการ ข้อผิดพลาดศูนย์รายการ
 
-[`docs/DEVELOPING.md`](docs/DEVELOPING.md) explains where `src\` comes from, the compile fixes the
-decompile needs, what the translation must never change, and how to re-derive the build when the
-author ships a new version. [`CONTRIBUTING.md`](CONTRIBUTING.md) has the house style.
+[`docs/DEVELOPING.md`](docs/DEVELOPING.md) อธิบายว่า `src\` มาจากไหน การแก้ที่ผลการดีคอมไพล์ต้องใช้
+เพื่อให้คอมไพล์ผ่าน สิ่งที่งานแปลห้ามเปลี่ยนเด็ดขาด และวิธีสร้างบิลด์ขึ้นใหม่เมื่อผู้เขียนออกเวอร์ชันใหม่
+ส่วน [`CONTRIBUTING.md`](CONTRIBUTING.md) เป็นแนวทางการเขียนของโครงการ
 
-## Releases
+## การออกรีลีส
 
-A release is one zip built from this repository and the English game files in an install, with a
-SHA-256 manifest generated from the same bytes that ship. The updater in the launcher reads
-`releases/latest`, so a release only reaches players once it is published and not marked
-pre-release.
+รีลีสหนึ่งชุดคือไฟล์ zip หนึ่งไฟล์ ที่สร้างจากรีโพนี้กับไฟล์เกมภาษาไทยในเครื่องที่ติดตั้งไว้
+พร้อมแมนิเฟสต์ SHA-256 ที่สร้างจากไบต์ชุดเดียวกับที่ส่งออกไป ตัวอัปเดตในตัวเรียกเกมอ่าน
+`releases/latest` ดังนั้นรีลีสจะถึงมือผู้เล่นก็ต่อเมื่อเผยแพร่แล้วและไม่ได้ทำเครื่องหมายเป็น pre-release
 
 ```
 publish.cmd
 package.ps1 -GameRoot <install root>
 ```
 
-That writes `release\FGOAC-scooby-vX.Y.Z.zip` and `FGOAC-scooby-vX.Y.Z.zip.sha256`. Tag the commit
-`vX.Y.Z`, publish a GitHub release on that tag, and upload **both** files as assets: the updater
-looks for an asset whose name starts with `FGOAC-scooby-v` and ends in `.zip`, and for the
-`.zip.sha256` beside it, and skips a release that is missing either rather than half-installing it.
-[`docs/RELEASING.md`](docs/RELEASING.md) has the exact steps and the checks.
+คำสั่งนั้นจะเขียน `release\FGOAC-scooby-vX.Y.Z.zip` และ `FGOAC-scooby-vX.Y.Z.zip.sha256`
+ให้ติดแท็กคอมมิตว่า `vX.Y.Z` เผยแพร่ GitHub release บนแท็กนั้น แล้วอัปโหลดไฟล์ **ทั้งสอง** เป็น asset
+เพราะตัวอัปเดตจะมองหา asset ที่ชื่อขึ้นต้นด้วย `FGOAC-scooby-v` และลงท้ายด้วย `.zip`
+กับไฟล์ `.zip.sha256` ที่อยู่ข้างกัน และจะข้ามรีลีสที่ขาดไฟล์ใดไฟล์หนึ่งไปแทนที่จะติดตั้งค้างครึ่งทาง
+[`docs/RELEASING.md`](docs/RELEASING.md) มีขั้นตอนและรายการตรวจสอบที่แน่นอน
 
-## Credits
+## เครดิต
 
 **Cloud23333** wrote the FGO Arcade local platform: the server package, the front end
 (`FGOLocalPlatform`) that FGOAC scooby is built from, and the file hook this patch loads its English
 through. None of this exists without that work, and his package is free - if anyone sold it to you,
-ask for your money back. The **FGO Arcade wiki** and **Atlas Academy** are where the official English
-names of Servants, Craft Essences, skills and items come from, so the game and the launcher call
-everything what the English release calls it. **fluphus** wrote the AMD and Intel compatibility
-layer, [fgo-arcade-amd-shim](https://github.com/fluphus/fgo-arcade-amd-shim), shipped under
-`compat\amd-shim` with its MIT licence. **Fate/Grand Order Arcade is Sega's and TYPE-MOON's**;
-they own the game. This is a fan translation applied to files you already have, it is not sold, and
-it carries no game files of its own.
+ask for your money back. **FGO Arcade wiki** และ **Atlas Academy** คือที่มาของชื่อภาษาอังกฤษ
+อย่างเป็นทางการของเซอร์แวนต์ Craft Essence สกิล และไอเทม เกมและตัวเรียกเกมจึงเรียกทุกอย่าง
+ตามที่ฉบับภาษาอังกฤษเรียก **fluphus** เป็นผู้เขียนเลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel ชื่อ
+[fgo-arcade-amd-shim](https://github.com/fluphus/fgo-arcade-amd-shim) ซึ่งแถมมาในโฟลเดอร์
+`compat\amd-shim` พร้อมสัญญาอนุญาต MIT ของมัน **Fate/Grand Order Arcade เป็นของ Sega และ
+TYPE-MOON** ซึ่งเป็นเจ้าของเกม นี่คืองานแปลโดยแฟนเกมที่นำไปใช้กับไฟล์ที่คุณมีอยู่แล้ว ไม่มีการจำหน่าย
+และไม่มีไฟล์เกมติดมาด้วยแต่อย่างใด
 
-Released under the [MIT licence](LICENSE).
+เผยแพร่ภายใต้[สัญญาอนุญาต MIT](LICENSE)

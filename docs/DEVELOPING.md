@@ -98,6 +98,12 @@ unwired handlers, so expect to remove them again.
 - Interpolation holes in format strings, `StringFormat` placeholders, and the `|` in the
   `OpenFileDialog` filter.
 
+The launcher's strings stay in place rather than moving to `.resx`. `src\` is re-derived by
+decompiling each new upstream `FGOLocalPlatform.dll` with `ilspycmd` and diffing it against the
+tree (see the decompile steps in this file). A resource layer would restructure exactly the files
+that diff reads, breaking the project's core maintenance loop for the sake of a fork that targets
+one language.
+
 ## Publishing a release
 
 `RELEASING.md` has the step-by-step version of this.
@@ -116,7 +122,7 @@ installs from the release's own assets, so a release has to carry both of them:
    with `FGOAC-scooby-v` and ends in `.zip`, and for the `.zip.sha256` beside it; a release missing
    either one is logged in `logs\update.log` and skipped rather than half-installed.
 5. `src\FGOLocalPlatform\UpdateSettings.cs` holds the owner and repository the launcher asks
-   (`githubuser420x` / `FGOAC-scooby`).
+   (`felisiach` / `fgoac-scooby-thaitranslation`).
 
 Updating a running launcher: the patch script cannot overwrite the executable that is running it, so
 it stages the new one as `FGOAC scooby.exe.new`. The launcher then writes `%TEMP%\update-swap.cmd`,
@@ -171,10 +177,10 @@ ship.
 
 The apply run finds the install (its own folder, then the parent, then a scan of the fixed drives,
 then a folder picker), refuses drive E: and Y:, refuses to run while the game or a launcher is open
-from that folder, backs up every file it replaces to `_en-patch-backup\<timestamp>\`, copies, checks
+from that folder, backs up every file it replaces to `_th-patch-backup\<timestamp>\`, copies, checks
 the copies against the manifest, sets `chineseEnabled` in `App\fgo-launcher.json` and writes
-`App\zh\en-patch.json` with the version and the manifest hash. A second run with the same manifest
-does nothing. `-Rollback` restores the newest backup, using the `en-patch-restore.json` written
+`App\zh\th-patch.json` with the version and the manifest hash. A second run with the same manifest
+does nothing. `-Rollback` restores the newest backup, using the `th-patch-restore.json` written
 beside it to also remove the files the patch added. Exit codes are listed at the top of the script.
 
 Accounts, decks, `Server\state`, the database and the rest of `App\fgo-launcher.json` are never

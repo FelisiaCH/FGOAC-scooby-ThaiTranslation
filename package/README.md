@@ -1,97 +1,95 @@
-# FGOAC scooby {{VERSION}} - FGO Arcade in English
+# FGOAC scooby {{VERSION}} - FGO Arcade เป็นภาษาไทย
 
-An English patch for the FGO Arcade local platform. It puts the game itself into English - menus,
-tutorial, story text, battle screens, shops, help - and replaces the Chinese front end with an
-English one called **FGOAC scooby**, which starts the server, manages your account and builds your
-card deck.
+แพตช์ภาษาไทยสำหรับ FGO Arcade local platform แพตช์นี้แปลตัวเกมเองเป็นภาษาไทย ทั้งเมนู บทเรียนเริ่มต้น
+ข้อความเนื้อเรื่อง หน้าจอต่อสู้ ร้านค้า และหน้าช่วยเหลือ แล้วแทนที่หน้าจอหลักภาษาจีนด้วยหน้าจอภาษาไทย
+ชื่อ **FGOAC scooby** ซึ่งเริ่มเซิร์ฟเวอร์ให้ จัดการบัญชีของคุณ และประกอบเด็คการ์ดให้
 
-This is not a game download. It does nothing on its own: you need an existing FGO Arcade local
-platform install (Cloud23333's package at V1.01 or V1.02; V1.02 is the one to be on), and the patch
-is applied on top of it.
+นี่ไม่ใช่ไฟล์เกมสำหรับดาวน์โหลด และทำงานเองลำพังไม่ได้ คุณต้องมี FGO Arcade local platform
+ติดตั้งอยู่ก่อนแล้ว (แพ็กเกจของ Cloud23333 เวอร์ชัน V1.01 หรือ V1.02 โดยควรใช้ V1.02)
+แล้วแพตช์จะถูกนำไปวางทับบนนั้นอีกที
 
-## Install
+## การติดตั้ง
 
-1. Unzip this package into your FGO Arcade folder - the one that holds `App` and `Server`.
-2. Run **FGOAC scooby**.
-3. Click Yes on the Windows permission prompt.
+1. แตกไฟล์แพ็กเกจนี้ลงในโฟลเดอร์ FGO Arcade ของคุณ ซึ่งเป็นโฟลเดอร์ที่มี `App` และ `Server` อยู่
+2. เรียกใช้ **FGOAC scooby**
+3. คลิก Yes ในหน้าต่างขออนุญาตของ Windows
 
-The first start does the rest: it installs the English files, checks that the game can write to its
-folders, allows the game and the local server through Windows Firewall, creates the account
-**Master** with a full Servant and Craft Essence roster, and sets the display to windowed 1280x720
-on your main monitor. Then press **Play**. The game needs about a minute to reach the title screen.
+การเริ่มครั้งแรกจะจัดการส่วนที่เหลือให้เอง คือติดตั้งไฟล์ภาษาไทย ตรวจสอบว่าเกมเขียนลงโฟลเดอร์ของตัวเองได้
+อนุญาตให้เกมและเซิร์ฟเวอร์ในเครื่องผ่าน Windows Firewall สร้างบัญชี **Master** พร้อมชุดเซอร์แวนต์และ
+Craft Essence ครบทั้งหมด และตั้งการแสดงผลเป็นโหมดหน้าต่าง 1280x720 บนจอหลักของคุณ
+จากนั้นกด **เล่น** เกมจะใช้เวลาราวหนึ่งนาทีกว่าจะถึงหน้าจอไตเติล
 
-If the firewall rules could not be created - a company policy or security suite can block that -
-Windows asks you instead the first time you press Play: once for the local server
-(`Server\python\python.exe`) and once for the game (`App\ago.exe`). Allow both. Those Windows
-questions can open **behind** the game window, so if the game seems stuck at a black screen, look
-for them in the task bar.
+ถ้าสร้างกฎไฟร์วอลล์ไม่สำเร็จ ซึ่งนโยบายขององค์กรหรือชุดโปรแกรมความปลอดภัยอาจขัดขวางได้
+Windows จะถามคุณเองแทนในครั้งแรกที่คุณกดเล่น หนึ่งครั้งสำหรับเซิร์ฟเวอร์ในเครื่อง
+(`Server\python\python.exe`) และอีกหนึ่งครั้งสำหรับตัวเกม (`App\ago.exe`) ให้อนุญาตทั้งคู่
+หน้าต่างที่ Windows ถามเหล่านั้นอาจเปิดขึ้น**ด้านหลัง**หน้าต่างเกม ดังนั้นถ้าเกมดูเหมือนค้างอยู่ที่จอดำ
+ให้มองหาหน้าต่างเหล่านั้นในแถบงาน
 
-Later starts skip all of that and go straight to Play.
+การเริ่มครั้งต่อ ๆ ไปจะข้ามขั้นตอนเหล่านี้ทั้งหมดและไปที่หน้าเล่นทันที
 
-**GUIDE_EN.pdf** in this folder is the full guide: requirements, how to get Servants, controls, the
-exchange shops, and troubleshooting.
+**GUIDE_EN.pdf** ในโฟลเดอร์นี้คือคู่มือฉบับเต็ม ครอบคลุมความต้องการของระบบ วิธีได้เซอร์แวนต์ การควบคุม
+ร้านแลกเปลี่ยน และการแก้ปัญหา
 
-Three things to know before you start:
+สามเรื่องที่ควรรู้ก่อนเริ่ม
 
-- **The game cannot run from drive E: or Y:.** Its own file hook sends every path on those drives to
-  the cabinet data mount, and the game stops with ERROR 4104. Any other drive is fine.
-- **The game has to run as administrator.** That is the one Windows prompt you cannot skip; without
-  it the game shows ERROR 4105 about ninety seconds after boot.
-- **The game needs a CPU with F16C.** Intel Core 3rd generation (2012) or newer, and any Ryzen, has
-  it; older Pentium and Celeron chips do not, and the game stops with 0xC000001D at start. There is
-  no fix on that CPU.
+- **เกมทำงานจากไดรฟ์ E: หรือ Y: ไม่ได้** เพราะฮุกไฟล์ของตัวเกมเองส่งทุกพาธบนไดรฟ์เหล่านั้นไปยัง
+  จุดเชื่อมข้อมูลของตู้ และเกมจะหยุดพร้อม ERROR 4104 ไดรฟ์อื่นใช้ได้หมด
+- **เกมต้องทำงานในฐานะผู้ดูแลระบบ** นั่นคือหน้าต่างขออนุญาตของ Windows หนึ่งเดียวที่คุณข้ามไม่ได้
+  ถ้าไม่ทำ เกมจะขึ้น ERROR 4105 ราวเก้าสิบวินาทีหลังบูต
+- **เกมต้องใช้ซีพียูที่มี F16C** ซึ่ง Intel Core รุ่นที่ 3 (ปี 2012) ขึ้นไป และ Ryzen ทุกรุ่นมีให้
+  ส่วนชิป Pentium และ Celeron รุ่นเก่าไม่มี เกมจะหยุดพร้อม 0xC000001D ตอนเริ่ม
+  และไม่มีทางแก้บนซีพียูตัวนั้น
 
-If you would rather install the files without the launcher, run `Apply-EN-Patch.ps1` yourself - it
-takes `-InstallRoot`, and `-Rollback` puts back everything it replaced. Once you are happy with the
-install you can delete `payload\`, `Apply-EN-Patch.ps1` and `manifest.json` to get the space back,
-but keep them if you may want to roll back later.
+ถ้าคุณอยากติดตั้งไฟล์เองโดยไม่ผ่านตัวเรียกเกม ให้รัน `Apply-EN-Patch.ps1` ด้วยตัวเอง
+สคริปต์นี้รับพารามิเตอร์ `-InstallRoot` และ `-Rollback` จะคืนทุกอย่างที่มันเขียนทับไป
+เมื่อคุณพอใจกับการติดตั้งแล้ว จะลบ `payload\`, `Apply-EN-Patch.ps1` และ `manifest.json`
+เพื่อเอาพื้นที่คืนก็ได้ แต่ควรเก็บไว้ถ้าคิดว่าอาจอยากย้อนกลับในภายหลัง
 
-## What works
+## สิ่งที่ใช้งานได้
 
-- The game text: 65,266 translated lines - story, quests, Servant profiles, skills, items, menus.
-- The game artwork: 240 rebuilt sprite archives - title, tutorial, terminal, formation, battle HUD,
-  results, shops, synthesis, present box, master missions, rankings, help pages, title editor.
-- The launcher: Play, Account, Cards and Deck, Settings and Advanced, all in English, with the
-  official English card names and Craft Essence effects in the card library.
-- Offline single player: the tutorial, solo sorties, the terminal, the exchange shops, synthesis,
-  My Room, rankings and the title editor.
-- The in-game summon, drawing from the local server with the weights set on the launcher's Draw
-  Rates page. The Account page can also grant a full roster in one click.
+- ข้อความในเกม แปลแล้ว 65,266 บรรทัด ทั้งเนื้อเรื่อง เควสต์ ประวัติเซอร์แวนต์ สกิล ไอเทม และเมนู
+- งานภาพในเกม คลังสไปรต์ที่สร้างใหม่ 240 ชุด ทั้งหน้าไตเติล บทเรียนเริ่มต้น เทอร์มินัล การจัดทีม
+  HUD การต่อสู้ หน้าผลลัพธ์ ร้านค้า การสังเคราะห์ กล่องของขวัญ ภารกิจมาสเตอร์ อันดับ หน้าช่วยเหลือ
+  และตัวแก้ไขไตเติล
+- ตัวเรียกเกม ทั้งหน้าเล่น บัญชี การ์ดและเด็ค การตั้งค่า และขั้นสูง เป็นภาษาไทยทั้งหมด
+  พร้อมชื่อการ์ดภาษาอังกฤษอย่างเป็นทางการและเอฟเฟกต์ของ Craft Essence ในคลังการ์ด
+- เล่นคนเดียวแบบออฟไลน์ ทั้งบทเรียนเริ่มต้น การออกรบเดี่ยว เทอร์มินัล ร้านแลกเปลี่ยน การสังเคราะห์
+  My Room อันดับ และตัวแก้ไขไตเติล
+- การซัมมอนในเกม ซึ่งสุ่มจากเซิร์ฟเวอร์ในเครื่องตามน้ำหนักที่ตั้งไว้ในหน้าอัตราการสุ่มของตัวเรียกเกม
+  ทั้งนี้หน้าบัญชีก็มอบการ์ดให้ครบได้ในคลิกเดียวเช่นกัน
 
-## What does not work
+## สิ่งที่ยังใช้งานไม่ได้
 
-- **No online play.** Everything runs against the local server; there is no matchmaking and no
-  official service to connect to.
-- **A few event screens are still Japanese**: the co-op event banners, the co-op result screens and
-  the later event shops. They are artwork, not text, and the rest of the game is unaffected.
-- The game is built for NVIDIA cards and wants a current driver; a black screen usually means the
-  driver, not the patch. On AMD and Intel graphics the launcher turns on the bundled compatibility
-  layer by fluphus by itself (Settings > Display, "AMD and Intel compatibility layer"); he tested it
-  on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap.
+- **ไม่มีการเล่นออนไลน์** ทุกอย่างทำงานกับเซิร์ฟเวอร์ในเครื่อง ไม่มีการจับคู่ผู้เล่น
+  และไม่มีบริการอย่างเป็นทางการให้เชื่อมต่อ
+- **หน้าจออีเวนต์บางหน้ายังเป็นภาษาญี่ปุ่น** ได้แก่ แบนเนอร์อีเวนต์ co-op หน้าจอผลลัพธ์ co-op
+  และร้านค้าอีเวนต์รุ่นหลัง ๆ ทั้งหมดเป็นงานภาพ ไม่ใช่ข้อความ และส่วนที่เหลือของเกมไม่ได้รับผลกระทบ
+- เกมถูกสร้างมาสำหรับการ์ด NVIDIA และต้องใช้ไดรเวอร์รุ่นปัจจุบัน จอดำมักหมายถึงไดรเวอร์ ไม่ใช่ตัวแพตช์
+  บนกราฟิก AMD และ Intel ตัวเรียกเกมจะเปิดเลเยอร์ความเข้ากันได้ของ fluphus ที่แถมมาให้เอง
+  (การตั้งค่า > การแสดงผล หัวข้อ "เลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel")
+  โดยเขาทดสอบบน RX 7900 XTX ที่ความละเอียด 1920x1080 เท่านั้น พร้อมจำกัดเฟรมเรตที่ 60 fps
 
-## Reporting a problem
+## การรายงานปัญหา
 
-Say which screen you were on and what you expected, and attach the log files from the `logs` folder
-next to `App`:
+บอกว่าคุณอยู่ที่หน้าจอไหนและคาดหวังอะไร แล้วแนบไฟล์ล็อกจากโฟลเดอร์ `logs` ที่อยู่ข้าง `App`
 
-| File | What it shows |
+| ไฟล์ | แสดงอะไร |
 | --- | --- |
-| `fgo-last-launch.log` | the launch script, from start to exit code |
-| `fgozh.log` | the English file hook: which files the game actually loaded |
-| `server-control.log`, `artemis-stderr.log`, `mariadb.log` | the local server and its database |
-| `environment-check.txt` | the environment check, written by the Diagnostics and Help page |
+| `fgo-last-launch.log` | สคริปต์เปิดเกม ตั้งแต่เริ่มจนถึง exit code |
+| `fgozh.log` | ฮุกไฟล์ภาษาไทย ว่าเกมโหลดไฟล์ใดไปบ้างจริง ๆ |
+| `server-control.log`, `artemis-stderr.log`, `mariadb.log` | เซิร์ฟเวอร์ในเครื่องและฐานข้อมูลของมัน |
+| `environment-check.txt` | การตรวจสอบสภาพแวดล้อม เขียนโดยหน้าการวินิจฉัยและความช่วยเหลือ |
 
-**Advanced > Diagnostics and Help** in the launcher lists the game's error codes with the fix for
-each one; check it first, the answer is usually there.
+**ขั้นสูง > การวินิจฉัยและความช่วยเหลือ** ในตัวเรียกเกมแสดงรหัสข้อผิดพลาดของเกมพร้อมวิธีแก้ของแต่ละรหัส
+ให้ดูที่นั่นก่อน เพราะคำตอบมักอยู่ที่นั่น
 
-## Credits
+## เครดิต
 
 - **Cloud23333** wrote the FGO Arcade local platform - the server package, the launcher
   (`FGOLocalPlatform`) that FGOAC scooby is built from, and the file hook this patch loads its English
   through. None of this exists without his work. His package is free; if anyone sold it to you, ask
   for your money back.
-- The **FGO Arcade wiki** and **Atlas Academy** were used for the official English names of
-  Servants, Craft Essences, skills and items, so the game and the launcher call everything what the
-  English release calls it.
-- FGO Arcade is Sega's and TYPE-MOON's. This is a fan translation, applied to files you already
-  have, and it is not sold.
+- **FGO Arcade wiki** และ **Atlas Academy** ถูกใช้เป็นแหล่งชื่อภาษาอังกฤษอย่างเป็นทางการของเซอร์แวนต์
+  Craft Essence สกิล และไอเทม เกมและตัวเรียกเกมจึงเรียกทุกอย่างตามที่ฉบับภาษาอังกฤษเรียก
+- FGO Arcade เป็นของ Sega และ TYPE-MOON นี่คืองานแปลโดยแฟนเกม ที่นำไปใช้กับไฟล์ที่คุณมีอยู่แล้ว
+  และไม่มีการจำหน่าย

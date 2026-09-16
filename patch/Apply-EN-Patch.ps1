@@ -50,7 +50,7 @@ $scriptHost = [IO.Path]::Combine($PSHOME, 'pwsh.exe')
 if (!(Test-Path -LiteralPath $scriptHost -PathType Leaf)) { $scriptHost = [IO.Path]::Combine($PSHOME, 'powershell.exe') }
 if ([string]::IsNullOrWhiteSpace($PackageRoot)) { $PackageRoot = $PSScriptRoot }
 
-$ProtectedPrefixes = @('Server\state\', 'Server\data\', 'DEVICE\', 'AMFS\', 'GameData\', '_en-patch-backup\', '_update-backup\')
+$ProtectedPrefixes = @('Server\state\', 'Server\data\', 'DEVICE\', 'AMFS\', 'GameData\', '_en-patch-backup\', '_update-backup\', 'App\deck-loadouts\', 'Server\artemis\config\summon-presets\')
 $ProtectedFiles = @('App\fgo-launcher.json', 'App\deck.json', 'App\deck.json.bak')
 # "FGOA scooby.exe" is the name this launcher shipped under before 1.1.0. It stays in the list so an
 # upgrade still refuses to run while the old build is open.

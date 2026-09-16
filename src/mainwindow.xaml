@@ -451,13 +451,24 @@
                     <Grid>
                       <Grid.RowDefinitions>
                         <RowDefinition Height="34" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                       </Grid.RowDefinitions>
                       <DockPanel Background="{StaticResource PlateBrush}" LastChildFill="False">
                         <TextBlock Name="DeckStatusText" DockPanel.Dock="Left" Foreground="{StaticResource IceBrush}" VerticalAlignment="Center" Margin="10,0" />
                         <Button DockPanel.Dock="Right" Content="Clear Deck" MinHeight="26" Padding="10,2" Margin="3,4" Click="ClearButton_OnClick" />
                       </DockPanel>
-                      <ListView Name="SelectedCardList" Grid.Row="1" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="SelectedCardList_OnSelectionChanged" MouseDoubleClick="SelectedCardList_OnMouseDoubleClick" AllowDrop="True" PreviewMouseLeftButtonDown="CardDrag_OnPreviewMouseLeftButtonDown" PreviewMouseMove="CardDrag_OnPreviewMouseMove" PreviewMouseLeftButtonUp="CardDrag_OnPreviewMouseLeftButtonUp" DragOver="Deck_OnDragOver" Drop="Deck_OnDrop">
+                      <DockPanel Grid.Row="1" Margin="10,4,10,0">
+                        <TextBlock DockPanel.Dock="Left" Text="Loadouts" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <ComboBox Name="LoadoutComboBox" DockPanel.Dock="Left" Width="200" VerticalAlignment="Center" ToolTip="Decks you saved. Load puts the selected one in the deck." />
+                        <Button DockPanel.Dock="Left" Content="Save as" MinHeight="26" Padding="10,2" Margin="6,4,3,4" ToolTip="Save this deck under a name" Click="LoadoutSaveButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="Load" MinHeight="26" Padding="10,2" Margin="3,4" ToolTip="Replace the deck with the selected loadout" Click="LoadoutLoadButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="Delete" MinHeight="26" Padding="10,2" Margin="3,4" Click="LoadoutDeleteButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="Export" MinHeight="26" Padding="10,2" Margin="12,4,3,4" ToolTip="Save a copy of the selected loadout somewhere you can share it, the Desktop by default" Click="LoadoutExportButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="Import" MinHeight="26" Padding="10,2" Margin="3,4" ToolTip="Add a loadout file someone sent you to your list and load it" Click="LoadoutImportButton_OnClick" />
+                        <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"><Hyperlink Foreground="{StaticResource IceBrush}" Click="LoadoutFolderLink_OnClick">Open folder</Hyperlink></TextBlock>
+                      </DockPanel>
+                      <ListView Name="SelectedCardList" Grid.Row="2" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="SelectedCardList_OnSelectionChanged" MouseDoubleClick="SelectedCardList_OnMouseDoubleClick" AllowDrop="True" PreviewMouseLeftButtonDown="CardDrag_OnPreviewMouseLeftButtonDown" PreviewMouseMove="CardDrag_OnPreviewMouseMove" PreviewMouseLeftButtonUp="CardDrag_OnPreviewMouseLeftButtonUp" DragOver="Deck_OnDragOver" Drop="Deck_OnDrop">
                         <ItemsControl.ItemsPanel>
                           <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" />

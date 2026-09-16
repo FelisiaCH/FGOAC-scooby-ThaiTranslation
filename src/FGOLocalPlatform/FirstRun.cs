@@ -61,6 +61,11 @@ internal sealed class FirstRun
 		this.log = log;
 	}
 
+	/// <summary>
+	/// True when this start found no account, which is what a brand-new install looks like.
+	/// </summary>
+	internal bool FreshInstall { get; private set; }
+
 	private string MarkerPath => Path.Combine(GamePaths.GameRoot, "zh", "en-patch.json");
 
 	private string ScriptPath => Path.Combine(installRoot, "Apply-EN-Patch.ps1");
@@ -78,6 +83,7 @@ internal sealed class FirstRun
 		report("Checking your account...");
 		ToolResult accounts = await accountTool(new string[2] { "list", "--json" });
 		bool needsAccount = NeedsFirstAccount(accounts);
+		FreshInstall = needsAccount;
 		bool firstTime = patched || needsAccount;
 		if (firstTime)
 		{

@@ -515,17 +515,17 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			await RefreshLogPanelsAsync();
 			await RefreshAccountsAsync(showErrors: false);
 			RefreshLoadoutList();
-			bool firstRunDidWork = await RunFirstRunAsync();
+			bool freshInstall = await RunFirstRunAsync();
 			AboutVersionText.Text = "Version " + UpdateSettings.Version + ", an English build of the FGO Arcade local platform.";
 			SectionTabs.Tag = UpdateSettings.Version;
-			ShowWhatsNewIfUpdated(firstRunDidWork);
+			ShowWhatsNewIfUpdated(freshInstall);
 			await CheckForUpdateAsync(announce: false);
 		};
 	}
 
 	private async Task<bool> RunFirstRunAsync()
 	{
-		bool didWork = false;
+		bool freshInstall = false;
 		firstRunning = true;
 		accountToolRunning = true;
 		SetAccountControlsEnabled(enabled: false);
@@ -541,10 +541,10 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			}, AppendAccountLog);
 			if (await firstRun.RunAsync())
 			{
-				didWork = true;
 				LoadLauncherSettings();
 				await RefreshAccountsAsync(showErrors: false);
 			}
+			freshInstall = firstRun.FreshInstall;
 		}
 		catch (Exception ex)
 		{
@@ -558,7 +558,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			SetAccountControlsEnabled(enabled: true);
 			await RefreshRuntimeStatusAsync();
 		}
-		return didWork;
+		return freshInstall;
 	}
 
 	/// <summary>
@@ -605,10 +605,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	}
 
 	/// <summary>
-	/// After an update, once: the recorded launcher version differs from the running one and the
-	/// first-run setup did nothing on this start. Records the running version either way.
+	/// After an update, once: the recorded launcher version differs from the running one and this
+	/// is not a fresh install, which the first-run box already covers. Records the running version
+	/// either way.
 	/// </summary>
-	private void ShowWhatsNewIfUpdated(bool firstRunDidWork)
+	private void ShowWhatsNewIfUpdated(bool freshInstall)
 	{
 		string path = Path.Combine(GamePaths.GameRoot, "fgo-launcher.json");
 		try
@@ -624,7 +625,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				WriteIndented = true
 			}) + Environment.NewLine);
-			if (firstRunDidWork)
+			if (freshInstall)
 			{
 				return;
 			}

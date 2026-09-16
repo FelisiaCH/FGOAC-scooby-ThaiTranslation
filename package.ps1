@@ -92,7 +92,7 @@ try {
     Write-Host 'Copying the launcher, the installer and the release notes'
     Copy-Item -LiteralPath $launcher -Destination ([IO.Path]::Combine($packageRoot, 'FGOAC scooby.exe')) -Force
     Copy-Item -LiteralPath ([IO.Path]::Combine($repository, 'patch\Apply-EN-Patch.ps1')) -Destination ([IO.Path]::Combine($packageRoot, 'Apply-EN-Patch.ps1')) -Force
-    foreach ($guide in @('GUIDE_EN.md', 'GUIDE_EN.pdf')) {
+    foreach ($guide in @('GUIDE_EN.md', 'GUIDE_EN.pdf', 'GUIDE_TH.md')) {
         $source = [IO.Path]::Combine($repository, 'docs', $guide)
         if (!(Test-Path -LiteralPath $source -PathType Leaf)) { Stop-WithMessage "The user guide is missing: $source" 2 }
         Copy-Item -LiteralPath $source -Destination ([IO.Path]::Combine($packageRoot, $guide)) -Force
@@ -117,7 +117,7 @@ try {
     if ($LASTEXITCODE -ne 0) { Stop-WithMessage 'The manifest could not be built, so the package is not complete.' 1 }
 
     $sums = New-Object 'System.Collections.Generic.List[string]'
-    foreach ($name in (@('FGOAC scooby.exe', 'Apply-EN-Patch.ps1', 'manifest.json', 'README.md', 'CHANGELOG.md', 'GUIDE_EN.md', 'GUIDE_EN.pdf') + $shimFiles)) {
+    foreach ($name in (@('FGOAC scooby.exe', 'Apply-EN-Patch.ps1', 'manifest.json', 'README.md', 'CHANGELOG.md', 'GUIDE_EN.md', 'GUIDE_EN.pdf', 'GUIDE_TH.md') + $shimFiles)) {
         $hash = (Get-FileHash -LiteralPath ([IO.Path]::Combine($packageRoot, $name)) -Algorithm SHA256).Hash.ToLowerInvariant()
         $sums.Add("$hash *$name")
     }

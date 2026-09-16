@@ -65,7 +65,14 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		view.Filter = Filter;
 		CardsGrid.ItemsSource = (IEnumerable)view;
 		LoadSettings();
-		RefreshPresetList();
+		try
+		{
+			RefreshPresetList();
+		}
+		catch (Exception ex)
+		{
+			StatusText.Text = "Could not list the presets: " + ex.Message;
+		}
 	}
 
 	private bool Filter(object value)
@@ -347,7 +354,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 	}
 
-	private string PresetsFolder => PresetFolder.Ensure(Path.Combine(Path.GetDirectoryName(settingsPath), "summon-presets"));
+	private string PresetsFolder => Path.Combine(Path.GetDirectoryName(settingsPath), "summon-presets");
 
 	/// <summary>This page is a UserControl, so the dialogs it opens belong to the window around it.</summary>
 	private Window OwnerWindow => Window.GetWindow(this);
@@ -385,7 +392,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		{
 			return;
 		}
-		string target = PresetFolder.PathFor(PresetsFolder, prompt.Result);
+		string target = PresetFolder.PathFor(PresetFolder.Ensure(PresetsFolder), prompt.Result);
 		if (File.Exists(target) && ThemedMessageBox.Show(OwnerWindow, "Replace the preset \"" + prompt.Result + "\"?", "Save preset", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;

@@ -514,8 +514,15 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			await RefreshRuntimeStatusAsync();
 			await RefreshLogPanelsAsync();
 			await RefreshAccountsAsync(showErrors: false);
-			RefreshLoadoutList();
 			bool freshInstall = await RunFirstRunAsync();
+			try
+			{
+				RefreshLoadoutList();
+			}
+			catch (Exception ex)
+			{
+				AppendAccountLog("Could not list the deck loadouts: " + ex.Message);
+			}
 			AboutVersionText.Text = "Version " + UpdateSettings.Version + ", an English build of the FGO Arcade local platform.";
 			SectionTabs.Tag = UpdateSettings.Version;
 			ShowWhatsNewIfUpdated(freshInstall);
@@ -3605,7 +3612,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		PublishDeck();
 	}
 
-	private string LoadoutFolder => PresetFolder.Ensure(Path.Combine(GamePaths.GameRoot, "deck-loadouts"));
+	private string LoadoutFolder => Path.Combine(GamePaths.GameRoot, "deck-loadouts");
 
 	private void RefreshLoadoutList(string? select = null)
 	{
@@ -3663,7 +3670,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		{
 			return;
 		}
-		string target = PresetFolder.PathFor(LoadoutFolder, prompt.Result);
+		string target = PresetFolder.PathFor(PresetFolder.Ensure(LoadoutFolder), prompt.Result);
 		if (File.Exists(target) && ThemedMessageBox.Show(this, "Replace the loadout \"" + prompt.Result + "\"?", "Save loadout", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;

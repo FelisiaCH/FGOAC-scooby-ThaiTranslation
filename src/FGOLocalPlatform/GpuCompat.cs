@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Win32;
 
@@ -53,6 +54,25 @@ internal static class GpuCompat
 	public static bool ShimSourceAvailable => File.Exists(ShimSourcePath) && File.Exists(ShimConfigSourcePath);
 
 	public static bool SourceAvailable => ShimSourceAvailable || LegacySourceAvailable;
+
+	/// <summary>
+	/// Copies of the older layer that do nothing where they are: next to the launcher, or in
+	/// App\ beside a shim, where the game would load both layers at once.
+	/// </summary>
+	public static List<string> StrayLegacyCopies()
+	{
+		List<string> list = new List<string>();
+		string root = Path.Combine(Path.GetFullPath(Path.Combine(GamePaths.GameRoot, "..")), LegacyFileName);
+		if (File.Exists(root))
+		{
+			list.Add(root);
+		}
+		if (File.Exists(LegacyTargetPath) && File.Exists(ShimTargetPath))
+		{
+			list.Add(LegacyTargetPath);
+		}
+		return list;
+	}
 
 	/// <summary>The layer in App\ right now.</summary>
 	public static Layer Installed

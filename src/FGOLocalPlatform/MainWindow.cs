@@ -3237,6 +3237,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			}
 			break;
 		}
+		List<string> stray = GpuCompat.StrayLegacyCopies();
+		if (stray.Count > 0)
+		{
+			GpuCompatHelpText.Text += " A copy of fgoglcompat.dll is at " + string.Join(" and ", stray) + ". It belongs in the compat folder next to the launcher; move it there and the button above uses it.";
+		}
 	}
 
 	private void GpuCompatSwitchButton_OnClick(object sender, RoutedEventArgs e)

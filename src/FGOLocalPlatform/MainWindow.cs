@@ -570,8 +570,8 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 
 	/// <summary>
 	/// The current version's own section of the CHANGELOG.md that ships beside the launcher, as
-	/// plain text: headings without their marks, bullets kept. Empty when the file or the section
-	/// is missing.
+	/// plain text: headings without their marks, wrapped source lines joined into paragraphs and
+	/// bullets so the window wraps them itself. Empty when the file or the section is missing.
 	/// </summary>
 	private static string ReadReleaseNotes(string version)
 	{
@@ -598,14 +598,32 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			{
 				continue;
 			}
-			if (line.StartsWith("### ", StringComparison.Ordinal))
+			if (line.Length == 0)
 			{
-				lines.Add("");
+				if (lines.Count > 0 && lines[lines.Count - 1].Length > 0)
+				{
+					lines.Add("");
+				}
+			}
+			else if (line.StartsWith("### ", StringComparison.Ordinal))
+			{
+				if (lines.Count > 0 && lines[lines.Count - 1].Length > 0)
+				{
+					lines.Add("");
+				}
 				lines.Add(line.Substring(4));
+			}
+			else if (line.StartsWith("- ", StringComparison.Ordinal))
+			{
+				lines.Add(line);
+			}
+			else if (lines.Count > 0)
+			{
+				lines[lines.Count - 1] = lines[lines.Count - 1] + " " + line.Trim();
 			}
 			else
 			{
-				lines.Add(line);
+				lines.Add(line.Trim());
 			}
 		}
 		return string.Join("\n", lines).Trim();

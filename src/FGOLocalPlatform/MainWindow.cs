@@ -3200,6 +3200,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		{
 		case GpuCompat.Layer.Foreign:
 			GpuCompatHelpText.Text = "On: an App\\opengl32.dll that the AMD shim's own installer put there, not this launcher's copy. Off removes it; on again installs the bundled layer.";
+			if (GpuCompat.LegacySourceAvailable)
+			{
+				GpuCompatSwitchButton.Content = "Go back to the older layer";
+				GpuCompatSwitchButton.Visibility = Visibility.Visible;
+			}
 			break;
 		case GpuCompat.Layer.Shim:
 			GpuCompatHelpText.Text = "On: fluphus's AMD layer (App\\opengl32.dll). Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap; other cards and resolutions can show rendering errors.";

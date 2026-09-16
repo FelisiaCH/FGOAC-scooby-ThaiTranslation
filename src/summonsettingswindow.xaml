@@ -8,6 +8,7 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <StackPanel>
       <TextBlock Text="Servants and Craft Essences share one set of draw rates" Style="{StaticResource SectionTitleStyle}" />
@@ -81,7 +82,17 @@
       <TextBlock Name="StatusText" Margin="0,6,0,0" Style="{StaticResource HelpTextStyle}" />
       <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,6,0,0" Foreground="{StaticResource TextFaintBrush}" Text="Supplemental covers cards that come from local rewards, Bond and the like rather than a regular summon, and keeps one base card art for each. Story and first-clear cards are listed separately and stay out of the random pool. Normal and Fatal summon tickets draw only from the card arts each one supports, using these same weights; fixed exchanges are unaffected." />
     </StackPanel>
-    <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+    <DockPanel Grid.Row="5" Margin="0,8,0,4">
+      <TextBlock DockPanel.Dock="Left" Text="Presets" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
+      <ComboBox Name="PresetComboBox" DockPanel.Dock="Left" Width="220" VerticalAlignment="Center" ToolTip="Rate tables you saved. Load fills the table with the selected one; click Save to make the server use it." />
+      <Button DockPanel.Dock="Left" Content="Save as" Height="30" Margin="6,3,3,3" ToolTip="Save this table under a name" Click="PresetSave_OnClick" />
+      <Button DockPanel.Dock="Left" Content="Load" Height="30" Margin="3" Click="PresetLoad_OnClick" />
+      <Button DockPanel.Dock="Left" Content="Delete" Height="30" Margin="3" Click="PresetDelete_OnClick" />
+      <Button DockPanel.Dock="Left" Content="Export" Height="30" Margin="12,3,3,3" ToolTip="Save a copy of the selected preset somewhere you can share it, the Desktop by default" Click="PresetExport_OnClick" />
+      <Button DockPanel.Dock="Left" Content="Import" Height="30" Margin="3" ToolTip="Add a preset file someone sent you to your list and load it" Click="PresetImport_OnClick" />
+      <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"><Hyperlink Foreground="{StaticResource IceBrush}" Click="PresetFolderLink_OnClick">Open folder</Hyperlink></TextBlock>
+    </DockPanel>
+    <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
       <Button Content="Reload" Height="36" Margin="3" VerticalAlignment="Center" Click="Reload_OnClick" />
       <Button Name="SaveButton" Content="Save · Applies to the Next Draw" Height="36" Margin="3" VerticalAlignment="Center" Click="Save_OnClick" />
     </StackPanel>

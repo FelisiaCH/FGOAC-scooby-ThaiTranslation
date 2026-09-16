@@ -65,6 +65,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		view.Filter = Filter;
 		CardsGrid.ItemsSource = (IEnumerable)view;
 		LoadSettings();
+		RefreshPresetList();
 	}
 
 	private bool Filter(object value)
@@ -132,45 +133,63 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 	}
 
+	/// <summary>
+	/// Fills the table from the text of a weights file and returns how many cards were left out.
+	/// The live file is read strictly, because the server rejects a card id it cannot draw; a
+	/// preset made on another install is read tolerantly, dropping the ids this game does not have.
+	/// </summary>
+	private int ApplyWeightsText(string? text, bool tolerant)
+	{
+		JsonObject jsonObject = ((text == null) ? null : JsonNode.Parse(text).AsObject());
+		JsonObject jsonObject2 = null;
+		int skipped = 0;
+		if (jsonObject != null)
+		{
+			JsonNode? jsonNode = jsonObject["version"];
+			if (jsonNode == null || jsonNode.GetValue<int>() != 1 || !(jsonObject["weights"] is JsonObject jsonObject3))
+			{
+				throw new InvalidDataException("the config version or format is wrong");
+			}
+			jsonObject2 = jsonObject3;
+			HashSet<string> hashSet = (from c in cards
+				where !c.IsStory
+				select c.TcId.ToString(CultureInfo.InvariantCulture)).ToHashSet();
+			foreach (KeyValuePair<string, JsonNode> item in jsonObject2.ToList())
+			{
+				if (!hashSet.Contains(item.Key) && tolerant)
+				{
+					jsonObject2.Remove(item.Key);
+					skipped++;
+					continue;
+				}
+				if (!hashSet.Contains(item.Key) || !(item.Value is JsonValue jsonValue) || !jsonValue.TryGetValue<int>(out var value) || value < 0 || value > 1000000)
+				{
+					throw new InvalidDataException("Card " + item.Key + " cannot be drawn, or its weight is invalid");
+				}
+			}
+			if (!jsonObject2.Any<KeyValuePair<string, JsonNode>>((KeyValuePair<string, JsonNode> pair) => pair.Value.GetValue<int>() > 0))
+			{
+				throw new InvalidDataException("at least one card needs a weight above 0");
+			}
+		}
+		batching = true;
+		foreach (SummonCardOption card in cards)
+		{
+			card.WeightText = ((!card.IsStory) ? ((jsonObject2 == null) ? 1 : (jsonObject2[card.TcId.ToString()]?.GetValue<int>() ?? 0)) : 0).ToString(CultureInfo.InvariantCulture);
+		}
+		batching = false;
+		Recalculate();
+		return skipped;
+	}
+
 	private void LoadSettings()
 	{
 		try
 		{
 			string text = (File.Exists(settingsPath) ? File.ReadAllText(settingsPath) : null);
-			JsonObject jsonObject = ((text == null) ? null : JsonNode.Parse(text).AsObject());
-			JsonObject jsonObject2 = null;
-			if (jsonObject != null)
-			{
-				JsonNode? jsonNode = jsonObject["version"];
-				if (jsonNode == null || jsonNode.GetValue<int>() != 1 || !(jsonObject["weights"] is JsonObject jsonObject3))
-				{
-					throw new InvalidDataException("the config version or format is wrong");
-				}
-				jsonObject2 = jsonObject3;
-				HashSet<string> hashSet = (from c in cards
-					where !c.IsStory
-					select c.TcId.ToString(CultureInfo.InvariantCulture)).ToHashSet();
-				foreach (KeyValuePair<string, JsonNode> item in jsonObject2)
-				{
-					if (!hashSet.Contains(item.Key) || !(item.Value is JsonValue jsonValue) || !jsonValue.TryGetValue<int>(out var value) || value < 0 || value > 1000000)
-					{
-						throw new InvalidDataException("Card " + item.Key + " cannot be drawn, or its weight is invalid");
-					}
-				}
-				if (!jsonObject2.Any<KeyValuePair<string, JsonNode>>((KeyValuePair<string, JsonNode> pair) => pair.Value.GetValue<int>() > 0))
-				{
-					throw new InvalidDataException("at least one card needs a weight above 0");
-				}
-			}
-			batching = true;
-			foreach (SummonCardOption card in cards)
-			{
-				card.WeightText = ((!card.IsStory) ? ((jsonObject2 == null) ? 1 : (jsonObject2[card.TcId.ToString()]?.GetValue<int>() ?? 0)) : 0).ToString(CultureInfo.InvariantCulture);
-			}
-			batching = false;
+			ApplyWeightsText(text, tolerant: false);
 			loadedText = text;
 			dirty = false;
-			Recalculate();
 			StatusText.Text = ((text == null) ? "No custom rates saved yet - every drawable card has the same chance." : "Saved rates loaded. A draw already under way, and its retries, keep their original result.");
 		}
 		catch (Exception ex)
@@ -264,6 +283,24 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		SetWeights((SummonCardOption c) => (!selected.Contains(c)) ? c.Weight : 0);
 	}
 
+	/// <summary>The shape the server reads, keyed by card id, so a preset carries to any install.</summary>
+	private string BuildWeightsJson()
+	{
+		JsonObject jsonObject = new JsonObject();
+		foreach (SummonCardOption item in cards.Where((SummonCardOption c) => !c.IsStory))
+		{
+			jsonObject[item.TcId.ToString(CultureInfo.InvariantCulture)] = item.Weight;
+		}
+		return new JsonObject
+		{
+			["version"] = 1,
+			["weights"] = jsonObject
+		}.ToJsonString(new JsonSerializerOptions
+		{
+			WriteIndented = true
+		});
+	}
+
 	private void Save_OnClick(object sender, RoutedEventArgs e)
 	{
 		if (!CardsGrid.CommitEdit(DataGridEditingUnit.Cell, exitEditingMode: true) || !CardsGrid.CommitEdit(DataGridEditingUnit.Row, exitEditingMode: true))
@@ -281,19 +318,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 			{
 				throw new IOException("Another window changed the rates file - click Reload before editing.");
 			}
-			JsonObject jsonObject = new JsonObject();
-			foreach (SummonCardOption item in cards.Where((SummonCardOption c) => !c.IsStory))
-			{
-				jsonObject[item.TcId.ToString(CultureInfo.InvariantCulture)] = item.Weight;
-			}
-			string contents = new JsonObject
-			{
-				["version"] = 1,
-				["weights"] = jsonObject
-			}.ToJsonString(new JsonSerializerOptions
-			{
-				WriteIndented = true
-			});
+			string contents = BuildWeightsJson();
 			AtomicFile.WriteAllText(settingsPath, contents);
 			loadedText = contents;
 			dirty = false;
@@ -320,5 +345,141 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		{
 			LoadSettings();
 		}
+	}
+
+	private string PresetsFolder => PresetFolder.Ensure(Path.Combine(Path.GetDirectoryName(settingsPath), "summon-presets"));
+
+	/// <summary>This page is a UserControl, so the dialogs it opens belong to the window around it.</summary>
+	private Window OwnerWindow => Window.GetWindow(this);
+
+	private void RefreshPresetList(string? select = null)
+	{
+		PresetFolder.Fill(PresetComboBox, PresetsFolder, select);
+	}
+
+	private static bool LooksLikePreset(string text)
+	{
+		try
+		{
+			return JsonNode.Parse(text) is JsonObject o && o["version"]?.GetValue<int>() == 1 && o["weights"] is JsonObject;
+		}
+		catch (Exception)
+		{
+			return false;
+		}
+	}
+
+	private void PresetSave_OnClick(object sender, RoutedEventArgs e)
+	{
+		if (!CardsGrid.CommitEdit(DataGridEditingUnit.Cell, exitEditingMode: true) || !CardsGrid.CommitEdit(DataGridEditingUnit.Row, exitEditingMode: true))
+		{
+			return;
+		}
+		Recalculate();
+		if (!SaveButton.IsEnabled)
+		{
+			return;
+		}
+		NamePromptDialog prompt = new NamePromptDialog(OwnerWindow, "Save preset", "Name for this rate table", PresetComboBox.SelectedItem as string ?? "");
+		if (prompt.ShowDialog() != true || prompt.Result == null)
+		{
+			return;
+		}
+		string target = PresetFolder.PathFor(PresetsFolder, prompt.Result);
+		if (File.Exists(target) && ThemedMessageBox.Show(OwnerWindow, "Replace the preset \"" + prompt.Result + "\"?", "Save preset", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		{
+			return;
+		}
+		try
+		{
+			AtomicFile.WriteAllText(target, BuildWeightsJson());
+			RefreshPresetList(prompt.Result);
+			StatusText.Text = "Preset saved: " + prompt.Result + ". The live rates are unchanged until you click Save. Export sends a copy to share.";
+		}
+		catch (Exception ex)
+		{
+			StatusText.Text = "The preset could not be saved: " + ex.Message;
+		}
+	}
+
+	private void ApplyPresetFile(string path, string name)
+	{
+		int skipped = ApplyWeightsText(File.ReadAllText(path), tolerant: true);
+		dirty = true;
+		StatusText.Text = "Preset loaded: " + name + ((skipped > 0) ? $" ({skipped} cards in the file are not in your game and were left out)" : "") + ". Click Save to make the server use it.";
+	}
+
+	private void PresetLoad_OnClick(object sender, RoutedEventArgs e)
+	{
+		if (!(PresetComboBox.SelectedItem is string name) || (dirty && !DiscardConfirmed()))
+		{
+			return;
+		}
+		try
+		{
+			ApplyPresetFile(PresetFolder.PathFor(PresetsFolder, name), name);
+		}
+		catch (Exception ex)
+		{
+			StatusText.Text = "The preset could not be loaded: " + ex.Message;
+		}
+	}
+
+	private void PresetDelete_OnClick(object sender, RoutedEventArgs e)
+	{
+		if (!(PresetComboBox.SelectedItem is string name) || ThemedMessageBox.Show(OwnerWindow, "Delete the preset \"" + name + "\"?", "Delete preset", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		{
+			return;
+		}
+		File.Delete(PresetFolder.PathFor(PresetsFolder, name));
+		RefreshPresetList();
+		StatusText.Text = "Preset deleted: " + name;
+	}
+
+	private void PresetExport_OnClick(object sender, RoutedEventArgs e)
+	{
+		if (!(PresetComboBox.SelectedItem is string name))
+		{
+			StatusText.Text = "Select a preset to export, or Save as first.";
+			return;
+		}
+		try
+		{
+			if (PresetFolder.Export(OwnerWindow, PresetFolder.PathFor(PresetsFolder, name), name))
+			{
+				StatusText.Text = "Exported: " + name + ".json - send it to anyone with the launcher; they add it with Import.";
+			}
+		}
+		catch (Exception ex)
+		{
+			StatusText.Text = "The preset could not be exported: " + ex.Message;
+		}
+	}
+
+	private void PresetImport_OnClick(object sender, RoutedEventArgs e)
+	{
+		if (dirty && !DiscardConfirmed())
+		{
+			return;
+		}
+		try
+		{
+			string? name = PresetFolder.Import(OwnerWindow, PresetsFolder, LooksLikePreset);
+			if (name == null)
+			{
+				return;
+			}
+			RefreshPresetList(name);
+			ApplyPresetFile(PresetFolder.PathFor(PresetsFolder, name), name);
+		}
+		catch (Exception ex)
+		{
+			StatusText.Text = "The preset could not be imported: " + ex.Message;
+		}
+	}
+
+	private void PresetFolderLink_OnClick(object sender, RoutedEventArgs e)
+	{
+		PresetFolder.OpenFolder(PresetsFolder);
 	}
 }

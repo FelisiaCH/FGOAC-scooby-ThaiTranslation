@@ -57,7 +57,7 @@ internal static class PresetFolder
 		return true;
 	}
 
-	public static string? Import(Window owner, string folder, Func<string, bool> looksRight)
+	public static string? Import(Window owner, string folder, Func<string, bool> looksRight, string refusal)
 	{
 		OpenFileDialog dialog = new OpenFileDialog
 		{
@@ -70,7 +70,7 @@ internal static class PresetFolder
 		}
 		if (!looksRight(File.ReadAllText(dialog.FileName)))
 		{
-			throw new InvalidDataException("That file is not one this page can use.");
+			throw new InvalidDataException(refusal);
 		}
 		// The file name is the name, so importing twice asks before replacing what is there.
 		string name = Path.GetFileNameWithoutExtension(dialog.FileName);

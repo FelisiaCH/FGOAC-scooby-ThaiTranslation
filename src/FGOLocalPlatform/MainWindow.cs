@@ -3717,7 +3717,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		PublishDeck();
 		int missing = paths.Count - cardCollection.SelectedCards.Count;
 		string name = loadout["name"]?.GetValue<string>() ?? Path.GetFileNameWithoutExtension(path);
-		HoldStatus((missing > 0) ? $"Loadout loaded: {name} - {cardCollection.SelectedCards.Count} cards; {missing} not in your card folder were left out." : $"Loadout loaded: {name} - {cardCollection.SelectedCards.Count} cards.");
+		HoldStatus($"Loadout loaded: {name} - {cardCollection.SelectedCards.Count} cards" + ((missing == 1) ? "; 1 not in your card folder was left out." : ((missing > 1) ? $"; {missing} not in your card folder were left out." : ".")));
 	}
 
 	private void LoadoutLoadButton_OnClick(object sender, RoutedEventArgs e)
@@ -3771,7 +3771,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	{
 		try
 		{
-			string? name = PresetFolder.Import(this, LoadoutFolder, LooksLikeLoadout);
+			string? name = PresetFolder.Import(this, LoadoutFolder, LooksLikeLoadout, "That file is not a deck loadout. Pick a .json file that was exported from the Loadouts row.");
 			if (name == null)
 			{
 				return;

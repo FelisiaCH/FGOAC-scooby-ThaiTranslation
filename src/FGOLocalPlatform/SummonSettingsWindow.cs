@@ -413,7 +413,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 	{
 		int skipped = ApplyWeightsText(File.ReadAllText(path), tolerant: true);
 		dirty = true;
-		StatusText.Text = "Preset loaded: " + name + ((skipped > 0) ? $" ({skipped} cards in the file are not in your game and were left out)" : "") + ". Click Save to make the server use it.";
+		StatusText.Text = "Preset loaded: " + name + ((skipped == 1) ? " (1 card in the file is not in your game and was left out)" : ((skipped > 1) ? $" ({skipped} cards in the file are not in your game and were left out)" : "")) + ". Click Save to make the server use it.";
 	}
 
 	private void PresetLoad_OnClick(object sender, RoutedEventArgs e)
@@ -471,7 +471,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 		try
 		{
-			string? name = PresetFolder.Import(OwnerWindow, PresetsFolder, LooksLikePreset);
+			string? name = PresetFolder.Import(OwnerWindow, PresetsFolder, LooksLikePreset, "That file is not a draw-rate preset. Pick a .json file that was exported from the Presets row.");
 			if (name == null)
 			{
 				return;

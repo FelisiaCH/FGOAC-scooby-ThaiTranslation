@@ -11,8 +11,8 @@ The launcher installs the three files fluphus's installer writes (`App\opengl32.
 `App\opengl32real.dll` copied from `System32`, `App\amdcfg\amdOglpSettings.cfg`) when the player
 picks this layer on the Display page, and removes them when the switch is off. A fresh install on a
 PC with no NVIDIA adapter turns the switch on by itself on the first run and gets the older layer
-below; this one is one click away. An `App\opengl32.dll` that his own installer placed is
-recognised by its hash and left alone.
+below; this one is one click away. An `App\opengl32.dll` that is not the copy under `amd-shim\` -
+his own installer's, or a newer build - is recognised as such and left alone.
 
 His limits, as published: tested only on an RX 7900 XTX, 60 fps guaranteed only in PvP battles on
 that card, 1920x1080 only, with a built-in 60 fps cap.
@@ -23,6 +23,12 @@ layer fails on those at the first battle. A fresh install on a PC with no NVIDIA
 one, and installs from before 1.1.1 already carry it and keep running it as they are; the Display
 page switches between the two layers and back. It arrived through the community without a licence
 file; it is shipped as received and is not modified here.
+
+To try a newer build of either layer, replace the file under `compat\` - `amd-shim\opengl32.dll`,
+with its `amdcfg\amdOglpSettings.cfg` if the build ships one, or `fgoglcompat.dll` - and click
+Install the layer from the compat folder on the Display page. The launcher installs whatever file
+sits there, so a new build of a layer does not need a launcher update. The table below stays as the
+record of what the package ships.
 
 | File | SHA-256 |
 | --- | --- |

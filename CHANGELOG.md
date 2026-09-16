@@ -37,6 +37,9 @@ graphics layer you have stay as they are.
 - Sort the card list by name or card number.
 - Max Master Level on the Account page.
 - A short "what's new" window the first time the launcher starts after an update.
+- A newer build of either graphics layer can be dropped into the compat folder and installed from
+  Settings > Display, so a layer update no longer waits for a launcher release. The Display page
+  now says up front that both layers are community work and not fully optimized yet.
 
 ## [1.1.1] - 2026-09-15
 

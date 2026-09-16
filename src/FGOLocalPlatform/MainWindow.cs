@@ -982,6 +982,16 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			}
 			return cardStack.EnglishName.Contains(currentCardSearch, StringComparison.OrdinalIgnoreCase) || cardStack.JapaneseName.Contains(currentCardSearch, StringComparison.OrdinalIgnoreCase) || cardStack.EntityLabel.Contains(currentCardSearch, StringComparison.OrdinalIgnoreCase) || cardStack.Variants.Any((Card c) => c.FileName.Contains(currentCardSearch, StringComparison.OrdinalIgnoreCase) || c.TrcId.ToString().Contains(currentCardSearch));
 		};
+		cardListView.SortDescriptions.Clear();
+		switch ((CardSortComboBox?.SelectedItem as ComboBoxItem)?.Tag?.ToString())
+		{
+		case "1":
+			cardListView.SortDescriptions.Add(new SortDescription("EnglishName", ListSortDirection.Ascending));
+			break;
+		case "2":
+			cardListView.SortDescriptions.Add(new SortDescription("FirstTrcId", ListSortDirection.Ascending));
+			break;
+		}
 		cardListView.Refresh();
 		filteredCardItems = ((IEnumerable)cardListView).Cast<CardStack>().ToList();
 		int count = filteredCardItems.Count;
@@ -1014,6 +1024,14 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 	private void CardTypeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
 	{
 		ApplyOwnedCardFilter();
+	}
+
+	private void CardSortComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+	{
+		if (cardListView != null)
+		{
+			ApplyOwnedCardFilter();
+		}
 	}
 
 	private void OwnedCardsOnlyCheckBox_OnChanged(object sender, RoutedEventArgs e)

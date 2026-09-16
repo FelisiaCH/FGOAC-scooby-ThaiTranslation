@@ -38,6 +38,8 @@ public sealed class CardStack
 
 	public string DisplayName => Card.DisplayName;
 
+	public int FirstTrcId => Variants.Count == 0 ? Card.TrcId : Variants.Min((Card c) => c.TrcId);
+
 	public string FileName => Card.FileName;
 
 	public ushort TrcId => Card.TrcId;

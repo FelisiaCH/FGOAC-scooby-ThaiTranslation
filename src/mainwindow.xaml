@@ -398,6 +398,12 @@
                             <ComboBoxItem Content="Servants" Tag="1" />
                             <ComboBoxItem Content="Craft Essences" Tag="2" />
                           </ComboBox>
+                          <TextBlock Text="Sort" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="12,0,6,0" />
+                          <ComboBox Name="CardSortComboBox" Width="130" SelectedIndex="0" ToolTip="Order of the card list" SelectionChanged="CardSortComboBox_OnSelectionChanged">
+                            <ComboBoxItem Content="Folder order" Tag="0" />
+                            <ComboBoxItem Content="Name" Tag="1" />
+                            <ComboBoxItem Content="Card number" Tag="2" />
+                          </ComboBox>
                           <ToggleButton Name="OwnedCardsOnlyCheckBox" Style="{StaticResource OwnedOnlyToggleStyle}" AutomationProperties.Name="Owned cards only" IsEnabled="False" VerticalAlignment="Center" Margin="8,3,3,3" ToolTip="Show only cards this account already owns. Cards still waiting to be printed are left out." Checked="OwnedCardsOnlyCheckBox_OnChanged" Unchecked="OwnedCardsOnlyCheckBox_OnChanged" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

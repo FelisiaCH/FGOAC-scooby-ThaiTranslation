@@ -6,9 +6,9 @@
       <ScrollViewer MaxHeight="420" VerticalScrollBarVisibility="Auto">
         <TextBlock Name="BodyText" TextWrapping="Wrap" FontSize="13" Foreground="{StaticResource TextBrush}" />
       </ScrollViewer>
-      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,12,0,14" Text="The full history is under About, View changelog." />
+      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,12,0,14" Text="ประวัติทั้งหมดอยู่ที่ เกี่ยวกับ > ดูบันทึกการเปลี่ยนแปลง" />
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button Content="OK" Style="{StaticResource AccentButtonStyle}" Width="96" IsDefault="True" IsCancel="True" />
+        <Button Content="ตกลง" Style="{StaticResource AccentButtonStyle}" Width="96" IsDefault="True" IsCancel="True" />
       </StackPanel>
     </StackPanel>
   </Border>

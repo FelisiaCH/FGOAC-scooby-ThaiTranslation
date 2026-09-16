@@ -2,9 +2,9 @@
 <UserControl x:Class="FGOLocalPlatform.DiagnosticsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:fgolocalplatform="clr-namespace:FGOLocalPlatform;assembly=FGOLocalPlatform">
   <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
-      <Button Name="EnvironmentCheckButton" Content="Run Environment Check" HorizontalAlignment="Left" Padding="18,6" Margin="0,0,0,10" Click="EnvironmentCheck_OnClick" />
-      <TextBlock Name="EnvironmentCheckText" Style="{StaticResource HelpTextStyle}" Text="Checks the runtime libraries, script versions, audio device and folder permissions; it does not start the server. The report is saved to logs/environment-check.txt." />
-      <TextBlock Text="Error Codes and Fixes" Style="{StaticResource SectionTitleStyle}" Margin="0,20,0,0" />
+      <Button Name="EnvironmentCheckButton" Content="ตรวจสอบสภาพแวดล้อม" HorizontalAlignment="Left" Padding="18,6" Margin="0,0,0,10" Click="EnvironmentCheck_OnClick" />
+      <TextBlock Name="EnvironmentCheckText" Style="{StaticResource HelpTextStyle}" Text="ตรวจสอบไลบรารีรันไทม์ เวอร์ชันของสคริปต์ อุปกรณ์เสียง และสิทธิ์ของโฟลเดอร์ โดยจะไม่เริ่มเซิร์ฟเวอร์ รายงานจะถูกบันทึกไว้ที่ logs/environment-check.txt" />
+      <TextBlock Text="รหัสข้อผิดพลาดและวิธีแก้ไข" Style="{StaticResource SectionTitleStyle}" Margin="0,20,0,0" />
       <TextBlock Name="ErrorGuideText" Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" LineHeight="20" Margin="0,12,0,12" />
     </StackPanel>
   </ScrollViewer>

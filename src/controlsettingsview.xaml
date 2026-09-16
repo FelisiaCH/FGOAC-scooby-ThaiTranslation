@@ -3,66 +3,66 @@
   <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
       <WrapPanel>
-        <TextBlock Text="Input Method" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
+        <TextBlock Text="รูปแบบการควบคุม" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
         <ComboBox Name="InputModeSelector" Width="250" SelectedIndex="0" SelectionChanged="InputMode_OnChanged">
-          <ComboBoxItem Content="Keyboard and Mouse" Tag="keyboard" />
-          <ComboBoxItem Content="XInput Controller" Tag="xinput" />
-          <ComboBoxItem Content="DualSense (PS5, native)" Tag="xinput" />
+          <ComboBoxItem Content="คีย์บอร์ดและเมาส์" Tag="keyboard" />
+          <ComboBoxItem Content="คอนโทรลเลอร์ XInput" Tag="xinput" />
+          <ComboBoxItem Content="DualSense (PS5, รองรับโดยตรง)" Tag="xinput" />
         </ComboBox>
       </WrapPanel>
-      <TextBlock Text="The left mouse button acts as the touch screen. The shared keyboard buttons work with every input method. Saved settings take effect the next time the game starts." Style="{StaticResource HelpTextStyle}" Margin="3,8,0,16" />
+      <TextBlock Text="ปุ่มซ้ายของเมาส์ทำหน้าที่แทนหน้าจอสัมผัส ปุ่มคีย์บอร์ดที่ใช้ร่วมกันใช้ได้กับทุกรูปแบบการควบคุม การตั้งค่าที่บันทึกไว้จะมีผลเมื่อเริ่มเกมครั้งถัดไป" Style="{StaticResource HelpTextStyle}" Margin="3,8,0,16" />
       <StackPanel Name="KeyboardPanel">
-        <TextBlock Text="Keyboard and Mouse Mapping" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+        <TextBlock Text="การกำหนดปุ่มคีย์บอร์ดและเมาส์" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
         <ItemsControl Name="KeyboardMappings" HorizontalAlignment="Left" />
       </StackPanel>
       <StackPanel Name="ControllerPanel" Visibility="Collapsed">
-        <TextBlock Name="ControllerMappingTitle" Text="XInput Controller Mapping" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
-        <TextBlock Name="DualSenseHelp" Visibility="Collapsed" Text="Plug in a DualSense or DualSense Edge over USB or Bluetooth, save PS5 mode, then click Detect Controller. If DS4Windows or Steam Input already turns the pad into an Xbox controller, pick XInput instead so every press is not counted twice." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+        <TextBlock Name="ControllerMappingTitle" Text="การกำหนดปุ่มคอนโทรลเลอร์ XInput" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+        <TextBlock Name="DualSenseHelp" Visibility="Collapsed" Text="เสียบ DualSense หรือ DualSense Edge ผ่าน USB หรือ Bluetooth บันทึกโหมด PS5 แล้วคลิก ตรวจหาคอนโทรลเลอร์ หาก DS4Windows หรือ Steam Input แปลงจอยให้กลายเป็นคอนโทรลเลอร์ Xbox อยู่แล้ว ให้เลือก XInput แทน เพื่อไม่ให้การกดแต่ละครั้งถูกนับซ้ำสองรอบ" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
         <ItemsControl Name="ControllerMappings" HorizontalAlignment="Left" />
         <WrapPanel Margin="0,8">
-          <TextBlock Text="Movement" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
+          <TextBlock Text="การเคลื่อนที่" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
           <ComboBox Name="MovementSelector" Width="130" SelectedIndex="0">
-            <ComboBoxItem Content="Left Stick" />
-            <ComboBoxItem Content="Right Stick" />
-            <ComboBoxItem Content="D-Pad" />
+            <ComboBoxItem Content="อนาล็อกซ้าย" />
+            <ComboBoxItem Content="อนาล็อกขวา" />
+            <ComboBoxItem Content="ปุ่มทิศทาง" />
           </ComboBox>
-          <TextBlock Text="Controller Number" VerticalAlignment="Center" Margin="12,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
+          <TextBlock Text="หมายเลขคอนโทรลเลอร์" VerticalAlignment="Center" Margin="12,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
           <ComboBox Name="ControllerSelector" Width="65" SelectedIndex="0">
             <ComboBoxItem Content="1" />
             <ComboBoxItem Content="2" />
             <ComboBoxItem Content="3" />
             <ComboBoxItem Content="4" />
           </ComboBox>
-          <TextBlock Text="Stick Deadzone" VerticalAlignment="Center" Margin="12,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
+          <TextBlock Text="เดดโซนของอนาล็อก" VerticalAlignment="Center" Margin="12,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
           <TextBox Name="DeadzoneInput" Width="90" Text="7849" TextAlignment="Center" VerticalContentAlignment="Center" />
         </WrapPanel>
-        <TextBlock Name="ControllerDeadzoneHelp" Text="Deadzone range is 0-32766, default 7849. LT / RT press threshold is 64; menus still use the mouse or touch screen." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
-        <CheckBox Name="RumbleEnabled" Content="Enable controller rumble (attacking, landing hits, taking hits)" Margin="3,8" />
+        <TextBlock Name="ControllerDeadzoneHelp" Text="ช่วงเดดโซนคือ 0-32766 ค่าเริ่มต้นคือ 7849 เกณฑ์การกด LT / RT คือ 64 ส่วนเมนูยังคงใช้เมาส์หรือหน้าจอสัมผัส" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+        <CheckBox Name="RumbleEnabled" Content="เปิดใช้งานการสั่นของคอนโทรลเลอร์ (ตอนโจมตี ตอนโจมตีโดน และตอนถูกโจมตี)" Margin="3,8" />
         <WrapPanel Margin="3,4,0,8">
-          <TextBlock Text="Rumble Strength" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
+          <TextBlock Text="ความแรงของการสั่น" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
           <Slider Name="RumbleStrength" Minimum="0" Maximum="100" Value="70" TickFrequency="1" IsSnapToTickEnabled="True" Width="220" VerticalAlignment="Center" />
           <TextBlock Width="55" Margin="10,0" VerticalAlignment="Center" Text="{Binding ElementName=RumbleStrength, Path=Value, StringFormat={}{0:0}%}" />
-          <Button Name="RumbleTestButton" Content="Test Rumble" Click="RumbleTest_OnClick" />
-          <Button Content="Detect Controller" Click="DetectController_OnClick" />
+          <Button Name="RumbleTestButton" Content="ทดสอบการสั่น" Click="RumbleTest_OnClick" />
+          <Button Content="ตรวจหาคอนโทรลเลอร์" Click="DetectController_OnClick" />
         </WrapPanel>
-        <TextBlock Text="Attack Strength (multiplied by the overall strength above)" Style="{StaticResource SectionTitleStyle}" Margin="0,8" />
+        <TextBlock Text="ความแรงตอนโจมตี (คูณกับความแรงรวมด้านบน)" Style="{StaticResource SectionTitleStyle}" Margin="0,8" />
         <ItemsControl Name="CardRumbleSettings" />
-        <TextBlock Text="Attack rumble follows the attack animation and stops when the attack ends or is interrupted; hits landed and taken add a short extra pulse. It uses the controller selected above, and stops when you switch away from the game or enter photo mode." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
-        <Expander Name="DualSenseCalibrationPanel" Header="DualSense Button Calibration" Visibility="Collapsed" Margin="3,12,0,8">
+        <TextBlock Text="การสั่นตอนโจมตีจะดำเนินไปตามอนิเมชันการโจมตี และหยุดเมื่อการโจมตีจบลงหรือถูกขัดจังหวะ ส่วนการโจมตีโดนและการถูกโจมตีจะเพิ่มจังหวะสั่นสั้น ๆ ขึ้นมาอีก ระบบจะใช้คอนโทรลเลอร์ที่เลือกไว้ด้านบน และจะหยุดเมื่อคุณสลับออกจากเกมหรือเข้าสู่โหมดถ่ายภาพ" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+        <Expander Name="DualSenseCalibrationPanel" Header="การปรับเทียบปุ่ม DualSense" Visibility="Collapsed" Margin="3,12,0,8">
           <StackPanel Margin="0,8,0,0">
-            <TextBlock Text="You only need this if a button is read as the wrong one. Click the button beside a standard name, release everything on the controller, then press the physical button you want; it cancels after 10 seconds with no input. Calibration does not change the game actions assigned above." Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" />
+            <TextBlock Text="คุณจำเป็นต้องใช้ส่วนนี้ก็ต่อเมื่อมีปุ่มที่ถูกอ่านค่าผิดปุ่มเท่านั้น คลิกปุ่มที่อยู่ข้างชื่อมาตรฐาน ปล่อยทุกปุ่มบนคอนโทรลเลอร์ แล้วกดปุ่มจริงที่คุณต้องการ ระบบจะยกเลิกหลังจากไม่มีการกดใด ๆ เป็นเวลา 10 วินาที การปรับเทียบไม่เปลี่ยนการกระทำในเกมที่กำหนดไว้ด้านบน" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" />
             <ItemsControl Name="DualSenseCalibrationMappings" />
-            <Button Content="Reset to Default Buttons" HorizontalAlignment="Left" Margin="0,8,0,0" Click="ResetCalibration_OnClick" />
+            <Button Content="รีเซ็ตเป็นปุ่มค่าเริ่มต้น" HorizontalAlignment="Left" Margin="0,8,0,0" Click="ResetCalibration_OnClick" />
           </StackPanel>
         </Expander>
       </StackPanel>
       <Separator Margin="0,16" />
-      <TextBlock Text="Shared Buttons" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
-      <TextBlock Text="Keyboard binding: click a button box, then press the single key or mouse button you want. Esc cancels, and the right-click menu clears a binding." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+      <TextBlock Text="ปุ่มที่ใช้ร่วมกัน" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+      <TextBlock Text="การกำหนดปุ่มคีย์บอร์ด: คลิกที่ช่องปุ่ม แล้วกดปุ่มเดียวบนคีย์บอร์ดหรือปุ่มเมาส์ที่คุณต้องการ กด Esc เพื่อยกเลิก และใช้เมนูคลิกขวาเพื่อล้างการกำหนดปุ่ม" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
       <ItemsControl Name="CommonMappings" />
       <WrapPanel Margin="0,16,0,8">
-        <Button Content="Restore Defaults" Click="Defaults_OnClick" />
-        <Button Content="Save" Click="Save_OnClick" />
+        <Button Content="คืนค่าเริ่มต้น" Click="Defaults_OnClick" />
+        <Button Content="บันทึก" Click="Save_OnClick" />
       </WrapPanel>
       <TextBlock Name="StatusText" TextWrapping="Wrap" Foreground="{StaticResource IceBrush}" />
     </StackPanel>

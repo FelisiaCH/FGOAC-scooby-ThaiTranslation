@@ -11,30 +11,30 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <StackPanel>
-      <TextBlock Text="Servants and Craft Essences share one set of draw rates" Style="{StaticResource SectionTitleStyle}" />
-      <TextBlock Margin="0,8,0,12" Style="{StaticResource HelpTextStyle}" Text="Regular and supplemental cards share one local draw table; story-fixed cards are held out of it. Weight divided by total weight is the draw chance, and 0 means the card is never drawn. There is no hidden rate-up and no ten-pull pity." />
+      <TextBlock Text="เซอร์แวนต์และ Craft Essence ใช้อัตราการสุ่มชุดเดียวกัน" Style="{StaticResource SectionTitleStyle}" />
+      <TextBlock Margin="0,8,0,12" Style="{StaticResource HelpTextStyle}" Text="การ์ดปกติและการ์ดเสริมใช้ตารางสุ่มในเครื่องร่วมกันหนึ่งตาราง ส่วนการ์ดที่ตายตัวตามเนื้อเรื่องจะถูกกันออกไป โอกาสสุ่มได้คือน้ำหนักหารด้วยน้ำหนักรวม และค่า 0 หมายความว่าการ์ดนั้นจะไม่ถูกสุ่มเลย ไม่มีการเพิ่มอัตราแบบซ่อนไว้ และไม่มีการการันตีเมื่อสุ่มครบสิบครั้ง" />
     </StackPanel>
     <DockPanel Grid.Row="1" Margin="0,0,0,10">
-      <TextBlock Text="Search name / number" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
+      <TextBlock Text="ค้นหาชื่อ / หมายเลข" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
       <ComboBox Name="CategoryFilter" DockPanel.Dock="Right" Width="265" Margin="10,0,0,0" SelectedIndex="0" SelectionChanged="Filter_OnChanged">
-        <ComboBoxItem Content="Regular + Supplemental (drawable)" />
-        <ComboBoxItem Content="Regular Summon" />
-        <ComboBoxItem Content="Supplemental" />
-        <ComboBoxItem Content="Story (fixed, read-only)" />
+        <ComboBoxItem Content="ปกติ + เสริม (สุ่มได้)" />
+        <ComboBoxItem Content="การซัมมอนปกติ" />
+        <ComboBoxItem Content="เสริม" />
+        <ComboBoxItem Content="เนื้อเรื่อง (ตายตัว อ่านอย่างเดียว)" />
       </ComboBox>
       <ComboBox Name="KindFilter" DockPanel.Dock="Right" Width="125" Margin="10,0,0,0" SelectedIndex="0" SelectionChanged="Filter_OnChanged">
-        <ComboBoxItem Content="All Types" />
-        <ComboBoxItem Content="Servant" />
+        <ComboBoxItem Content="ทุกชนิด" />
+        <ComboBoxItem Content="เซอร์แวนต์" />
         <ComboBoxItem Content="Craft Essence" />
       </ComboBox>
-      <TextBox Name="SearchBox" ToolTip="Search the Japanese name, English name, file number, full file name or card ID" TextChanged="Search_OnChanged" />
+      <TextBox Name="SearchBox" ToolTip="ค้นหาจากชื่อภาษาญี่ปุ่น ชื่อภาษาอังกฤษ หมายเลขไฟล์ ชื่อไฟล์เต็ม หรือ ID การ์ด" TextChanged="Search_OnChanged" />
     </DockPanel>
     <WrapPanel Name="EditButtons" Grid.Row="2">
-      <Button Content="Even for All" Click="EqualAll_OnClick" />
-      <Button Content="Only Selected (100%)" Click="OnlyOne_OnClick" />
-      <Button Content="Even for Selected" Click="EqualSelected_OnClick" />
-      <Button Content="Exclude Selected" Click="Exclude_OnClick" />
-      <TextBlock Text="Ctrl / Shift selects more than one" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" Margin="8,0,0,6" />
+      <Button Content="เท่ากันทั้งหมด" Click="EqualAll_OnClick" />
+      <Button Content="เฉพาะที่เลือก (100%)" Click="OnlyOne_OnClick" />
+      <Button Content="เท่ากันเฉพาะที่เลือก" Click="EqualSelected_OnClick" />
+      <Button Content="ยกเว้นที่เลือก" Click="Exclude_OnClick" />
+      <TextBlock Text="กด Ctrl / Shift เพื่อเลือกมากกว่าหนึ่งรายการ" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" Margin="8,0,0,6" />
     </WrapPanel>
     <DataGrid Name="CardsGrid" Grid.Row="3" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" SelectionMode="Extended" SelectionUnit="FullRow" MinRowHeight="112" HeadersVisibility="Column" GridLinesVisibility="Horizontal" EnableRowVirtualization="True" CellEditEnding="Grid_OnCellEditEnding" BeginningEdit="Grid_OnBeginningEdit" SelectionChanged="Grid_OnSelectionChanged">
       <FrameworkElement.Resources>
@@ -51,14 +51,14 @@
         </ResourceDictionary>
       </FrameworkElement.Resources>
       <DataGrid.Columns>
-        <DataGridTemplateColumn Header="Card" Width="84" IsReadOnly="True">
+        <DataGridTemplateColumn Header="การ์ด" Width="84" IsReadOnly="True">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <Image Height="90" Width="68" Margin="3" Stretch="Uniform" Source="{Binding Icon}" />
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
-        <DataGridTemplateColumn Header="Name / Internal ID" Width="*" MinWidth="190" IsReadOnly="True">
+        <DataGridTemplateColumn Header="ชื่อ / ID ภายใน" Width="*" MinWidth="190" IsReadOnly="True">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <StackPanel VerticalAlignment="Center">
@@ -69,32 +69,32 @@
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
-        <DataGridTextColumn Header="Category" Width="100" MaxWidth="140" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding CategoryName}" />
-        <DataGridTextColumn Header="Type / Card" Width="112" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding KindName}" />
-        <DataGridTextColumn Header="Rarity" Width="65" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding Stars}" />
-        <DataGridTextColumn Header="Card ID" Width="85" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding TcId}" />
-        <DataGridTextColumn Header="Weight (integer)" Width="158" ElementStyle="{StaticResource WrappedCell}" Binding="{Binding WeightText, UpdateSourceTrigger=PropertyChanged}" />
-        <DataGridTextColumn Header="Draw Chance" Width="120" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding Probability}" />
+        <DataGridTextColumn Header="หมวดหมู่" Width="100" MaxWidth="140" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding CategoryName}" />
+        <DataGridTextColumn Header="ชนิด / การ์ด" Width="112" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding KindName}" />
+        <DataGridTextColumn Header="ความหายาก" Width="65" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding Stars}" />
+        <DataGridTextColumn Header="ID การ์ด" Width="85" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding TcId}" />
+        <DataGridTextColumn Header="น้ำหนัก (จำนวนเต็ม)" Width="158" ElementStyle="{StaticResource WrappedCell}" Binding="{Binding WeightText, UpdateSourceTrigger=PropertyChanged}" />
+        <DataGridTextColumn Header="โอกาสสุ่มได้" Width="120" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding Probability}" />
       </DataGrid.Columns>
     </DataGrid>
     <StackPanel Grid.Row="4" Margin="0,12,0,8">
       <TextBlock Name="SummaryText" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" />
       <TextBlock Name="StatusText" Margin="0,6,0,0" Style="{StaticResource HelpTextStyle}" />
-      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,6,0,0" Foreground="{StaticResource TextFaintBrush}" Text="Supplemental covers cards that come from local rewards, Bond and the like rather than a regular summon, and keeps one base card art for each. Story and first-clear cards are listed separately and stay out of the random pool. Normal and Fatal summon tickets draw only from the card arts each one supports, using these same weights; fixed exchanges are unaffected." />
+      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,6,0,0" Foreground="{StaticResource TextFaintBrush}" Text="หมวดเสริมครอบคลุมการ์ดที่ได้จากรางวัลในเครื่อง ค่า Bond และอื่น ๆ ทำนองเดียวกัน แทนที่จะได้จากการซัมมอนปกติ และเก็บภาพการ์ดพื้นฐานไว้แบบเดียวต่อหนึ่งใบ ส่วนการ์ดเนื้อเรื่องและการ์ดจากการเคลียร์ครั้งแรกจะแสดงแยกไว้ต่างหากและอยู่นอกกลุ่มสุ่ม ตั๋วซัมมอนแบบ Normal และ Fatal จะสุ่มเฉพาะจากภาพการ์ดที่ตั๋วนั้นรองรับ โดยใช้น้ำหนักชุดเดียวกันนี้ ส่วนการแลกเปลี่ยนแบบตายตัวจะไม่ได้รับผลกระทบ" />
     </StackPanel>
     <DockPanel Grid.Row="5" Margin="0,8,0,4">
-      <TextBlock DockPanel.Dock="Left" Text="Presets" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
-      <ComboBox Name="PresetComboBox" DockPanel.Dock="Left" Width="220" VerticalAlignment="Center" ToolTip="Rate tables you saved. Load fills the table with the selected one; click Save to make the server use it." />
-      <Button DockPanel.Dock="Left" Content="Save as" Height="30" Margin="6,3,3,3" ToolTip="Save this table under a name" Click="PresetSave_OnClick" />
-      <Button DockPanel.Dock="Left" Content="Load" Height="30" Margin="3" Click="PresetLoad_OnClick" />
-      <Button DockPanel.Dock="Left" Content="Delete" Height="30" Margin="3" Click="PresetDelete_OnClick" />
-      <Button DockPanel.Dock="Left" Content="Export" Height="30" Margin="12,3,3,3" ToolTip="Save a copy of the selected preset somewhere you can share it, the Desktop by default" Click="PresetExport_OnClick" />
-      <Button DockPanel.Dock="Left" Content="Import" Height="30" Margin="3" ToolTip="Add a preset file someone sent you to your list and load it" Click="PresetImport_OnClick" />
-      <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"><Hyperlink Foreground="{StaticResource IceBrush}" Click="PresetFolderLink_OnClick">Open folder</Hyperlink></TextBlock>
+      <TextBlock DockPanel.Dock="Left" Text="พรีเซ็ต" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
+      <ComboBox Name="PresetComboBox" DockPanel.Dock="Left" Width="220" VerticalAlignment="Center" ToolTip="ตารางอัตราที่คุณบันทึกไว้ ปุ่ม โหลด จะเติมตารางด้วยรายการที่เลือก แล้วคลิก บันทึก เพื่อให้เซิร์ฟเวอร์นำไปใช้" />
+      <Button DockPanel.Dock="Left" Content="บันทึกเป็น" Height="30" Margin="6,3,3,3" ToolTip="บันทึกตารางนี้ภายใต้ชื่อที่กำหนด" Click="PresetSave_OnClick" />
+      <Button DockPanel.Dock="Left" Content="โหลด" Height="30" Margin="3" Click="PresetLoad_OnClick" />
+      <Button DockPanel.Dock="Left" Content="ลบ" Height="30" Margin="3" Click="PresetDelete_OnClick" />
+      <Button DockPanel.Dock="Left" Content="ส่งออก" Height="30" Margin="12,3,3,3" ToolTip="บันทึกสำเนาของพรีเซ็ตที่เลือกไว้ในที่ที่คุณแชร์ต่อได้ ค่าเริ่มต้นคือเดสก์ท็อป" Click="PresetExport_OnClick" />
+      <Button DockPanel.Dock="Left" Content="นำเข้า" Height="30" Margin="3" ToolTip="เพิ่มไฟล์พรีเซ็ตที่มีคนส่งให้คุณเข้าไปในรายการ แล้วโหลดขึ้นมาใช้" Click="PresetImport_OnClick" />
+      <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"><Hyperlink Foreground="{StaticResource IceBrush}" Click="PresetFolderLink_OnClick">เปิดโฟลเดอร์</Hyperlink></TextBlock>
     </DockPanel>
     <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
-      <Button Content="Reload" Height="36" Margin="3" VerticalAlignment="Center" Click="Reload_OnClick" />
-      <Button Name="SaveButton" Content="Save · Applies to the Next Draw" Height="36" Margin="3" VerticalAlignment="Center" Click="Save_OnClick" />
+      <Button Content="โหลดใหม่" Height="36" Margin="3" VerticalAlignment="Center" Click="Reload_OnClick" />
+      <Button Name="SaveButton" Content="บันทึก · มีผลกับการสุ่มครั้งถัดไป" Height="36" Margin="3" VerticalAlignment="Center" Click="Save_OnClick" />
     </StackPanel>
   </Grid>
 </UserControl>

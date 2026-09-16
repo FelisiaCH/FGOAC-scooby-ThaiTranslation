@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Window x:Class="FGOLocalPlatform.CardVariantsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Choose Card Type and Quantity" Background="{StaticResource GroundBrush}" Foreground="{StaticResource TextBrush}" Width="880" Height="650" MinWidth="700" MinHeight="440" WindowStartupLocation="CenterOwner" xmlns:fgolocalplatform="clr-namespace:FGOLocalPlatform;assembly=FGOLocalPlatform">
+<Window x:Class="FGOLocalPlatform.CardVariantsWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="เลือกชนิดการ์ดและจำนวน" Background="{StaticResource GroundBrush}" Foreground="{StaticResource TextBrush}" Width="880" Height="650" MinWidth="700" MinHeight="440" WindowStartupLocation="CenterOwner" xmlns:fgolocalplatform="clr-namespace:FGOLocalPlatform;assembly=FGOLocalPlatform">
   <Grid Margin="18">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -22,11 +22,11 @@
         <Image Name="CraftImage" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" />
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="14,0,0,0">
           <StackPanel>
-            <TextBlock Text="Normal Effect" FontSize="13" Foreground="{StaticResource TextSoftBrush}" />
+            <TextBlock Text="เอฟเฟกต์ปกติ" FontSize="13" Foreground="{StaticResource TextSoftBrush}" />
             <TextBlock Name="NormalEffect" Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" Margin="0,6,0,16" />
-            <TextBlock Text="Max Limit Break Effect" FontSize="13" Foreground="{StaticResource TextSoftBrush}" />
+            <TextBlock Text="เอฟเฟกต์เมื่อปลดขีดจำกัดสูงสุด" FontSize="13" Foreground="{StaticResource TextSoftBrush}" />
             <TextBlock Name="MaximumEffect" Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" Margin="0,6,0,12" />
-            <TextBlock Style="{StaticResource HelpTextStyle}" Text="Hover the effect text to see the Japanese original." />
+            <TextBlock Style="{StaticResource HelpTextStyle}" Text="วางเมาส์เหนือข้อความเอฟเฟกต์เพื่อดูต้นฉบับภาษาญี่ปุ่น" />
           </StackPanel>
         </ScrollViewer>
       </Grid>
@@ -55,25 +55,25 @@
         </ResourceDictionary>
       </FrameworkElement.Resources>
       <DataGrid.Columns>
-        <DataGridTemplateColumn Header="Card" Width="78" IsReadOnly="True">
+        <DataGridTemplateColumn Header="การ์ด" Width="78" IsReadOnly="True">
           <DataGridTemplateColumn.CellTemplate>
             <DataTemplate>
               <Image Height="100" Width="70" Stretch="Uniform" Source="{Binding Card.Thumbnail}" />
             </DataTemplate>
           </DataGridTemplateColumn.CellTemplate>
         </DataGridTemplateColumn>
-        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="Type / Stage / Card Number" Width="*" MinWidth="240" IsReadOnly="True" Binding="{Binding Label}" />
-        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="Owned" Width="85" IsReadOnly="True" Binding="{Binding Owned}" />
-        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="In Deck" Width="85" IsReadOnly="True" Binding="{Binding Selected}" />
-        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="Can Add" Width="85" IsReadOnly="True" Binding="{Binding Maximum}" />
-        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="Quantity" Width="100" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" />
+        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="ชนิด / ขั้น / หมายเลขการ์ด" Width="*" MinWidth="240" IsReadOnly="True" Binding="{Binding Label}" />
+        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="ที่มีอยู่" Width="85" IsReadOnly="True" Binding="{Binding Owned}" />
+        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="ในเด็ค" Width="85" IsReadOnly="True" Binding="{Binding Selected}" />
+        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="เพิ่มได้" Width="85" IsReadOnly="True" Binding="{Binding Maximum}" />
+        <DataGridTextColumn ElementStyle="{StaticResource CenteredCell}" EditingElementStyle="{StaticResource CenteredEdit}" Header="จำนวน" Width="100" Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" />
       </DataGrid.Columns>
     </DataGrid>
     <StackPanel Grid.Row="3" Margin="0,12,0,0">
       <TextBlock Name="Error" Foreground="{StaticResource DangerBrush}" TextWrapping="Wrap" />
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button Content="Cancel" IsCancel="True" />
-        <Button Content="Add Selected Quantities" Click="Add_OnClick" />
+        <Button Content="ยกเลิก" IsCancel="True" />
+        <Button Content="เพิ่มตามจำนวนที่เลือก" Click="Add_OnClick" />
       </StackPanel>
     </StackPanel>
   </Grid>

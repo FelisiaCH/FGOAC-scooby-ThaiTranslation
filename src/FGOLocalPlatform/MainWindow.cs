@@ -3307,10 +3307,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		GpuCompatCheckBox.IsChecked = layer != GpuCompat.Layer.None;
 		GpuCompatCheckBox.IsEnabled = GpuCompatCheckBox.IsChecked == true || GpuCompat.SourceAvailable;
 		GpuCompatSwitchButton.Visibility = Visibility.Collapsed;
+		GpuCompatInstallButton.Visibility = Visibility.Collapsed;
 		switch (layer)
 		{
 		case GpuCompat.Layer.Foreign:
-			GpuCompatHelpText.Text = "On: an App\\opengl32.dll that the AMD shim's own installer put there, not this launcher's copy. Off removes it; on again installs the bundled layer.";
+			GpuCompatHelpText.Text = "On: an App\\opengl32.dll that is not the copy under compat\\amd-shim. Either the shim's own installer put it there, or a newer build was dropped into the compat folder. Off removes it.";
 			if (GpuCompat.LegacySourceAvailable)
 			{
 				GpuCompatSwitchButton.Content = "Go back to the older layer";
@@ -3318,7 +3319,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			}
 			break;
 		case GpuCompat.Layer.Shim:
-			GpuCompatHelpText.Text = "On: fluphus's AMD layer (App\\opengl32.dll). Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap; other cards and resolutions can show rendering errors.";
+			GpuCompatHelpText.Text = "On: fluphus's AMD layer (App\\opengl32.dll). Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap; other cards and resolutions can show rendering errors. To try a newer build, replace compat\\amd-shim\\opengl32.dll (and amdcfg\\amdOglpSettings.cfg if it ships one) and this page offers to install it.";
 			if (GpuCompat.LegacySourceAvailable)
 			{
 				GpuCompatSwitchButton.Content = "Go back to the older layer";
@@ -3326,7 +3327,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			}
 			break;
 		case GpuCompat.Layer.Legacy:
-			GpuCompatHelpText.Text = "On: the older layer (App\\fgoglcompat.dll), left as it was. The newer AMD layer by fluphus is one click away, and one click back.";
+			GpuCompatHelpText.Text = "On: the older layer (App\\fgoglcompat.dll), left as it was. The newer AMD layer by fluphus is one click away, and one click back. To try a newer build, replace compat\\fgoglcompat.dll and this page offers to install it.";
 			if (GpuCompat.ShimSourceAvailable)
 			{
 				GpuCompatSwitchButton.Content = "Switch to the newer AMD layer";
@@ -3347,6 +3348,11 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 				GpuCompatHelpText.Text = "Turned on by itself on a PC with no NVIDIA card. Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap. Leave it off on NVIDIA.";
 			}
 			break;
+		}
+		if (GpuCompat.CompatCopyDiffers)
+		{
+			GpuCompatInstallButton.Visibility = Visibility.Visible;
+			GpuCompatHelpText.Text += " The compat folder holds a different build of this layer; Install the layer from the compat folder puts it in.";
 		}
 		List<string> stray = GpuCompat.StrayLegacyCopies();
 		if (stray.Count > 0)
@@ -3375,6 +3381,21 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		}
 		RefreshGpuCompatSection();
 		HoldStatus("Graphics compatibility layer switched - it is used the next time the game starts.");
+	}
+
+	private void GpuCompatInstallButton_OnClick(object sender, RoutedEventArgs e)
+	{
+		try
+		{
+			GpuCompat.InstallFromCompat();
+		}
+		catch (Exception ex)
+		{
+			HoldStatus("The layer could not be installed from the compat folder: " + ex.Message);
+			return;
+		}
+		RefreshGpuCompatSection();
+		HoldStatus("Graphics compatibility layer installed from the compat folder - it is used the next time the game starts.");
 	}
 
 	private void ResetDamageUi_OnClick(object sender, RoutedEventArgs e)

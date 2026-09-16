@@ -9,9 +9,11 @@ namespace FGOLocalPlatform;
 /// The OpenGL compatibility layer for AMD and Intel graphics. The game asks for NVIDIA-only
 /// extensions, and a layer in App\ translates them. Two layers exist, and the package ships both:
 /// fluphus's shim under compat\amd-shim, installed as App\opengl32.dll beside a copy of the system
-/// DLL and a driver profile, and the older fgoglcompat.dll under compat\. An install keeps
-/// whichever layer it has; nothing here changes a layer except the switch on the Display page,
-/// which is the player's to use, and the first run of a fresh install without an NVIDIA card.
+/// DLL and a driver profile, and the older fgoglcompat.dll under compat\. Whatever file sits under
+/// compat\ is what gets installed, so a newer build of either layer only has to be dropped there.
+/// An install keeps whichever layer it has; nothing here changes a layer except the switch on the
+/// Display page, which is the player's to use, and the first run of a fresh install without an
+/// NVIDIA card.
 /// A fresh install without an NVIDIA card gets the older layer, which is the one that works on the
 /// AMD cards players report; the newer one is a click away on the Display page.
 /// </summary>
@@ -22,14 +24,11 @@ internal static class GpuCompat
 		None,
 		Legacy,
 		Shim,
-		/// <summary>An App\opengl32.dll the launcher did not put there: the shim's own installer, or a newer build of it.</summary>
+		/// <summary>An App\opengl32.dll that is not the copy under compat\amd-shim: the shim's own installer put it there, or the compat copy has since been replaced by a newer build.</summary>
 		Foreign
 	}
 
 	private const string LegacyFileName = "fgoglcompat.dll";
-
-	/// <summary>compat\amd-shim\opengl32.dll: fluphus/fgo-arcade-amd-shim at commit 1fbf3e4.</summary>
-	private const string ShimSha256 = "a85042d91ea60a3108f28dfad4673265f2e1f2a402b252436e5d5757c368a0f0";
 
 	private const string DisplayClassKey = "SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e968-e325-11ce-bfc1-08002be10318}";
 
@@ -74,17 +73,23 @@ internal static class GpuCompat
 		return list;
 	}
 
-	/// <summary>The layer in App\ right now.</summary>
+	/// <summary>The layer in App\ right now. The shim counts as installed when App\opengl32.dll is the copy under compat\amd-shim; any other App\opengl32.dll is Foreign.</summary>
 	public static Layer Installed
 	{
 		get
 		{
 			if (File.Exists(ShimTargetPath))
 			{
-				return string.Equals(Updater.HashFile(ShimTargetPath), ShimSha256, StringComparison.OrdinalIgnoreCase) ? Layer.Shim : Layer.Foreign;
+				return SameFile(ShimTargetPath, ShimSourcePath) ? Layer.Shim : Layer.Foreign;
 			}
 			return File.Exists(LegacyTargetPath) ? Layer.Legacy : Layer.None;
 		}
+	}
+
+	/// <summary>True when both files exist and hold the same bytes.</summary>
+	private static bool SameFile(string a, string b)
+	{
+		return File.Exists(a) && File.Exists(b) && new FileInfo(a).Length == new FileInfo(b).Length && string.Equals(Updater.HashFile(a), Updater.HashFile(b), StringComparison.OrdinalIgnoreCase);
 	}
 
 	public static bool IsInstalled => Installed != Layer.None;
@@ -148,6 +153,39 @@ internal static class GpuCompat
 	{
 		RemoveShim();
 		File.Copy(LegacySourcePath, LegacyTargetPath, overwrite: true);
+	}
+
+	/// <summary>
+	/// True when the compat folder holds a different build of the layer that is installed: the
+	/// player dropped a newer file there, or App\ holds a copy the launcher did not put there.
+	/// </summary>
+	public static bool CompatCopyDiffers
+	{
+		get
+		{
+			switch (Installed)
+			{
+			case Layer.Foreign:
+				return ShimSourceAvailable;
+			case Layer.Legacy:
+				return LegacySourceAvailable && !SameFile(LegacyTargetPath, LegacySourcePath);
+			default:
+				return false;
+			}
+		}
+	}
+
+	/// <summary>Installs the copy under compat\ over the layer of the same kind in App\.</summary>
+	public static void InstallFromCompat()
+	{
+		if (Installed == Layer.Legacy)
+		{
+			File.Copy(LegacySourcePath, LegacyTargetPath, overwrite: true);
+		}
+		else
+		{
+			InstallShim();
+		}
 	}
 
 	/// <summary>

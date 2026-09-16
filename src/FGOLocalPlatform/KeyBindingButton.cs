@@ -28,11 +28,11 @@ public sealed class KeyBindingButton : Button
 	{
 		SetResourceReference(FrameworkElement.StyleProperty, typeof(Button));
 		base.HorizontalContentAlignment = HorizontalAlignment.Left;
-		base.ToolTip = "Click, then press a key to bind it. Esc cancels; the right-click menu clears the binding.";
+		base.ToolTip = "คลิก แล้วกดปุ่มที่ต้องการผูก กด Esc เพื่อยกเลิก เมนูคลิกขวาใช้ล้างการผูกปุ่ม";
 		ContextMenu contextMenu = new ContextMenu();
 		MenuItem menuItem = new MenuItem
 		{
-			Header = "Clear Binding"
+			Header = "ล้างการผูกปุ่ม"
 		};
 		menuItem.Click += delegate
 		{
@@ -54,7 +54,7 @@ public sealed class KeyBindingButton : Button
 		base.OnClick();
 		Focus();
 		listening = true;
-		base.Content = "Press a key... (Esc cancels)";
+		base.Content = "กดปุ่มที่ต้องการ... (Esc เพื่อยกเลิก)";
 	}
 
 	protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -102,17 +102,17 @@ public sealed class KeyBindingButton : Button
 		switch (vk)
 		{
 		case 0:
-			return "Not bound";
+			return "ยังไม่ได้ผูกปุ่ม";
 		case 1:
-			return "Left Mouse Button";
+			return "ปุ่มซ้ายเมาส์";
 		case 2:
-			return "Right Mouse Button";
+			return "ปุ่มขวาเมาส์";
 		case 4:
-			return "Middle Mouse Button";
+			return "ปุ่มกลางเมาส์";
 		case 5:
-			return "Mouse Button 4";
+			return "ปุ่มเมาส์ 4";
 		case 6:
-			return "Mouse Button 5";
+			return "ปุ่มเมาส์ 5";
 		case 8:
 			return "Backspace";
 		case 9:

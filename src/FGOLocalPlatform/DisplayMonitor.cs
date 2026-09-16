@@ -56,8 +56,8 @@ internal static class DisplayMonitor
 			};
 			if (GetMonitorInfo(monitor, ref info))
 			{
-				string value = info.Device.Replace("\\\\.\\DISPLAY", "Display ");
-				entries.Add(new Entry(info.Device, $"{value}{(((info.Flags & 1) != 0) ? " (primary)" : "")} - {info.Monitor.Right - info.Monitor.Left}x{info.Monitor.Bottom - info.Monitor.Top}"));
+				string value = info.Device.Replace("\\\\.\\DISPLAY", "จอแสดงผล ");
+				entries.Add(new Entry(info.Device, $"{value}{(((info.Flags & 1) != 0) ? " (จอหลัก)" : "")} - {info.Monitor.Right - info.Monitor.Left}x{info.Monitor.Bottom - info.Monitor.Top}"));
 			}
 			return true;
 		}, IntPtr.Zero);

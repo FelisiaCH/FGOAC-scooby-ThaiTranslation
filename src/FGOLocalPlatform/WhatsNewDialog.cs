@@ -10,7 +10,7 @@ public partial class WhatsNewDialog : Window, IComponentConnector
 		InitializeComponent();
 		WindowTheme.Apply(this);
 		base.Owner = owner;
-		HeadingText.Text = "Updated to " + version;
+		HeadingText.Text = "อัปเดตเป็น " + version;
 		BodyText.Text = body;
 	}
 }

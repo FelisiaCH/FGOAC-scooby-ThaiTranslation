@@ -21,7 +21,7 @@ public partial class NewAccountDialog : Window, IComponentConnector
 	{
 		if (AccountName.Length == 0)
 		{
-			ThemedMessageBox.Show(this, "Enter a Master name.", "New Local Account", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(this, "กรอกชื่อมาสเตอร์", "บัญชีในเครื่องใหม่", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			MasterNameTextBox.Focus();
 		}
 		else

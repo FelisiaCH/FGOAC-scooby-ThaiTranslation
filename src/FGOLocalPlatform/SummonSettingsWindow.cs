@@ -71,7 +71,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not list the presets: " + ex.Message;
+			StatusText.Text = "แสดงรายการพรีเซ็ตไม่ได้: " + ex.Message;
 		}
 	}
 
@@ -128,7 +128,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		if (e.Row.Item is SummonCardOption { IsStory: not false })
 		{
 			e.Cancel = true;
-			StatusText.Text = "Story-fixed cards are read-only and cannot be added to the random pool.";
+			StatusText.Text = "การ์ดที่กำหนดตายตัวจากเนื้อเรื่องเป็นแบบอ่านอย่างเดียว และเพิ่มเข้ากลุ่มสุ่มไม่ได้";
 		}
 	}
 
@@ -197,7 +197,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 			ApplyWeightsText(text, tolerant: false);
 			loadedText = text;
 			dirty = false;
-			StatusText.Text = ((text == null) ? "No custom rates saved yet - every drawable card has the same chance." : "Saved rates loaded. A draw already under way, and its retries, keep their original result.");
+			StatusText.Text = ((text == null) ? "ยังไม่ได้บันทึกอัตราที่กำหนดเอง - การ์ดที่สุ่มได้ทุกใบมีโอกาสเท่ากัน" : "โหลดอัตราที่บันทึกไว้แล้ว การสุ่มที่กำลังดำเนินอยู่และการสุ่มซ้ำของมันจะยังคงผลลัพธ์เดิม");
 		}
 		catch (Exception ex)
 		{
@@ -205,7 +205,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 			loadedText = (File.Exists(settingsPath) ? File.ReadAllText(settingsPath) : null);
 			dirty = true;
 			Recalculate();
-			StatusText.Text = "Could not read the rates: " + ex.Message + ". The server rejects an invalid file - fix the values here and save.";
+			StatusText.Text = "อ่านอัตราไม่ได้: " + ex.Message + " เซิร์ฟเวอร์จะปฏิเสธไฟล์ที่ไม่ถูกต้อง - แก้ไขค่าที่นี่แล้วบันทึก";
 		}
 	}
 
@@ -219,10 +219,10 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 		SaveButton.IsEnabled = flag && num > 0m;
 		decimal num2 = cards.Where((SummonCardOption c) => c.Kind == 1).Sum((Func<SummonCardOption, decimal>)((SummonCardOption c) => c.Weight));
-		SummaryText.Text = ((!flag) ? "Enter each weight as a whole number from 0 to 1,000,000 - invalid input cannot be saved." : ((num <= 0m) ? "Every card is excluded - enable at least one." : $"{cards.Count((SummonCardOption c) => !c.IsStory)} drawable · {cards.Count((SummonCardOption c) => c.IsStory)} story-fixed · {cards.Count((SummonCardOption c) => c.Weight > 0)} enabled  |  Servant {num2 * 100m / num:0.####}% · Craft Essence {(num - num2) * 100m / num:0.####}%  |  total 100%"));
+		SummaryText.Text = ((!flag) ? "กรอกค่าน้ำหนักแต่ละค่าเป็นจำนวนเต็มตั้งแต่ 0 ถึง 1,000,000 - ค่าที่ไม่ถูกต้องจะบันทึกไม่ได้" : ((num <= 0m) ? "การ์ดทุกใบถูกตัดออก - เปิดใช้งานอย่างน้อยหนึ่งใบ" : $"{cards.Count((SummonCardOption c) => !c.IsStory)} ใบสุ่มได้ · {cards.Count((SummonCardOption c) => c.IsStory)} ใบกำหนดตายตัวจากเนื้อเรื่อง · {cards.Count((SummonCardOption c) => c.Weight > 0)} ใบเปิดใช้งาน  |  เซอร์แวนต์ {num2 * 100m / num:0.####}% · Craft Essence {(num - num2) * 100m / num:0.####}%  |  รวม 100%"));
 		if (dirty)
 		{
-			StatusText.Text = "You have unsaved changes. Once saved, the server uses the new rates on its next draw. This page only sets draw rates. It does not draw or grant any cards.";
+			StatusText.Text = "มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก เมื่อบันทึกแล้ว เซิร์ฟเวอร์จะใช้อัตราใหม่ในการสุ่มครั้งถัดไป หน้านี้ใช้ตั้งอัตราการสุ่มเท่านั้น ไม่ได้สุ่มหรือมอบการ์ดใด ๆ";
 		}
 	}
 
@@ -249,13 +249,13 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 	{
 		if (CardsGrid.SelectedItems.Count != 1)
 		{
-			StatusText.Text = "Select one card first, then set it to 100%.";
+			StatusText.Text = "เลือกการ์ดหนึ่งใบก่อน แล้วจึงตั้งเป็น 100%";
 			return;
 		}
 		SummonCardOption selected = (SummonCardOption)CardsGrid.SelectedItem;
 		if (selected.IsStory)
 		{
-			StatusText.Text = "A story-fixed card cannot be set to draw randomly.";
+			StatusText.Text = "การ์ดที่กำหนดตายตัวจากเนื้อเรื่องตั้งให้สุ่มไม่ได้";
 			return;
 		}
 		SetWeights((SummonCardOption c) => (c == selected) ? 1 : 0);
@@ -268,7 +268,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 			select c).ToHashSet();
 		if (selected.Count == 0)
 		{
-			StatusText.Text = "Select the cards that should share the chance first.";
+			StatusText.Text = "เลือกการ์ดที่ต้องการให้แบ่งโอกาสเท่ากันก่อน";
 			return;
 		}
 		SetWeights((SummonCardOption c) => selected.Contains(c) ? 1 : 0);
@@ -279,12 +279,12 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		HashSet<SummonCardOption> selected = CardsGrid.SelectedItems.Cast<SummonCardOption>().ToHashSet();
 		if (selected.Count == 0)
 		{
-			StatusText.Text = "Select the cards to exclude first.";
+			StatusText.Text = "เลือกการ์ดที่ต้องการตัดออกก่อน";
 			return;
 		}
 		if (cards.Any((SummonCardOption c) => !c.Valid))
 		{
-			StatusText.Text = "Fix the invalid weights first.";
+			StatusText.Text = "แก้ไขค่าน้ำหนักที่ไม่ถูกต้องก่อน";
 			return;
 		}
 		SetWeights((SummonCardOption c) => (!selected.Contains(c)) ? c.Weight : 0);
@@ -329,11 +329,11 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 			AtomicFile.WriteAllText(settingsPath, contents);
 			loadedText = contents;
 			dirty = false;
-			StatusText.Text = "Saved to the server config. A server that supports this picks the rates up on its next draw, with no need to restart the game; if you have just replaced older server code, restart the server once.";
+			StatusText.Text = "บันทึกลงค่าตั้งของเซิร์ฟเวอร์แล้ว เซิร์ฟเวอร์ที่รองรับจะอ่านอัตราใหม่ในการสุ่มครั้งถัดไปโดยไม่ต้องเริ่มเกมใหม่ หากเพิ่งเปลี่ยนโค้ดเซิร์ฟเวอร์รุ่นเก่า ให้เริ่มเซิร์ฟเวอร์ใหม่หนึ่งครั้ง";
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not save - the existing file was left unchanged: " + ex.Message;
+			StatusText.Text = "บันทึกไม่สำเร็จ - ไฟล์เดิมไม่ถูกเปลี่ยนแปลง: " + ex.Message;
 		}
 	}
 
@@ -341,7 +341,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 	{
 		if (dirty)
 		{
-			return ThemedMessageBox.Show("Discard the unsaved draw-rate changes?", "Draw Rates", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
+			return ThemedMessageBox.Show("ละทิ้งการเปลี่ยนแปลงอัตราการสุ่มที่ยังไม่ได้บันทึกหรือไม่?", "อัตราการสุ่ม", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
 		}
 		return true;
 	}
@@ -387,13 +387,13 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		{
 			return;
 		}
-		NamePromptDialog prompt = new NamePromptDialog(OwnerWindow, "Save preset", "Name for this rate table", PresetComboBox.SelectedItem as string ?? "");
+		NamePromptDialog prompt = new NamePromptDialog(OwnerWindow, "บันทึกพรีเซ็ต", "ชื่อของตารางอัตรานี้", PresetComboBox.SelectedItem as string ?? "");
 		if (prompt.ShowDialog() != true || prompt.Result == null)
 		{
 			return;
 		}
 		string target = PresetFolder.PathFor(PresetFolder.Ensure(PresetsFolder), prompt.Result);
-		if (File.Exists(target) && ThemedMessageBox.Show(OwnerWindow, "Replace the preset \"" + prompt.Result + "\"?", "Save preset", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (File.Exists(target) && ThemedMessageBox.Show(OwnerWindow, "แทนที่พรีเซ็ต \"" + prompt.Result + "\" หรือไม่?", "บันทึกพรีเซ็ต", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -401,11 +401,11 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		{
 			AtomicFile.WriteAllText(target, BuildWeightsJson());
 			RefreshPresetList(prompt.Result);
-			StatusText.Text = "Preset saved: " + prompt.Result + ". The live rates are unchanged until you click Save. Export sends a copy to share.";
+			StatusText.Text = "บันทึกพรีเซ็ตแล้ว: " + prompt.Result + " อัตราที่ใช้งานจริงจะยังไม่เปลี่ยนจนกว่าจะคลิกบันทึก ส่วนส่งออกจะสร้างสำเนาไว้แบ่งปัน";
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "The preset could not be saved: " + ex.Message;
+			StatusText.Text = "บันทึกพรีเซ็ตไม่สำเร็จ: " + ex.Message;
 		}
 	}
 
@@ -413,7 +413,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 	{
 		int skipped = ApplyWeightsText(File.ReadAllText(path), tolerant: true);
 		dirty = true;
-		StatusText.Text = "Preset loaded: " + name + ((skipped == 1) ? " (1 card in the file is not in your game and was left out)" : ((skipped > 1) ? $" ({skipped} cards in the file are not in your game and were left out)" : "")) + ". Click Save to make the server use it.";
+		StatusText.Text = "โหลดพรีเซ็ตแล้ว: " + name + ((skipped == 1) ? " (มีการ์ด 1 ใบในไฟล์ที่ไม่มีอยู่ในเกมของคุณ จึงถูกข้ามไป)" : ((skipped > 1) ? $" (มีการ์ด {skipped} ใบในไฟล์ที่ไม่มีอยู่ในเกมของคุณ จึงถูกข้ามไป)" : "")) + " คลิกบันทึกเพื่อให้เซิร์ฟเวอร์ใช้งาน";
 	}
 
 	private void PresetLoad_OnClick(object sender, RoutedEventArgs e)
@@ -428,38 +428,38 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "The preset could not be loaded: " + ex.Message;
+			StatusText.Text = "โหลดพรีเซ็ตไม่สำเร็จ: " + ex.Message;
 		}
 	}
 
 	private void PresetDelete_OnClick(object sender, RoutedEventArgs e)
 	{
-		if (!(PresetComboBox.SelectedItem is string name) || ThemedMessageBox.Show(OwnerWindow, "Delete the preset \"" + name + "\"?", "Delete preset", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (!(PresetComboBox.SelectedItem is string name) || ThemedMessageBox.Show(OwnerWindow, "ลบพรีเซ็ต \"" + name + "\" หรือไม่?", "ลบพรีเซ็ต", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
 		File.Delete(PresetFolder.PathFor(PresetsFolder, name));
 		RefreshPresetList();
-		StatusText.Text = "Preset deleted: " + name;
+		StatusText.Text = "ลบพรีเซ็ตแล้ว: " + name;
 	}
 
 	private void PresetExport_OnClick(object sender, RoutedEventArgs e)
 	{
 		if (!(PresetComboBox.SelectedItem is string name))
 		{
-			StatusText.Text = "Select a preset to export, or Save as first.";
+			StatusText.Text = "เลือกพรีเซ็ตที่จะส่งออก หรือบันทึกเป็นก่อน";
 			return;
 		}
 		try
 		{
 			if (PresetFolder.Export(OwnerWindow, PresetFolder.PathFor(PresetsFolder, name), name))
 			{
-				StatusText.Text = "Exported: " + name + ".json - send it to anyone with the launcher; they add it with Import.";
+				StatusText.Text = "ส่งออกแล้ว: " + name + ".json - ส่งให้ใครก็ได้ที่มีตัวเรียกเกม แล้วให้เขาเพิ่มด้วยปุ่มนำเข้า";
 			}
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "The preset could not be exported: " + ex.Message;
+			StatusText.Text = "ส่งออกพรีเซ็ตไม่สำเร็จ: " + ex.Message;
 		}
 	}
 
@@ -481,7 +481,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "The preset could not be imported: " + ex.Message;
+			StatusText.Text = "นำเข้าพรีเซ็ตไม่สำเร็จ: " + ex.Message;
 		}
 	}
 

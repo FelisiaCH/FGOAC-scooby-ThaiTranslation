@@ -52,11 +52,11 @@ public partial class AudioSettingsView : UserControl, IComponentConnector
 					}
 				}
 			}
-			StatusText.Text = "Drag a slider to set the volume; your settings are kept automatically.";
+			StatusText.Text = "ลากแถบเลื่อนเพื่อปรับระดับเสียง ระบบจะบันทึกการตั้งค่าให้อัตโนมัติ";
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not read the volume settings: " + ex.Message;
+			StatusText.Text = "อ่านการตั้งค่าระดับเสียงไม่ได้: " + ex.Message;
 		}
 		VoiceSlider.Value = dictionary["voice"];
 		BgmSlider.Value = dictionary["bgm"];
@@ -86,12 +86,12 @@ public partial class AudioSettingsView : UserControl, IComponentConnector
 		{
 			string contents = $"[audio]\nbgm={(int)BgmSlider.Value}\nvoice={(int)VoiceSlider.Value}\neffects={(int)EffectsSlider.Value}\n";
 			AtomicFile.WriteAllText(settingsPath, contents);
-			StatusText.Text = "Saved - applied live while the game is running, and kept for next time.";
+			StatusText.Text = "บันทึกแล้ว - มีผลทันทีขณะเกมกำลังทำงาน และเก็บไว้ใช้ครั้งต่อไป";
 			return true;
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not save the volume settings: " + ex.Message;
+			StatusText.Text = "บันทึกการตั้งค่าระดับเสียงไม่ได้: " + ex.Message;
 			return false;
 		}
 	}

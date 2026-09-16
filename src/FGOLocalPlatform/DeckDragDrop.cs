@@ -72,7 +72,7 @@ public partial class MainWindow
 		}
 		else if (CardStack.Move(cardCollection, drag.Stack.TrcId, 1, add: true) == 0)
 		{
-			RuntimeStatusText.Text = ((cardCollection.SelectedCards.Count >= 30) ? "The deck is full: it holds 30 cards." : "No more copies of that card are available to add.");
+			RuntimeStatusText.Text = ((cardCollection.SelectedCards.Count >= 30) ? "เด็คเต็มแล้ว: บรรจุได้ 30 ใบ" : "ไม่มีการ์ดใบนั้นเหลือให้เพิ่มแล้ว");
 			return;
 		}
 		ClearIconSelection();

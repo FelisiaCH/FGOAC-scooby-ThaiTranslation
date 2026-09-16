@@ -124,19 +124,19 @@ public partial class ServerSettingsView : UserControl, IComponentConnector
 			DatabaseBox.Text = config["database"].ToString();
 			List<string> lines = new List<string>
 			{
-				$"Server address: {config["address"]}",
-				"Program: Server/python/python.exe",
-				"Save file: Server/state/fgo-players.json",
-				"Database: Server/data/mariadb",
-				"Log directory: logs",
+				$"ที่อยู่เซิร์ฟเวอร์: {config["address"]}",
+				"โปรแกรม: Server/python/python.exe",
+				"ไฟล์เซฟ: Server/state/fgo-players.json",
+				"ฐานข้อมูล: Server/data/mariadb",
+				"โฟลเดอร์ล็อก: logs",
 				""
 			};
 			Dictionary<string, string> labels = new Dictionary<string, string>
 			{
-				["http"] = "Game / ALL.Net",
+				["http"] = "เกม / ALL.Net",
 				["billing"] = "Billing HTTPS",
-				["aime"] = "Aime card reader",
-				["database"] = "Local database"
+				["aime"] = "เครื่องอ่านการ์ด Aime",
+				["database"] = "ฐานข้อมูลในเครื่อง"
 			};
 			string[] array = new string[4] { "http", "billing", "aime", "database" };
 			foreach (string key in array)
@@ -153,7 +153,7 @@ public partial class ServerSettingsView : UserControl, IComponentConnector
 				catch
 				{
 				}
-				lines.Add($"{labels[key]} · {port}: {(open ? "listening" : "not running")}");
+				lines.Add($"{labels[key]} · {port}: {(open ? "กำลังรับการเชื่อมต่อ" : "ไม่ได้ทำงาน")}");
 			}
 			InfoText.Text = string.Join(Environment.NewLine, lines);
 		}

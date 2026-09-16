@@ -69,8 +69,8 @@ public sealed class PhotoWindow : UserControl
 
 	private readonly string[] labels = new string[14]
 	{
-		"Enter / Exit Photo Mode", "Move Forward", "Move Back", "Move Left", "Move Right", "Move Down", "Move Up", "Turn Left", "Turn Right", "Look Up",
-		"Look Down", "Roll Left", "Roll Right", "Reset Camera"
+		"เข้า / ออกโหมดถ่ายภาพ", "เดินหน้า", "ถอยหลัง", "ไปทางซ้าย", "ไปทางขวา", "ลงล่าง", "ขึ้นบน", "หันซ้าย", "หันขวา", "มองขึ้น",
+		"มองลง", "เอียงซ้าย", "เอียงขวา", "รีเซ็ตกล้อง"
 	};
 
 	private MemoryMappedFile? mapping;
@@ -121,7 +121,7 @@ public sealed class PhotoWindow : UserControl
 
 	private readonly CheckBox dof = new CheckBox
 	{
-		Content = "Custom Depth of Field (Photo Mode Only)",
+		Content = "กำหนดระยะชัดลึกเอง (เฉพาะโหมดถ่ายภาพ)",
 		Foreground = Brushes.White,
 		Margin = new Thickness(0.0, 12.0, 0.0, 8.0)
 	};
@@ -352,7 +352,7 @@ public sealed class PhotoWindow : UserControl
 		};
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Photo Mode",
+			Text = "โหมดถ่ายภาพ",
 			FontSize = 22.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 0.0, 0.0, 12.0)
@@ -360,15 +360,15 @@ public sealed class PhotoWindow : UserControl
 		stackPanel.Children.Add(status);
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Press it once to enter photo mode and again to resume the game. Drag with the right button to pan, the left button to rotate, and scroll to zoom; hold Shift to move faster or Ctrl to move finely.",
+			Text = "กดหนึ่งครั้งเพื่อเข้าโหมดถ่ายภาพ และกดอีกครั้งเพื่อกลับไปเล่นเกมต่อ ลากด้วยปุ่มขวาเพื่อเลื่อนภาพ ปุ่มซ้ายเพื่อหมุน และเลื่อนล้อเพื่อซูม กด Shift ค้างเพื่อเคลื่อนเร็วขึ้น หรือ Ctrl เพื่อเคลื่อนแบบละเอียด",
 			TextWrapping = TextWrapping.Wrap,
 			Margin = new Thickness(0.0, 12.0, 0.0, 12.0)
 		});
 		(string, int)[] array3 = new(string, int)[3]
 		{
-			("Enter / Exit", 1),
-			("Reset Camera", 2),
-			("Resume Game", 4)
+			("เข้า / ออก", 1),
+			("รีเซ็ตกล้อง", 2),
+			("กลับไปเล่นเกม", 4)
 		};
 		for (int i = 0; i < array3.Length; i++)
 		{
@@ -391,7 +391,7 @@ public sealed class PhotoWindow : UserControl
 		stackPanel.Children.Add(actions);
 		Button button2 = new Button
 		{
-			Content = "Show Photo Panel",
+			Content = "แสดงแผงถ่ายภาพ",
 			HorizontalAlignment = HorizontalAlignment.Left,
 			Margin = new Thickness(0.0, 0.0, 0.0, 10.0)
 		};
@@ -402,7 +402,7 @@ public sealed class PhotoWindow : UserControl
 		};
 		stackPanel.Children.Add(button2);
 		AddSlider(stackPanel, "FOV", fov, fovLabel);
-		AddSlider(stackPanel, "Move Speed", speed, speedLabel);
+		AddSlider(stackPanel, "ความเร็วการเคลื่อนที่", speed, speedLabel);
 		fov.ValueChanged += delegate
 		{
 			fovLabel.Text = $"{fov.Value:F1}°";
@@ -424,15 +424,15 @@ public sealed class PhotoWindow : UserControl
 		faceHome = stackPanel;
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Set the focus point and the blur range; with this off the game's own depth of field is used. Leaving photo mode restores the original settings.",
+			Text = "กำหนดจุดโฟกัสและช่วงความเบลอ เมื่อปิดตัวเลือกนี้จะใช้ระยะชัดลึกของเกมเอง เมื่อออกจากโหมดถ่ายภาพจะคืนค่าเดิม",
 			TextWrapping = TextWrapping.Wrap
 		});
 		array2 = new(string, Slider)[4]
 		{
-			("Focus Distance", focus),
-			("Focus Range", focusRange),
-			("Blur Falloff", falloff),
-			("Blur Radius", blur)
+			("ระยะโฟกัส", focus),
+			("ช่วงโฟกัส", focusRange),
+			("การไล่ความเบลอ", falloff),
+			("รัศมีความเบลอ", blur)
 		};
 		for (int i = 0; i < array2.Length; i++)
 		{
@@ -472,7 +472,7 @@ public sealed class PhotoWindow : UserControl
 		};
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Photo Mode Hotkeys",
+			Text = "ปุ่มลัดโหมดถ่ายภาพ",
 			Style = (Style)Application.Current.Resources["SectionTitleStyle"],
 			Margin = new Thickness(0.0, 0.0, 0.0, 12.0)
 		});
@@ -483,7 +483,7 @@ public sealed class PhotoWindow : UserControl
 		};
 		dockPanel.Children.Add(new TextBlock
 		{
-			Text = "Show / Hide Photo Panel",
+			Text = "แสดง / ซ่อนแผงถ่ายภาพ",
 			Width = 200.0,
 			Foreground = (Brush)Application.Current.Resources["TextSoftBrush"],
 			VerticalAlignment = VerticalAlignment.Center
@@ -521,7 +521,7 @@ public sealed class PhotoWindow : UserControl
 			button3.Click += delegate
 			{
 				binding = true;
-				button3.Content = "Press a key (Esc to cancel)";
+				button3.Content = "กดปุ่มที่ต้องการ (Esc เพื่อยกเลิก)";
 				button3.Focus();
 			};
 			button3.LostKeyboardFocus += delegate
@@ -551,7 +551,7 @@ public sealed class PhotoWindow : UserControl
 		}
 		Button button4 = new Button
 		{
-			Content = "Save Hotkeys",
+			Content = "บันทึกปุ่มลัด",
 			HorizontalAlignment = HorizontalAlignment.Left,
 			Padding = new Thickness(20.0, 8.0, 20.0, 8.0),
 			Margin = new Thickness(0.0, 12.0, 0.0, 0.0)
@@ -599,7 +599,7 @@ public sealed class PhotoWindow : UserControl
 		}
 		UnregisterHotKey(hotkeySource.Handle, 20552);
 		bool flag = panelKey.Value >= 8 && RegisterHotKey(hotkeySource.Handle, 20552, 16384u, (uint)panelKey.Value);
-		panelKey.ToolTip = (flag ? "Shows or hides the panel during photo mode; it works as soon as you save." : "This key is unavailable or already in use - pick another one and save. You can also click Show Photo Panel.");
+		panelKey.ToolTip = (flag ? "แสดงหรือซ่อนแผงควบคุมขณะอยู่ในโหมดถ่ายภาพ มีผลทันทีที่บันทึก" : "ปุ่มนี้ใช้ไม่ได้หรือถูกใช้งานอยู่แล้ว - เลือกปุ่มอื่นแล้วบันทึก หรือจะคลิกแสดงแผงถ่ายภาพก็ได้");
 		return flag;
 	}
 
@@ -723,7 +723,7 @@ public sealed class PhotoWindow : UserControl
 			bodyView.Refresh(null, active: false);
 			modelView.Refresh(null, active: false);
 			UpdateOverlay(active: false);
-			status.Text = "The game is not running - you can still set the keys, then save and start the game.";
+			status.Text = "เกมยังไม่ทำงาน - ตั้งค่าปุ่มไว้ก่อนได้ แล้วจึงบันทึกและเริ่มเกม";
 			return;
 		}
 		bool flag = view.ReadInt32(12L) != 0;
@@ -731,7 +731,7 @@ public sealed class PhotoWindow : UserControl
 		bodyView.Refresh(connectedPid, flag);
 		modelView.Refresh(connectedPid, flag);
 		UpdateOverlay(flag);
-		status.Text = (flag ? $"In photo mode - whether the battle timer and Noble Phantasms pause is still unconfirmed\nPosition {view.ReadSingle(32L):F2}, {view.ReadSingle(36L):F2}, {view.ReadSingle(40L):F2}" : "Connected to the game - photo mode off");
+		status.Text = (flag ? $"อยู่ในโหมดถ่ายภาพ - ยังไม่ยืนยันว่าตัวจับเวลาการต่อสู้และ Noble Phantasm จะหยุดหรือไม่\nตำแหน่ง {view.ReadSingle(32L):F2}, {view.ReadSingle(36L):F2}, {view.ReadSingle(40L):F2}" : "เชื่อมต่อกับเกมแล้ว - ปิดโหมดถ่ายภาพอยู่");
 		if (flag && !fov.IsMouseCaptureWithin && (view.ReadInt32(8L) & 8) == 0)
 		{
 			syncing = true;
@@ -854,7 +854,7 @@ public sealed class PhotoWindow : UserControl
 		overlayOwner = gameWindow;
 		overlay = new Window
 		{
-			Title = "Photo Mode - Depth of Field and Character Controls",
+			Title = "โหมดถ่ายภาพ - ระยะชัดลึกและการควบคุมตัวละคร",
 			Width = 540.0,
 			Height = 720.0,
 			Icon = new BitmapImage(new Uri("pack://application:,,,/FGOLocalPlatform;component/Platform.ico")),
@@ -909,7 +909,7 @@ public sealed class PhotoWindow : UserControl
 		dockPanel.Children.Add(dockPanel2);
 		Button button = new Button
 		{
-			Content = "Hide",
+			Content = "ซ่อน",
 			Width = 64.0,
 			Height = 32.0,
 			Margin = new Thickness(4.0)
@@ -924,7 +924,7 @@ public sealed class PhotoWindow : UserControl
 		};
 		TextBlock textBlock = new TextBlock
 		{
-			Text = "Photo Controls",
+			Text = "แผงควบคุมการถ่ายภาพ",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Padding = new Thickness(14.0, 10.0, 8.0, 10.0)
@@ -946,7 +946,7 @@ public sealed class PhotoWindow : UserControl
 		dockPanel.Children.Add(tabControl);
 		tabControl.Items.Add(new TabItem
 		{
-			Header = "Camera & Depth of Field",
+			Header = "กล้องและระยะชัดลึก",
 			Content = Scroller(stackPanel)
 		});
 		StackPanel characterPanel = new StackPanel
@@ -958,19 +958,19 @@ public sealed class PhotoWindow : UserControl
 		modelHost = AddSection();
 		tabControl.Items.Add(new TabItem
 		{
-			Header = "Character Controls",
+			Header = "การควบคุมตัวละคร",
 			Content = Scroller(characterPanel)
 		});
 		DockFace(floating: true);
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Camera & Depth of Field",
+			Text = "กล้องและระยะชัดลึก",
 			FontSize = 20.0,
 			FontWeight = FontWeights.Bold
 		});
 		CheckBox checkBox = new CheckBox
 		{
-			Content = "Custom Depth of Field",
+			Content = "กำหนดระยะชัดลึกเอง",
 			Foreground = Brushes.White,
 			Margin = new Thickness(0.0, 12.0, 0.0, 8.0)
 		};
@@ -983,11 +983,11 @@ public sealed class PhotoWindow : UserControl
 		(string, Slider)[] array2 = new(string, Slider)[6]
 		{
 			("FOV", fov),
-			("Move Speed", speed),
-			("Focus Distance", focus),
-			("Focus Range", focusRange),
-			("Blur Falloff", falloff),
-			("Blur Radius", blur)
+			("ความเร็วการเคลื่อนที่", speed),
+			("ระยะโฟกัส", focus),
+			("ช่วงโฟกัส", focusRange),
+			("การไล่ความเบลอ", falloff),
+			("รัศมีความเบลอ", blur)
 		};
 		for (int i = 0; i < array2.Length; i++)
 		{
@@ -1030,7 +1030,7 @@ public sealed class PhotoWindow : UserControl
 		}
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Left button rotates - right button pans - scroll wheel zooms",
+			Text = "ปุ่มซ้ายหมุน - ปุ่มขวาเลื่อนภาพ - ล้อเลื่อนซูม",
 			TextWrapping = TextWrapping.Wrap,
 			Foreground = Brushes.LightSteelBlue,
 			Margin = new Thickness(0.0, 10.0, 0.0, 10.0)
@@ -1039,8 +1039,8 @@ public sealed class PhotoWindow : UserControl
 		stackPanel.Children.Add(wrapPanel);
 		(string, int)[] array3 = new(string, int)[2]
 		{
-			("Save Settings", 0),
-			("Resume Game", 4)
+			("บันทึกการตั้งค่า", 0),
+			("กลับไปเล่นเกม", 4)
 		};
 		for (int i = 0; i < array3.Length; i++)
 		{
@@ -1154,7 +1154,7 @@ public sealed class PhotoWindow : UserControl
 	{
 		if (keys.Distinct().Count() != keys.Length || keys.Contains(panelKey.Value) || panelKey.Value < 8)
 		{
-			ThemedMessageBox.Show(owner, "Two photo keys are the same, or the panel hotkey is not valid - change them and save again.");
+			ThemedMessageBox.Show(owner, "ปุ่มถ่ายภาพซ้ำกันสองปุ่ม หรือปุ่มลัดแผงควบคุมไม่ถูกต้อง - แก้ไขแล้วบันทึกอีกครั้ง");
 			return;
 		}
 		try
@@ -1184,15 +1184,15 @@ public sealed class PhotoWindow : UserControl
 			{
 				WriteIndented = true
 			}) + Environment.NewLine);
-			status.Text = "Photo settings saved - the panel hotkey and the depth of field work now, and the in-game camera keys work after you restart the game.";
+			status.Text = "บันทึกการตั้งค่าโหมดถ่ายภาพแล้ว - ปุ่มลัดแผงควบคุมและระยะชัดลึกใช้ได้ทันที ส่วนปุ่มกล้องในเกมจะใช้ได้หลังเริ่มเกมใหม่";
 			if (!RegisterPanelHotkey())
 			{
-				ThemedMessageBox.Show(owner, "The panel hotkey is unavailable or already in use - pick another one and save. You can still open the panel with the Show Photo Panel button.");
+				ThemedMessageBox.Show(owner, "ปุ่มลัดแผงควบคุมใช้ไม่ได้หรือถูกใช้งานอยู่แล้ว - เลือกปุ่มอื่นแล้วบันทึก ทั้งนี้ยังเปิดแผงควบคุมได้ด้วยปุ่มแสดงแผงถ่ายภาพ");
 			}
 		}
 		catch (Exception ex)
 		{
-			ThemedMessageBox.Show(owner, "Could not save the photo settings: " + ex.Message);
+			ThemedMessageBox.Show(owner, "บันทึกการตั้งค่าโหมดถ่ายภาพไม่ได้: " + ex.Message);
 		}
 	}
 }

@@ -46,11 +46,11 @@ public partial class DebugSettingsView : UserControl, IComponentConnector
 					}
 				}
 			}
-			StatusText.Text = "Settings loaded.";
+			StatusText.Text = "โหลดการตั้งค่าแล้ว";
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not read the presets: " + ex.Message;
+			StatusText.Text = "อ่านพรีเซ็ตไม่ได้: " + ex.Message;
 		}
 		ready = true;
 	}
@@ -75,12 +75,12 @@ public partial class DebugSettingsView : UserControl, IComponentConnector
 			}
 			stringBuilder.Append("freeze_enemy=0\nenemy_evade=0\nenemy_flee=0\nenemy_guard=0\n");
 			AtomicFile.WriteAllText(settingsPath, stringBuilder.ToString());
-			StatusText.Text = "Settings saved - with the updated game hook loaded, the battle toggles take effect about a second later.";
+			StatusText.Text = "บันทึกการตั้งค่าแล้ว - เมื่อโหลดฮุกเกมรุ่นอัปเดตแล้ว ตัวเลือกในการต่อสู้จะมีผลภายในประมาณหนึ่งวินาที";
 			return true;
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not save the presets: " + ex.Message;
+			StatusText.Text = "บันทึกพรีเซ็ตไม่ได้: " + ex.Message;
 			return false;
 		}
 	}

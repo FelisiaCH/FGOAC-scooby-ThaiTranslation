@@ -100,6 +100,6 @@ internal static class ControllerInput
 
 	internal static string LoadErrorMessage(Exception ex)
 	{
-		return "The controller input component could not be loaded - reinstall the full update package. Details: " + ex.Message;
+		return "โหลดคอมโพเนนต์อินพุตคอนโทรลเลอร์ไม่ได้ - ติดตั้งแพ็กเกจอัปเดตฉบับเต็มใหม่อีกครั้ง รายละเอียด: " + ex.Message;
 	}
 }

@@ -34,7 +34,7 @@ public sealed class CardStack
 		}
 	}
 
-	public string EntityLabel => "Internal ID " + CardFormState.EntityKey(Card);
+	public string EntityLabel => "รหัสภายใน " + CardFormState.EntityKey(Card);
 
 	public string DisplayName => Card.DisplayName;
 

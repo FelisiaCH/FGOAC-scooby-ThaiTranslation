@@ -42,10 +42,10 @@ internal static class PresetFolder
 	{
 		SaveFileDialog dialog = new SaveFileDialog
 		{
-			Title = "Export",
+			Title = "ส่งออก",
 			InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
 			FileName = suggestedName + ".json",
-			Filter = "FGOAC scooby file (*.json)|*.json",
+			Filter = "ไฟล์ FGOAC scooby (*.json)|*.json",
 			DefaultExt = ".json",
 			AddExtension = true
 		};
@@ -61,8 +61,8 @@ internal static class PresetFolder
 	{
 		OpenFileDialog dialog = new OpenFileDialog
 		{
-			Title = "Import",
-			Filter = "FGOAC scooby file (*.json)|*.json"
+			Title = "นำเข้า",
+			Filter = "ไฟล์ FGOAC scooby (*.json)|*.json"
 		};
 		if (dialog.ShowDialog(owner) != true)
 		{
@@ -75,7 +75,7 @@ internal static class PresetFolder
 		// The file name is the name, so importing twice asks before replacing what is there.
 		string name = Path.GetFileNameWithoutExtension(dialog.FileName);
 		string target = PathFor(Ensure(folder), name);
-		if (File.Exists(target) && ThemedMessageBox.Show(owner, "You already have \"" + name + "\". Replace it with the imported file?", "Import", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (File.Exists(target) && ThemedMessageBox.Show(owner, "คุณมีพรีเซ็ต \"" + name + "\" อยู่แล้ว ต้องการแทนที่ด้วยไฟล์ที่นำเข้าหรือไม่?", "นำเข้า", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return null;
 		}

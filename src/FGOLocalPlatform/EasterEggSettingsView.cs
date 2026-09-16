@@ -13,7 +13,7 @@ public sealed class EasterEggSettingsView : StackPanel
 
 	public ToggleButton EnabledCheckBox { get; } = new ToggleButton
 	{
-		Content = "Easter Egg",
+		Content = "อีสเตอร์เอ้ก",
 		MinWidth = 110.0,
 		Height = 34.0,
 		HorizontalAlignment = HorizontalAlignment.Left
@@ -43,7 +43,7 @@ public sealed class EasterEggSettingsView : StackPanel
 		stackPanel.Children.Add(EnabledCheckBox);
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Turn it on, then take a look in game.",
+			Text = "เปิดใช้งาน แล้วลองเข้าไปดูในเกม",
 			Margin = new Thickness(12.0, 0.0, 0.0, 0.0),
 			VerticalAlignment = VerticalAlignment.Center,
 			Foreground = (Brush)Application.Current.Resources["TextSoftBrush"],
@@ -67,7 +67,7 @@ public sealed class EasterEggSettingsView : StackPanel
 		}
 		catch (IOException ex)
 		{
-			StatusText.Text = "Could not read the Easter egg setting: " + ex.Message;
+			StatusText.Text = "อ่านการตั้งค่าอีสเตอร์เอ้กไม่ได้: " + ex.Message;
 			StatusText.Visibility = Visibility.Visible;
 		}
 		EnabledCheckBox.Click += delegate
@@ -87,7 +87,7 @@ public sealed class EasterEggSettingsView : StackPanel
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not save the Easter egg setting: " + ex.Message;
+			StatusText.Text = "บันทึกการตั้งค่าอีสเตอร์เอ้กไม่ได้: " + ex.Message;
 			StatusText.Visibility = Visibility.Visible;
 			return false;
 		}

@@ -52,10 +52,10 @@ internal static class ThemedMessageBox
 		StackPanel stackPanel = new StackPanel();
 		string text = image switch
 		{
-			MessageBoxImage.Hand => "Error", 
-			MessageBoxImage.Exclamation => "Warning", 
-			MessageBoxImage.Question => "Confirm", 
-			_ => "Notice", 
+			MessageBoxImage.Hand => "ข้อผิดพลาด", 
+			MessageBoxImage.Exclamation => "คำเตือน", 
+			MessageBoxImage.Question => "ยืนยัน", 
+			_ => "แจ้งเตือน", 
 		};
 		Brush titleBrush = (image == MessageBoxImage.Hand) ? Resource<Brush>("DangerBrush") : Resource<Brush>("TextBrush");
 		stackPanel.Children.Add(new TextBlock
@@ -137,10 +137,10 @@ internal static class ThemedMessageBox
 			Button button2 = button;
 			button2.Content = choice switch
 			{
-				MessageBoxResult.Yes => "Yes (Y)", 
-				MessageBoxResult.No => "No (N)", 
-				MessageBoxResult.Cancel => "Cancel", 
-				_ => "OK", 
+				MessageBoxResult.Yes => "ใช่ (Y)", 
+				MessageBoxResult.No => "ไม่ (N)", 
+				MessageBoxResult.Cancel => "ยกเลิก", 
+				_ => "ตกลง", 
 			};
 			button.MinWidth = 104.0;
 			button.MinHeight = 40.0;

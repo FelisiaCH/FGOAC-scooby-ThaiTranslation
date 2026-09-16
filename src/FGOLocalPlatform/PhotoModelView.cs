@@ -25,13 +25,13 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 
 	private readonly CheckBox manualHead = new CheckBox
 	{
-		Content = "Custom Head Rotation",
+		Content = "หมุนศีรษะเอง",
 		Margin = new Thickness(0.0, 10.0, 0.0, 8.0)
 	};
 
 	private readonly CheckBox weapons = new CheckBox
 	{
-		Content = "Show Weapons",
+		Content = "แสดงอาวุธ",
 		Foreground = Brushes.White,
 		IsChecked = true,
 		Margin = new Thickness(0.0, 10.0, 0.0, 10.0)
@@ -39,7 +39,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 
 	private readonly CheckBox head = new CheckBox
 	{
-		Content = "Head Follows Camera",
+		Content = "ให้ศีรษะหันตามกล้อง",
 		Foreground = Brushes.White,
 		Margin = new Thickness(0.0, 10.0, 0.0, 10.0)
 	};
@@ -104,14 +104,14 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		this.selection = selection;
 		base.Children.Add(new TextBlock
 		{
-			Text = "Model and Weapons",
+			Text = "โมเดลและอาวุธ",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 0.0, 0.0, 8.0)
 		});
 		base.Children.Add(new TextBlock
 		{
-			Text = "Moves the character picked in Face Animation above along the scene axes. The camera does not move.",
+			Text = "เลื่อนตัวละครที่เลือกไว้ในอนิเมชันใบหน้าด้านบนไปตามแกนของฉาก กล้องจะไม่ขยับ",
 			TextWrapping = TextWrapping.Wrap
 		});
 		for (int i = 0; i < 3; i++)
@@ -131,7 +131,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			});
 			grid.Children.Add(new TextBlock
 			{
-				Text = (new string[3] { "X Side", "Y Height", "Z Depth" })[i]
+				Text = (new string[3] { "X แนวข้าง", "Y ความสูง", "Z แนวลึก" })[i]
 			});
 			Slider slider = new Slider
 			{
@@ -155,7 +155,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		}
 		Button button = new Button
 		{
-			Content = "Reset Position",
+			Content = "รีเซ็ตตำแหน่ง",
 			Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 		};
 		button.Click += delegate
@@ -171,14 +171,14 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		base.Children.Add(button);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Model Rotation (degrees)",
+			Text = "การหมุนโมเดล (องศา)",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 10.0, 0.0, 4.0)
 		});
 		base.Children.Add(new TextBlock
 		{
-			Text = "Turns the model about its own position on the scene X, Y and Z axes; 0° is the original facing.",
+			Text = "หมุนโมเดลรอบตำแหน่งของตัวเองตามแกน X, Y และ Z ของฉาก โดย 0° คือทิศทางเดิม",
 			TextWrapping = TextWrapping.Wrap
 		});
 		for (int num = 0; num < 3; num++)
@@ -198,7 +198,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			});
 			grid2.Children.Add(new TextBlock
 			{
-				Text = (new string[3] { "X Pitch", "Y Yaw", "Z Roll" })[num],
+				Text = (new string[3] { "X ก้มเงย", "Y ส่ายซ้ายขวา", "Z เอียงข้าง" })[num],
 				VerticalAlignment = VerticalAlignment.Center
 			});
 			Slider slider2 = new Slider
@@ -223,7 +223,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		}
 		Button button2 = new Button
 		{
-			Content = "Reset Rotation",
+			Content = "รีเซ็ตการหมุน",
 			Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 		};
 		button2.Click += delegate
@@ -240,7 +240,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		base.Children.Add(weapons);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Shows the weapons set below; turn this off to hide them all.",
+			Text = "แสดงอาวุธที่ตั้งค่าไว้ด้านล่าง ปิดตัวเลือกนี้เพื่อซ่อนทั้งหมด",
 			TextWrapping = TextWrapping.Wrap
 		});
 		base.Children.Add(status);
@@ -257,7 +257,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		base.Children.Add(head);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Turns the head on top of the current motion and eases it back to center once the camera passes the character's limit. The eyes are not affected.",
+			Text = "หมุนศีรษะซ้อนทับท่าทางปัจจุบัน และค่อย ๆ หันกลับมาตรงกลางเมื่อกล้องเลยขีดจำกัดของตัวละคร ดวงตาจะไม่ได้รับผลกระทบ",
 			TextWrapping = TextWrapping.Wrap
 		});
 		head.Checked += delegate
@@ -273,7 +273,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		base.Children.Add(manualHead);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Uses the same limits and smoothing as Head Follows Camera. With follow on these fine-tune the local X, Y and Z axes; with follow off they aim the head on their own. Values are degrees, and 0° adds no offset.",
+			Text = "ใช้ขีดจำกัดและการหน่วงชุดเดียวกับให้ศีรษะหันตามกล้อง เมื่อเปิดการหันตาม ค่าเหล่านี้ใช้ปรับละเอียดบนแกน X, Y และ Z เฉพาะที่ เมื่อปิดการหันตาม ค่าเหล่านี้จะกำหนดทิศศีรษะเอง ค่าทั้งหมดเป็นองศา และ 0° จะไม่เพิ่มค่าชดเชยใด ๆ",
 			TextWrapping = TextWrapping.Wrap
 		});
 		manualHead.Checked += delegate
@@ -303,7 +303,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			});
 			grid3.Children.Add(new TextBlock
 			{
-				Text = (new string[3] { "Head X", "Head Y", "Head Z" })[num2],
+				Text = (new string[3] { "ศีรษะ X", "ศีรษะ Y", "ศีรษะ Z" })[num2],
 				VerticalAlignment = VerticalAlignment.Center
 			});
 			Slider slider3 = new Slider
@@ -328,7 +328,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		}
 		Button button3 = new Button
 		{
-			Content = "Reset Head Rotation",
+			Content = "รีเซ็ตการหมุนศีรษะ",
 			Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 		};
 		button3.Click += delegate
@@ -344,24 +344,24 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		base.Children.Add(button3);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Weapon Switching",
+			Text = "การสลับอาวุธ",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 14.0, 0.0, 0.0)
 		});
 		weaponChoice.Items.Add(new ComboBoxItem
 		{
-			Content = "Select a weapon to adjust",
+			Content = "เลือกอาวุธที่ต้องการปรับ",
 			Tag = 0
 		});
 		weaponChoice.SelectedIndex = 0;
 		weaponPosition.Items.Add(new ComboBoxItem
 		{
-			Content = "Original attach point",
+			Content = "จุดติดตั้งเดิม",
 			Tag = 0
 		});
 		weaponPosition.SelectedIndex = 0;
-		string[] array = new string[3] { "Leave as is", "Show", "Hide" };
+		string[] array = new string[3] { "คงไว้ตามเดิม", "แสดง", "ซ่อน" };
 		foreach (string newItem in array)
 		{
 			weaponMode.Items.Add(newItem);
@@ -374,7 +374,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		base.Children.Add(weaponPosition);
 		Button button4 = new Button
 		{
-			Content = "Restore Original Weapons",
+			Content = "คืนค่าอาวุธเดิม",
 			Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 		};
 		button4.Click += delegate
@@ -389,7 +389,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		base.Children.Add(button4);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Each weapon is set on its own and several can show at once; leaving photo mode restores them.",
+			Text = "อาวุธแต่ละชิ้นตั้งค่าแยกกัน และแสดงพร้อมกันหลายชิ้นได้ เมื่อออกจากโหมดถ่ายภาพจะคืนค่าเดิมทั้งหมด",
 			TextWrapping = TextWrapping.Wrap
 		});
 		weaponChoice.SelectionChanged += delegate
@@ -463,7 +463,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 				array[i].Value = 0.0;
 			}
 			dirty = true;
-			status.Text = "Enter photo mode, then pick a character.";
+			status.Text = "เข้าโหมดถ่ายภาพ แล้วเลือกตัวละคร";
 			return;
 		}
 		try
@@ -475,7 +475,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 				if (ipc.ReadInt32(0L) != 1297106758 || ipc.ReadInt32(4L) != 6)
 				{
 					Dispose();
-					status.Text = "Restart the game to load the newer photo hook.";
+					status.Text = "เริ่มเกมใหม่เพื่อโหลดฮุกโหมดถ่ายภาพรุ่นใหม่กว่า";
 					return;
 				}
 			}
@@ -526,30 +526,30 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			TextBlock textBlock = status;
 			textBlock.Text = ipc?.ReadInt32(12L) switch
 			{
-				1 => (weapons.IsChecked == true) ? "Weapons are shown" : "Weapons are hidden - tick Show Weapons above", 
-				-1 => "That character has left the scene.", 
-				-2 => "Those values are not valid.", 
-				-3 => "This model cannot be edited right now.", 
-				-5 => "This weapon has no original attach point - pick one of the listed positions.", 
-				_ => "Pick a character.", 
+				1 => (weapons.IsChecked == true) ? "กำลังแสดงอาวุธ" : "ซ่อนอาวุธอยู่ - ติ๊กแสดงอาวุธด้านบน", 
+				-1 => "ตัวละครนั้นออกจากฉากไปแล้ว", 
+				-2 => "ค่าเหล่านั้นไม่ถูกต้อง", 
+				-3 => "ตอนนี้แก้ไขโมเดลนี้ไม่ได้", 
+				-5 => "อาวุธชิ้นนี้ไม่มีจุดติดตั้งเดิม - เลือกตำแหน่งจากรายการ", 
+				_ => "เลือกตัวละคร", 
 			};
 			if (head.IsChecked == true || manualHead.IsChecked == true)
 			{
 				MemoryMappedViewAccessor? memoryMappedViewAccessor = ipc;
 				if (memoryMappedViewAccessor != null && memoryMappedViewAccessor.ReadInt32(44L) == -4)
 				{
-					status.Text = "No usable head bone or follow limit was found on this character.";
+					status.Text = "ไม่พบกระดูกศีรษะหรือขีดจำกัดการหันตามที่ใช้ได้บนตัวละครนี้";
 				}
 			}
 		}
 		catch (FileNotFoundException)
 		{
-			status.Text = "This needs a newer game hook - restart the game.";
+			status.Text = "ต้องใช้ฮุกเกมรุ่นใหม่กว่า - เริ่มเกมใหม่";
 		}
 		catch (IOException)
 		{
 			Dispose();
-			status.Text = "The connection to the game was lost.";
+			status.Text = "การเชื่อมต่อกับเกมขาดหาย";
 		}
 	}
 
@@ -595,7 +595,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			weaponPosition.Items.Clear();
 			weaponPosition.Items.Add(new ComboBoxItem
 			{
-				Content = "Original attach point",
+				Content = "จุดติดตั้งเดิม",
 				Tag = 0
 			});
 			weaponPosition.SelectedIndex = 0;
@@ -637,7 +637,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 				weaponChoice.Items.Clear();
 				weaponChoice.Items.Add(new ComboBoxItem
 				{
-					Content = "Select a weapon to adjust",
+					Content = "เลือกอาวุธที่ต้องการปรับ",
 					Tag = 0
 				});
 				for (int j = 0; j < list.Count; j++)
@@ -665,13 +665,13 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			weaponPosition.Items.Clear();
 			weaponPosition.Items.Add(new ComboBoxItem
 			{
-				Content = "Original attach point",
+				Content = "จุดติดตั้งเดิม",
 				Tag = 0
 			});
 			string[] array2 = new string[14]
 			{
-				"", "Right Hand", "Left Hand", "", "Upper Body", "Chest", "Left Thigh", "Lower Body", "Head", "Waist",
-				"Right Forearm", "Left Forearm", "Root", "Base"
+				"", "มือขวา", "มือซ้าย", "", "ลำตัวบน", "หน้าอก", "ต้นขาซ้าย", "ลำตัวล่าง", "ศีรษะ", "เอว",
+				"ปลายแขนขวา", "ปลายแขนซ้าย", "จุดราก", "ฐาน"
 			};
 			for (int k = 1; k < array2.Length; k++)
 			{

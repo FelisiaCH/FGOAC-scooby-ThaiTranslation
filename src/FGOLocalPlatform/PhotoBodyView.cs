@@ -42,7 +42,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 
 	private readonly Button play = new Button
 	{
-		Content = "Play Motion",
+		Content = "เล่นท่าทาง",
 		Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 	};
 
@@ -106,14 +106,14 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 		PhotoMotionUi.Configure(clips);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Body Animation",
+			Text = "อนิเมชันร่างกาย",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 0.0, 0.0, 8.0)
 		});
 		base.Children.Add(new TextBlock
 		{
-			Text = "Uses the character picked in Face Animation above. Switching characters keeps the pose you edited, and only motions that fit the current skeleton are listed.",
+			Text = "ใช้ตัวละครที่เลือกไว้ในอนิเมชันใบหน้าด้านบน การสลับตัวละครจะคงท่าโพสที่แก้ไขไว้ และจะแสดงเฉพาะท่าทางที่เข้ากับโครงกระดูกปัจจุบันเท่านั้น",
 			TextWrapping = TextWrapping.Wrap
 		});
 		base.Children.Add(clips);
@@ -122,7 +122,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 		base.Children.Add(play);
 		Button button = new Button
 		{
-			Content = "Restore Original Motion",
+			Content = "คืนค่าท่าทางเดิม",
 			Margin = new Thickness(0.0, 4.0, 0.0, 8.0)
 		};
 		base.Children.Add(button);
@@ -136,7 +136,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 		};
 		frame.ValueChanged += delegate
 		{
-			time.Text = $"{frame.Value / 60.0:F2} s";
+			time.Text = $"{frame.Value / 60.0:F2} วินาที";
 			if (!syncing)
 			{
 				dirty = true;
@@ -166,7 +166,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 				}
 				clock.Restart();
 				playing = true;
-				play.Content = "Pause Motion";
+				play.Content = "หยุดท่าทางชั่วคราว";
 				timer.Start();
 			}
 		};
@@ -198,7 +198,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 			saved.Clear();
 			actor = 0uL;
 			loaded = false;
-			status.Text = "Enter photo mode, then pick a character.";
+			status.Text = "เข้าโหมดถ่ายภาพ แล้วเลือกตัวละคร";
 			return;
 		}
 		try
@@ -210,7 +210,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 				if (ipc.ReadInt32(0L) != 1111705414 || ipc.ReadInt32(4L) != 2)
 				{
 					Dispose();
-					status.Text = "The motion interface version does not match - restart the game.";
+					status.Text = "เวอร์ชันอินเทอร์เฟซของท่าทางไม่ตรงกัน - เริ่มเกมใหม่";
 					return;
 				}
 			}
@@ -236,7 +236,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 			}
 			if (actor == 0L)
 			{
-				status.Text = "Pick a character in Face Animation first.";
+				status.Text = "เลือกตัวละครในอนิเมชันใบหน้าก่อน";
 				return;
 			}
 			int num = ipc.ReadInt32(8L);
@@ -285,31 +285,31 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 				TextBlock textBlock = status;
 				textBlock.Text = num7 switch
 				{
-					-3 => "The character's skeleton changed - pick the motion again.", 
-					-4 => "The motion pose failed its check.", 
-					_ => "This character's pose cannot be edited.", 
+					-3 => "โครงกระดูกของตัวละครเปลี่ยนไป - เลือกท่าทางอีกครั้ง", 
+					-4 => "ท่าโพสของท่าทางไม่ผ่านการตรวจสอบ", 
+					_ => "แก้ไขท่าโพสของตัวละครนี้ไม่ได้", 
 				};
 			}
 			else if (num7 == 2)
 			{
-				status.Text = (playing ? "Playing" : "Motion applied");
+				status.Text = (playing ? "กำลังเล่น" : "ใช้ท่าทางแล้ว");
 			}
 		}
 		catch (FileNotFoundException)
 		{
-			status.Text = "The running game has not loaded the body motion module.";
+			status.Text = "เกมที่กำลังทำงานยังไม่ได้โหลดโมดูลท่าทางร่างกาย";
 		}
 		catch (IOException)
 		{
 			Dispose();
-			status.Text = "The motion connection was lost.";
+			status.Text = "การเชื่อมต่อท่าทางขาดหาย";
 		}
 	}
 
 	private async void LoadCatalog(string token)
 	{
 		int version = ++loadVersion;
-		status.Text = "Reading matching motions...";
+		status.Text = "กำลังอ่านท่าทางที่เข้ากันได้...";
 		PhotoRigBone[] currentBones = bones;
 		int type = jointType;
 		try
@@ -337,13 +337,13 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 				frame.Value = previous.Frame;
 			}
 			syncing = false;
-			status.Text = $"{array.Length} motions available.";
+			status.Text = $"มีท่าทางให้ใช้ {array.Length} รายการ";
 		}
 		catch (Exception ex) when (((ex is IOException || ex is FgoFormatException || ex is UnauthorizedAccessException) ? 1 : 0) != 0)
 		{
 			if (version == loadVersion)
 			{
-				status.Text = "Could not read the motions: " + ex.Message;
+				status.Text = "อ่านท่าทางไม่ได้: " + ex.Message;
 			}
 		}
 	}
@@ -426,7 +426,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 			catch (IOException)
 			{
 				Dispose();
-				status.Text = "The motion connection was lost.";
+				status.Text = "การเชื่อมต่อท่าทางขาดหาย";
 			}
 		}
 	}
@@ -436,7 +436,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 		playing = false;
 		timer.Stop();
 		clock.Stop();
-		play.Content = "Play Motion";
+		play.Content = "เล่นท่าทาง";
 	}
 
 	public void Dispose()

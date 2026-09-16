@@ -67,12 +67,12 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		("R3", "r3", 128),
 		("Options", "options", 16),
 		("Create", "create", 32),
-		("D-Pad Up", "dpadUp", 1),
-		("D-Pad Down", "dpadDown", 2),
-		("D-Pad Left", "dpadLeft", 4),
-		("D-Pad Right", "dpadRight", 8),
+		("ปุ่มทิศทางขึ้น", "dpadUp", 1),
+		("ปุ่มทิศทางลง", "dpadDown", 2),
+		("ปุ่มทิศทางซ้าย", "dpadLeft", 4),
+		("ปุ่มทิศทางขวา", "dpadRight", 8),
 		("PS", "ps", 1024),
-		("Touchpad Click", "touchpad", 262144),
+		("คลิกทัชแพด", "touchpad", 262144),
 		("Mute", "mute", 524288)
 	};
 
@@ -168,7 +168,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 	{
 		List<Choice> list = new List<Choice>
 		{
-			new Choice("Disabled", 0)
+			new Choice("ปิดใช้งาน", 0)
 		};
 		(string, string, int)[] physicalButtons = PhysicalButtons;
 		for (int i = 0; i < physicalButtons.Length; i++)
@@ -220,10 +220,10 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 					text2 = "RT";
 					break;
 				case 64:
-					text2 = "Left Stick Click";
+					text2 = "กดอนาล็อกซ้าย";
 					break;
 				case 128:
-					text2 = "Right Stick Click";
+					text2 = "กดอนาล็อกขวา";
 					break;
 				case 16:
 					text2 = "Start";
@@ -240,8 +240,8 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			string name = text;
 			list.Add(new Choice(name, tuple.Item3));
 		}
-		list.Insert(5, new Choice(dualSense ? "× or ○" : "A or B", 12288));
-		list.Insert(6, new Choice(dualSense ? "□ or △" : "X or Y", 49152));
+		list.Insert(5, new Choice(dualSense ? "× หรือ ○" : "A หรือ B", 12288));
+		list.Insert(6, new Choice(dualSense ? "□ หรือ △" : "X หรือ Y", 49152));
 		return list;
 	}
 
@@ -256,15 +256,15 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		Expander dualSenseCalibrationPanel = DualSenseCalibrationPanel;
 		Visibility visibility = (DualSenseHelp.Visibility = ((!isDualSenseMode) ? Visibility.Collapsed : Visibility.Visible));
 		dualSenseCalibrationPanel.Visibility = visibility;
-		ControllerMappingTitle.Text = (isDualSenseMode ? "PS5 DualSense Controller Mapping" : "XInput Controller Mapping");
-		ControllerDeadzoneHelp.Text = "Deadzone range is 0-32766, default 7849. " + (isDualSenseMode ? "L2 / R2" : "LT / RT") + " press threshold is 64. Skill buttons simulate a real press and release; use the game's own touch interface when you need to pick a target. Cooldown and seal rules are unchanged.";
+		ControllerMappingTitle.Text = (isDualSenseMode ? "การแมปปุ่มคอนโทรลเลอร์ PS5 DualSense" : "การแมปปุ่มคอนโทรลเลอร์ XInput");
+		ControllerDeadzoneHelp.Text = "ช่วงเดดโซนคือ 0-32766 ค่าเริ่มต้น 7849 " + (isDualSenseMode ? "L2 / R2" : "LT / RT") + " มีค่าขีดเริ่มการกดที่ 64 ปุ่มสกิลจะจำลองการกดและปล่อยจริง หากต้องเลือกเป้าหมายให้ใช้หน้าจอสัมผัสของเกมเอง กฎเรื่องคูลดาวน์และการซีลยังคงเดิม";
 		foreach (Mapping item in mappings.Where((Mapping item) => item.Section == "xinput"))
 		{
 			int value = item.Value;
 			List<Choice> list = ControllerChoices(isDualSenseMode);
 			if (!list.Any((Choice item) => item.Value == value))
 			{
-				list.Add(new Choice($"Custom 0x{value:X}", value));
+				list.Add(new Choice($"กำหนดเอง 0x{value:X}", value));
 			}
 			item.Selector.ItemsSource = list;
 			item.Value = value;
@@ -312,7 +312,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		calibrationSawNeutral = false;
 		calibrationDeadline = DateTime.UtcNow.AddSeconds(10.0);
 		RefreshCalibrationButtons();
-		StatusText.Text = "Calibrating " + binding.Label + " - release every button, then press the physical button you want.";
+		StatusText.Text = "กำลังปรับเทียบ " + binding.Label + " - ปล่อยทุกปุ่มก่อน แล้วกดปุ่มจริงที่ต้องการ";
 		calibrationTimer.Start();
 	}
 
@@ -326,7 +326,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		if (DateTime.UtcNow >= calibrationDeadline)
 		{
 			CancelCalibration();
-			StatusText.Text = "Calibration timed out and nothing changed - save PS5 mode and connect the controller, then try again.";
+			StatusText.Text = "การปรับเทียบหมดเวลาและไม่มีอะไรเปลี่ยนแปลง - บันทึกโหมด PS5 และเชื่อมต่อคอนโทรลเลอร์ แล้วลองใหม่อีกครั้ง";
 			return;
 		}
 		try
@@ -342,7 +342,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 					CalibrationBinding calibrationBinding = pendingCalibration;
 					calibrationBinding.Value = (int)controls;
 					CancelCalibration();
-					StatusText.Text = $"{calibrationBinding.Label} now uses the physical button {PhysicalButtonName(calibrationBinding.Value)} - click Save to apply.";
+					StatusText.Text = $"{calibrationBinding.Label} ใช้ปุ่มจริง {PhysicalButtonName(calibrationBinding.Value)} แล้ว - คลิกบันทึกเพื่อใช้งาน";
 				}
 			}
 		}
@@ -362,7 +362,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 	{
 		foreach (CalibrationBinding item in dualSenseCalibration)
 		{
-			item.Button.Content = ((pendingCalibration == item) ? "Release, then press the button..." : ("Current button: " + PhysicalButtonName(item.Value)));
+			item.Button.Content = ((pendingCalibration == item) ? "ปล่อยทุกปุ่ม แล้วกดปุ่มที่ต้องการ..." : ("ปุ่มปัจจุบัน: " + PhysicalButtonName(item.Value)));
 		}
 	}
 
@@ -386,16 +386,16 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 	private void ResetCalibration_OnClick(object sender, RoutedEventArgs e)
 	{
 		ResetDualSenseCalibration();
-		StatusText.Text = "Physical buttons reset to defaults - click Save to apply.";
+		StatusText.Text = "คืนค่าปุ่มจริงเป็นค่าเริ่มต้นแล้ว - คลิกบันทึกเพื่อใช้งาน";
 	}
 
 	private static string MissingControllerMessage(bool ds)
 	{
 		if (!ds)
 		{
-			return "No XInput controller found on that number - check the connection and the controller number.";
+			return "ไม่พบคอนโทรลเลอร์ XInput ที่หมายเลขนั้น - ตรวจสอบการเชื่อมต่อและหมายเลขคอนโทรลเลอร์";
 		}
-		return "No DualSense found on that number - check the USB or Bluetooth connection and save PS5 mode first.";
+		return "ไม่พบ DualSense ที่หมายเลขนั้น - ตรวจสอบการเชื่อมต่อ USB หรือ Bluetooth และบันทึกโหมด PS5 ก่อน";
 	}
 
 	private void DetectController_OnClick(object sender, RoutedEventArgs e)
@@ -409,8 +409,8 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			StatusText.Text = num2 switch
 			{
 				1167u => MissingControllerMessage(IsDualSenseMode), 
-				0u => $"Found {(IsDualSenseMode ? "DualSense" : "XInput")} controller {num + 1}.", 
-				_ => $"Controller check failed with error {num2}.", 
+				0u => $"พบคอนโทรลเลอร์ {(IsDualSenseMode ? "DualSense" : "XInput")} หมายเลข {num + 1}", 
+				_ => $"ตรวจสอบคอนโทรลเลอร์ไม่สำเร็จ ข้อผิดพลาด {num2}", 
 			};
 		}
 		catch (Exception ex) when (ControllerInput.IsLoadError(ex))
@@ -478,12 +478,12 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		}
 		List<Choice> list = new List<Choice>
 		{
-			new Choice("Disabled", 0),
-			new Choice("Left Mouse Button", 1),
-			new Choice("Right Mouse Button", 2),
-			new Choice("Middle Mouse Button", 4),
-			new Choice("Mouse Button 4", 5),
-			new Choice("Mouse Button 5", 6)
+			new Choice("ปิดใช้งาน", 0),
+			new Choice("ปุ่มซ้ายเมาส์", 1),
+			new Choice("ปุ่มขวาเมาส์", 2),
+			new Choice("ปุ่มกลางเมาส์", 4),
+			new Choice("ปุ่มเมาส์ 4", 5),
+			new Choice("ปุ่มเมาส์ 5", 6)
 		};
 		for (int j = 8; j <= 254; j++)
 		{
@@ -495,18 +495,18 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		}
 		array = new(string, string, int)[12]
 		{
-			("Move Up", "up", 87),
-			("Move Down", "down", 83),
-			("Move Left", "left", 65),
-			("Move Right", "right", 68),
-			("Attack", "attack", 2),
+			("เดินขึ้น", "up", 87),
+			("เดินลง", "down", 83),
+			("เดินซ้าย", "left", 65),
+			("เดินขวา", "right", 68),
+			("โจมตี", "attack", 2),
 			("Dash", "dash", 160),
-			("Switch Lock-on", "target", 70),
+			("สลับเป้าล็อก", "target", 70),
 			("Noble Phantasm", "np", 32),
-			("Center Camera", "camera", 67),
-			("Servant Skill 1", "skill1", 49),
-			("Servant Skill 2", "skill2", 50),
-			("Servant Skill 3", "skill3", 51)
+			("ตั้งกล้องกลับกลาง", "camera", 67),
+			("สกิลเซอร์แวนต์ 1", "skill1", 49),
+			("สกิลเซอร์แวนต์ 2", "skill2", 50),
+			("สกิลเซอร์แวนต์ 3", "skill3", 51)
 		};
 		for (int i = 0; i < array.Length; i++)
 		{
@@ -515,46 +515,46 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		}
 		List<Choice> choices = new List<Choice>
 		{
-			new Choice("Disabled", 0),
+			new Choice("ปิดใช้งาน", 0),
 			new Choice("A", 4096),
 			new Choice("B", 8192),
 			new Choice("X", 16384),
 			new Choice("Y", 32768),
-			new Choice("A or B", 12288),
-			new Choice("X or Y", 49152),
+			new Choice("A หรือ B", 12288),
+			new Choice("X หรือ Y", 49152),
 			new Choice("LB", 256),
 			new Choice("RB", 512),
 			new Choice("LT", 65536),
 			new Choice("RT", 131072),
-			new Choice("Left Stick Click", 64),
-			new Choice("Right Stick Click", 128),
+			new Choice("กดอนาล็อกซ้าย", 64),
+			new Choice("กดอนาล็อกขวา", 128),
 			new Choice("Start", 16),
 			new Choice("Back", 32),
-			new Choice("D-Pad Up", 1),
-			new Choice("D-Pad Down", 2),
-			new Choice("D-Pad Left", 4),
-			new Choice("D-Pad Right", 8)
+			new Choice("ปุ่มทิศทางขึ้น", 1),
+			new Choice("ปุ่มทิศทางลง", 2),
+			new Choice("ปุ่มทิศทางซ้าย", 4),
+			new Choice("ปุ่มทิศทางขวา", 8)
 		};
 		array = new(string, string, int)[8]
 		{
-			("Attack", "attack", 12288),
+			("โจมตี", "attack", 12288),
 			("Dash", "dash", 65536),
-			("Switch Lock-on", "target", 256),
+			("สลับเป้าล็อก", "target", 256),
 			("Noble Phantasm", "np", 49152),
-			("Center Camera", "camera", 64),
-			("Servant Skill 1", "skill1", 0),
-			("Servant Skill 2", "skill2", 0),
-			("Servant Skill 3", "skill3", 0)
+			("ตั้งกล้องกลับกลาง", "camera", 64),
+			("สกิลเซอร์แวนต์ 1", "skill1", 0),
+			("สกิลเซอร์แวนต์ 2", "skill2", 0),
+			("สกิลเซอร์แวนต์ 3", "skill3", 0)
 		};
 		for (int i = 0; i < array.Length; i++)
 		{
 			(string, string, int) tuple3 = array[i];
 			AddMapping(ControllerMappings, tuple3.Item1, "xinput", tuple3.Item2, tuple3.Item3, choices);
 		}
-		AddMapping(CommonMappings, "Test Menu", "io4", "test", 112, list);
-		AddMapping(CommonMappings, "Service", "io4", "service", 113, list);
-		AddMapping(CommonMappings, "Insert Coin", "io4", "coin", 114, list);
-		AddMapping(CommonMappings, "Card Read", "aime", "scan", 13, list);
+		AddMapping(CommonMappings, "เมนูทดสอบ", "io4", "test", 112, list);
+		AddMapping(CommonMappings, "เซอร์วิส", "io4", "service", 113, list);
+		AddMapping(CommonMappings, "หยอดเหรียญ", "io4", "coin", 114, list);
+		AddMapping(CommonMappings, "อ่านการ์ด", "aime", "scan", 13, list);
 		InitializeDualSense();
 		LoadBindings(iniPath);
 	}
@@ -613,7 +613,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			List<Choice> list = (List<Choice>)mapping.Selector.ItemsSource;
 			if (!list.Any((Choice choice) => choice.Value == value))
 			{
-				list.Add(new Choice($"Custom 0x{value:X}", value));
+				list.Add(new Choice($"กำหนดเอง 0x{value:X}", value));
 			}
 			mapping.Value = value;
 		}
@@ -633,17 +633,17 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 	{
 		if (!int.TryParse(DeadzoneInput.Text, out var result) || result < 0 || result > 32766)
 		{
-			StatusText.Text = "Stick deadzone must be a whole number from 0 to 32766.";
+			StatusText.Text = "เดดโซนของอนาล็อกต้องเป็นจำนวนเต็มตั้งแต่ 0 ถึง 32766";
 			return false;
 		}
 		if (mappings.Any((Mapping mapping) => mapping.KeyButton == null && !(mapping.Selector.SelectedValue is int)))
 		{
-			StatusText.Text = "Choose a button for every action.";
+			StatusText.Text = "เลือกปุ่มให้ครบทุกการกระทำ";
 			return false;
 		}
 		if (IsDualSenseMode && !ControllerInput.DualSenseRuntimePresent)
 		{
-			StatusText.Text = "The DualSense input files are missing - reinstall the full update package (fgoio_dualsense.dll and xinput1_4.dll in the App folder).";
+			StatusText.Text = "ไม่พบไฟล์อินพุตของ DualSense - ติดตั้งแพ็กเกจอัปเดตฉบับเต็มใหม่อีกครั้ง (fgoio_dualsense.dll และ xinput1_4.dll ในโฟลเดอร์ App)";
 			return false;
 		}
 		try
@@ -663,12 +663,12 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			}
 			SaveDualSenseBindings();
 			Write("io4", "mode", (InputModeSelector.SelectedItem as ComboBoxItem)?.Tag?.ToString() ?? "keyboard");
-			StatusText.Text = "Controls saved - they take effect the next time the game starts.";
+			StatusText.Text = "บันทึกการควบคุมแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป";
 			return true;
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not save: " + ex.Message;
+			StatusText.Text = "บันทึกไม่สำเร็จ: " + ex.Message;
 			return false;
 		}
 	}
@@ -709,7 +709,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			item.Slider.Value = item.Default;
 		}
 		DeadzoneInput.Text = "7849";
-		StatusText.Text = "Default mapping restored - click Save to apply.";
+		StatusText.Text = "คืนค่าการแมปปุ่มเริ่มต้นแล้ว - คลิกบันทึกเพื่อใช้งาน";
 	}
 
 	private void Save_OnClick(object sender, RoutedEventArgs e)
@@ -733,8 +733,8 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			StatusText.Text = num switch
 			{
 				1167u => MissingControllerMessage(dualSense), 
-				0u => "Test rumble sent.", 
-				_ => $"Rumble failed with error {num}.", 
+				0u => "ส่งคำสั่งทดสอบการสั่นแล้ว", 
+				_ => $"การสั่นล้มเหลว ข้อผิดพลาด {num}", 
 			};
 			if (num == 0)
 			{

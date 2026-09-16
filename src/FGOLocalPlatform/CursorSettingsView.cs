@@ -53,12 +53,12 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 			if (File.Exists(path2))
 			{
 				artwork = CursorArtwork.Load(path2);
-				ImageName.Text = "Saved custom image";
+				ImageName.Text = "ภาพที่กำหนดเองซึ่งบันทึกไว้";
 			}
 		}
 		catch (Exception ex)
 		{
-			Status.Text = "Could not read the saved pointer settings: " + ex.Message;
+			Status.Text = "อ่านการตั้งค่าตัวชี้ที่บันทึกไว้ไม่ได้: " + ex.Message;
 		}
 		Mode.SelectedIndex = Math.Clamp((int)GetPrivateProfileInt("touch", "cursorStyle", 0, ini), 0, 2);
 		try
@@ -76,13 +76,13 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 					}
 					byte[] bytes = CursorArtwork.Build(artwork, (int)SizeSlider.Value, (int)OutlineSlider.Value, HotX.Value / 100.0, HotY.Value / 100.0);
 					AtomicFile.WriteAllBytes(text, bytes);
-					Status.Text = "Upgraded the old cursor color format - it takes effect the next time the game starts.";
+					Status.Text = "อัปเกรดรูปแบบสีตัวชี้แบบเก่าแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป";
 				}
 			}
 		}
 		catch (Exception ex2)
 		{
-			Status.Text = "Could not upgrade the cursor format, save again: " + ex2.Message;
+			Status.Text = "อัปเกรดรูปแบบตัวชี้ไม่ได้ กรุณาบันทึกอีกครั้ง: " + ex2.Message;
 		}
 		ready = true;
 		RefreshPreview();
@@ -92,8 +92,8 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 	{
 		OpenFileDialog openFileDialog = new OpenFileDialog
 		{
-			Filter = "Images|*.png;*.jpg;*.jpeg;*.bmp",
-			Title = "Choose a pointer image"
+			Filter = "รูปภาพ|*.png;*.jpg;*.jpeg;*.bmp",
+			Title = "เลือกภาพตัวชี้"
 		};
 		if (openFileDialog.ShowDialog() != true)
 		{
@@ -108,7 +108,7 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 		}
 		catch (Exception ex)
 		{
-			Status.Text = "Could not open the image: " + ex.Message;
+			Status.Text = "เปิดภาพไม่ได้: " + ex.Message;
 		}
 	}
 
@@ -117,7 +117,7 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 		if (ready)
 		{
 			RefreshPreview();
-			Status.Text = "Settings are not saved yet.";
+			Status.Text = "ยังไม่ได้บันทึกการตั้งค่า";
 		}
 	}
 
@@ -179,11 +179,11 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 					throw new Win32Exception(Marshal.GetLastWin32Error());
 				}
 			}
-			Status.Text = "Pointer settings saved - they take effect the next time the game starts.";
+			Status.Text = "บันทึกการตั้งค่าตัวชี้แล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป";
 		}
 		catch (Exception ex)
 		{
-			Status.Text = "Could not save: " + ex.Message;
+			Status.Text = "บันทึกไม่สำเร็จ: " + ex.Message;
 		}
 	}
 }

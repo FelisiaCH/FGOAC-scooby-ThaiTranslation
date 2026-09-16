@@ -15,13 +15,13 @@ public partial class DiagnosticsView : UserControl, IComponentConnector
 		{
 			2, 3, 4, 5, 10, 11, 12, 13, 14, 15,
 			22
-		}.Select((int code) => $"Launcher exit code {code} - {StartupDiagnostics.Explain(code)}"));
+		}.Select((int code) => $"รหัสออกของตัวเรียกเกม {code} - {StartupDiagnostics.Explain(code)}"));
 	}
 
 	private async void EnvironmentCheck_OnClick(object sender, RoutedEventArgs e)
 	{
 		EnvironmentCheckButton.IsEnabled = false;
-		EnvironmentCheckText.Text = "Checking the runtime environment...";
+		EnvironmentCheckText.Text = "กำลังตรวจสอบสภาพแวดล้อมการทำงาน...";
 		try
 		{
 			TextBlock environmentCheckText = EnvironmentCheckText;

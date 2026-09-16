@@ -18,7 +18,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 	{
 		public override string ToString()
 		{
-			return $"{Token} - Model {Model}";
+			return $"{Token} - โมเดล {Model}";
 		}
 	}
 
@@ -65,7 +65,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 
 	private readonly Button play = new Button
 	{
-		Content = "Play Expression",
+		Content = "เล่นสีหน้า",
 		Margin = new Thickness(0.0, 8.0, 8.0, 8.0)
 	};
 
@@ -95,7 +95,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 		};
 		base.Children.Add(new TextBlock
 		{
-			Text = "Face Animation",
+			Text = "อนิเมชันใบหน้า",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 0.0, 0.0, 8.0)
@@ -144,7 +144,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 		};
 		frame.ValueChanged += delegate
 		{
-			time.Text = $"Time: {frame.Value / 60.0:F2} s";
+			time.Text = $"เวลา: {frame.Value / 60.0:F2} วินาที";
 			dirty = true;
 		};
 		play.Click += delegate
@@ -158,14 +158,14 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 				playbackFrame = ((frame.Value >= frame.Maximum) ? 0.0 : frame.Value);
 				playback.Restart();
 				playing = true;
-				play.Content = "Pause Expression";
+				play.Content = "หยุดสีหน้าชั่วคราว";
 				playbackTimer.Start();
 			}
 		};
 		base.Children.Add(play);
 		Button button = new Button
 		{
-			Content = "Restore Original Expression",
+			Content = "คืนค่าสีหน้าเดิม",
 			Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 		};
 		button.Click += delegate
@@ -189,7 +189,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 			StopPlayback();
 			saved.Clear();
 			editing = null;
-			status.Text = "Enter photo mode, then pick a character and an expression; you can play it or drag the timeline.";
+			status.Text = "เข้าโหมดถ่ายภาพ แล้วเลือกตัวละครและสีหน้า จากนั้นจะกดเล่นหรือลากไทม์ไลน์ก็ได้";
 			return;
 		}
 		try
@@ -201,7 +201,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 				if (ipc.ReadInt32(0L) != 1162037062 || ipc.ReadInt32(4L) != 1)
 				{
 					Dispose();
-					status.Text = "The game's expression interface version does not match - restart the game.";
+					status.Text = "เวอร์ชันอินเทอร์เฟซสีหน้าของเกมไม่ตรงกัน - เริ่มเกมใหม่";
 					return;
 				}
 			}
@@ -257,21 +257,21 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 			TextBlock textBlock = status;
 			textBlock.Text = ipc.ReadInt32(20L) switch
 			{
-				1 => playing ? "Playing" : "Expression applied", 
-				-1 => "That character is no longer in the list.", 
-				-2 => "The game has not loaded that expression.", 
-				-3 => "Character data is not available right now.", 
-				_ => $"{num2} characters available", 
+				1 => playing ? "กำลังเล่น" : "ใช้สีหน้าแล้ว", 
+				-1 => "ตัวละครนั้นไม่อยู่ในรายการแล้ว", 
+				-2 => "เกมยังไม่ได้โหลดสีหน้านั้น", 
+				-3 => "ตอนนี้ยังไม่มีข้อมูลตัวละคร", 
+				_ => $"มีตัวละครให้ใช้ {num2} ตัว", 
 			};
 		}
 		catch (FileNotFoundException)
 		{
-			status.Text = "The running game has not loaded the expression module.";
+			status.Text = "เกมที่กำลังทำงานยังไม่ได้โหลดโมดูลสีหน้า";
 		}
 		catch (IOException)
 		{
 			Dispose();
-			status.Text = "The expression connection was lost.";
+			status.Text = "การเชื่อมต่อสีหน้าขาดหาย";
 		}
 	}
 
@@ -286,7 +286,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 			byte[] bytes = Encoding.ASCII.GetBytes(s);
 			if (bytes.Length > 255)
 			{
-				status.Text = "That expression name is too long.";
+				status.Text = "ชื่อสีหน้านั้นยาวเกินไป";
 				return;
 			}
 			Array.Copy(bytes, array, bytes.Length);
@@ -317,6 +317,6 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 		playing = false;
 		playback.Stop();
 		playbackTimer.Stop();
-		play.Content = "Play Expression";
+		play.Content = "เล่นสีหน้า";
 	}
 }

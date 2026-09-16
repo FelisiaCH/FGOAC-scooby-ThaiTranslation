@@ -18,9 +18,9 @@ public sealed record CardFormState(Card Card, int Owned, int Selected)
 		{
 			if (Owned <= 0)
 			{
-				return "Not printed yet";
+				return "ยังไม่ได้พิมพ์การ์ด";
 			}
-			return $"{Owned} owned - {Selected} in deck - {Available} available";
+			return $"มี {Owned} ใบ - อยู่ในเด็ค {Selected} ใบ - ใช้ได้ {Available} ใบ";
 		}
 	}
 
@@ -49,7 +49,7 @@ public sealed record CardFormState(Card Card, int Owned, int Selected)
 				switch (num)
 				{
 				case 0:
-					text = "Base Art";
+					text = "อาร์ตพื้นฐาน";
 					break;
 				case 1:
 				case 2:
@@ -57,22 +57,22 @@ public sealed record CardFormState(Card Card, int Owned, int Selected)
 					text = $"Ascension {num}";
 					break;
 				case 4:
-					text = "Final Ascension";
+					text = "Ascension สุดท้าย";
 					break;
 				default:
-					text = $"Special Art {num:D2}";
+					text = $"อาร์ตพิเศษ {num:D2}";
 					break;
 				}
 				text2 = text;
 			}
 			else
 			{
-				text2 = $"Art {num:D2}";
+				text2 = $"อาร์ต {num:D2}";
 			}
 			string value = text2;
-			return $"{value} - {(match.Groups[4].Value.Equals("HOLO", StringComparison.OrdinalIgnoreCase) ? "Fatal Foil" : "Normal")} - TC {card.TrcId}";
+			return $"{value} - {(match.Groups[4].Value.Equals("HOLO", StringComparison.OrdinalIgnoreCase) ? "Fatal Foil" : "ปกติ")} - TC {card.TrcId}";
 		}
-		return $"Art - TC {card.TrcId}";
+		return $"อาร์ต - TC {card.TrcId}";
 	}
 
 	public static List<CardFormState> Build(Card focus, IEnumerable<Card> library, IEnumerable<Card> selected, IReadOnlyDictionary<int, int> owned)

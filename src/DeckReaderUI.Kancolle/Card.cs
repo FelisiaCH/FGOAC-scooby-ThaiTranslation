@@ -85,7 +85,7 @@ public class Card
 		{
 			if (CardTypeId != 2)
 			{
-				return "Servant";
+				return "เซอร์แวนต์";
 			}
 			return "Craft Essence";
 		}

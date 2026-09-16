@@ -21,7 +21,7 @@ public sealed class SummonCardOption : INotifyPropertyChanged
 
 	public int EntityId { get; init; }
 
-	public string FileNumber => $"{((Kind == 1) ? "Servant" : "Craft Essence")} {EntityId:D5}";
+	public string FileNumber => $"{((Kind == 1) ? "เซอร์แวนต์" : "Craft Essence")} {EntityId:D5}";
 
 	public string FileName => Path.GetFileName(ImagePath);
 
@@ -60,15 +60,15 @@ public sealed class SummonCardOption : INotifyPropertyChanged
 			{
 				if (!(Category == "supplemental"))
 				{
-					return "Regular Summon";
+					return "การซัมมอนปกติ";
 				}
-				return "Supplemental";
+				return "เสริม";
 			}
-			return "Story (fixed)";
+			return "เนื้อเรื่อง (กำหนดตายตัว)";
 		}
 	}
 
-	public string KindName => ((Kind == 1) ? "Servant" : "Craft Essence") + ((HoloType == 1) ? " · Fatal" : "");
+	public string KindName => ((Kind == 1) ? "เซอร์แวนต์" : "Craft Essence") + ((HoloType == 1) ? " · Fatal" : "");
 
 	public string Stars => $"★ {Rarity}";
 
@@ -124,7 +124,7 @@ public sealed class SummonCardOption : INotifyPropertyChanged
 				}
 				return "—";
 			}
-			return "Story reward";
+			return "รางวัลจากเนื้อเรื่อง";
 		}
 	}
 

@@ -31,12 +31,15 @@ Later starts skip all of that and go straight to Play.
 **GUIDE_EN.pdf** in this folder is the full guide: requirements, how to get Servants, controls, the
 exchange shops, and troubleshooting.
 
-Two things to know before you start:
+Three things to know before you start:
 
 - **The game cannot run from drive E: or Y:.** Its own file hook sends every path on those drives to
   the cabinet data mount, and the game stops with ERROR 4104. Any other drive is fine.
 - **The game has to run as administrator.** That is the one Windows prompt you cannot skip; without
   it the game shows ERROR 4105 about ninety seconds after boot.
+- **The game needs a CPU with F16C.** Intel Core 3rd generation (2012) or newer, and any Ryzen, has
+  it; older Pentium and Celeron chips do not, and the game stops with 0xC000001D at start. There is
+  no fix on that CPU.
 
 If you would rather install the files without the launcher, run `Apply-EN-Patch.ps1` yourself - it
 takes `-InstallRoot`, and `-Rollback` puts back everything it replaced. Once you are happy with the

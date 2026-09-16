@@ -17,7 +17,8 @@ V1.01 package) and is applied on top of it.
 | --- | --- |
 | Platform | Cloud23333's FGO Arcade local platform at **V1.01 or V1.02**. V1.02 is the one to be on: it fixes ERROR 4102, the blank Servant records and the sync error after enhancing a Servant |
 | OS | Windows 10 or 11, 64-bit |
-| GPU | NVIDIA on a current driver. AMD and Intel run through the bundled compatibility layer by fluphus (Settings > Display), turned on by itself when no NVIDIA card is found and left off on NVIDIA, where it does not work; the switch is yours either way. Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap |
+| GPU | NVIDIA on a current driver. AMD: the launcher installs the older compatibility layer on a fresh install without an NVIDIA card; it runs on RX 500, RX 6000, RX 7600 and desktop Ryzen graphics. The newer layer by fluphus (Settings > Display) runs on the RX 7900 XTX; on other cards it crashes at the first battle. Intel integrated graphics and Ryzen laptop graphics are not covered by either layer yet |
+| CPU | Intel Core 3rd generation (2012) or newer, or any Ryzen. Pentium and Celeron chips before the 12th generation lack F16C, an instruction set the game uses, and stop with 0xC000001D at start |
 | .NET / Python | Not needed - both are bundled with the install |
 | PowerShell | 5.1 (built into Windows) or 7 |
 | Rights | Administrator (one UAC prompt) |
@@ -63,6 +64,16 @@ need it for a full roster, though - the launcher can grant everything at once:
   or back into the library to remove it. The deck is published to the game every time you press Play.
 - **Draw Rates page**: sets the weight the local server gives each card when the in-game summon draws.
   It does not grant anything by itself.
+
+## Sharing decks and draw rates
+
+A deck loadout (Cards and Deck > Loadouts > Save as) and a draw-rate preset (Draw Rates > Presets >
+Save as) are small .json files. Export puts a copy on your Desktop to send to anyone with the
+launcher; they click Import and it joins their list and loads. Keep as many as you like; Load
+switches between them any time. A loadout names the cards, so it works on any install; a card you do
+not have yet is left out and the launcher says how many. A preset is keyed by card id and works the
+same way. Your own files live under App\deck-loadouts and Server\artemis\config\summon-presets, and
+updates never touch them.
 
 ## Playing
 
@@ -129,6 +140,13 @@ The local server restores two in-game shops:
 | 4105 | The game was not run as administrator - click Yes on the UAC prompt. |
 | 0xC0000005, a few seconds after launch | Windows Defender Controlled Folder Access is blocking the game folder - add the game folder (or the exe) to the allowed list. |
 | Black screen at launch | Almost always the NVIDIA driver, not the patch - update it and try again. |
+| The game crashes when the first battle loads on an AMD card, exit code 22 | The newer layer fails to build the game's shaders on that card. Settings > Display > Go back to the older layer, then Play. |
+| Exit code 22 with 0xC000001D right after start | The CPU has no F16C. Not fixable on that CPU. |
+| ERROR 6401 at start with a controller or a USB device | Players report this goes away with Windows USB selective suspend turned off (Power Options > Change plan settings > Change advanced power settings > USB settings). |
+| The launcher says the folder never had V1.01, or that fgohook.dll is still 11.00 | Unzip Cloud23333's V1.02 over the game folder and let it overwrite, then start the launcher again. |
+| No cards after the first run, ERROR 0949, or ERROR 0087 with the game on a Storage Spaces or ReFS drive | A RAR part failed to extract, or the drive refuses the game's save writes. Re-extract the base game and let it overwrite; keep the install on a plain NTFS drive. |
+| Google Drive renamed the RAR parts (part1-003 and so on) | Rename them back to FGOA_Cloud23333.part1.rar, part2.rar ... and unzip the small zip to get part5.rar before extracting part1. |
+| Download links from 123 Pan | Not Cloud23333's. Use the links in his Bilibili description only. |
 
 Other notes:
 

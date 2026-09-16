@@ -24,7 +24,8 @@ carries no game files: it is applied on top of an FGO Arcade local platform inst
 | --- | --- |
 | The game | An existing **FGO Arcade local platform V1.01 or V1.02** install (Cloud23333's package) - the folder that holds `App` and `Server`. V1.02 is the one to be on: it fixes ERROR 4102, the blank Servant records and the sync error after enhancing a Servant |
 | OS | Windows 10 or 11, 64-bit |
-| GPU | NVIDIA on a current driver. AMD and Intel run through the bundled compatibility layer by fluphus, which the launcher turns on by itself on a PC without an NVIDIA card (and keeps off on NVIDIA, where it does not work). Tested by its author on an RX 7900 XTX at 1920x1080 only, with a 60 fps cap |
+| GPU | NVIDIA on a current driver. AMD: the launcher installs the older compatibility layer on a fresh install without an NVIDIA card; it runs on RX 500, RX 6000, RX 7600 and desktop Ryzen graphics. The newer layer by fluphus (Settings > Display) runs on the RX 7900 XTX; on other cards it crashes at the first battle. Intel integrated graphics and Ryzen laptop graphics are not covered by either layer yet |
+| CPU | Intel Core 3rd generation (2012) or newer, or any Ryzen. Pentium and Celeron chips before the 12th generation lack F16C, an instruction set the game uses, and stop with 0xC000001D at start |
 | Drive | Any drive **except E: or Y:** - see the table further down |
 | Rights | Administrator: one Windows prompt when the launcher starts |
 
@@ -57,6 +58,8 @@ sortie step by step, the exchange shops and troubleshooting.
 - **The in-game summon** - it draws from the local server's pool with the weights from the Draw Rates
   page. You do not need it for a roster: the Account page grants a full one in one click, and the
   card library holds all 1,384 cards.
+- **Deck loadouts and draw-rate presets** - save, load and delete as many as you like from the Cards
+  and Deck and Draw Rates pages, and Export/Import to send one to another player as a small file.
 
 ## What does not work
 
@@ -104,6 +107,13 @@ answer is usually there.
 | **A black screen at launch** | Almost always the NVIDIA driver rather than the patch. | Update the driver and try again. |
 | **The game hangs at a black screen on the very first launch** | A Windows Firewall prompt is waiting behind the game window. The launcher normally creates those rules itself, but a company policy or a security suite can stop it. | Look in the task bar for the prompt and allow both `Server\python\python.exe` and `App\ago.exe`. |
 | **The main menu misbehaves right after the tutorial** | A known quirk of the tutorial-to-main-menu handoff. | Restart the game once. |
+| **The game crashes when the first battle loads on an AMD card**, exit code 22 | The newer layer fails to build the game's shaders on that card. | Settings > Display > Go back to the older layer, then Play. |
+| **Exit code 22 with 0xC000001D** right after start | The CPU has no F16C. | Not fixable on that CPU. |
+| **ERROR 6401** at start with a controller or a USB device | Not pinned down yet. | Players report this goes away with Windows USB selective suspend turned off (Power Options > Change plan settings > Change advanced power settings > USB settings). |
+| **The launcher says the folder never had V1.01**, or that fgohook.dll is still 11.00 | Cloud23333's V1.01 update was never applied, or it stopped partway through. | Unzip Cloud23333's V1.02 over the game folder and let it overwrite, then start the launcher again. |
+| **No cards after the first run**, ERROR 0949, or ERROR 0087 with the game on a Storage Spaces or ReFS drive | A RAR part failed to extract, or the drive refuses the game's save writes. | Re-extract the base game and let it overwrite; keep the install on a plain NTFS drive. |
+| **Google Drive renamed the RAR parts** (part1-003 and so on) | Google Drive renames matching downloads instead of keeping their original part numbers. | Rename them back to FGOA_Cloud23333.part1.rar, part2.rar ... and unzip the small zip to get part5.rar before extracting part1. |
+| **Download links from 123 Pan** | Not Cloud23333's. | Use the links in his Bilibili description only. |
 
 To report a problem, open an issue and say which screen you were on and what you expected. Attach
 what you have from the `logs` folder next to `App`: `fgo-last-launch.log`, `fgozh.log`,

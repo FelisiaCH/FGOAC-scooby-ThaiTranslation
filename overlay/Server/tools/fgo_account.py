@@ -51,7 +51,7 @@ CARD_MANIFEST_PATH = (
     / "FGO11_AllServants"
     / "library-manifest.json"
 )
-MASTER_LEVEL_PATH = SERVER_DIR.parent / "App" / "rom" / "multi" / "reward_master_level.txt"
+MASTER_EXP_TABLE_PATH = SERVER_DIR / "data" / "fgo-master" / "master_exp_table" / "arms_mst_master_exp_table.bin"
 CAPTURE_REQUESTS_PATH = SERVER_DIR.parent / "logs" / "fgo_capture" / "requests.jsonl"
 MARIADB_ROOT = SERVER_DIR / "mariadb-10.11.16-winx64"
 MARIADB_DAEMON = MARIADB_ROOT / "bin" / "mariadbd.exe"
@@ -357,29 +357,39 @@ def load_card_manifest_by_id() -> dict:
 
 
 def load_master_level_requirements() -> list:
-    """Load per-level EXP costs from the exact table used by the cabinet."""
+    """Per-level EXP costs from the master EXP table the cabinet uses
+    (upper cumulative thresholds turned into costs)."""
 
     try:
-        lines = MASTER_LEVEL_PATH.read_text(
+        lines = MASTER_EXP_TABLE_PATH.read_text(
             encoding="utf-8-sig", errors="replace"
         ).splitlines()
     except OSError:
         return []
-    requirements = {}
-    in_table = False
+    row_pattern = re.compile(r"^master_exp_table\.(\d+)\.([^.]+)=(.*)$")
+    rows_by_index = {}
     for line in lines:
-        stripped = line.split("#", 1)[0].strip()
-        if stripped == "master_level :":
-            in_table = True
+        match = row_pattern.match(line)
+        if match is None:
             continue
-        if not in_table:
-            continue
-        if stripped == "End :":
-            break
-        match = re.fullmatch(r"(\d+)\s*,\s*(\d+)", stripped)
-        if match is not None:
-            requirements[int(match.group(1))] = int(match.group(2))
-    return [requirements[level] for level in sorted(requirements)]
+        rows_by_index.setdefault(int(match.group(1)), {})[
+            match.group(2)
+        ] = match.group(3)
+    entries = []
+    for row in rows_by_index.values():
+        try:
+            entries.append((int(row["lv"]), int(row["exp"])))
+        except (KeyError, TypeError, ValueError):
+            return []
+    entries.sort()
+    requirements = []
+    previous_exp = 0
+    for index, (level, upper_exp) in enumerate(entries, start=1):
+        if level != index or upper_exp <= previous_exp:
+            return []
+        requirements.append(upper_exp - previous_exp)
+        previous_exp = upper_exp
+    return requirements
 
 
 def master_progress(total_exp: int, requirements: list) -> dict:
@@ -399,7 +409,7 @@ def master_progress(total_exp: int, requirements: list) -> dict:
         remaining -= required
         level += 1
     return {
-        "master_level": max(1, level),
+        "master_level": max(1, len(requirements)),
         "master_exp": total_exp,
         "master_level_exp": remaining,
         "master_next_level_exp": 0,
@@ -408,7 +418,7 @@ def master_progress(total_exp: int, requirements: list) -> dict:
 
 
 def max_master_exp(profile: dict, requirements: list) -> int:
-    """Raise the Master's total EXP to the top of the level table. Never lowers it."""
+    """Raise the Master's total EXP to the top of the master EXP table. Never lowers it."""
     total = sum(max(1, int(value)) for value in requirements)
     current = _profile_int(profile, "mstr_exp", 0)
     if not requirements or current >= total:

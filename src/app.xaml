@@ -33,7 +33,7 @@
       <!-- The close button under the pointer, as every other window on Windows draws it. -->
       <SolidColorBrush x:Key="CloseHoverBrush" Color="#C42B1C" />
 
-      <FontFamily x:Key="UiFont">Segoe UI, Yu Gothic UI, Microsoft YaHei UI</FontFamily>
+      <FontFamily x:Key="UiFont">Leelawadee UI, Segoe UI, Yu Gothic UI, Microsoft YaHei UI</FontFamily>
       <FontFamily x:Key="DigitFont">Cascadia Mono, Consolas</FontFamily>
 
       <Geometry x:Key="CheckGeometry">M 0,5 L 4,9 L 11,1</Geometry>
@@ -61,12 +61,12 @@
         <Setter Property="FontSize" Value="13" />
         <Setter Property="Foreground" Value="{StaticResource TextSoftBrush}" />
         <Setter Property="TextWrapping" Value="Wrap" />
-        <Setter Property="LineHeight" Value="20" />
+        <Setter Property="LineHeight" Value="22" />
       </Style>
 
       <Style x:Key="SecondaryNameStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="{StaticResource TextSoftBrush}" />
-        <Setter Property="ToolTip" Value="Japanese name, as the cabinet prints it" />
+        <Setter Property="ToolTip" Value="ชื่อภาษาญี่ปุ่น ตามที่ตู้เกมพิมพ์ไว้" />
         <Style.Triggers>
           <Trigger Property="Text" Value="">
             <Setter Property="Visibility" Value="Collapsed" />

@@ -14,15 +14,15 @@
         </Style.Triggers>
       </Style>
       <Style x:Key="OwnedOnlyToggleStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource SwitchToggleStyle}">
-        <Setter Property="Content" Value="Owned cards only" />
+        <Setter Property="Content" Value="เฉพาะการ์ดที่มีอยู่" />
         <Setter Property="MinHeight" Value="32" />
         <Setter Property="Padding" Value="11,4" />
       </Style>
       <Style x:Key="EnglishTextToggleStyle" TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource SwitchToggleStyle}">
-        <Setter Property="Content" Value="English text off" />
+        <Setter Property="Content" Value="ข้อความแปล: ปิด" />
         <Style.Triggers>
           <Trigger Property="IsChecked" Value="True">
-            <Setter Property="Content" Value="English text on" />
+            <Setter Property="Content" Value="ข้อความแปล: เปิด" />
           </Trigger>
         </Style.Triggers>
       </Style>
@@ -163,13 +163,13 @@
             <TextBlock Name="HeaderBrandText" Foreground="{StaticResource TextSoftBrush}" FontSize="12" VerticalAlignment="Center" />
           </StackPanel>
           <StackPanel Grid.Column="1" Orientation="Horizontal">
-            <Button Style="{StaticResource CaptionButtonStyle}" ToolTip="Minimize" AutomationProperties.Name="Minimize" Click="MinimizeButton_OnClick">
+            <Button Style="{StaticResource CaptionButtonStyle}" ToolTip="ย่อหน้าต่าง" AutomationProperties.Name="ย่อหน้าต่าง" Click="MinimizeButton_OnClick">
               <Path Width="12" Height="12" Stretch="None" Data="M1,8 L11,8" StrokeThickness="1" SnapsToDevicePixels="True" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
             </Button>
-            <Button Style="{StaticResource CaptionButtonStyle}" ToolTip="Maximize / Restore" AutomationProperties.Name="Maximize or restore" Click="MaximizeButton_OnClick">
+            <Button Style="{StaticResource CaptionButtonStyle}" ToolTip="ขยายใหญ่สุด / คืนขนาด" AutomationProperties.Name="ขยายใหญ่สุดหรือคืนขนาด" Click="MaximizeButton_OnClick">
               <Rectangle Width="10" Height="10" StrokeThickness="1" SnapsToDevicePixels="True" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
             </Button>
-            <Button Style="{StaticResource CloseCaptionButtonStyle}" ToolTip="Close" AutomationProperties.Name="Close" Click="CloseButton_OnClick">
+            <Button Style="{StaticResource CloseCaptionButtonStyle}" ToolTip="ปิด" AutomationProperties.Name="ปิด" Click="CloseButton_OnClick">
               <Path Width="12" Height="12" Stretch="None" Data="M1.5,1.5 L10.5,10.5 M10.5,1.5 L1.5,10.5" StrokeThickness="1" StrokeStartLineCap="Square" StrokeEndLineCap="Square" SnapsToDevicePixels="True" Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
             </Button>
           </StackPanel>
@@ -188,9 +188,9 @@
           </StackPanel>
           <TextBlock Grid.Column="1" Margin="24,0,24,0" VerticalAlignment="Center" FontSize="13" Foreground="{StaticResource TextSoftBrush}" TextTrimming="CharacterEllipsis" Text="{Binding Text, ElementName=RuntimeStatusText}" />
           <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Button Content="Check for updates" Height="34" Margin="0,0,8,0" Click="CheckUpdatesButton_OnClick" />
-            <Button Name="StopGameButton" Style="{StaticResource StopGameButtonStyle}" Content="Stop game" IsEnabled="False" Height="34" MinWidth="104" Margin="0,0,8,0" Click="StopGameButton_OnClick" />
-            <Button Name="StartGameButton" Style="{StaticResource PrimaryButtonStyle}" Content="Play" Height="40" MinWidth="140" FontSize="18" Click="StartGameButton_OnClick" />
+            <Button Content="ตรวจหาอัปเดต" Height="34" Margin="0,0,8,0" Click="CheckUpdatesButton_OnClick" />
+            <Button Name="StopGameButton" Style="{StaticResource StopGameButtonStyle}" Content="หยุดเกม" IsEnabled="False" Height="34" MinWidth="104" Margin="0,0,8,0" Click="StopGameButton_OnClick" />
+            <Button Name="StartGameButton" Style="{StaticResource PrimaryButtonStyle}" Content="เล่น" Height="40" MinWidth="140" FontSize="18" Click="StartGameButton_OnClick" />
           </StackPanel>
         </Grid>
       </Border>
@@ -201,7 +201,7 @@
           <ColumnDefinition Name="LogPanelColumn" Width="440" MinWidth="310" />
         </Grid.ColumnDefinitions>
         <TabControl Name="SectionTabs" Grid.Column="0" Style="{StaticResource SidebarTabControlStyle}" TabStripPlacement="Left">
-          <TabItem Header="Play" Style="{StaticResource SidebarTabItemStyle}">
+          <TabItem Header="เล่น" Style="{StaticResource SidebarTabItemStyle}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
               <Grid Margin="28">
                 <Grid.ColumnDefinitions>
@@ -211,8 +211,8 @@
                 <StackPanel Grid.Column="0">
                 <Border Name="UpdateBanner" Visibility="Collapsed" Background="{StaticResource PlateBrush}" BorderBrush="{StaticResource IceBrush}" BorderThickness="3,0,0,0" Padding="14,10" Margin="0,0,0,20">
                   <DockPanel>
-                    <Button DockPanel.Dock="Right" Content="Later" Margin="8,0,0,0" Click="UpdateLaterButton_OnClick" />
-                    <Button DockPanel.Dock="Right" Style="{StaticResource AccentButtonStyle}" Content="Install now" Margin="8,0,0,0" Click="UpdateInstallButton_OnClick" />
+                    <Button DockPanel.Dock="Right" Content="ไว้ทีหลัง" Margin="8,0,0,0" Click="UpdateLaterButton_OnClick" />
+                    <Button DockPanel.Dock="Right" Style="{StaticResource AccentButtonStyle}" Content="ติดตั้งตอนนี้" Margin="8,0,0,0" Click="UpdateInstallButton_OnClick" />
                     <TextBlock Name="UpdateBannerText" VerticalAlignment="Center" Foreground="{StaticResource TextBrush}" TextWrapping="Wrap" />
                   </DockPanel>
                 </Border>
@@ -228,14 +228,14 @@
                     </Grid>
                   </Border>
                   <StackPanel Grid.Column="1">
-                    <Button Content="Play" Style="{StaticResource PrimaryButtonStyle}" FontSize="22" Height="72" Margin="0,0,0,18" HorizontalAlignment="Stretch" IsEnabled="{Binding IsEnabled, ElementName=StartGameButton}" Click="StartGameButton_OnClick" />
+                    <Button Content="เล่น" Style="{StaticResource PrimaryButtonStyle}" FontSize="22" Height="72" Margin="0,0,0,18" HorizontalAlignment="Stretch" IsEnabled="{Binding IsEnabled, ElementName=StartGameButton}" Click="StartGameButton_OnClick" />
                     <Border BorderBrush="{StaticResource LineSoftBrush}" BorderThickness="0,0,0,1">
                       <Grid Height="34">
                         <Grid.ColumnDefinitions>
                           <ColumnDefinition Width="80" />
                           <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Server" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" />
+                        <TextBlock Text="เซิร์ฟเวอร์" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" />
                         <TextBlock Grid.Column="1" FontSize="14" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Text, ElementName=RuntimeStatusText}" />
                       </Grid>
                     </Border>
@@ -245,7 +245,7 @@
                           <ColumnDefinition Width="80" />
                           <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Master" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" />
+                        <TextBlock Text="มาสเตอร์" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" />
                         <TextBlock Grid.Column="1" FontSize="14" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Text, ElementName=CurrentAccountText}" />
                       </Grid>
                     </Border>
@@ -254,7 +254,7 @@
                         <ColumnDefinition Width="80" />
                         <ColumnDefinition Width="*" />
                       </Grid.ColumnDefinitions>
-                      <TextBlock Text="Deck" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" />
+                      <TextBlock Text="เด็ค" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" />
                       <TextBlock Grid.Column="1" FontSize="14" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding Text, ElementName=DeckStatusText}" />
                     </Grid>
                     <WrapPanel Margin="0,14,0,0">
@@ -267,21 +267,21 @@
                           </Style>
                         </ResourceDictionary>
                       </FrameworkElement.Resources>
-                      <Button Content="Start server" ToolTip="Starts the local server. If it is already running, this checks that its ports answer." Click="StartServerButton_OnClick" />
-                      <Button Content="Stop server" Click="StopServerButton_OnClick" />
-                      <Button Content="Open logs" Click="OpenLogsButton_OnClick" />
-                      <Button Content="Stop game" Style="{StaticResource DangerButtonStyle}" Width="152" Height="40" Margin="0,0,8,8" IsEnabled="{Binding IsEnabled, ElementName=StopGameButton}" Click="StopGameButton_OnClick" />
+                      <Button Content="เริ่มเซิร์ฟเวอร์" ToolTip="เริ่มเซิร์ฟเวอร์ในเครื่อง หากกำลังทำงานอยู่แล้ว จะเป็นการตรวจสอบว่าพอร์ตของเซิร์ฟเวอร์ตอบสนองหรือไม่" Click="StartServerButton_OnClick" />
+                      <Button Content="หยุดเซิร์ฟเวอร์" Click="StopServerButton_OnClick" />
+                      <Button Content="เปิดโฟลเดอร์ล็อก" Click="OpenLogsButton_OnClick" />
+                      <Button Content="หยุดเกม" Style="{StaticResource DangerButtonStyle}" Width="152" Height="40" Margin="0,0,8,8" IsEnabled="{Binding IsEnabled, ElementName=StopGameButton}" Click="StopGameButton_OnClick" />
                     </WrapPanel>
                   </StackPanel>
                 </Grid>
-                <TextBlock Text="First time here" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,14" />
+                <TextBlock Text="เริ่มต้นใช้งานครั้งแรก" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,14" />
                 <Grid MinHeight="30">
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="24" />
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="1" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="An account called Master is already set up for you, and it owns every Servant." />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="มีบัญชีชื่อ Master ตั้งค่าไว้ให้คุณแล้ว และบัญชีนี้มีเซอร์แวนต์ครบทุกตัว" />
                 </Grid>
                 <Grid MinHeight="30">
                   <Grid.ColumnDefinitions>
@@ -289,7 +289,7 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="2" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="Go to Cards and Deck and pick up to 30 cards. They load into the game on Play." />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="ไปที่ การ์ดและเด็ค แล้วเลือกการ์ดได้สูงสุด 30 ใบ การ์ดจะถูกโหลดเข้าเกมเมื่อคุณกดเล่น" />
                 </Grid>
                 <Grid MinHeight="30">
                   <Grid.ColumnDefinitions>
@@ -297,7 +297,7 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="3" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="Go to Settings to choose the monitor, the resolution and the controls." />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="ไปที่ การตั้งค่า เพื่อเลือกจอภาพ ความละเอียด และการควบคุม" />
                 </Grid>
                 <Grid MinHeight="30">
                   <Grid.ColumnDefinitions>
@@ -305,36 +305,36 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="4" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="Press Play. The title screen appears after about a minute." />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="กดเล่น หน้าจอไตเติลจะปรากฏขึ้นในราวหนึ่งนาที" />
                 </Grid>
                 </StackPanel>
               </Grid>
             </ScrollViewer>
           </TabItem>
-          <TabItem Header="Account" Style="{StaticResource SidebarTabItemStyle}">
+          <TabItem Header="บัญชี" Style="{StaticResource SidebarTabItemStyle}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
               <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
                 <WrapPanel Margin="0,0,0,16" VerticalAlignment="Center">
-                  <TextBlock Text="In use" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
-                  <TextBlock Name="CurrentAccountText" Text="Loading..." Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="3" />
-                  <TextBlock Text="Access code" VerticalAlignment="Center" Margin="14,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                  <TextBlock Text="กำลังใช้งาน" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                  <TextBlock Name="CurrentAccountText" Text="กำลังโหลด..." Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="3" />
+                  <TextBlock Text="รหัสเข้าใช้งาน" VerticalAlignment="Center" Margin="14,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
                   <TextBlock Name="CurrentAccessCodeText" Text="—" Foreground="{StaticResource ReadyBrush}" VerticalAlignment="Center" Margin="3" FontFamily="{StaticResource DigitFont}" FontSize="12" />
-                  <TextBlock Text="Select" VerticalAlignment="Center" Margin="14,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
-                  <ComboBox Name="AccountComboBox" Width="330" VerticalAlignment="Center" DisplayMemberPath="DisplayText" ToolTip="Local accounts (Master name - Aime ID - account mode)" SelectionChanged="AccountComboBox_OnSelectionChanged" />
-                  <Button Name="UseAccountButton" Content="Use Selected Account" Click="UseAccountButton_OnClick" />
-                  <Button Name="CreateAccountButton" Content="New Account" Click="CreateAccountButton_OnClick" />
+                  <TextBlock Text="เลือก" VerticalAlignment="Center" Margin="14,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                  <ComboBox Name="AccountComboBox" Width="330" VerticalAlignment="Center" DisplayMemberPath="DisplayText" ToolTip="บัญชีในเครื่อง (ชื่อมาสเตอร์ - Aime ID - โหมดบัญชี)" SelectionChanged="AccountComboBox_OnSelectionChanged" />
+                  <Button Name="UseAccountButton" Content="ใช้บัญชีที่เลือก" Click="UseAccountButton_OnClick" />
+                  <Button Name="CreateAccountButton" Content="บัญชีใหม่" Click="CreateAccountButton_OnClick" />
                 </WrapPanel>
                 <WrapPanel Margin="0,0,0,16">
-                  <Button Name="ResetAccountButton" Content="Reset to a New Account" Style="{StaticResource DangerButtonStyle}" Click="ResetAccountButton_OnClick" />
-                  <Button Name="DeleteAccountButton" Content="Delete Account" IsEnabled="False" Style="{StaticResource DestructiveButtonStyle}" ToolTip="Permanently deletes the selected account: its save data, Aime identity, card mappings and leftover backups" Click="DeleteAccountButton_OnClick" />
-                  <Button Name="RepairAccountButton" Content="Repair Past Results" ToolTip="Replays the saved cabinet traffic to restore EXP, materials, Bond and Quest progress that an older build failed to save" Click="RepairAccountButton_OnClick" />
-                  <Button Name="GrantBenefitsButton" Content="Grant Items" IsEnabled="False" Style="{StaticResource GrantButtonStyle}" ToolTip="Pick currency or materials from the installed game data and add a chosen amount to the selected account" Click="GrantBenefitsButton_OnClick" />
-                  <Button Name="RefreshAccountsButton" Content="Refresh" Click="RefreshAccountsButton_OnClick" />
-                  <Button Name="SummonHistoryButton" Content="Print History" IsEnabled="False" Click="SummonHistoryButton_OnClick" />
-                  <TextBlock Name="CurrentSummonSummaryText" Text="Lv.1 - EXP 0 - 0 cards" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="8,3,3,3" />
+                  <Button Name="ResetAccountButton" Content="รีเซ็ตเป็นบัญชีใหม่" Style="{StaticResource DangerButtonStyle}" Click="ResetAccountButton_OnClick" />
+                  <Button Name="DeleteAccountButton" Content="ลบบัญชี" IsEnabled="False" Style="{StaticResource DestructiveButtonStyle}" ToolTip="ลบบัญชีที่เลือกอย่างถาวร ทั้งข้อมูลเซฟ ข้อมูลประจำตัว Aime การจับคู่การ์ด และไฟล์สำรองที่ตกค้าง" Click="DeleteAccountButton_OnClick" />
+                  <Button Name="RepairAccountButton" Content="ซ่อมผลการเล่นที่ผ่านมา" ToolTip="เล่นซ้ำข้อมูลที่บันทึกไว้จากตู้เกม เพื่อกู้คืน EXP วัสดุ Bond และความคืบหน้าของเควสต์ ที่เวอร์ชันเก่าบันทึกไม่สำเร็จ" Click="RepairAccountButton_OnClick" />
+                  <Button Name="GrantBenefitsButton" Content="มอบไอเทม" IsEnabled="False" Style="{StaticResource GrantButtonStyle}" ToolTip="เลือกสกุลเงินหรือวัสดุจากข้อมูลเกมที่ติดตั้งไว้ แล้วเพิ่มจำนวนที่ต้องการให้บัญชีที่เลือก" Click="GrantBenefitsButton_OnClick" />
+                  <Button Name="RefreshAccountsButton" Content="รีเฟรช" Click="RefreshAccountsButton_OnClick" />
+                  <Button Name="SummonHistoryButton" Content="ประวัติการพิมพ์การ์ด" IsEnabled="False" Click="SummonHistoryButton_OnClick" />
+                  <TextBlock Name="CurrentSummonSummaryText" Text="Lv.1 - EXP 0 - การ์ด 0 ใบ" FontSize="13" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="8,3,3,3" />
                 </WrapPanel>
-                <TextBlock Text="One-Click Inventory and Growth" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
-                <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" Text="These act on the selected account. Quit the game and stop the server first. The growth options only affect Servants the account already owns." />
+                <TextBlock Text="คลังไอเทมและการพัฒนาแบบคลิกเดียว" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
+                <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" Text="คำสั่งเหล่านี้จะมีผลกับบัญชีที่เลือก ให้ออกจากเกมและหยุดเซิร์ฟเวอร์ก่อน ตัวเลือกการพัฒนาจะมีผลเฉพาะกับเซอร์แวนต์ที่บัญชีมีอยู่แล้วเท่านั้น" />
                 <WrapPanel Name="AccountUpgradePanel" IsEnabled="False" HorizontalAlignment="Left">
                   <FrameworkElement.Resources>
                     <ResourceDictionary>
@@ -344,24 +344,24 @@
                       </Style>
                     </ResourceDictionary>
                   </FrameworkElement.Resources>
-                  <Button Content="Grant All Servants" Tag="servants" ToolTip="Tops every Servant card up to 5 copies through the normal print flow. Cards you already have more than 5 of are left alone, and running it again adds nothing." Click="AccountUpgrade_OnClick" />
-                  <Button Content="Grant All Craft Essences" Tag="craft-essences" ToolTip="Tops every Craft Essence card up to 5 copies. Cards you already have more than 5 of are left alone, and running it again adds nothing." Click="AccountUpgrade_OnClick" />
-                  <Button Content="Clear Present Box" Tag="clear-gifts" ToolTip="Deletes every unclaimed present without claiming it. The claim and delete history is kept, and the account is backed up first." Click="AccountUpgrade_OnClick" />
-                  <Button Content="Clear All Quests" Tag="quests" ToolTip="Marks every Quest cleared and every Master Mission complete. You still claim the rewards yourself." Click="AccountUpgrade_OnClick" />
-                  <Button Content="Max All Bond" Tag="bond" Click="AccountUpgrade_OnClick" />
-                  <Button Content="Unlock All Costumes" Tag="costumes" Click="AccountUpgrade_OnClick" />
-                  <Button Content="Max All Materials" Tag="materials" ToolTip="Fills every enhancement material in the installed data to its own cap" Click="AccountUpgrade_OnClick" />
-                  <Button Content="Max All Servants" Tag="levels" ToolTip="Raises level, Ascension, level cap, Skills, support Skills, Noble Phantasm and Bond to the highest value available" Click="AccountUpgrade_OnClick" />
-                  <Button Content="Max Master Level" Tag="master" ToolTip="Sets the Master's EXP to the top of the game's own level table. Nothing else on the account changes." Click="AccountUpgrade_OnClick" />
+                  <Button Content="มอบเซอร์แวนต์ทั้งหมด" Tag="servants" ToolTip="เติมการ์ดเซอร์แวนต์ทุกใบให้ครบ 5 ใบผ่านขั้นตอนการพิมพ์ตามปกติ การ์ดที่คุณมีเกิน 5 ใบอยู่แล้วจะไม่ถูกแตะต้อง และการสั่งซ้ำอีกครั้งจะไม่เพิ่มอะไร" Click="AccountUpgrade_OnClick" />
+                  <Button Content="มอบ Craft Essence ทั้งหมด" Tag="craft-essences" ToolTip="เติมการ์ด Craft Essence ทุกใบให้ครบ 5 ใบ การ์ดที่คุณมีเกิน 5 ใบอยู่แล้วจะไม่ถูกแตะต้อง และการสั่งซ้ำอีกครั้งจะไม่เพิ่มอะไร" Click="AccountUpgrade_OnClick" />
+                  <Button Content="ล้างกล่องของขวัญ" Tag="clear-gifts" ToolTip="ลบของขวัญที่ยังไม่ได้รับทั้งหมดโดยไม่รับของ ประวัติการรับและการลบจะถูกเก็บไว้ และจะสำรองข้อมูลบัญชีก่อนเสมอ" Click="AccountUpgrade_OnClick" />
+                  <Button Content="เคลียร์เควสต์ทั้งหมด" Tag="quests" ToolTip="ทำเครื่องหมายว่าเควสต์ทุกด่านผ่านแล้ว และ Master Mission ทุกรายการเสร็จสมบูรณ์ รางวัลยังต้องกดรับเอง" Click="AccountUpgrade_OnClick" />
+                  <Button Content="ตั้ง Bond สูงสุดทั้งหมด" Tag="bond" Click="AccountUpgrade_OnClick" />
+                  <Button Content="ปลดล็อกคอสตูมทั้งหมด" Tag="costumes" Click="AccountUpgrade_OnClick" />
+                  <Button Content="ตั้งวัสดุสูงสุดทั้งหมด" Tag="materials" ToolTip="เติมวัสดุเสริมพลังทุกชนิดในข้อมูลที่ติดตั้งไว้ให้เต็มขีดจำกัดของแต่ละชนิด" Click="AccountUpgrade_OnClick" />
+                  <Button Content="ตั้งเซอร์แวนต์สูงสุดทั้งหมด" Tag="levels" ToolTip="เพิ่มเลเวล Ascension ขีดจำกัดเลเวล สกิล สกิลซัพพอร์ต Noble Phantasm และ Bond ให้สูงที่สุดเท่าที่มี" Click="AccountUpgrade_OnClick" />
+                  <Button Content="ตั้งเลเวลมาสเตอร์สูงสุด" Tag="master" ToolTip="ตั้งค่า EXP ของมาสเตอร์ให้สูงสุดตามตารางเลเวลของเกม ส่วนอื่นของบัญชีจะไม่เปลี่ยนแปลง" Click="AccountUpgrade_OnClick" />
                 </WrapPanel>
-                <TextBlock Text="Account Details" Style="{StaticResource SectionTitleStyle}" Margin="0,12,0,10" />
+                <TextBlock Text="รายละเอียดบัญชี" Style="{StaticResource SectionTitleStyle}" Margin="0,12,0,10" />
                 <ItemsControl Name="AccountDetailsTable" />
               </StackPanel>
             </ScrollViewer>
           </TabItem>
-          <TabItem Header="Cards and Deck" Style="{StaticResource SidebarTabItemStyle}">
+          <TabItem Header="การ์ดและเด็ค" Style="{StaticResource SidebarTabItemStyle}">
             <TabControl>
-              <TabItem Header="Deck">
+              <TabItem Header="เด็ค">
                 <Grid Margin="28,20,28,20">
                   <Grid.RowDefinitions>
                     <RowDefinition Name="SettingsPanelRow" Height="52" MinHeight="48" />
@@ -376,9 +376,9 @@
                       <ColumnDefinition Width="*" />
                       <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Card Folder" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                    <TextBlock Grid.Column="0" Text="โฟลเดอร์การ์ด" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,10,0" />
                     <TextBox Name="CardsPathTextBox" Grid.Column="1" VerticalContentAlignment="Center" KeyDown="CardsPathTextBox_OnKeyDown" />
-                    <Button Grid.Column="2" Content="Reload" ToolTip="Read the card folder again" Click="ReloadButton_OnClick" />
+                    <Button Grid.Column="2" Content="โหลดใหม่" ToolTip="อ่านโฟลเดอร์การ์ดอีกครั้ง" Click="ReloadButton_OnClick" />
                   </Grid>
                   <GridSplitter Grid.Row="1" Style="{StaticResource HorizontalPanelSplitterStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ResizeDirection="Rows" ResizeBehavior="PreviousAndNext" />
                   <Grid Grid.Row="2">
@@ -390,34 +390,34 @@
                       <ColumnDefinition Name="CardListColumn" Width="*" MinWidth="360" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,0,10">
-                      <TextBlock Text="Drag cards into the deck, or double-click one to pick its art and quantity. Drag a deck card to reorder it, or back to the library to remove it." FontSize="13" Foreground="{StaticResource TextSoftBrush}" Margin="0,0,0,8" />
+                      <TextBlock Text="ลากการ์ดลงในเด็ค หรือดับเบิลคลิกที่การ์ดเพื่อเลือกภาพและจำนวน ลากการ์ดในเด็คเพื่อจัดลำดับใหม่ หรือลากกลับไปที่คลังเพื่อนำออก" FontSize="13" Foreground="{StaticResource TextSoftBrush}" Margin="0,0,0,8" />
                       <WrapPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,16,0">
-                          <TextBlock Text="Show" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,6,0" />
-                          <ComboBox Name="CardTypeComboBox" Width="150" SelectedIndex="0" ToolTip="List Servant cards and Craft Essence cards separately">
-                            <ComboBoxItem Content="All Cards" Tag="0" />
-                            <ComboBoxItem Content="Servants" Tag="1" />
-                            <ComboBoxItem Content="Craft Essences" Tag="2" />
+                          <TextBlock Text="แสดง" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,6,0" />
+                          <ComboBox Name="CardTypeComboBox" Width="150" SelectedIndex="0" ToolTip="แสดงรายการการ์ดเซอร์แวนต์และการ์ด Craft Essence แยกกัน">
+                            <ComboBoxItem Content="การ์ดทั้งหมด" Tag="0" />
+                            <ComboBoxItem Content="เซอร์แวนต์" Tag="1" />
+                            <ComboBoxItem Content="Craft Essence" Tag="2" />
                           </ComboBox>
-                          <TextBlock Text="Sort" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="12,0,6,0" />
-                          <ComboBox Name="CardSortComboBox" Width="130" SelectedIndex="0" ToolTip="Order of the card list" SelectionChanged="CardSortComboBox_OnSelectionChanged">
-                            <ComboBoxItem Content="Folder order" Tag="0" />
-                            <ComboBoxItem Content="Name" Tag="1" />
-                            <ComboBoxItem Content="Card number" Tag="2" />
+                          <TextBlock Text="เรียงลำดับ" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="12,0,6,0" />
+                          <ComboBox Name="CardSortComboBox" Width="130" SelectedIndex="0" ToolTip="ลำดับของรายการการ์ด" SelectionChanged="CardSortComboBox_OnSelectionChanged">
+                            <ComboBoxItem Content="ลำดับในโฟลเดอร์" Tag="0" />
+                            <ComboBoxItem Content="ชื่อ" Tag="1" />
+                            <ComboBoxItem Content="หมายเลขการ์ด" Tag="2" />
                           </ComboBox>
-                          <ToggleButton Name="OwnedCardsOnlyCheckBox" Style="{StaticResource OwnedOnlyToggleStyle}" AutomationProperties.Name="Owned cards only" IsEnabled="False" VerticalAlignment="Center" Margin="8,3,3,3" ToolTip="Show only cards this account already owns. Cards still waiting to be printed are left out." Checked="OwnedCardsOnlyCheckBox_OnChanged" Unchecked="OwnedCardsOnlyCheckBox_OnChanged" />
+                          <ToggleButton Name="OwnedCardsOnlyCheckBox" Style="{StaticResource OwnedOnlyToggleStyle}" AutomationProperties.Name="เฉพาะการ์ดที่มีอยู่" IsEnabled="False" VerticalAlignment="Center" Margin="8,3,3,3" ToolTip="แสดงเฉพาะการ์ดที่บัญชีนี้มีอยู่แล้ว การ์ดที่ยังรอพิมพ์จะไม่ถูกแสดง" Checked="OwnedCardsOnlyCheckBox_OnChanged" Unchecked="OwnedCardsOnlyCheckBox_OnChanged" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                          <Button Name="BuildThumbnailCacheButton" Content="Cache Thumbnails" ToolTip="Build a local JPEG thumbnail cache in DEVICE/cache/card-thumbnails" Click="BuildThumbnailCacheButton_OnClick" />
-                          <TextBlock Text="View" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="10,0,4,0" />
-                          <Button Name="ListViewModeButton" Content="List" Click="ListViewModeButton_OnClick" />
-                          <Button Name="IconViewModeButton" Content="Icons" Click="IconViewModeButton_OnClick" />
+                          <Button Name="BuildThumbnailCacheButton" Content="สร้างแคชภาพย่อ" ToolTip="สร้างแคชภาพย่อ JPEG ในเครื่องที่ DEVICE/cache/card-thumbnails" Click="BuildThumbnailCacheButton_OnClick" />
+                          <TextBlock Text="มุมมอง" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="10,0,4,0" />
+                          <Button Name="ListViewModeButton" Content="รายการ" Click="ListViewModeButton_OnClick" />
+                          <Button Name="IconViewModeButton" Content="ไอคอน" Click="IconViewModeButton_OnClick" />
                         </StackPanel>
                       </WrapPanel>
-                      <TextBlock Name="CardCatalogSummaryText" Text="Reading the card folder..." Margin="0,8,0,0" FontSize="13" Foreground="{StaticResource TextSoftBrush}" TextTrimming="CharacterEllipsis" />
+                      <TextBlock Name="CardCatalogSummaryText" Text="กำลังอ่านโฟลเดอร์การ์ด..." Margin="0,8,0,0" FontSize="13" Foreground="{StaticResource TextSoftBrush}" TextTrimming="CharacterEllipsis" />
                       <DockPanel Margin="0,6,0,0">
-                        <TextBlock Text="Search" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
-                        <TextBox Name="SearchTextBox" Margin="0,3" VerticalContentAlignment="Center" ToolTip="Filter as you type by card name, id or file name. Clear the box to show everything again." TextChanged="CardPickerSearchBox_OnTextChanged" />
+                        <TextBlock Text="ค้นหา" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
+                        <TextBox Name="SearchTextBox" Margin="0,3" VerticalContentAlignment="Center" ToolTip="กรองผลลัพธ์ขณะพิมพ์ ตามชื่อการ์ด id หรือชื่อไฟล์ ล้างช่องนี้เพื่อแสดงทั้งหมดอีกครั้ง" TextChanged="CardPickerSearchBox_OnTextChanged" />
                       </DockPanel>
                     </StackPanel>
                     <ListView Name="CardList" Grid.Row="1" Grid.Column="0" BorderThickness="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" VirtualizingPanel.IsVirtualizing="True" VirtualizingPanel.VirtualizationMode="Recycling" VirtualizingPanel.ScrollUnit="Pixel" SelectionChanged="CardList_OnSelectionChanged" MouseDoubleClick="CardList_OnMouseDoubleClick" AllowDrop="True" PreviewMouseLeftButtonDown="CardDrag_OnPreviewMouseLeftButtonDown" PreviewMouseMove="CardDrag_OnPreviewMouseMove" PreviewMouseLeftButtonUp="CardDrag_OnPreviewMouseLeftButtonUp" DragOver="Library_OnDragOver" Drop="Library_OnDrop">
@@ -446,7 +446,7 @@
                               <Border Background="{StaticResource PlateHighBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Padding="8,3">
                                 <TextBlock Foreground="{StaticResource TextBrush}" FontSize="12" Text="{Binding StackLabel}" />
                               </Border>
-                              <TextBlock Foreground="{StaticResource TextSoftBrush}" FontFamily="{StaticResource DigitFont}" FontSize="12" HorizontalAlignment="Right" Margin="0,7,0,0" Text="{Binding TrcId, StringFormat=TC ID {0}}" />
+                              <TextBlock Foreground="{StaticResource TextSoftBrush}" FontFamily="{StaticResource DigitFont}" FontSize="12" HorizontalAlignment="Right" Margin="0,7,0,0" Text="{Binding TrcId, StringFormat=รหัส TC {0}}" />
                             </StackPanel>
                           </Grid>
                         </DataTemplate>
@@ -463,17 +463,17 @@
                       </Grid.RowDefinitions>
                       <DockPanel Background="{StaticResource PlateBrush}" LastChildFill="False">
                         <TextBlock Name="DeckStatusText" DockPanel.Dock="Left" Foreground="{StaticResource IceBrush}" VerticalAlignment="Center" Margin="10,0" />
-                        <Button DockPanel.Dock="Right" Content="Clear Deck" MinHeight="26" Padding="10,2" Margin="3,4" Click="ClearButton_OnClick" />
+                        <Button DockPanel.Dock="Right" Content="ล้างเด็ค" MinHeight="26" Padding="10,2" Margin="3,4" Click="ClearButton_OnClick" />
                       </DockPanel>
                       <DockPanel Grid.Row="1" Margin="10,4,10,0">
-                        <TextBlock DockPanel.Dock="Left" Text="Loadouts" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
-                        <ComboBox Name="LoadoutComboBox" DockPanel.Dock="Left" Width="200" VerticalAlignment="Center" ToolTip="Decks you saved. Load puts the selected one in the deck." />
-                        <Button DockPanel.Dock="Left" Content="Save as" MinHeight="26" Padding="10,2" Margin="6,4,3,4" ToolTip="Save this deck under a name" Click="LoadoutSaveButton_OnClick" />
-                        <Button DockPanel.Dock="Left" Content="Load" MinHeight="26" Padding="10,2" Margin="3,4" ToolTip="Replace the deck with the selected loadout" Click="LoadoutLoadButton_OnClick" />
-                        <Button DockPanel.Dock="Left" Content="Delete" MinHeight="26" Padding="10,2" Margin="3,4" Click="LoadoutDeleteButton_OnClick" />
-                        <Button DockPanel.Dock="Left" Content="Export" MinHeight="26" Padding="10,2" Margin="12,4,3,4" ToolTip="Save a copy of the selected loadout somewhere you can share it, the Desktop by default" Click="LoadoutExportButton_OnClick" />
-                        <Button DockPanel.Dock="Left" Content="Import" MinHeight="26" Padding="10,2" Margin="3,4" ToolTip="Add a loadout file someone sent you to your list and load it" Click="LoadoutImportButton_OnClick" />
-                        <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"><Hyperlink Foreground="{StaticResource IceBrush}" Click="LoadoutFolderLink_OnClick">Open folder</Hyperlink></TextBlock>
+                        <TextBlock DockPanel.Dock="Left" Text="ชุดเด็ค" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <ComboBox Name="LoadoutComboBox" DockPanel.Dock="Left" Width="200" VerticalAlignment="Center" ToolTip="เด็คที่คุณบันทึกไว้ ปุ่ม โหลด จะนำชุดที่เลือกมาใส่ในเด็ค" />
+                        <Button DockPanel.Dock="Left" Content="บันทึกเป็น" MinHeight="26" Padding="10,2" Margin="6,4,3,4" ToolTip="บันทึกเด็คนี้ภายใต้ชื่อที่กำหนด" Click="LoadoutSaveButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="โหลด" MinHeight="26" Padding="10,2" Margin="3,4" ToolTip="แทนที่เด็คปัจจุบันด้วยชุดเด็คที่เลือก" Click="LoadoutLoadButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="ลบ" MinHeight="26" Padding="10,2" Margin="3,4" Click="LoadoutDeleteButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="ส่งออก" MinHeight="26" Padding="10,2" Margin="12,4,3,4" ToolTip="บันทึกสำเนาของชุดเด็คที่เลือกไว้ในที่ที่คุณแชร์ต่อได้ ค่าเริ่มต้นคือเดสก์ท็อป" Click="LoadoutExportButton_OnClick" />
+                        <Button DockPanel.Dock="Left" Content="นำเข้า" MinHeight="26" Padding="10,2" Margin="3,4" ToolTip="เพิ่มไฟล์ชุดเด็คที่มีคนส่งให้คุณเข้าไปในรายการ แล้วโหลดขึ้นมาใช้" Click="LoadoutImportButton_OnClick" />
+                        <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"><Hyperlink Foreground="{StaticResource IceBrush}" Click="LoadoutFolderLink_OnClick">เปิดโฟลเดอร์</Hyperlink></TextBlock>
                       </DockPanel>
                       <ListView Name="SelectedCardList" Grid.Row="2" BorderThickness="0" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Disabled" SelectionChanged="SelectedCardList_OnSelectionChanged" MouseDoubleClick="SelectedCardList_OnMouseDoubleClick" AllowDrop="True" PreviewMouseLeftButtonDown="CardDrag_OnPreviewMouseLeftButtonDown" PreviewMouseMove="CardDrag_OnPreviewMouseMove" PreviewMouseLeftButtonUp="CardDrag_OnPreviewMouseLeftButtonUp" DragOver="Deck_OnDragOver" Drop="Deck_OnDrop">
                         <ItemsControl.ItemsPanel>
@@ -502,80 +502,80 @@
                   </Border>
                 </Grid>
               </TabItem>
-              <TabItem Header="Draw Rates">
+              <TabItem Header="อัตราการสุ่ม">
                 <ContentControl Name="SummonTabContent" Loaded="SummonTab_OnSelected" />
               </TabItem>
             </TabControl>
           </TabItem>
-          <TabItem Header="Settings" Style="{StaticResource SidebarTabItemStyle}">
+          <TabItem Header="การตั้งค่า" Style="{StaticResource SidebarTabItemStyle}">
             <TabControl>
-              <TabItem Header="Display">
+              <TabItem Header="การแสดงผล">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                   <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
-                    <TextBlock Text="Game language" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
-                    <ToggleButton Name="ChineseEnabledCheckBox" Style="{StaticResource EnglishTextToggleStyle}" AutomationProperties.Name="English text" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,8" ToolTip="Turns the translated in-game text on or off. Takes effect the next time you start the game." />
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,26" Text="Off leaves the game in Japanese. The switch takes effect the next time you press Play." />
-                    <TextBlock Text="Graphics card" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="Both layers are community work and not fully optimized yet: on AMD and Intel expect lower frame rates and some rendering errors compared with an NVIDIA card." />
-                    <ToggleButton Name="GpuCompatCheckBox" Style="{StaticResource SwitchToggleStyle}" Content="AMD and Intel compatibility layer" AutomationProperties.Name="AMD and Intel compatibility layer" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,8" ToolTip="Puts a translation layer in front of the game so its NVIDIA-only OpenGL features run on AMD and Intel graphics. Applied when you save the display settings; used the next time you start the game." />
-                    <Button Name="GpuCompatSwitchButton" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,0,0,8" ToolTip="Moves this install between the older layer it has and the newer one. Used the next time you start the game; one click back." Click="GpuCompatSwitchButton_OnClick" />
-                    <Button Name="GpuCompatInstallButton" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,0,0,8" Content="Install the layer from the compat folder" ToolTip="Copies the file under compat into App. Drop a newer build of the layer into the compat folder first, then click this; used the next time you start the game." Click="GpuCompatInstallButton_OnClick" />
-                    <TextBlock Name="GpuCompatHelpText" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,26" Text="Turned on by itself on a PC with no NVIDIA card. Leave it off on NVIDIA." />
-                    <TextBlock Text="Display and Resolution" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,14" />
+                    <TextBlock Text="ภาษาในเกม" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
+                    <ToggleButton Name="ChineseEnabledCheckBox" Style="{StaticResource EnglishTextToggleStyle}" AutomationProperties.Name="ข้อความแปล" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,8" ToolTip="เปิดหรือปิดข้อความแปลในเกม จะมีผลเมื่อเริ่มเกมครั้งถัดไป" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,26" Text="หากปิดไว้ เกมจะยังเป็นภาษาญี่ปุ่น สวิตช์นี้จะมีผลเมื่อคุณกดเล่นครั้งถัดไป" />
+                    <TextBlock Text="การ์ดจอ" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="เลเยอร์ทั้งสองเป็นผลงานของคอมมูนิตี้และยังปรับแต่งได้ไม่สมบูรณ์ บน AMD และ Intel อาจได้เฟรมเรตต่ำกว่าและมีข้อผิดพลาดในการเรนเดอร์บ้าง เมื่อเทียบกับการ์ด NVIDIA" />
+                    <ToggleButton Name="GpuCompatCheckBox" Style="{StaticResource SwitchToggleStyle}" Content="เลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel" AutomationProperties.Name="เลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,8" ToolTip="วางเลเยอร์แปลคำสั่งไว้หน้าเกม เพื่อให้ฟีเจอร์ OpenGL ที่รองรับเฉพาะ NVIDIA ทำงานบนกราฟิก AMD และ Intel ได้ จะถูกนำไปใช้เมื่อคุณบันทึกการตั้งค่าการแสดงผล และมีผลเมื่อเริ่มเกมครั้งถัดไป" />
+                    <Button Name="GpuCompatSwitchButton" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,0,0,8" ToolTip="สลับการติดตั้งนี้ระหว่างเลเยอร์เวอร์ชันเก่าที่มีอยู่กับเวอร์ชันใหม่ มีผลเมื่อเริ่มเกมครั้งถัดไป และกดกลับได้ด้วยคลิกเดียว" Click="GpuCompatSwitchButton_OnClick" />
+                    <Button Name="GpuCompatInstallButton" Visibility="Collapsed" HorizontalAlignment="Left" Margin="0,0,0,8" Content="ติดตั้งเลเยอร์จากโฟลเดอร์ compat" ToolTip="คัดลอกไฟล์ในโฟลเดอร์ compat ไปยัง App ให้วางไฟล์เลเยอร์เวอร์ชันใหม่ลงในโฟลเดอร์ compat ก่อน แล้วจึงคลิกปุ่มนี้ มีผลเมื่อเริ่มเกมครั้งถัดไป" Click="GpuCompatInstallButton_OnClick" />
+                    <TextBlock Name="GpuCompatHelpText" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,26" Text="จะเปิดให้เองบนเครื่องที่ไม่มีการ์ด NVIDIA หากใช้ NVIDIA ให้ปิดไว้" />
+                    <TextBlock Text="การแสดงผลและความละเอียด" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,14" />
                     <WrapPanel>
                       <StackPanel Orientation="Horizontal" Margin="0,0,12,8">
-                        <TextBlock Text="Mode" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                        <TextBlock Text="โหมด" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
                         <ComboBox Name="DisplayModeComboBox" Width="152">
-                          <ComboBoxItem Content="Windowed" Tag="windowed" />
-                          <ComboBoxItem Content="Borderless" Tag="borderless" />
-                          <ComboBoxItem Content="Fullscreen" Tag="exclusive" />
+                          <ComboBoxItem Content="โหมดหน้าต่าง" Tag="windowed" />
+                          <ComboBoxItem Content="แบบไร้ขอบ" Tag="borderless" />
+                          <ComboBoxItem Content="เต็มหน้าจอ" Tag="exclusive" />
                         </ComboBox>
                       </StackPanel>
                       <StackPanel Orientation="Horizontal" Margin="0,0,12,8">
-                        <TextBlock Text="Monitor" VerticalAlignment="Center" Margin="8,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
-                        <ComboBox Name="MonitorComboBox" Width="262" ToolTip="The game uses this monitor the next time it starts. If that monitor is disconnected it falls back to the primary one." DropDownOpened="MonitorComboBox_OnDropDownOpened" />
+                        <TextBlock Text="จอภาพ" VerticalAlignment="Center" Margin="8,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                        <ComboBox Name="MonitorComboBox" Width="262" ToolTip="เกมจะใช้จอภาพนี้เมื่อเริ่มครั้งถัดไป หากจอภาพนั้นถูกถอดออก จะกลับไปใช้จอหลักแทน" DropDownOpened="MonitorComboBox_OnDropDownOpened" />
                       </StackPanel>
                       <StackPanel Orientation="Horizontal" Margin="0,0,12,8">
-                        <TextBlock Text="Aspect" VerticalAlignment="Center" Margin="8,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                        <TextBlock Text="สัดส่วนภาพ" VerticalAlignment="Center" Margin="8,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
                         <ComboBox Name="AspectRatioComboBox" Width="140" SelectionChanged="AspectRatioComboBox_OnSelectionChanged">
                           <ComboBoxItem Content="16:9" Tag="16:9" />
                           <ComboBoxItem Content="16:10" Tag="16:10" />
                           <ComboBoxItem Content="21:9" Tag="21:9" />
                           <ComboBoxItem Content="32:9" Tag="32:9" />
                           <ComboBoxItem Content="4:3" Tag="4:3" />
-                          <ComboBoxItem Content="9:16 (portrait)" Tag="9:16" />
-                          <ComboBoxItem Content="10:16 (portrait)" Tag="10:16" />
-                          <ComboBoxItem Content="9:21 (portrait)" Tag="9:21" />
-                          <ComboBoxItem Content="9:32 (portrait)" Tag="9:32" />
-                          <ComboBoxItem Content="3:4 (portrait)" Tag="3:4" />
-                          <ComboBoxItem Content="Custom" Tag="custom" />
+                          <ComboBoxItem Content="9:16 (แนวตั้ง)" Tag="9:16" />
+                          <ComboBoxItem Content="10:16 (แนวตั้ง)" Tag="10:16" />
+                          <ComboBoxItem Content="9:21 (แนวตั้ง)" Tag="9:21" />
+                          <ComboBoxItem Content="9:32 (แนวตั้ง)" Tag="9:32" />
+                          <ComboBoxItem Content="3:4 (แนวตั้ง)" Tag="3:4" />
+                          <ComboBoxItem Content="กำหนดเอง" Tag="custom" />
                         </ComboBox>
                       </StackPanel>
                       <StackPanel Orientation="Horizontal" Margin="0,0,12,8">
-                        <ComboBox Name="ResolutionComboBox" Width="132" IsEditable="False" ToolTip="Resolution presets" SelectionChanged="ResolutionComboBox_OnSelectionChanged" />
-                        <TextBox Name="CustomWidthTextBox" Width="58" MaxLength="4" VerticalContentAlignment="Center" ToolTip="Custom width, 480-7680" />
+                        <ComboBox Name="ResolutionComboBox" Width="132" IsEditable="False" ToolTip="พรีเซ็ตความละเอียด" SelectionChanged="ResolutionComboBox_OnSelectionChanged" />
+                        <TextBox Name="CustomWidthTextBox" Width="58" MaxLength="4" VerticalContentAlignment="Center" ToolTip="ความกว้างกำหนดเอง 480-7680" />
                         <TextBlock Text="×" VerticalAlignment="Center" Margin="2" Foreground="{StaticResource TextSoftBrush}" />
-                        <TextBox Name="CustomHeightTextBox" Width="58" MaxLength="4" VerticalContentAlignment="Center" ToolTip="Custom height, 480-7680" />
+                        <TextBox Name="CustomHeightTextBox" Width="58" MaxLength="4" VerticalContentAlignment="Center" ToolTip="ความสูงกำหนดเอง 480-7680" />
                       </StackPanel>
                     </WrapPanel>
                     <WrapPanel Margin="0,12,0,20">
-                      <TextBlock Text="Frame Rate Cap" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBlock Text="จำกัดเฟรมเรต" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
                       <ComboBox Name="FrameRateComboBox" Width="152">
-                        <ComboBoxItem Content="60 FPS (stable)" Tag="60" />
+                        <ComboBoxItem Content="60 FPS (เสถียร)" Tag="60" />
                         <ComboBoxItem Content="90 FPS" Tag="90" />
                         <ComboBoxItem Content="120 FPS" Tag="120" />
                         <ComboBoxItem Content="144 FPS" Tag="144" />
                       </ComboBox>
                     </WrapPanel>
-                    <TextBlock Text="Image Quality" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,12" />
+                    <TextBlock Text="คุณภาพของภาพ" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,12" />
                     <WrapPanel Margin="0,0,0,12">
-                      <TextBlock Text="Anti-aliasing" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBlock Text="การลบรอยหยัก" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
                       <ComboBox Name="SmaaComboBox" Width="232" SelectedIndex="0">
-                        <ComboBoxItem Content="Off (native)" Tag="0" />
-                        <ComboBoxItem Content="Native + SMAA High" Tag="1" />
-                        <ComboBoxItem Content="Native + SMAA Ultra" Tag="2" />
+                        <ComboBoxItem Content="ปิด (ความละเอียดดั้งเดิม)" Tag="0" />
+                        <ComboBoxItem Content="ความละเอียดดั้งเดิม + SMAA High" Tag="1" />
+                        <ComboBoxItem Content="ความละเอียดดั้งเดิม + SMAA Ultra" Tag="2" />
                       </ComboBox>
-                      <TextBlock Text="Anisotropic Filtering" VerticalAlignment="Center" Margin="12,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBlock Text="การกรองแบบแอนไอโซทรอปิก" VerticalAlignment="Center" Margin="12,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
                       <ComboBox Name="AnisotropyComboBox" Width="90" SelectedIndex="4">
                         <ComboBoxItem Content="1x" Tag="1" />
                         <ComboBoxItem Content="2x" Tag="2" />
@@ -585,36 +585,36 @@
                       </ComboBox>
                     </WrapPanel>
                     <WrapPanel Margin="0,0,0,12">
-                      <TextBlock Text="Render Scale" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBlock Text="สเกลการเรนเดอร์" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
                       <ComboBox Name="RenderScaleComboBox" Width="232" SelectedIndex="0">
-                        <ComboBoxItem Content="100% (native)" Tag="100" />
-                        <ComboBoxItem Content="125% (1.56x pixels)" Tag="125" />
-                        <ComboBoxItem Content="150% (2.25x pixels)" Tag="150" />
-                        <ComboBoxItem Content="200% (4x pixels)" Tag="200" />
+                        <ComboBoxItem Content="100% (ความละเอียดดั้งเดิม)" Tag="100" />
+                        <ComboBoxItem Content="125% (พิกเซล 1.56 เท่า)" Tag="125" />
+                        <ComboBoxItem Content="150% (พิกเซล 2.25 เท่า)" Tag="150" />
+                        <ComboBoxItem Content="200% (พิกเซล 4 เท่า)" Tag="200" />
                       </ComboBox>
                     </WrapPanel>
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="Renders the scene above your display resolution and scales it back down, so characters look sharper and edges are cleaner. The UI size and the field of view do not change, and it can be combined with SMAA." />
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="The higher the scale, the more GPU it costs. Lower it if the game stutters. If your GPU cannot handle the setting, the game falls back to 100%." />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="เรนเดอร์ภาพที่ความละเอียดสูงกว่าจอของคุณแล้วย่อกลับลงมา ตัวละครจึงดูคมชัดขึ้นและขอบภาพเนียนขึ้น ขนาด UI และมุมมองภาพไม่เปลี่ยน และใช้ร่วมกับ SMAA ได้" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="ยิ่งสเกลสูง ยิ่งใช้ GPU มาก หากเกมกระตุกให้ลดค่าลง หาก GPU ของคุณรับค่านี้ไม่ไหว เกมจะกลับไปใช้ 100%" />
                     <WrapPanel Margin="0,4,0,16">
-                      <CheckBox Name="MotionBlurCheckBox" Content="Motion Blur" Margin="0,4,24,4" />
-                      <CheckBox Name="DepthOfFieldCheckBox" Content="Depth of Field" IsChecked="True" Margin="0,4,24,4" />
-                      <CheckBox Name="BloomCheckBox" Content="Bloom" IsChecked="True" Margin="0,4,24,4" />
-                      <CheckBox Name="DisableCameraShakeCheckBox" Content="No Camera Shake" Margin="0,4,24,4" ToolTip="Removes the game's camera shake while leaving normal camera movement alone. Takes effect the next time you start the game." />
+                      <CheckBox Name="MotionBlurCheckBox" Content="ภาพเบลอตามการเคลื่อนไหว" Margin="0,4,24,4" />
+                      <CheckBox Name="DepthOfFieldCheckBox" Content="ระยะชัดลึก" IsChecked="True" Margin="0,4,24,4" />
+                      <CheckBox Name="BloomCheckBox" Content="แสงฟุ้ง" IsChecked="True" Margin="0,4,24,4" />
+                      <CheckBox Name="DisableCameraShakeCheckBox" Content="ปิดการสั่นของกล้อง" Margin="0,4,24,4" ToolTip="เอาเอฟเฟกต์กล้องสั่นของเกมออก โดยไม่กระทบการเคลื่อนกล้องตามปกติ จะมีผลเมื่อเริ่มเกมครั้งถัดไป" />
                     </WrapPanel>
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="SMAA smooths the finished image, including UI text. Anisotropic filtering sharpens scene textures viewed at an angle." />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="SMAA จะเกลี่ยภาพที่เรนเดอร์เสร็จแล้วให้เนียนขึ้น รวมถึงข้อความ UI ส่วนการกรองแบบแอนไอโซทรอปิกจะทำให้พื้นผิวในฉากที่มองจากมุมเฉียงคมชัดขึ้น" />
                     <WrapPanel Margin="0,0,0,12">
-                      <TextBlock Text="Shadow Resolution" VerticalAlignment="Center" Margin="0,3,12,3" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBlock Text="ความละเอียดของเงา" VerticalAlignment="Center" Margin="0,3,12,3" Foreground="{StaticResource TextSoftBrush}" />
                       <ComboBox Name="ShadowResolutionComboBox" Width="210" SelectedIndex="0">
-                        <ComboBoxItem Content="Game default" Tag="0" />
+                        <ComboBoxItem Content="ค่าเริ่มต้นของเกม" Tag="0" />
                         <ComboBoxItem Content="1024 x 1024" Tag="1024" />
                         <ComboBoxItem Content="2048 x 2048" Tag="2048" />
                         <ComboBoxItem Content="4096 x 4096" Tag="4096" />
                       </ComboBox>
                     </WrapPanel>
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="Sets how sharp real-time cast shadows are. Ambient occlusion and baked shadows are not affected. A higher resolution costs more video memory and draw time. Takes effect the next time you start the game." />
-                    <CheckBox Name="HideTargetLinesCheckBox" Content="Hide Enemy Lock-on Lines" Margin="0,0,0,6" />
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,20" Text="Hides only the connecting lines. Lock-on itself and the target marker still work. Takes effect the next time you start the game." />
-                    <TextBlock Text="Battle Damage Popups" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,12" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="กำหนดความคมชัดของเงาแบบเรียลไทม์ ไม่มีผลกับ ambient occlusion และเงาที่เบกไว้ล่วงหน้า ความละเอียดที่สูงขึ้นใช้หน่วยความจำวิดีโอและเวลาวาดภาพมากขึ้น จะมีผลเมื่อเริ่มเกมครั้งถัดไป" />
+                    <CheckBox Name="HideTargetLinesCheckBox" Content="ซ่อนเส้นล็อกเป้าศัตรู" Margin="0,0,0,6" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,20" Text="ซ่อนเฉพาะเส้นเชื่อมเท่านั้น ระบบล็อกเป้าและเครื่องหมายเป้าหมายยังทำงานตามปกติ จะมีผลเมื่อเริ่มเกมครั้งถัดไป" />
+                    <TextBlock Text="ป๊อปอัปความเสียหายในการต่อสู้" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,12" />
                     <Grid MaxWidth="680" HorizontalAlignment="Left" Width="Auto" Margin="0,0,0,12">
                       <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="182" />
@@ -627,83 +627,83 @@
                         <RowDefinition Height="36" />
                         <RowDefinition Height="36" />
                       </Grid.RowDefinitions>
-                      <TextBlock Text="Damage Number Size" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBlock Text="ขนาดตัวเลขความเสียหาย" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
                       <Slider Name="DamageNumberScaleSlider" Grid.Column="1" Minimum="0" Maximum="200" Value="100" SmallChange="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" />
-                      <TextBox Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="Percentage; decimals are allowed" Text="{Binding Value, ElementName=DamageNumberScaleSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
-                      <TextBlock Grid.Row="1" Text="Number Opacity" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBox Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="เป็นเปอร์เซ็นต์ ใส่ทศนิยมได้" Text="{Binding Value, ElementName=DamageNumberScaleSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
+                      <TextBlock Grid.Row="1" Text="ความทึบของตัวเลข" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
                       <Slider Name="DamageNumberOpacitySlider" Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="100" Value="100" SmallChange="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" />
-                      <TextBox Grid.Row="1" Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="Percentage; decimals are allowed" Text="{Binding Value, ElementName=DamageNumberOpacitySlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
-                      <TextBlock Grid.Row="2" Text="Popup Graphic Size" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBox Grid.Row="1" Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="เป็นเปอร์เซ็นต์ ใส่ทศนิยมได้" Text="{Binding Value, ElementName=DamageNumberOpacitySlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
+                      <TextBlock Grid.Row="2" Text="ขนาดภาพป๊อปอัป" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
                       <Slider Name="DamageTextureScaleSlider" Grid.Row="2" Grid.Column="1" Minimum="0" Maximum="200" Value="100" SmallChange="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" />
-                      <TextBox Grid.Row="2" Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="Percentage; decimals are allowed" Text="{Binding Value, ElementName=DamageTextureScaleSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
-                      <TextBlock Grid.Row="3" Text="Graphic Opacity" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBox Grid.Row="2" Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="เป็นเปอร์เซ็นต์ ใส่ทศนิยมได้" Text="{Binding Value, ElementName=DamageTextureScaleSlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
+                      <TextBlock Grid.Row="3" Text="ความทึบของภาพ" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
                       <Slider Name="DamageTextureOpacitySlider" Grid.Row="3" Grid.Column="1" Minimum="0" Maximum="100" Value="100" SmallChange="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" />
-                      <TextBox Grid.Row="3" Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="Percentage; decimals are allowed" Text="{Binding Value, ElementName=DamageTextureOpacitySlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
+                      <TextBox Grid.Row="3" Grid.Column="2" Margin="8,3,0,3" VerticalContentAlignment="Center" ToolTip="เป็นเปอร์เซ็นต์ ใส่ทศนิยมได้" Text="{Binding Value, ElementName=DamageTextureOpacitySlider, Mode=TwoWay, UpdateSourceTrigger=LostFocus, StringFormat=F1, ValidatesOnExceptions=True}" />
                     </Grid>
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Text="Resizes the damage numbers and the Critical, Weak Point and Guard popups. No other part of the UI changes. Opacity 0% hides a popup, 100% leaves it as the game draws it." />
-                    <Button Content="Reset Damage Popups" HorizontalAlignment="Left" Margin="0,10,0,20" Click="ResetDamageUi_OnClick" />
-                    <CheckBox Name="HideUiCheckBox" Content="Hide the UI When the Game Starts" Margin="0,4" />
-                    <CheckBox Name="HideCabinetHudCheckBox" Content="Hide the Cabinet HUD: GP, CREDIT, the volume control and the status icons (the End Game button stays)" ToolTip="The hidden GP and volume controls also stop responding to touch. Actual audio output is unchanged. Takes effect the next time you start the game." Margin="0,4" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Text="ปรับขนาดตัวเลขความเสียหาย และป๊อปอัป Critical, Weak Point และ Guard ส่วนอื่นของ UI ไม่เปลี่ยนแปลง ความทึบ 0% จะซ่อนป๊อปอัป ส่วน 100% จะแสดงตามที่เกมวาดไว้" />
+                    <Button Content="รีเซ็ตป๊อปอัปความเสียหาย" HorizontalAlignment="Left" Margin="0,10,0,20" Click="ResetDamageUi_OnClick" />
+                    <CheckBox Name="HideUiCheckBox" Content="ซ่อน UI เมื่อเกมเริ่มทำงาน" Margin="0,4" />
+                    <CheckBox Name="HideCabinetHudCheckBox" Content="ซ่อน HUD ของตู้เกม: GP, CREDIT, ปุ่มปรับระดับเสียง และไอคอนสถานะ (ปุ่ม End Game ยังอยู่)" ToolTip="ปุ่ม GP และปุ่มปรับระดับเสียงที่ถูกซ่อนจะไม่ตอบสนองต่อการสัมผัสด้วย เสียงที่ออกจริงไม่เปลี่ยนแปลง จะมีผลเมื่อเริ่มเกมครั้งถัดไป" Margin="0,4" />
                     <WrapPanel Margin="0,8,0,12">
-                      <TextBlock Text="Show / Hide UI Shortcut" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
+                      <TextBlock Text="ปุ่มลัดแสดง / ซ่อน UI" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
                       <Button Name="HideUiKeyButton" Content="F10" MinWidth="150" Click="HideUiKeyButton_OnClick" PreviewKeyDown="HideUiKeyButton_OnPreviewKeyDown" LostKeyboardFocus="HideUiKeyButton_OnLostKeyboardFocus" />
                     </WrapPanel>
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Text="Click the button, then press the key you want. Esc cancels. The shortcut works while the game window has focus; press it again to bring the UI back." />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Text="คลิกที่ปุ่ม แล้วกดปุ่มที่คุณต้องการ กด Esc เพื่อยกเลิก ปุ่มลัดจะทำงานขณะที่หน้าต่างเกมโฟกัสอยู่ กดอีกครั้งเพื่อให้ UI กลับมา" />
                     <Separator Margin="0,24,0,12" />
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Text="These settings take effect the next time you start the game. A wider aspect ratio shows more of the scene; the UI stays centred at its own ratio." />
-                    <Button Content="Save Display Settings" HorizontalAlignment="Left" Padding="24,6" Margin="0,16,0,8" Click="SaveGraphicsButton_OnClick" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Text="การตั้งค่าเหล่านี้จะมีผลเมื่อเริ่มเกมครั้งถัดไป สัดส่วนภาพที่กว้างขึ้นจะเห็นฉากได้มากขึ้น ส่วน UI จะอยู่กึ่งกลางตามสัดส่วนของตัวเอง" />
+                    <Button Content="บันทึกการตั้งค่าการแสดงผล" HorizontalAlignment="Left" Padding="24,6" Margin="0,16,0,8" Click="SaveGraphicsButton_OnClick" />
                   </StackPanel>
                 </ScrollViewer>
               </TabItem>
-              <TabItem Header="Controls">
+              <TabItem Header="การควบคุม">
                 <local:ControlSettingsView x:Name="ControlsPanel" SaveRequested="ControlsPanel_OnSaveRequested" />
               </TabItem>
-              <TabItem Header="Audio">
+              <TabItem Header="เสียง">
                 <local:AudioSettingsView />
               </TabItem>
             </TabControl>
           </TabItem>
-          <TabItem Header="Advanced" Style="{StaticResource SidebarTabItemStyle}">
+          <TabItem Header="ขั้นสูง" Style="{StaticResource SidebarTabItemStyle}">
             <TabControl>
-              <TabItem Header="Server">
+              <TabItem Header="เซิร์ฟเวอร์">
                 <local:ServerSettingsView x:Name="ServerSettingsPanel" ConfigureRequested="ServerSettings_OnConfigure" />
               </TabItem>
-              <TabItem Header="Diagnostics and Help">
+              <TabItem Header="การวินิจฉัยและความช่วยเหลือ">
                 <local:DiagnosticsView />
               </TabItem>
-              <TabItem Header="Mouse Cursor">
+              <TabItem Header="ตัวชี้เมาส์">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                   <local:CursorSettingsView Margin="28" />
                 </ScrollViewer>
               </TabItem>
-              <TabItem Header="Debug">
+              <TabItem Header="ดีบัก">
                 <local:DebugSettingsView />
               </TabItem>
-              <TabItem Header="Photo Mode">
+              <TabItem Header="โหมดถ่ายภาพ">
                 <ContentControl Name="PhotoTabContent" Loaded="PhotoSettings_OnClick" />
               </TabItem>
-              <TabItem Header="About">
+              <TabItem Header="เกี่ยวกับ">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                   <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
                     <TextBlock Text="FGOAC scooby" FontWeight="SemiBold" FontSize="22" Foreground="{StaticResource TextBrush}" Margin="0,0,0,14" />
                     <TextBlock Name="AboutVersionText" Style="{StaticResource HelpTextStyle}" FontSize="14" Foreground="{StaticResource TextBrush}" Margin="0,0,0,20" />
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                      <Button Content="Check for updates" Margin="0,0,10,0" Click="CheckUpdatesButton_OnClick" />
+                      <Button Content="ตรวจหาอัปเดต" Margin="0,0,10,0" Click="CheckUpdatesButton_OnClick" />
                       <TextBlock Name="AboutUpdateStatusText" Style="{StaticResource HelpTextStyle}" VerticalAlignment="Center" MaxWidth="470" />
                     </StackPanel>
                     <TextBlock Margin="0,0,0,8">
-                      <Hyperlink Foreground="{StaticResource IceBrush}" NavigateUri="https://github.com/githubuser420x/FGOAC-scooby" RequestNavigate="AboutLink_OnRequestNavigate">Open on GitHub</Hyperlink>
+                      <Hyperlink Foreground="{StaticResource IceBrush}" NavigateUri="https://github.com/felisiach/fgoac-scooby-thaitranslation" RequestNavigate="AboutLink_OnRequestNavigate">เปิดใน GitHub</Hyperlink>
                     </TextBlock>
                     <TextBlock Margin="0,0,0,22">
-                      <Hyperlink Foreground="{StaticResource IceBrush}" NavigateUri="https://github.com/githubuser420x/FGOAC-scooby/releases" RequestNavigate="AboutLink_OnRequestNavigate">View changelog</Hyperlink>
+                      <Hyperlink Foreground="{StaticResource IceBrush}" NavigateUri="https://github.com/felisiach/fgoac-scooby-thaitranslation/releases" RequestNavigate="AboutLink_OnRequestNavigate">ดูบันทึกการเปลี่ยนแปลง</Hyperlink>
                     </TextBlock>
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="FGOAC scooby is a free fan project; FGO Arcade belongs to Sega and TYPE-MOON." />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="FGOAC scooby เป็นโปรเจกต์ของแฟนเกมที่ให้ใช้งานฟรี ส่วน FGO Arcade เป็นของ Sega และ TYPE-MOON" />
                     <Border Height="1" Background="{StaticResource LineBrush}" Margin="0,0,0,20" />
-                    <TextBlock Text="Easter egg" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
+                    <TextBlock Text="อีสเตอร์เอ้ก" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
                     <local:EasterEggSettingsView Margin="0,0,0,26" />
                     <Border Height="1" Background="{StaticResource LineBrush}" Margin="0,0,0,16" />
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource TextFaintBrush}" Text="Thanks to Cloud23333, whose FGO Arcade local platform made this possible." />
-                    <TextBlock Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource TextFaintBrush}" Margin="0,6,0,0"><Run Text="AMD and Intel compatibility layer by fluphus: " /><Hyperlink Foreground="{StaticResource IceBrush}" NavigateUri="https://github.com/fluphus/fgo-arcade-amd-shim" RequestNavigate="AboutLink_OnRequestNavigate">github.com/fluphus/fgo-arcade-amd-shim</Hyperlink></TextBlock>
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource TextFaintBrush}" Text="ขอบคุณ Cloud23333 ผู้สร้างแพลตฟอร์ม FGO Arcade แบบโลคัล ที่ทำให้สิ่งนี้เกิดขึ้นได้" />
+                    <TextBlock Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource TextFaintBrush}" Margin="0,6,0,0"><Run Text="เลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel โดย fluphus: " /><Hyperlink Foreground="{StaticResource IceBrush}" NavigateUri="https://github.com/fluphus/fgo-arcade-amd-shim" RequestNavigate="AboutLink_OnRequestNavigate">github.com/fluphus/fgo-arcade-amd-shim</Hyperlink></TextBlock>
                   </StackPanel>
                 </ScrollViewer>
               </TabItem>
@@ -724,7 +724,7 @@
                 <RowDefinition Height="*" />
               </Grid.RowDefinitions>
               <Border Background="{StaticResource PlateBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
-                <TextBlock Text="Server" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="12,0" />
+                <TextBlock Text="เซิร์ฟเวอร์" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="12,0" />
               </Border>
               <TextBox Name="ServerLogTextBox" Grid.Row="1" IsReadOnly="True" BorderThickness="0" Margin="0" Padding="9" FontFamily="{StaticResource DigitFont}" FontSize="12" TextWrapping="NoWrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
             </Grid>
@@ -737,7 +737,7 @@
                 <RowDefinition Height="*" />
               </Grid.RowDefinitions>
               <Border Background="{StaticResource PlateBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="0,0,0,1">
-                <TextBlock Text="Game" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="12,0" />
+                <TextBlock Text="เกม" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="12,0" />
               </Border>
               <TextBox Name="InjectionLogTextBox" Grid.Row="1" IsReadOnly="True" BorderThickness="0" Margin="0" Padding="9" FontFamily="{StaticResource DigitFont}" FontSize="12" TextWrapping="NoWrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" />
             </Grid>
@@ -751,7 +751,7 @@
             <ColumnDefinition Width="Auto" />
           </Grid.ColumnDefinitions>
           <TextBlock Name="RuntimeStatusText" VerticalAlignment="Center" FontSize="13" Foreground="{StaticResource TextSoftBrush}" TextTrimming="CharacterEllipsis" />
-          <Button Name="ToggleLogsButton" Grid.Column="1" Content="Hide logs" MinHeight="0" Height="22" FontSize="13" Padding="10,0" Margin="12,0,0,0" Click="ToggleLogs_OnClick" />
+          <Button Name="ToggleLogsButton" Grid.Column="1" Content="ซ่อนล็อก" MinHeight="0" Height="22" FontSize="13" Padding="10,0" Margin="12,0,0,0" Click="ToggleLogs_OnClick" />
         </Grid>
       </Border>
     </Grid>

@@ -4,7 +4,7 @@ Applies the FGOAC scooby English patch to an FGO Arcade local-platform install.
 The script is shipped at the root of the release package, next to "FGOAC scooby.exe",
 manifest.json and the payload folder. Unzipping the package into the game folder already puts
 every file beside the install, so a normal run copies the payload into place, checks every file
-against manifest.json and writes the marker App\zh\en-patch.json. Re-running the same version
+against manifest.json and writes the marker App\zh\th-patch.json. Re-running the same version
 does nothing, unless a platform update has since put its own scripts and text over the patched
 ones; then the files that differ are copied back.
 
@@ -50,7 +50,7 @@ $scriptHost = [IO.Path]::Combine($PSHOME, 'pwsh.exe')
 if (!(Test-Path -LiteralPath $scriptHost -PathType Leaf)) { $scriptHost = [IO.Path]::Combine($PSHOME, 'powershell.exe') }
 if ([string]::IsNullOrWhiteSpace($PackageRoot)) { $PackageRoot = $PSScriptRoot }
 
-$ProtectedPrefixes = @('Server\state\', 'Server\data\', 'DEVICE\', 'AMFS\', 'GameData\', '_en-patch-backup\', '_update-backup\', 'App\deck-loadouts\', 'Server\artemis\config\summon-presets\')
+$ProtectedPrefixes = @('Server\state\', 'Server\data\', 'DEVICE\', 'AMFS\', 'GameData\', '_th-patch-backup\', '_update-backup\', 'App\deck-loadouts\', 'Server\artemis\config\summon-presets\')
 $ProtectedFiles = @('App\fgo-launcher.json', 'App\deck.json', 'App\deck.json.bak')
 # "FGOA scooby.exe" is the name this launcher shipped under before 1.1.0. It stays in the list so an
 # upgrade still refuses to run while the old build is open.
@@ -247,16 +247,16 @@ if ($running) {
     Stop-WithMessage ("Close the game and the launcher in $InstallRoot first, then run the patch again. Still running: " + (($running | ForEach-Object { $_.Name }) -join ', ')) 4
 }
 
-$backupRoot = [IO.Path]::Combine($InstallRoot, '_en-patch-backup')
-$markerPath = [IO.Path]::Combine($InstallRoot, 'App\zh\en-patch.json')
+$backupRoot = [IO.Path]::Combine($InstallRoot, '_th-patch-backup')
+$markerPath = [IO.Path]::Combine($InstallRoot, 'App\zh\th-patch.json')
 
 if ($Rollback) {
     if (!([IO.Directory]::Exists($backupRoot))) { Stop-WithMessage "There is no patch backup to restore in $backupRoot." 7 }
     $backup = Get-ChildItem -LiteralPath $backupRoot -Directory | Sort-Object -Property Name | Select-Object -Last 1
     if (!$backup) { Stop-WithMessage "There is no patch backup to restore in $backupRoot." 7 }
-    $recordPath = [IO.Path]::Combine($backup.FullName, 'en-patch-restore.json')
+    $recordPath = [IO.Path]::Combine($backup.FullName, 'th-patch-restore.json')
     if (!([IO.File]::Exists($recordPath))) {
-        Stop-WithMessage "The backup in $($backup.FullName) has no en-patch-restore.json, so it cannot be rolled back automatically." 7
+        Stop-WithMessage "The backup in $($backup.FullName) has no th-patch-restore.json, so it cannot be rolled back automatically." 7
     }
     $record = Get-Content -LiteralPath $recordPath -Raw -Encoding UTF8 | ConvertFrom-Json
     Write-Host "Restoring the files saved in $($backup.FullName)..."
@@ -277,7 +277,7 @@ if ($Rollback) {
             $removed++
         }
     }
-    $savedMarker = [IO.Path]::Combine($backup.FullName, 'App\zh\en-patch.json')
+    $savedMarker = [IO.Path]::Combine($backup.FullName, 'App\zh\th-patch.json')
     if ([IO.File]::Exists($savedMarker)) { Copy-FgoFile -Source $savedMarker -Destination $markerPath }
     elseif ([IO.File]::Exists($markerPath)) { [IO.File]::Delete($markerPath) }
     Write-Host "Rollback finished: $restored files restored, $removed files removed."
@@ -394,9 +394,9 @@ if ($toCopy.Count -eq 0) {
         }
     }
     if ([IO.File]::Exists($markerPath)) {
-        Copy-FgoFile -Source $markerPath -Destination ([IO.Path]::Combine($backup, 'App\zh\en-patch.json'))
+        Copy-FgoFile -Source $markerPath -Destination ([IO.Path]::Combine($backup, 'App\zh\th-patch.json'))
     }
-    Write-FgoJson -Path ([IO.Path]::Combine($backup, 'en-patch-restore.json')) -Value ([ordered]@{
+    Write-FgoJson -Path ([IO.Path]::Combine($backup, 'th-patch-restore.json')) -Value ([ordered]@{
         version  = $version
         savedUtc = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
         replaced = @($replaced)

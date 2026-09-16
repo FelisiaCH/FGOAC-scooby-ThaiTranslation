@@ -66,7 +66,7 @@ internal sealed class FirstRun
 	/// </summary>
 	internal bool FreshInstall { get; private set; }
 
-	private string MarkerPath => Path.Combine(GamePaths.GameRoot, "zh", "en-patch.json");
+	private string MarkerPath => Path.Combine(GamePaths.GameRoot, "zh", "th-patch.json");
 
 	private string ScriptPath => Path.Combine(installRoot, "Apply-EN-Patch.ps1");
 

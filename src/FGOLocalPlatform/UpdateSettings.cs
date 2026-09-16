@@ -8,9 +8,9 @@ namespace FGOLocalPlatform;
 /// </summary>
 internal static class UpdateSettings
 {
-	public const string Owner = "githubuser420x";
+	public const string Owner = "felisiach";
 
-	public const string Repo = "FGOAC-scooby";
+	public const string Repo = "fgoac-scooby-thaitranslation";
 
 	public const string ProjectUrl = "https://github.com/" + Owner + "/" + Repo;
 

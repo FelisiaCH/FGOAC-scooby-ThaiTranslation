@@ -67,7 +67,7 @@ try {
     # The English game files. file-trace.enabled turns on a per-file log meant for development,
     # and the .v101 / .bak copies are the author's originals kept beside ours.
     Write-Host "Mirroring the English game files into $payloadRoot\App\zh"
-    $robocopy = & "$env:SystemRoot\System32\robocopy.exe" $englishSet ([IO.Path]::Combine($payloadRoot, 'App\zh')) /MIR /NJH /NJS /NP /NDL /NFL /R:2 /W:2 /XF 'file-trace.enabled' '*.v101' '*.bak' 'en-patch.json'
+    $robocopy = & "$env:SystemRoot\System32\robocopy.exe" $englishSet ([IO.Path]::Combine($payloadRoot, 'App\zh')) /MIR /NJH /NJS /NP /NDL /NFL /R:2 /W:2 /XF 'file-trace.enabled' '*.v101' '*.bak' 'en-patch.json' 'th-patch.json'
     if ($LASTEXITCODE -ge 8) { Stop-WithMessage "Copying the English game files failed: $robocopy" 1 }
 
     Write-Host 'Copying the English replacements for the scripts and data outside the launcher'

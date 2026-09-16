@@ -27,7 +27,7 @@ public sealed class SummonCardOption : INotifyPropertyChanged
 
 	public string Name { get; init; } = "";
 
-	/// <summary>The name on the card, English where we have it and Japanese where we do not.</summary>
+	/// <summary>English card name; Japanese when no English name exists.</summary>
 	public string EnglishName
 	{
 		get

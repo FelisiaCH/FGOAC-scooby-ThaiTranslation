@@ -14,7 +14,7 @@ public sealed class CardStack
 
 	public IReadOnlyList<Card> Variants { get; private init; } = Array.Empty<Card>();
 
-	/// <summary>The name on the card, English where we have it and Japanese where we do not.</summary>
+	/// <summary>English card name; Japanese when no English name exists.</summary>
 	public string EnglishName
 	{
 		get

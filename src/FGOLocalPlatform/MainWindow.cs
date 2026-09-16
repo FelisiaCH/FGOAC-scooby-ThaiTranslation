@@ -2205,7 +2205,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		ThemedMessageBox.Show("The local server is running, so this account operation cannot run.\nClick Stop Server at the top, then try again.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 	}
 
-	/// <summary>The account tool must not touch the save while the game is up; warns and says whether it is.</summary>
+	/// <summary>True when the game is running; shows the warning that account actions are blocked until it exits.</summary>
 	private bool GameBlocksAccountAction()
 	{
 		if (Process.GetProcessesByName("ago").Length == 0)

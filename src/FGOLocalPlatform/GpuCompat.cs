@@ -24,7 +24,7 @@ internal static class GpuCompat
 		None,
 		Legacy,
 		Shim,
-		/// <summary>An App\opengl32.dll that is not the copy under compat\amd-shim: the shim's own installer put it there, or the compat copy has since been replaced by a newer build.</summary>
+		/// <summary>App\opengl32.dll exists but is not the bundled compat\amd-shim build.</summary>
 		Foreign
 	}
 
@@ -73,7 +73,7 @@ internal static class GpuCompat
 		return list;
 	}
 
-	/// <summary>The layer in App\ right now. The shim counts as installed when App\opengl32.dll is the copy under compat\amd-shim; any other App\opengl32.dll is Foreign.</summary>
+	/// <summary>Layer currently in App\. Shim requires a byte-identical copy of compat\amd-shim\opengl32.dll; any other opengl32.dll is Foreign.</summary>
 	public static Layer Installed
 	{
 		get
@@ -95,10 +95,9 @@ internal static class GpuCompat
 	public static bool IsInstalled => Installed != Layer.None;
 
 	/// <summary>
-	/// Turns the layer on or off. On keeps the layer the install already has and gives a fresh
-	/// install the older layer, or the shim when compat\ has no older layer; off removes what is
-	/// there, a foreign opengl32.dll included, since the switch is only ever moved by the player.
-	/// Throws on an I/O failure so the caller can say so.
+	/// Enables or disables the layer. Enable keeps an installed layer, otherwise installs the older
+	/// layer (the shim when compat\ has none). Disable removes any layer, Foreign included.
+	/// Throws IOException on failure.
 	/// </summary>
 	public static void Apply(bool enabled)
 	{
@@ -138,7 +137,7 @@ internal static class GpuCompat
 		}
 	}
 
-	/// <summary>Replaces the older layer with the shim. The older layer's file stays under compat\ for the way back.</summary>
+	/// <summary>Replaces the older layer in App\ with the shim; compat\ keeps both files.</summary>
 	public static void SwitchToShim()
 	{
 		if (File.Exists(LegacyTargetPath))

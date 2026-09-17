@@ -21,21 +21,31 @@ build    writes every English file to DIR\single\ with values replaced
          community mode: a community msgstr that is not fuzzy, else an AI
          msgstr, else English.  ai mode: an AI msgstr, else English.
          Real newlines become backslash + n again.  Thai is encoded with
-         thai_clusters.encode() and the font's clusters.json.  It stops
-         before writing if a cluster is missing, or if a value to write
-         holds two backslashes in a row.  Every other byte of each file
-         is kept.
+         thai_clusters.encode() and the font's clusters.json (--clusters).
+         The game does not wrap or squeeze Thai: a line wider than its
+         slot is centered and clipped at both edges.  So each line of
+         encoded Thai is measured in the Thai game font (--font, the same
+         build): the sum of the advance widths of its characters, with
+         .notdef's for a character the font lacks.  Its limit is the
+         widest English line, measured the same way, of any value in the
+         English files whose key has the same name without digits
+         (spot_name73 and spot_name1 are both spot_name).  --clusters and
+         --font are needed only if a value to write holds Thai.  It stops
+         before writing if a value to write holds two backslashes in a
+         row, if a cluster is missing, or if a Thai line is wider than its
+         limit.  Every other byte of each file is kept.
 
 The game folders are only read.  The generated files hold the game's
 script text: keep them out of this repo.
 
-Requires polib.
+Requires polib and fontTools.
 
 Usage
   python tools/thai_text.py extract --jp JP_ROM --en EN_ROM --out DIR
   python tools/thai_text.py lines --po DIR [--po DIR ...] --out FILE
   python tools/thai_text.py build --en EN_ROM --mode {ai,community}
-      [--ai DIR] [--community DIR] [--clusters CLUSTERS_JSON] --out DIR
+      [--ai DIR] [--community DIR] [--clusters CLUSTERS_JSON] [--font FONT]
+      --out DIR
 """
 import argparse
 import glob
@@ -45,6 +55,7 @@ import re
 import sys
 
 import polib
+from fontTools.ttLib import TTFont, TTLibError
 
 import thai_clusters
 
@@ -68,6 +79,11 @@ def stop(message):
 def component(name):
     """quest_prop_000001.txt -> quest_prop"""
     return re.sub(r"(_\d+)?\.txt$", "", name)
+
+
+def key_name(key):
+    """spot_name73 -> spot_name"""
+    return re.sub(r"\d+", "", key)
 
 
 def parse(path):
@@ -148,7 +164,7 @@ def extract(jp_rom, en_rom, out):
                 continue
             templates[comp].append(polib.POEntry(msgctxt=ctx, msgid=value.replace("\\n", "\n"), msgstr="",
                                                  comment=comment, occurrences=[("single/" + name, "")]))
-            kind = re.sub(r"\d+", "", key)
+            kind = key_name(key)
             kinds[kind] = kinds.get(kind, 0) + 1
             jp_value = jp[key][0] if key in jp else None
             if not ASCII_LETTER.search(value):
@@ -224,7 +240,24 @@ def load_pos(label, po_dir):
     return pos
 
 
-def build(en_rom, mode, ai_dir, community_dir, clusters_path, out):
+def load_widths(font_path):
+    """{code point: advance width} from the font's cmap and hmtx, and the advance width of .notdef."""
+    try:
+        font = TTFont(font_path)
+        hmtx = font["hmtx"]
+        widths = {cp: hmtx[glyph][0] for cp, glyph in font.getBestCmap().items()}
+        notdef = hmtx[".notdef"][0]
+    except (OSError, KeyError, TTLibError) as e:
+        stop("cannot read the advance widths of %s: %r" % (font_path, e))
+    return widths, notdef
+
+
+def width(text, widths, notdef):
+    """The sum of the advance widths of the characters of text."""
+    return sum(widths.get(ord(ch), notdef) for ch in text)
+
+
+def build(en_rom, mode, ai_dir, community_dir, clusters_path, font_path, out):
     en_dir = os.path.join(en_rom, "single")
     out_dir = os.path.join(out, "single")
     if os.path.normcase(os.path.realpath(en_dir)) == os.path.normcase(os.path.realpath(out_dir)):
@@ -238,12 +271,16 @@ def build(en_rom, mode, ai_dir, community_dir, clusters_path, out):
     if clusters_path:
         with open(clusters_path, encoding="utf-8") as f:
             mapping = json.load(f)
+    if font_path:
+        widths, notdef = load_widths(font_path)
 
     counts = {"community": 0, "ai": 0, "english": 0}
     untouched = 0
     seen = set()
     doubled = []
     problems = []
+    english = {}
+    thai = []
     outputs = []
     for name in names:
         parts, entries = parse(os.path.join(en_dir, name))
@@ -251,6 +288,7 @@ def build(en_rom, mode, ai_dir, community_dir, clusters_path, out):
         for key, (value, i) in entries.items():
             ctx = name + ":" + key
             seen.add((comp, ctx))
+            english.setdefault(key_name(key), []).append(value)
             c = community.get(comp, (None, {}))[1].get(ctx)
             a = ai.get(comp, (None, {}))[1].get(ctx)
             if c is None and a is None:
@@ -273,7 +311,9 @@ def build(en_rom, mode, ai_dir, community_dir, clusters_path, out):
                 if mapping is None or missing:
                     problems.append((ctx, missing))
                     continue
-                new = thai_clusters.encode(new, mapping)
+                encoded = thai_clusters.encode(new, mapping)
+                thai.append((ctx, key_name(key), new, encoded))
+                new = encoded
             parts[i] = key + "=" + new
         outputs.append((name, BOM + "".join(parts).encode("utf-8")))
 
@@ -295,6 +335,28 @@ def build(en_rom, mode, ai_dir, community_dir, clusters_path, out):
         if mapping is None:
             stop("%d values hold Thai and --clusters was not given; nothing written" % len(problems))
         stop("%d values hold Thai clusters missing from %s; nothing written" % (len(problems), clusters_path))
+    if thai and not font_path:
+        stop("%d values hold Thai and --font was not given; nothing written" % len(thai))
+    if thai:
+        limits = {kind: max(width(line, widths, notdef) for value in english[kind] for line in value.split("\\n"))
+                  for kind in set(kind for ctx, kind, new, encoded in thai)}
+        too_wide = []
+        line_count = 0
+        highest = (-1, None)
+        for ctx, kind, new, encoded in thai:
+            # Encoding keeps each backslash + n, so the lines pair up.
+            for n, (line, shown) in enumerate(zip(encoded.split("\\n"), new.split("\\n")), 1):
+                line_count += 1
+                w = width(line, widths, notdef)
+                ratio = w / max(limits[kind], 1)
+                highest = max(highest, (ratio, ctx))
+                if w > limits[kind]:
+                    too_wide.append((ctx, n, w, limits[kind], ratio, shown))
+        if too_wide:
+            for ctx, n, w, limit, ratio, shown in too_wide:
+                print("  %s line %d: width %d, limit %d, ratio %.2f: %s" % (ctx, n, w, limit, ratio, shown))
+            stop("%d Thai lines are wider than the widest English line of their key name, measured in %s;"
+                 " nothing written" % (len(too_wide), font_path))
 
     os.makedirs(out_dir, exist_ok=True)
     for name, data in outputs:
@@ -305,6 +367,9 @@ def build(en_rom, mode, ai_dir, community_dir, clusters_path, out):
           % (counts["community"], counts["ai"], counts["english"]))
     print("key=value lines in no .po, left as they are: %d" % untouched)
     print(".po msgctxts matching no line: %d" % unmatched)
+    if thai:
+        print("Thai values checked for width: %d, lines: %d, none wider than its limit; highest width/limit %.2f, %s"
+              % (len(thai), line_count, highest[0], highest[1]))
 
 
 def main(argv=None):
@@ -328,6 +393,8 @@ def main(argv=None):
     p.add_argument("--community", metavar="DIR",
                    help=r"community translations, as DIR\single\<component>.po (ignored in ai mode)")
     p.add_argument("--clusters", metavar="CLUSTERS_JSON", help="clusters.json of the Thai game font")
+    p.add_argument("--font", metavar="FONT",
+                   help="the Thai game font of --clusters, to measure line widths (needed if any value is Thai)")
     p.add_argument("--out", required=True, metavar="DIR", help=r"files go to DIR\single")
     args = parser.parse_args(argv)
 
@@ -337,7 +404,7 @@ def main(argv=None):
     elif args.command == "lines":
         lines(args.po, args.out)
     else:
-        build(args.en, args.mode, args.ai, args.community, args.clusters, args.out)
+        build(args.en, args.mode, args.ai, args.community, args.clusters, args.font, args.out)
     return 0
 
 

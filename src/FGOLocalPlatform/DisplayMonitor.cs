@@ -6,7 +6,7 @@ namespace FGOLocalPlatform;
 
 internal static class DisplayMonitor
 {
-	internal sealed record Entry(string Device, string Label);
+	internal sealed record Entry(string Device, string Label, bool IsPrimary);
 
 	private struct Rect
 	{
@@ -57,7 +57,7 @@ internal static class DisplayMonitor
 			if (GetMonitorInfo(monitor, ref info))
 			{
 				string value = info.Device.Replace("\\\\.\\DISPLAY", "จอแสดงผล ");
-				entries.Add(new Entry(info.Device, $"{value}{(((info.Flags & 1) != 0) ? " (จอหลัก)" : "")} - {info.Monitor.Right - info.Monitor.Left}x{info.Monitor.Bottom - info.Monitor.Top}"));
+				entries.Add(new Entry(info.Device, $"{value}{(((info.Flags & 1) != 0) ? " (จอหลัก)" : "")} - {info.Monitor.Right - info.Monitor.Left}x{info.Monitor.Bottom - info.Monitor.Top}", ((info.Flags & 1) != 0)));
 			}
 			return true;
 		}, IntPtr.Zero);

@@ -522,7 +522,7 @@ internal sealed class FirstRun
 	private static string GetPrimaryMonitorDevice()
 	{
 		IReadOnlyList<DisplayMonitor.Entry> connected = DisplayMonitor.GetConnected();
-		DisplayMonitor.Entry entry = connected.FirstOrDefault((DisplayMonitor.Entry candidate) => candidate.Label.Contains("(primary)", StringComparison.OrdinalIgnoreCase));
+		DisplayMonitor.Entry entry = connected.FirstOrDefault((DisplayMonitor.Entry candidate) => candidate.IsPrimary);
 		if (entry != null)
 		{
 			return entry.Device;

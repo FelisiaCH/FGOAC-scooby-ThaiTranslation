@@ -57,7 +57,7 @@ internal static class StartupDiagnostics
 		ProcessStartInfo processStartInfo = PowerShellHost.CreateStartInfo(fullPath, redirectOutput: true, new string[2] { "-Command", "[Console]::OutputEncoding=[Text.UTF8Encoding]::new($false); $ErrorActionPreference='Stop'; . $env:FGO_CHECK_SCRIPT; Test-FgoWritableLayout -InstallRoot $env:FGO_CHECK_ROOT" });
 		processStartInfo.Environment["FGO_CHECK_SCRIPT"] = text;
 		processStartInfo.Environment["FGO_CHECK_ROOT"] = fullPath;
-		using Process process = Process.Start(processStartInfo) ?? throw new IOException("Could not start the folder check.");
+		using Process process = Process.Start(processStartInfo) ?? throw new IOException("เริ่มการตรวจสอบโฟลเดอร์ไม่ได้");
 		Task<string> task = process.StandardOutput.ReadToEndAsync();
 		Task<string> task2 = process.StandardError.ReadToEndAsync();
 		ProcessCompletion.WaitAsync(process, TimeSpan.FromSeconds(20.0)).GetAwaiter().GetResult();

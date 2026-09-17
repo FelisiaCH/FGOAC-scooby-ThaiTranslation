@@ -155,7 +155,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 			JsonNode? jsonNode = jsonObject["version"];
 			if (jsonNode == null || jsonNode.GetValue<int>() != 1 || !(jsonObject["weights"] is JsonObject jsonObject3))
 			{
-				throw new InvalidDataException("the config version or format is wrong");
+				throw new InvalidDataException("เวอร์ชันหรือรูปแบบของไฟล์ตั้งค่าไม่ถูกต้อง");
 			}
 			jsonObject2 = jsonObject3;
 			HashSet<string> hashSet = (from c in cards
@@ -171,12 +171,12 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 				}
 				if (!hashSet.Contains(item.Key) || !(item.Value is JsonValue jsonValue) || !jsonValue.TryGetValue<int>(out var value) || value < 0 || value > 1000000)
 				{
-					throw new InvalidDataException("Card " + item.Key + " cannot be drawn, or its weight is invalid");
+					throw new InvalidDataException("การ์ด " + item.Key + " สุ่มไม่ได้ หรือค่าน้ำหนักไม่ถูกต้อง");
 				}
 			}
 			if (!jsonObject2.Any<KeyValuePair<string, JsonNode>>((KeyValuePair<string, JsonNode> pair) => pair.Value.GetValue<int>() > 0))
 			{
-				throw new InvalidDataException("at least one card needs a weight above 0");
+				throw new InvalidDataException("ต้องมีการ์ดอย่างน้อยหนึ่งใบที่มีค่าน้ำหนักมากกว่า 0");
 			}
 		}
 		batching = true;
@@ -323,7 +323,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		{
 			if ((File.Exists(settingsPath) ? File.ReadAllText(settingsPath) : null) != loadedText)
 			{
-				throw new IOException("Another window changed the rates file - click Reload before editing.");
+				throw new IOException("หน้าต่างอื่นเปลี่ยนไฟล์อัตราไปแล้ว - คลิกโหลดใหม่ก่อนแก้ไข");
 			}
 			string contents = BuildWeightsJson();
 			AtomicFile.WriteAllText(settingsPath, contents);
@@ -471,7 +471,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 		}
 		try
 		{
-			string? name = PresetFolder.Import(OwnerWindow, PresetsFolder, LooksLikePreset, "That file is not a draw-rate preset. Pick a .json file that was exported from the Presets row.");
+			string? name = PresetFolder.Import(OwnerWindow, PresetsFolder, LooksLikePreset, "ไฟล์นั้นไม่ใช่พรีเซ็ตอัตราการสุ่ม ให้เลือกไฟล์ .json ที่ส่งออกจากแถวพรีเซ็ต");
 			if (name == null)
 			{
 				return;

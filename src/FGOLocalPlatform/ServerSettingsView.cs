@@ -57,13 +57,13 @@ public partial class ServerSettingsView : UserControl, IComponentConnector
 		{
 			if (!int.TryParse(value, out var result) || result < 1 || result > 65535)
 			{
-				throw new ArgumentException("Each port must be a whole number from 1 to 65535.");
+				throw new ArgumentException("แต่ละพอร์ตต้องเป็นจำนวนเต็มตั้งแต่ 1 ถึง 65535");
 			}
 			return result;
 		}).ToArray();
 		if (array2.Distinct().Count() != 4)
 		{
-			throw new ArgumentException("The four services cannot share a port.");
+			throw new ArgumentException("บริการทั้งสี่ใช้พอร์ตร่วมกันไม่ได้");
 		}
 		List<string> list = new List<string>
 		{
@@ -97,7 +97,7 @@ public partial class ServerSettingsView : UserControl, IComponentConnector
 		{
 			processStartInfo.ArgumentList.Add(item);
 		}
-		using Process process = Process.Start(processStartInfo) ?? throw new IOException("Could not run the server configuration tool.");
+		using Process process = Process.Start(processStartInfo) ?? throw new IOException("เรียกใช้เครื่องมือตั้งค่าเซิร์ฟเวอร์ไม่ได้");
 		Task<string> output = process.StandardOutput.ReadToEndAsync();
 		Task<string> error = process.StandardError.ReadToEndAsync();
 		await ProcessCompletion.WaitAsync(process, TimeSpan.FromSeconds(15.0));
@@ -109,7 +109,7 @@ public partial class ServerSettingsView : UserControl, IComponentConnector
 		{
 			throw new IOException(jsonNode?["error"]?.GetValue<string>() ?? text2);
 		}
-		return jsonNode ?? throw new IOException("No configuration came back from the server tool.");
+		return jsonNode ?? throw new IOException("ไม่ได้รับค่าตั้งกลับมาจากเครื่องมือเซิร์ฟเวอร์");
 	}
 
 	public async Task ReloadAsync()

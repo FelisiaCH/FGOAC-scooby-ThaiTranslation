@@ -316,7 +316,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 		{
 			if (token.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
 			{
-				throw new IOException("The character asset name is not valid.");
+				throw new IOException("ชื่อไฟล์ทรัพยากรของตัวละครไม่ถูกต้อง");
 			}
 			string path = Path.Combine(root, "rom", "mot", "mot_" + token.ToLowerInvariant() + ".farc");
 			PhotoBodyMotionEntry[] array = await Task.Run(() => (from e in PhotoBodyMotionCatalog.List(path, type, currentBones)

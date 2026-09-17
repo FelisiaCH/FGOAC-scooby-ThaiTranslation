@@ -144,7 +144,7 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 			{
 				if (artwork == null)
 				{
-					throw new InvalidOperationException("Choose a pointer image first.");
+					throw new InvalidOperationException("เลือกภาพตัวชี้ก่อน");
 				}
 				byte[] bytes = CursorArtwork.Build(artwork, (int)SizeSlider.Value, (int)OutlineSlider.Value, HotX.Value / 100.0, HotY.Value / 100.0);
 				Directory.CreateDirectory(directory);

@@ -78,11 +78,11 @@ public static class PhotoBodyMotionCatalog
 	public static FgoMotion Load(PhotoBodyMotionEntry entry, int jointType, IReadOnlyList<PhotoRigBone> bones)
 	{
 		FarcArchive farcArchive = new FarcArchive(entry.ArchivePath);
-		FarcEntry farcEntry = farcArchive.Entries.SingleOrDefault((FarcEntry e) => e.Name == entry.EntryName) ?? throw new FgoFormatException("That motion is no longer in the archive.");
+		FarcEntry farcEntry = farcArchive.Entries.SingleOrDefault((FarcEntry e) => e.Name == entry.EntryName) ?? throw new FgoFormatException("ท่าทางนั้นไม่อยู่ในคลังแล้ว");
 		FgoMotion fgoMotion = new FgoMotionParser().Parse(farcArchive.Read(farcEntry), farcEntry.Name);
 		if (!IsCompatible(fgoMotion, jointType, bones))
 		{
-			throw new FgoFormatException("This motion does not fit the character's skeleton.");
+			throw new FgoFormatException("ท่าทางนี้ไม่เข้ากับโครงกระดูกของตัวละคร");
 		}
 		return fgoMotion;
 	}
@@ -125,7 +125,7 @@ public static class PhotoBodyMotionCatalog
 		{
 			if (!float.IsFinite(value))
 			{
-				throw new FgoFormatException("The motion pose holds values that are not finite numbers.");
+				throw new FgoFormatException("ท่าโพสของท่าทางมีค่าที่ไม่ใช่ตัวเลขจำกัด");
 			}
 		}
 		return array;

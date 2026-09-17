@@ -1,4 +1,4 @@
-<#
+﻿<#
 Applies the FGOAC scooby English patch to an FGO Arcade local-platform install.
 
 The script is shipped at the root of the release package, next to "FGOAC scooby.exe",
@@ -91,14 +91,14 @@ function Select-FgoInstallRoot {
     Add-Type -AssemblyName System.Windows.Forms
     [Windows.Forms.Application]::EnableVisualStyles()
     $picker = New-Object Windows.Forms.FolderBrowserDialog
-    $picker.Description = 'Select your FGO Arcade folder - the one that holds the App and Server folders.'
+    $picker.Description = 'เลือกโฟลเดอร์ FGO Arcade ของคุณ - โฟลเดอร์ที่มีโฟลเดอร์ App และ Server อยู่ข้างใน'
     $picker.ShowNewFolderButton = $false
     try {
         while ($picker.ShowDialog() -eq [Windows.Forms.DialogResult]::OK) {
             if (Test-FgoInstallRoot -Path $picker.SelectedPath) { return $picker.SelectedPath }
             [void][Windows.Forms.MessageBox]::Show(
-                "That folder is not an FGO Arcade install. Choose the folder that holds App\ago.exe and the Server folder." + [Environment]::NewLine + [Environment]::NewLine + "You chose: " + $picker.SelectedPath,
-                'FGOAC scooby - English patch', [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Warning)
+                "โฟลเดอร์นั้นไม่ใช่การติดตั้ง FGO Arcade เลือกโฟลเดอร์ที่มี App\ago.exe และโฟลเดอร์ Server" + [Environment]::NewLine + [Environment]::NewLine + "คุณเลือก: " + $picker.SelectedPath,
+                'FGOAC scooby - แพตช์ภาษาไทย', [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Warning)
         }
         return ''
     } finally { $picker.Dispose() }
@@ -107,21 +107,21 @@ function Select-FgoInstallRoot {
 function Get-FgoDestinationPath {
     param([string]$Root, [string]$Relative)
     if ($Relative -match '^[A-Za-z]:' -or $Relative.StartsWith('\') -or $Relative.Split('\') -contains '..') {
-        throw "The patch package lists an invalid path: $Relative"
+        throw "แพ็กเกจแพตช์ระบุพาธที่ไม่ถูกต้อง: $Relative"
     }
     foreach ($prefix in $ProtectedPrefixes) {
         if ($Relative.StartsWith($prefix, [StringComparison]::OrdinalIgnoreCase)) {
-            throw "The patch package lists a file the patch is not allowed to write: $Relative"
+            throw "แพ็กเกจแพตช์ระบุไฟล์ที่แพตช์ไม่ได้รับอนุญาตให้เขียน: $Relative"
         }
     }
     foreach ($protected in $ProtectedFiles) {
         if ($Relative.Equals($protected, [StringComparison]::OrdinalIgnoreCase)) {
-            throw "The patch package lists a file the patch is not allowed to write: $Relative"
+            throw "แพ็กเกจแพตช์ระบุไฟล์ที่แพตช์ไม่ได้รับอนุญาตให้เขียน: $Relative"
         }
     }
     $full = [IO.Path]::GetFullPath([IO.Path]::Combine($Root, $Relative))
     if (!$full.StartsWith($Root.TrimEnd('\') + '\', [StringComparison]::OrdinalIgnoreCase)) {
-        throw "The patch package lists a path outside the game folder: $Relative"
+        throw "แพ็กเกจแพตช์ระบุพาธที่อยู่นอกโฟลเดอร์เกม: $Relative"
     }
     return $full
 }
@@ -203,22 +203,22 @@ if ([string]::IsNullOrWhiteSpace($InstallRoot) -and !$NonInteractive -and
 }
 
 if ([string]::IsNullOrWhiteSpace($InstallRoot)) {
-    Write-Host 'Looking for your FGO Arcade folder...'
+    Write-Host 'กำลังค้นหาโฟลเดอร์ FGO Arcade ของคุณ...'
     $InstallRoot = Find-FgoInstallRoot
     if ([string]::IsNullOrWhiteSpace($InstallRoot) -and !$NonInteractive) { $InstallRoot = Select-FgoInstallRoot }
     if ([string]::IsNullOrWhiteSpace($InstallRoot)) {
-        Stop-WithMessage 'No FGO Arcade folder was chosen, so nothing was changed.' 8
+        Stop-WithMessage 'ไม่ได้เลือกโฟลเดอร์ FGO Arcade จึงไม่มีการเปลี่ยนแปลงใด ๆ' 8
     }
 }
 if (!(Test-FgoInstallRoot -Path $InstallRoot)) {
-    Stop-WithMessage "That folder is not an FGO Arcade install: $InstallRoot. Choose the folder that holds App\ago.exe, App\fgo-launcher.json and the Server folder." 2
+    Stop-WithMessage "โฟลเดอร์นั้นไม่ใช่การติดตั้ง FGO Arcade: $InstallRoot เลือกโฟลเดอร์ที่มี App\ago.exe, App\fgo-launcher.json และโฟลเดอร์ Server" 2
 }
 $InstallRoot = (Resolve-Path -LiteralPath $InstallRoot).Path.TrimEnd('\')
 $PackageRoot = (Resolve-Path -LiteralPath $PackageRoot).Path.TrimEnd('\')
 $rootPrefix = $InstallRoot + '\'
 $driveLetter = $InstallRoot.Substring(0, 1).ToUpperInvariant()
 if ($driveLetter -eq 'E' -or $driveLetter -eq 'Y') {
-    Stop-WithMessage "The game cannot run from drive ${driveLetter}: - its own file hook sends every ${driveLetter}: path to the cabinet data mount, so the game stops with ERROR 4104. Move the whole $InstallRoot folder to another drive, such as D:, and run the patch again." 3
+    Stop-WithMessage "เกมไม่สามารถทำงานจากไดรฟ์ ${driveLetter}: ได้ - ฮุกไฟล์ของเกมเองจะส่งทุกพาธ ${driveLetter}: ไปยังจุดเชื่อมต่อข้อมูลตู้เกม เกมจึงหยุดด้วย ERROR 4104 ให้ย้ายโฟลเดอร์ $InstallRoot ทั้งโฟลเดอร์ไปไว้ที่ไดรฟ์อื่น เช่น D: แล้วรันแพตช์อีกครั้ง" 3
 }
 
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -244,22 +244,22 @@ $running = @(Get-CimInstance Win32_Process | Where-Object {
     $_.ExecutablePath -and $_.ExecutablePath.StartsWith($rootPrefix, [StringComparison]::OrdinalIgnoreCase)
 })
 if ($running) {
-    Stop-WithMessage ("Close the game and the launcher in $InstallRoot first, then run the patch again. Still running: " + (($running | ForEach-Object { $_.Name }) -join ', ')) 4
+    Stop-WithMessage ("ปิดเกมและตัวเรียกเกมใน $InstallRoot ก่อน แล้วรันแพตช์อีกครั้ง ยังทำงานอยู่: " + (($running | ForEach-Object { $_.Name }) -join ', ')) 4
 }
 
 $backupRoot = [IO.Path]::Combine($InstallRoot, '_th-patch-backup')
 $markerPath = [IO.Path]::Combine($InstallRoot, 'App\zh\th-patch.json')
 
 if ($Rollback) {
-    if (!([IO.Directory]::Exists($backupRoot))) { Stop-WithMessage "There is no patch backup to restore in $backupRoot." 7 }
+    if (!([IO.Directory]::Exists($backupRoot))) { Stop-WithMessage "ไม่มีข้อมูลสำรองของแพตช์ให้คืนค่าใน $backupRoot" 7 }
     $backup = Get-ChildItem -LiteralPath $backupRoot -Directory | Sort-Object -Property Name | Select-Object -Last 1
-    if (!$backup) { Stop-WithMessage "There is no patch backup to restore in $backupRoot." 7 }
+    if (!$backup) { Stop-WithMessage "ไม่มีข้อมูลสำรองของแพตช์ให้คืนค่าใน $backupRoot" 7 }
     $recordPath = [IO.Path]::Combine($backup.FullName, 'th-patch-restore.json')
     if (!([IO.File]::Exists($recordPath))) {
-        Stop-WithMessage "The backup in $($backup.FullName) has no th-patch-restore.json, so it cannot be rolled back automatically." 7
+        Stop-WithMessage "ข้อมูลสำรองใน $($backup.FullName) ไม่มีไฟล์ th-patch-restore.json จึงย้อนกลับอัตโนมัติไม่ได้" 7
     }
     $record = Get-Content -LiteralPath $recordPath -Raw -Encoding UTF8 | ConvertFrom-Json
-    Write-Host "Restoring the files saved in $($backup.FullName)..."
+    Write-Host "กำลังคืนค่าไฟล์ที่บันทึกไว้ใน $($backup.FullName)..."
     $restored = 0
     foreach ($relative in @($record.replaced)) {
         $saved = [IO.Path]::Combine($backup.FullName, $relative)
@@ -280,8 +280,8 @@ if ($Rollback) {
     $savedMarker = [IO.Path]::Combine($backup.FullName, 'App\zh\th-patch.json')
     if ([IO.File]::Exists($savedMarker)) { Copy-FgoFile -Source $savedMarker -Destination $markerPath }
     elseif ([IO.File]::Exists($markerPath)) { [IO.File]::Delete($markerPath) }
-    Write-Host "Rollback finished: $restored files restored, $removed files removed."
-    Write-Host 'The launcher settings were left as they are; turn English Text off in the launcher if you want the Chinese set back.'
+    Write-Host "ย้อนกลับเสร็จสิ้น: คืนค่า $restored ไฟล์ ลบ $removed ไฟล์"
+    Write-Host 'การตั้งค่าตัวเรียกเกมถูกปล่อยไว้ตามเดิม หากต้องการชุดข้อความภาษาจีนกลับคืน ให้ปิด ข้อความแปล ในตัวเรียกเกม'
     exit 0
 }
 
@@ -289,18 +289,18 @@ if ($Rollback) {
 # scripts in this package load it. On the original 11.00 package they would leave the server
 # unable to start, so the patch stops here instead.
 if (!([IO.File]::Exists([IO.Path]::Combine($InstallRoot, 'App\FGO_Runtime.dll')))) {
-    Stop-WithMessage "This game folder has not had Cloud23333's V1.01 update yet: App\FGO_Runtime.dll is missing, and the English patch needs it. Apply his V1.01 or V1.02 update to $InstallRoot first, then run FGOAC scooby again." 9
+    Stop-WithMessage "โฟลเดอร์เกมนี้ยังไม่ได้อัปเดต V1.01 ของ Cloud23333: ไม่พบ App\FGO_Runtime.dll ซึ่งแพตช์ภาษาไทยจำเป็นต้องใช้ ให้ติดตั้งอัปเดต V1.01 หรือ V1.02 ของเขาลงใน $InstallRoot ก่อน แล้วเปิด FGOAC scooby อีกครั้ง" 9
 }
 
 $manifestPath = [IO.Path]::Combine($PackageRoot, 'manifest.json')
 if (!([IO.File]::Exists($manifestPath))) {
-    Stop-WithMessage "The patch package is incomplete: manifest.json is missing from $PackageRoot. Unzip the whole package again." 5
+    Stop-WithMessage "แพ็กเกจแพตช์ไม่สมบูรณ์: ไม่พบ manifest.json ใน $PackageRoot ให้แตกไฟล์แพ็กเกจทั้งหมดอีกครั้ง" 5
 }
 $manifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $version = [string]$manifest.version
 $manifestHash = [string]$manifest.manifestHash
 $entries = @($manifest.files.PSObject.Properties)
-if ($entries.Count -eq 0) { Stop-WithMessage 'The patch package is incomplete: manifest.json lists no files.' 5 }
+if ($entries.Count -eq 0) { Stop-WithMessage 'แพ็กเกจแพตช์ไม่สมบูรณ์: manifest.json ไม่ได้ระบุไฟล์ใดเลย' 5 }
 
 if (!$Force -and [IO.File]::Exists($markerPath)) {
     try {
@@ -317,17 +317,17 @@ if (!$Force -and [IO.File]::Exists($markerPath)) {
                 if (!([IO.File]::Exists($installed)) -or (Get-FgoFileHash -Path $installed) -ne [string]$entry.Value) { $replaced = $entry.Name; break }
             }
             if ($replaced -eq '') {
-                Write-Host "The English patch version $version is already installed in $InstallRoot. Nothing was changed."
+                Write-Host "แพตช์ภาษาไทยเวอร์ชัน $version ติดตั้งอยู่แล้วใน $InstallRoot ไม่มีการเปลี่ยนแปลงใด ๆ"
                 exit 0
             }
-            Write-Host "The English patch version $version is recorded as installed, but $replaced has been replaced since, usually by a platform update, so the patch is applied again."
+            Write-Host "มีบันทึกว่าแพตช์ภาษาไทยเวอร์ชัน $version ติดตั้งแล้ว แต่ $replaced ถูกแทนที่ไปหลังจากนั้น ซึ่งมักเกิดจากการอัปเดตแพลตฟอร์ม จึงจะติดตั้งแพตช์ใหม่อีกครั้ง"
         }
     } catch {
-        Write-Host 'The patch marker already there could not be read, so the patch will be applied again.'
+        Write-Host 'อ่านไฟล์เครื่องหมายแพตช์ที่มีอยู่ไม่ได้ จึงจะติดตั้งแพตช์ใหม่อีกครั้ง'
     }
 }
 
-Write-Host "Applying the English patch version $version to $InstallRoot"
+Write-Host "กำลังติดตั้งแพตช์ภาษาไทยเวอร์ชัน $version ลงใน $InstallRoot"
 $payloadRoot = [IO.Path]::Combine($PackageRoot, 'payload')
 $plan = New-Object 'System.Collections.Generic.List[object]'
 foreach ($entry in $entries) {
@@ -337,7 +337,7 @@ foreach ($entry in $entries) {
     $source = [IO.Path]::Combine($payloadRoot, $relative)
     if (!([IO.File]::Exists($source))) { $source = [IO.Path]::Combine($PackageRoot, $relative) }
     if (!([IO.File]::Exists($source))) {
-        Stop-WithMessage "The patch package is incomplete: $relative is missing. Unzip the whole package again." 5
+        Stop-WithMessage "แพ็กเกจแพตช์ไม่สมบูรณ์: ไม่พบ $relative ให้แตกไฟล์แพ็กเกจทั้งหมดอีกครั้ง" 5
     }
     $plan.Add([pscustomobject]@{
         Relative    = $relative
@@ -356,7 +356,7 @@ foreach ($entry in $entries) {
 # which stages it as .new while it runs; manifest.json goes last, so a copy that stops half way
 # still describes the previous package.
 if (!$PackageRoot.Equals($InstallRoot, [StringComparison]::OrdinalIgnoreCase)) {
-    Write-Host 'Copying the package into the game folder...'
+    Write-Host 'กำลังคัดลอกแพ็กเกจไปยังโฟลเดอร์เกม...'
     $packagePrefix = $PackageRoot + '\'
     foreach ($file in (Get-ChildItem -LiteralPath $PackageRoot -File -Recurse)) {
         if ($file.Name -eq 'FGOAC scooby.exe' -or $file.FullName.Equals($manifestPath, [StringComparison]::OrdinalIgnoreCase)) { continue }
@@ -365,26 +365,26 @@ if (!$PackageRoot.Equals($InstallRoot, [StringComparison]::OrdinalIgnoreCase)) {
     Copy-FgoFile -Source $manifestPath -Destination ([IO.Path]::Combine($InstallRoot, 'manifest.json'))
 }
 
-Write-Host "Checking $($plan.Count) files against the package..."
+Write-Host "กำลังตรวจสอบไฟล์ $($plan.Count) ไฟล์เทียบกับแพ็กเกจ..."
 $toCopy = New-Object 'System.Collections.Generic.List[object]'
 $checked = 0
 foreach ($item in $plan) {
     $checked++
-    if (($checked % 400) -eq 0) { Write-Host "  checked $checked of $($plan.Count) files" }
+    if (($checked % 400) -eq 0) { Write-Host "  ตรวจสอบแล้ว $checked จาก $($plan.Count) ไฟล์" }
     if ($item.InPlace) { continue }
     if ([IO.File]::Exists($item.Destination) -and (Get-FgoFileHash -Path $item.Destination) -eq $item.Expected) { continue }
     $toCopy.Add($item)
 }
 
 if ($toCopy.Count -eq 0) {
-    Write-Host 'Every file was already in place, so only the marker needed writing.'
+    Write-Host 'ไฟล์ทุกไฟล์อยู่ในตำแหน่งอยู่แล้ว จึงเขียนเฉพาะไฟล์เครื่องหมายเท่านั้น'
 } else {
     $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
     $backup = [IO.Path]::Combine($backupRoot, $stamp)
     [void][IO.Directory]::CreateDirectory($backup)
     $replaced = New-Object 'System.Collections.Generic.List[string]'
     $added = New-Object 'System.Collections.Generic.List[string]'
-    Write-Host "Backing up the files that will be replaced to $backup"
+    Write-Host "กำลังสำรองไฟล์ที่จะถูกแทนที่ไปยัง $backup"
     foreach ($item in $toCopy) {
         if ([IO.File]::Exists($item.Destination)) {
             Copy-FgoFile -Source $item.Destination -Destination ([IO.Path]::Combine($backup, $item.Relative))
@@ -403,7 +403,7 @@ if ($toCopy.Count -eq 0) {
         added    = @($added)
     })
 
-    Write-Host "Copying $($toCopy.Count) files..."
+    Write-Host "กำลังคัดลอกไฟล์ $($toCopy.Count) ไฟล์..."
     $copied = 0
     foreach ($item in $toCopy) {
         try {
@@ -414,24 +414,24 @@ if ($toCopy.Count -eq 0) {
             # old one. The launcher swaps it in and restarts itself when it closes.
             $item.Destination = $item.Destination + '.new'
             Copy-FgoFile -Source $item.Source -Destination $item.Destination
-            Write-Host 'The launcher is open, so the new one was staged next to it and is swapped in when it closes.'
+            Write-Host 'ตัวเรียกเกมเปิดอยู่ ไฟล์ใหม่จึงถูกวางพักไว้ข้าง ๆ และจะสลับเข้ามาแทนเมื่อปิดตัวเรียกเกม'
         }
         $copied++
-        if (($copied % 200) -eq 0) { Write-Host "  copied $copied of $($toCopy.Count) files" }
+        if (($copied % 200) -eq 0) { Write-Host "  คัดลอกแล้ว $copied จาก $($toCopy.Count) ไฟล์" }
     }
 
-    Write-Host 'Checking the copied files...'
+    Write-Host 'กำลังตรวจสอบไฟล์ที่คัดลอก...'
     $bad = New-Object 'System.Collections.Generic.List[string]'
     foreach ($item in $toCopy) {
         if ((Get-FgoFileHash -Path $item.Destination) -ne $item.Expected) { $bad.Add($item.Relative) }
     }
     if ($bad.Count -gt 0) {
-        Write-Host 'These files did not match their checksum after copying, so the patch is not complete:'
+        Write-Host 'ไฟล์เหล่านี้ไม่ตรงกับเช็คซัมหลังคัดลอก แพตช์จึงไม่สมบูรณ์:'
         foreach ($relative in $bad) { Write-Host "  $relative" }
-        Write-Host "Run the patch again; if it keeps failing, check your antivirus and the free space on drive ${driveLetter}:. The replaced files are in $backup, and -Rollback puts them back."
+        Write-Host "ให้รันแพตช์อีกครั้ง หากยังล้มเหลว ให้ตรวจสอบโปรแกรมป้องกันไวรัสและพื้นที่ว่างบนไดรฟ์ ${driveLetter}: ไฟล์ที่ถูกแทนที่อยู่ใน $backup และ -Rollback จะคืนค่ากลับให้"
         exit 6
     }
-    Write-Host "Backup of the replaced files: $backup"
+    Write-Host "ข้อมูลสำรองของไฟล์ที่ถูกแทนที่: $backup"
     # The launcher swaps the staged build in the moment it closes; that has to find the file free.
     foreach ($item in $toCopy) {
         if ($item.IsLauncher -and $item.Destination.EndsWith('.new')) { Wait-FgoFileReleased -Path $item.Destination -Seconds 90 }
@@ -445,9 +445,9 @@ if ([IO.File]::Exists($retiredLauncher) -and [IO.File]::Exists([IO.Path]::Combin
     try {
         Clear-FgoReadOnly -Path $retiredLauncher
         Remove-Item -LiteralPath $retiredLauncher -Force
-        Write-Host "Removed $RetiredLauncherName, which this version replaces."
+        Write-Host "ลบ $RetiredLauncherName แล้ว เนื่องจากเวอร์ชันนี้มาแทนที่"
     } catch {
-        Write-Host "$RetiredLauncherName is still there and could not be removed: $($_.Exception.Message). Delete it yourself so you do not start the old build by mistake."
+        Write-Host "$RetiredLauncherName ยังอยู่และลบไม่ได้: $($_.Exception.Message) ให้ลบเองเพื่อไม่ให้เผลอเปิดบิลด์เก่า"
     }
 }
 
@@ -458,11 +458,11 @@ try {
     if ($configuration.chineseEnabled -ne $true) {
         $configuration | Add-Member -NotePropertyName 'chineseEnabled' -NotePropertyValue $true -Force
         Write-FgoJson -Path $configurationPath -Value $configuration
-        Write-Host 'Turned the English text on in the launcher settings.'
+        Write-Host 'เปิด ข้อความแปล ในการตั้งค่าตัวเรียกเกมแล้ว'
     }
 } catch {
-    Write-Host "The English text switch could not be set in App\fgo-launcher.json: $($_.Exception.Message)"
-    Write-Host 'Open the launcher and turn English Text on yourself.'
+    Write-Host "ตั้งค่าสวิตช์ ข้อความแปล ใน App\fgo-launcher.json ไม่ได้: $($_.Exception.Message)"
+    Write-Host 'ให้เปิดตัวเรียกเกมแล้วเปิด ข้อความแปล ด้วยตัวเอง'
 }
 
 # Windows marks every file that came out of a downloaded zip, and Windows PowerShell then refuses
@@ -478,5 +478,5 @@ Write-FgoJson -Path $markerPath -Value ([ordered]@{
     appliedUtc   = (Get-Date).ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
     manifestHash = $manifestHash
 })
-Write-Host "The English patch version $version is installed in $InstallRoot."
+Write-Host "ติดตั้งแพตช์ภาษาไทยเวอร์ชัน $version ใน $InstallRoot แล้ว"
 exit 0

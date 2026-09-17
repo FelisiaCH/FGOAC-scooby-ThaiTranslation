@@ -15,7 +15,7 @@ public sealed class EasterEggSettingsView : StackPanel
 	{
 		Content = "อีสเตอร์เอ้ก",
 		MinWidth = 110.0,
-		Height = 34.0,
+		Height = 40.0,
 		HorizontalAlignment = HorizontalAlignment.Left
 	};
 

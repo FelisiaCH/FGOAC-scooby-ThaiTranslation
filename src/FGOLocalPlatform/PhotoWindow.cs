@@ -377,7 +377,7 @@ public sealed class PhotoWindow : UserControl
 			{
 				Content = tuple2.Item1,
 				Width = 160.0,
-				Height = 36.0,
+				Height = 40.0,
 				Margin = new Thickness(0.0, 0.0, 8.0, 8.0),
 				IsEnabled = (view != null)
 			};
@@ -499,7 +499,7 @@ public sealed class PhotoWindow : UserControl
 			int index = num2;
 			DockPanel dockPanel2 = new DockPanel
 			{
-				Height = 34.0,
+				Height = 40.0,
 				Margin = new Thickness(0.0, 0.0, 0.0, 8.0)
 			};
 			dockPanel2.Children.Add(new TextBlock
@@ -513,7 +513,7 @@ public sealed class PhotoWindow : UserControl
 			{
 				Content = KeyLabel(keys[num2]),
 				Width = 360.0,
-				Height = 34.0,
+				Height = 40.0,
 				Margin = new Thickness(0.0),
 				HorizontalAlignment = HorizontalAlignment.Left
 			};
@@ -911,7 +911,7 @@ public sealed class PhotoWindow : UserControl
 		{
 			Content = "ซ่อน",
 			Width = 64.0,
-			Height = 32.0,
+			Height = 40.0,
 			Margin = new Thickness(4.0)
 		};
 		DockPanel.SetDock(button, Dock.Right);
@@ -1049,7 +1049,7 @@ public sealed class PhotoWindow : UserControl
 			{
 				Content = tuple2.Item1,
 				Width = 160.0,
-				Height = 34.0,
+				Height = 40.0,
 				Margin = new Thickness(0.0, 0.0, 8.0, 0.0)
 			};
 			int command = tuple2.Item2;

@@ -117,7 +117,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			(string, string, int) tuple = physicalButtons[i];
 			Grid grid = new Grid
 			{
-				Height = 34.0,
+				Height = 40.0,
 				Margin = new Thickness(0.0, 0.0, 0.0, 8.0)
 			};
 			grid.ColumnDefinitions.Add(new ColumnDefinition
@@ -137,8 +137,8 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 			Button button = new Button
 			{
 				Width = 360.0,
-				Height = 34.0,
-				MinHeight = 34.0,
+				Height = 40.0,
+				MinHeight = 40.0,
 				Margin = new Thickness(0.0),
 				HorizontalAlignment = HorizontalAlignment.Left,
 				HorizontalContentAlignment = HorizontalAlignment.Center
@@ -571,7 +571,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		};
 		Grid grid = new Grid
 		{
-			Height = 34.0,
+			Height = 40.0,
 			Margin = new Thickness(0.0, 0.0, 0.0, 8.0)
 		};
 		grid.ColumnDefinitions.Add(new ColumnDefinition

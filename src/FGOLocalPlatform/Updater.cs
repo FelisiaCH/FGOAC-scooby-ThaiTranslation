@@ -107,7 +107,7 @@ internal static class Updater
 			}
 			Directory.CreateDirectory(staging);
 
-			report("Downloading " + release.ZipName + "...");
+			report("กำลังดาวน์โหลด " + release.ZipName + "...");
 			Log("Downloading " + release.ZipUrl);
 			string archive = Path.Combine(staging, release.ZipName);
 			using (HttpResponseMessage response = await Client.GetAsync(release.ZipUrl, HttpCompletionOption.ResponseHeadersRead, cancellation))
@@ -117,32 +117,32 @@ internal static class Updater
 				await response.Content.CopyToAsync(file, cancellation);
 			}
 
-			report("Checking the download...");
+			report("กำลังตรวจสอบไฟล์ที่ดาวน์โหลด...");
 			string published = ReadHash(await Client.GetStringAsync(release.HashUrl, cancellation));
 			string actual = HashFile(archive);
 			if (published == null || !string.Equals(published, actual, StringComparison.OrdinalIgnoreCase))
 			{
 				Log($"Checksum mismatch: published {published}, downloaded {actual}");
-				report("The download did not match its published checksum, so nothing was installed. Try again, or download the release from GitHub yourself.");
+				report("ไฟล์ที่ดาวน์โหลดมาไม่ตรงกับเช็คซัมที่ประกาศไว้ จึงไม่ได้ติดตั้งอะไรเลย ลองใหม่อีกครั้ง หรือดาวน์โหลดรีลีสจาก GitHub ด้วยตัวเอง");
 				return false;
 			}
 
-			report("Unpacking the update into the game folder...");
+			report("กำลังแตกไฟล์อัปเดตลงในโฟลเดอร์เกม...");
 			ExtractIntoGameFolder(archive, installRoot);
 			string script = Path.Combine(installRoot, "Apply-EN-Patch.ps1");
 			if (!File.Exists(script))
 			{
 				Log("No Apply-EN-Patch.ps1 in " + release.ZipName);
-				report("The update package has no installer in it, so nothing was installed. Download the release from GitHub and unzip it into the game folder yourself.");
+				report("แพ็กเกจอัปเดตไม่มีตัวติดตั้งอยู่ข้างใน จึงไม่ได้ติดตั้งอะไรเลย ให้ดาวน์โหลดรีลีสจาก GitHub แล้วแตกไฟล์ลงในโฟลเดอร์เกมด้วยตัวเอง");
 				return false;
 			}
 
-			report("Installing " + release.Version + "...");
+			report("กำลังติดตั้ง " + release.Version + "...");
 			int exitCode = await RunPatchAsync(script, installRoot, installRoot, report, cancellation);
 			if (exitCode != 0)
 			{
 				Log("Apply-EN-Patch.ps1 exited with " + exitCode);
-				report("The update did not install (the installer stopped with code " + exitCode + "). The log panel and logs\\update.log say what happened.");
+				report("ติดตั้งอัปเดตไม่สำเร็จ (ตัวติดตั้งหยุดด้วยรหัส " + exitCode + ") แผงล็อกและ logs\\update.log จะบอกว่าเกิดอะไรขึ้น");
 				return false;
 			}
 			Log("Version " + release.Version + " installed.");
@@ -151,7 +151,7 @@ internal static class Updater
 		catch (Exception ex)
 		{
 			Log("Install failed: " + ex);
-			report("The update could not be installed: " + ex.Message + ". Try again, or download the release from GitHub yourself.");
+			report("ติดตั้งอัปเดตไม่ได้: " + ex.Message + " ลองใหม่อีกครั้ง หรือดาวน์โหลดรีลีสจาก GitHub ด้วยตัวเอง");
 			return false;
 		}
 	}
@@ -177,7 +177,7 @@ internal static class Updater
 			string target = Path.GetFullPath(Path.Combine(root, entry.FullName));
 			if (!target.StartsWith(root, StringComparison.OrdinalIgnoreCase))
 			{
-				throw new IOException("The update lists a path outside the game folder: " + entry.FullName);
+				throw new IOException("อัปเดตนี้ระบุพาธที่อยู่นอกโฟลเดอร์เกม: " + entry.FullName);
 			}
 			if (string.Equals(entry.FullName, "FGOAC scooby.exe", StringComparison.OrdinalIgnoreCase) && File.Exists(target))
 			{
@@ -196,7 +196,7 @@ internal static class Updater
 			"-IgnoreProcessId", Environment.ProcessId.ToString()
 		});
 
-		using Process process = Process.Start(start) ?? throw new IOException("PowerShell could not be started.");
+		using Process process = Process.Start(start) ?? throw new IOException("เริ่ม PowerShell ไม่ได้");
 		process.OutputDataReceived += delegate(object sender, DataReceivedEventArgs e)
 		{
 			if (!string.IsNullOrWhiteSpace(e.Data))

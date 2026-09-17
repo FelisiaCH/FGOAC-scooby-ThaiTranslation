@@ -30,9 +30,9 @@ internal sealed class FirstRun
 	/// </summary>
 	private static readonly (string Name, string Program, string Description)[] FirewallPrograms = new (string, string, string)[3]
 	{
-		("FGOAC scooby server", "Server\\python\\python.exe", "the local server"),
-		("FGOAC scooby game", "App\\ago.exe", "the game"),
-		("FGOAC scooby service", "App\\am\\amdaemon.exe", "the cabinet service")
+		("FGOAC scooby server", "Server\\python\\python.exe", "เซิร์ฟเวอร์ในเครื่อง"),
+		("FGOAC scooby game", "App\\ago.exe", "เกม"),
+		("FGOAC scooby service", "App\\am\\amdaemon.exe", "บริการตู้เกม")
 	};
 
 	/// <summary>
@@ -80,7 +80,7 @@ internal sealed class FirstRun
 	internal async Task<bool> RunAsync()
 	{
 		bool patched = await ApplyPatchAsync();
-		report("Checking your account...");
+		report("กำลังตรวจสอบบัญชีของคุณ...");
 		ToolResult accounts = await accountTool(new string[2] { "list", "--json" });
 		bool needsAccount = NeedsFirstAccount(accounts);
 		FreshInstall = needsAccount;
@@ -96,10 +96,10 @@ internal sealed class FirstRun
 		{
 			return patched || accountCreated || defaultsWritten;
 		}
-		report("Everything is ready - press Play when you are.");
+		report("ทุกอย่างพร้อมแล้ว - กดเล่นได้เลยเมื่อคุณพร้อม");
 		// The setup can take a few minutes, so the player may well be looking at something else:
 		// this one has to come to the front and be findable in the task bar.
-		ThemedMessageBox.Show(owner, "FGOAC scooby is ready." + Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, summary) + Environment.NewLine + Environment.NewLine + "Press Play to start the game. Windows asks for permission once, because the game needs administrator rights to run.", "FGOAC scooby - First Run", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, foreground: true);
+		ThemedMessageBox.Show(owner, "FGOAC scooby พร้อมใช้งานแล้ว" + Environment.NewLine + Environment.NewLine + string.Join(Environment.NewLine, summary) + Environment.NewLine + Environment.NewLine + "กดเล่นเพื่อเริ่มเกม Windows จะขอสิทธิ์หนึ่งครั้ง เพราะเกมต้องทำงานด้วยสิทธิ์ผู้ดูแลระบบ", "FGOAC scooby - เริ่มใช้งานครั้งแรก", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, foreground: true);
 		return true;
 	}
 
@@ -135,7 +135,7 @@ internal sealed class FirstRun
 		{
 			return false;
 		}
-		report("Installing the English patch - this takes a minute the first time.");
+		report("กำลังติดตั้งแพตช์ภาษาไทย - ครั้งแรกจะใช้เวลาสักครู่");
 		log("Applying the English patch version " + version);
 		StringBuilder transcript = new StringBuilder();
 		int exitCode;
@@ -146,18 +146,18 @@ internal sealed class FirstRun
 		catch (Exception ex2)
 		{
 			log("The English patch could not be started: " + ex2.Message);
-			summary.Add("- The English patch could not be started: " + ex2.Message);
+			summary.Add("- เริ่มติดตั้งแพตช์ภาษาไทยไม่ได้: " + ex2.Message);
 			return false;
 		}
 		log(transcript.ToString());
 		string lastLine = LastLine(transcript.ToString());
 		if (exitCode != 0)
 		{
-			report("The English patch was not installed.");
-			summary.Add("- The English patch was not installed. " + lastLine);
+			report("ไม่ได้ติดตั้งแพตช์ภาษาไทย");
+			summary.Add("- ไม่ได้ติดตั้งแพตช์ภาษาไทย " + lastLine);
 			return false;
 		}
-		summary.Add("- Installed the English patch version " + version + ".");
+		summary.Add("- ติดตั้งแพตช์ภาษาไทยเวอร์ชัน " + version + " แล้ว");
 		return true;
 	}
 
@@ -206,7 +206,7 @@ internal sealed class FirstRun
 			"-File", ScriptPath, "-InstallRoot", installRoot, "-PackageRoot", installRoot, "-NonInteractive",
 			"-IgnoreProcessId", Environment.ProcessId.ToString()
 		});
-		using Process process = Process.Start(processStartInfo) ?? throw new IOException("The patch installer did not start.");
+		using Process process = Process.Start(processStartInfo) ?? throw new IOException("ตัวติดตั้งแพตช์ไม่เริ่มทำงาน");
 		Task<string> errorTask = process.StandardError.ReadToEndAsync();
 		using CancellationTokenSource timeout = new CancellationTokenSource(TimeSpan.FromMinutes(30.0));
 		// The output loop below cannot take the token, so the deadline ends the process instead,
@@ -248,14 +248,14 @@ internal sealed class FirstRun
 			catch
 			{
 			}
-			throw new IOException("The patch installer took longer than 30 minutes and was stopped.");
+			throw new IOException("ตัวติดตั้งแพตช์ใช้เวลานานเกิน 30 นาที จึงถูกหยุดการทำงาน");
 		}
 		return process.ExitCode;
 	}
 
 	private async Task CheckEnvironmentAsync()
 	{
-		report("Checking that the game can write to its folders...");
+		report("กำลังตรวจสอบว่าเกมเขียนข้อมูลลงโฟลเดอร์ของตัวเองได้หรือไม่...");
 		try
 		{
 			await Task.Run(StartupDiagnostics.CheckLayout);
@@ -263,10 +263,10 @@ internal sealed class FirstRun
 		catch (Exception ex)
 		{
 			log("The folder check failed: " + ex.Message);
-			summary.Add("- A folder the game writes to is still locked. " + StartupDiagnostics.Explain(4));
+			summary.Add("- โฟลเดอร์ที่เกมต้องเขียนข้อมูลยังถูกล็อกอยู่ " + StartupDiagnostics.Explain(4));
 			return;
 		}
-		report("Running the environment check...");
+		report("กำลังเรียกใช้การตรวจสอบสภาพแวดล้อม...");
 		string text;
 		try
 		{
@@ -275,14 +275,14 @@ internal sealed class FirstRun
 		catch (Exception ex2)
 		{
 			log("The environment check could not run: " + ex2.Message);
-			summary.Add("- The environment check could not run: " + ex2.Message);
+			summary.Add("- เรียกใช้การตรวจสอบสภาพแวดล้อมไม่ได้: " + ex2.Message);
 			return;
 		}
 		log(text);
 		string[] array = text.Split('\n').Select((string value) => value.Trim()).Where((string value) => value.StartsWith("[ACTION NEEDED]", StringComparison.Ordinal)).ToArray();
 		if (array.Length == 0)
 		{
-			summary.Add("- Environment check: everything passed.");
+			summary.Add("- การตรวจสอบสภาพแวดล้อม: ผ่านทั้งหมด");
 			return;
 		}
 		string text2 = array[0].Substring("[ACTION NEEDED]".Length).Trim();
@@ -291,7 +291,7 @@ internal sealed class FirstRun
 		{
 			text2 = text2.Substring(0, num);
 		}
-		summary.Add($"- Environment check: {array.Length} item(s) need attention, starting with {text2}. The full report is on the Advanced > Diagnostics and Help page.");
+		summary.Add($"- การตรวจสอบสภาพแวดล้อม: มี {array.Length} รายการที่ต้องแก้ไข เริ่มจาก {text2} รายงานฉบับเต็มอยู่ที่หน้าขั้นสูง > การวินิจฉัยและความช่วยเหลือ");
 	}
 
 	/// <summary>
@@ -332,7 +332,7 @@ internal sealed class FirstRun
 				{
 					continue;
 				}
-				report("Allowing " + firewallProgram.Description + " through Windows Firewall...");
+				report("กำลังอนุญาต" + firewallProgram.Description + "ผ่าน Windows Firewall...");
 				if (tuple.ExitCode == 0)
 				{
 					await RunNetshAsync("advfirewall", "firewall", "delete", "rule", "name=" + firewallProgram.Name);
@@ -361,11 +361,11 @@ internal sealed class FirstRun
 		}
 		if (failed.Count > 0)
 		{
-			summary.Add("- Windows Firewall could not be set up for " + string.Join(" and ", failed) + ". The first time you press Play, Windows asks whether to allow it through - say yes. That question can open behind the game window, so look for it in the task bar.");
+			summary.Add("- ตั้งค่า Windows Firewall สำหรับ" + string.Join("และ", failed) + "ไม่สำเร็จ ครั้งแรกที่คุณกดเล่น Windows จะถามว่าจะอนุญาตให้ผ่านหรือไม่ - ให้ตอบตกลง คำถามนั้นอาจเปิดขึ้นด้านหลังหน้าต่างเกม จึงควรมองหาในแถบงานด้วย");
 		}
 		else if (created.Count > 0)
 		{
-			summary.Add("- Allowed " + string.Join(", ", created) + " through Windows Firewall, so Windows does not interrupt you when you press Play.");
+			summary.Add("- อนุญาตให้ " + string.Join(", ", created) + " ผ่าน Windows Firewall แล้ว Windows จะได้ไม่ขัดจังหวะตอนคุณกดเล่น");
 		}
 	}
 
@@ -424,15 +424,15 @@ internal sealed class FirstRun
 		}
 		if (accounts.Root["server_running"]?.GetValue<bool>() == true)
 		{
-			summary.Add("- No account was created, because the local server is running. Stop the server on the Play page, then use New Account on the Account page.");
+			summary.Add("- ยังไม่ได้สร้างบัญชี เพราะเซิร์ฟเวอร์ในเครื่องกำลังทำงานอยู่ ให้หยุดเซิร์ฟเวอร์ในหน้าเล่น แล้วใช้ปุ่มบัญชีใหม่ในหน้าบัญชี");
 			return false;
 		}
-		report("Creating the account Master...");
+		report("กำลังสร้างบัญชี Master...");
 		ToolResult toolResult2 = await accountTool(new string[6] { "create", "--name", "Master", "--mode", "normal", "--json" });
 		if (!toolResult2.Ok || toolResult2.Root == null)
 		{
 			log("The first account could not be created: " + toolResult2.Message);
-			summary.Add("- No account was created: " + toolResult2.Message + " Use New Account on the Account page.");
+			summary.Add("- ยังไม่ได้สร้างบัญชี: " + toolResult2.Message + " ให้ใช้ปุ่มบัญชีใหม่ในหน้าบัญชี");
 			return false;
 		}
 		int aimeId = (toolResult2.Root["aime_id"]?.GetValue<int>()).GetValueOrDefault();
@@ -441,7 +441,7 @@ internal sealed class FirstRun
 		List<string> list = new List<string>();
 		foreach (string action in UpgradeActions)
 		{
-			report("Filling the account: " + action.Replace('-', ' ') + "...");
+			report("กำลังเติมข้อมูลบัญชี: " + action.Replace('-', ' ') + "...");
 			ToolResult toolResult3 = await accountTool(new string[6] { "upgrade", "--aime-id", aimeId.ToString(), "--action", action, "--json" });
 			if (!toolResult3.Ok)
 			{
@@ -449,16 +449,16 @@ internal sealed class FirstRun
 				log($"The {action} step of the one-click inventory failed: {toolResult3.Message}");
 			}
 		}
-		report("Selecting the account...");
+		report("กำลังเลือกบัญชี...");
 		ToolResult toolResult4 = await accountTool(new string[4] { "use", "--aime-id", aimeId.ToString(), "--json" });
 		if (!toolResult4.Ok)
 		{
 			log("The first account could not be selected: " + toolResult4.Message);
-			summary.Add($"- The account Master (ID {aimeId}) was created but not selected. Pick it on the Account page and click Use Selected Account.");
+			summary.Add($"- สร้างบัญชี Master (ID {aimeId}) แล้ว แต่ยังไม่ได้เลือกใช้ ให้เลือกบัญชีนี้ในหน้าบัญชี แล้วคลิกใช้บัญชีที่เลือก");
 			return true;
 		}
-		string text2 = ((list.Count == 0) ? "" : $" The {string.Join(", ", list)} part(s) of the one-click inventory did not finish - you can run them again on the Account page.");
-		summary.Add($"- Created the account Master (ID {aimeId}) with the full Servant and Craft Essence roster, and selected it. Its access code is {text}.{text2}");
+		string text2 = ((list.Count == 0) ? "" : $" ขั้นตอน {string.Join(", ", list)} ของคลังไอเทมและการพัฒนาแบบคลิกเดียวยังทำไม่สำเร็จ - คุณเรียกใช้อีกครั้งได้ในหน้าบัญชี");
+		summary.Add($"- สร้างบัญชี Master (ID {aimeId}) พร้อมชุดเซอร์แวนต์และ Craft Essence ครบทั้งหมด และเลือกใช้บัญชีนี้แล้ว รหัสเข้าใช้งานคือ {text}{text2}");
 		return true;
 	}
 
@@ -483,7 +483,7 @@ internal sealed class FirstRun
 			if (jsonObject["inputMode"] == null)
 			{
 				jsonObject["inputMode"] = "keyboard";
-				list.Add("keyboard controls");
+				list.Add("การควบคุมด้วยคีย์บอร์ด");
 			}
 			if (string.IsNullOrWhiteSpace(jsonObject["monitorDevice"]?.GetValue<string>()))
 			{
@@ -491,14 +491,14 @@ internal sealed class FirstRun
 				if (primaryMonitorDevice.Length > 0)
 				{
 					jsonObject["monitorDevice"] = primaryMonitorDevice;
-					list.Add("your main monitor");
+					list.Add("จอหลักของคุณ");
 				}
 			}
 			if (jsonObject["gpuCompat"] == null && GpuCompat.SourceAvailable && !GpuCompat.HasNvidiaAdapter())
 			{
 				GpuCompat.Apply(enabled: true);
 				jsonObject["gpuCompat"] = true;
-				list.Add("the AMD and Intel graphics compatibility layer");
+				list.Add("เลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel");
 			}
 			if (list.Count == 0)
 			{
@@ -509,7 +509,7 @@ internal sealed class FirstRun
 				WriteIndented = true
 			}) + Environment.NewLine);
 			log("First-run defaults written: " + string.Join(", ", list));
-			summary.Add("- Set the settings you had not chosen yet: " + string.Join(", ", list) + ". Change them any time on the Settings page.");
+			summary.Add("- ตั้งค่าส่วนที่คุณยังไม่ได้เลือกไว้ให้แล้ว: " + string.Join(", ", list) + " เปลี่ยนได้ทุกเมื่อในหน้าการตั้งค่า");
 			return true;
 		}
 		catch (Exception ex)

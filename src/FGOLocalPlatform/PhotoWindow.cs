@@ -478,7 +478,7 @@ public sealed class PhotoWindow : UserControl
 		});
 		DockPanel dockPanel = new DockPanel
 		{
-			Height = 34.0,
+			Height = 40.0,
 			Margin = new Thickness(0.0, 0.0, 0.0, 8.0)
 		};
 		dockPanel.Children.Add(new TextBlock
@@ -489,7 +489,7 @@ public sealed class PhotoWindow : UserControl
 			VerticalAlignment = VerticalAlignment.Center
 		});
 		panelKey.Width = 360.0;
-		panelKey.Height = 34.0;
+		panelKey.Height = 40.0;
 		panelKey.Margin = new Thickness(0.0);
 		panelKey.HorizontalAlignment = HorizontalAlignment.Left;
 		dockPanel.Children.Add(panelKey);

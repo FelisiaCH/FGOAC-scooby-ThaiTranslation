@@ -594,8 +594,8 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		});
 		Control element = (Control)(((object)keyBindingButton) ?? ((object)comboBox));
 		element.Width = 360.0;
-		element.Height = 34.0;
-		element.MinHeight = 34.0;
+		element.Height = 40.0;
+		element.MinHeight = 40.0;
 		element.Margin = new Thickness(0.0);
 		element.HorizontalAlignment = HorizontalAlignment.Left;
 		Grid.SetColumn(element, 1);

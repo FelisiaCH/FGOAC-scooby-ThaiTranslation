@@ -85,16 +85,16 @@
     <DockPanel Grid.Row="5" Margin="0,8,0,4">
       <TextBlock DockPanel.Dock="Left" Text="พรีเซ็ต" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="0,0,8,0" />
       <ComboBox Name="PresetComboBox" DockPanel.Dock="Left" Width="220" VerticalAlignment="Center" ToolTip="ตารางอัตราที่คุณบันทึกไว้ ปุ่ม โหลด จะเติมตารางด้วยรายการที่เลือก แล้วคลิก บันทึก เพื่อให้เซิร์ฟเวอร์นำไปใช้" />
-      <Button DockPanel.Dock="Left" Content="บันทึกเป็น" Height="30" Margin="6,3,3,3" ToolTip="บันทึกตารางนี้ภายใต้ชื่อที่กำหนด" Click="PresetSave_OnClick" />
-      <Button DockPanel.Dock="Left" Content="โหลด" Height="30" Margin="3" Click="PresetLoad_OnClick" />
-      <Button DockPanel.Dock="Left" Content="ลบ" Height="30" Margin="3" Click="PresetDelete_OnClick" />
-      <Button DockPanel.Dock="Left" Content="ส่งออก" Height="30" Margin="12,3,3,3" ToolTip="บันทึกสำเนาของพรีเซ็ตที่เลือกไว้ในที่ที่คุณแชร์ต่อได้ ค่าเริ่มต้นคือเดสก์ท็อป" Click="PresetExport_OnClick" />
-      <Button DockPanel.Dock="Left" Content="นำเข้า" Height="30" Margin="3" ToolTip="เพิ่มไฟล์พรีเซ็ตที่มีคนส่งให้คุณเข้าไปในรายการ แล้วโหลดขึ้นมาใช้" Click="PresetImport_OnClick" />
+      <Button DockPanel.Dock="Left" Content="บันทึกเป็น" Height="40" Margin="6,3,3,3" ToolTip="บันทึกตารางนี้ภายใต้ชื่อที่กำหนด" Click="PresetSave_OnClick" />
+      <Button DockPanel.Dock="Left" Content="โหลด" Height="40" Margin="3" Click="PresetLoad_OnClick" />
+      <Button DockPanel.Dock="Left" Content="ลบ" Height="40" Margin="3" Click="PresetDelete_OnClick" />
+      <Button DockPanel.Dock="Left" Content="ส่งออก" Height="40" Margin="12,3,3,3" ToolTip="บันทึกสำเนาของพรีเซ็ตที่เลือกไว้ในที่ที่คุณแชร์ต่อได้ ค่าเริ่มต้นคือเดสก์ท็อป" Click="PresetExport_OnClick" />
+      <Button DockPanel.Dock="Left" Content="นำเข้า" Height="40" Margin="3" ToolTip="เพิ่มไฟล์พรีเซ็ตที่มีคนส่งให้คุณเข้าไปในรายการ แล้วโหลดขึ้นมาใช้" Click="PresetImport_OnClick" />
       <TextBlock VerticalAlignment="Center" Margin="12,0,0,0"><Hyperlink Foreground="{StaticResource IceBrush}" Click="PresetFolderLink_OnClick">เปิดโฟลเดอร์</Hyperlink></TextBlock>
     </DockPanel>
     <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
-      <Button Content="โหลดใหม่" Height="36" Margin="3" VerticalAlignment="Center" Click="Reload_OnClick" />
-      <Button Name="SaveButton" Content="บันทึก · มีผลกับการสุ่มครั้งถัดไป" Height="36" Margin="3" VerticalAlignment="Center" Click="Save_OnClick" />
+      <Button Content="โหลดใหม่" Height="40" Margin="3" VerticalAlignment="Center" Click="Reload_OnClick" />
+      <Button Name="SaveButton" Content="บันทึก · มีผลกับการสุ่มครั้งถัดไป" Height="40" Margin="3" VerticalAlignment="Center" Click="Save_OnClick" />
     </StackPanel>
   </Grid>
 </UserControl>

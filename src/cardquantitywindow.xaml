@@ -18,8 +18,8 @@
     <StackPanel Grid.Row="3" Margin="0,14,0,0">
       <TextBlock Name="ValidationText" Foreground="{StaticResource DangerBrush}" TextWrapping="Wrap" Margin="3,0,0,8" />
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-        <Button Content="ยกเลิก" IsCancel="True" MinWidth="80" Height="36" />
-        <Button Name="ConfirmButton" Content="เพิ่มลงเด็ค" Style="{StaticResource AccentButtonStyle}" IsDefault="True" MinWidth="110" Height="36" Click="Confirm_OnClick" />
+        <Button Content="ยกเลิก" IsCancel="True" MinWidth="80" Height="40" />
+        <Button Name="ConfirmButton" Content="เพิ่มลงเด็ค" Style="{StaticResource AccentButtonStyle}" IsDefault="True" MinWidth="110" Height="40" Click="Confirm_OnClick" />
       </StackPanel>
     </StackPanel>
   </Grid>

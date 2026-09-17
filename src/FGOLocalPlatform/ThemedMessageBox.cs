@@ -84,7 +84,7 @@ internal static class ThemedMessageBox
 		{
 			Text = message,
 			TextWrapping = TextWrapping.Wrap,
-			LineHeight = 23.0
+			LineHeight = 24.0
 		};
 		children.Add(scrollViewer);
 		StackPanel stackPanel2 = new StackPanel

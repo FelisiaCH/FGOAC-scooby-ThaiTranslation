@@ -120,11 +120,11 @@
           </ItemsControl.ItemsPanel>
           <ItemsControl.ItemTemplate>
             <DataTemplate x:Key="{DataTemplateKey {x:Type local:CardStack}}" DataType="{x:Type local:CardStack}">
-              <Button Width="144" Height="188" Margin="0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" Tag="{Binding}" Click="IconCardButton_OnClick" MouseDoubleClick="IconCardButton_OnMouseDoubleClick">
-                <Grid Margin="2" Width="140" Height="184">
+              <Button Width="144" Height="196" Margin="0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" HorizontalContentAlignment="Stretch" Tag="{Binding}" Click="IconCardButton_OnClick" MouseDoubleClick="IconCardButton_OnMouseDoubleClick">
+                <Grid Margin="2" Width="140" Height="192">
                   <Grid.RowDefinitions>
                     <RowDefinition Height="126" />
-                    <RowDefinition Height="58" />
+                    <RowDefinition Height="66" />
                   </Grid.RowDefinitions>
                   <Border Background="{StaticResource PlateLowBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Padding="3">
                     <Image Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" Source="{Binding Thumbnail, IsAsync=True}" />
@@ -150,7 +150,7 @@
         <RowDefinition Height="32" />
         <RowDefinition Height="60" />
         <RowDefinition Height="*" />
-        <RowDefinition Height="28" />
+        <RowDefinition Height="32" />
       </Grid.RowDefinitions>
       <Border Grid.Row="0" Background="{StaticResource GroundBrush}" MouseLeftButtonDown="TitleBar_OnMouseLeftButtonDown">
         <Grid>
@@ -188,9 +188,9 @@
           </StackPanel>
           <TextBlock Grid.Column="1" Margin="24,0,24,0" VerticalAlignment="Center" FontSize="13" Foreground="{StaticResource TextSoftBrush}" TextTrimming="CharacterEllipsis" Text="{Binding Text, ElementName=RuntimeStatusText}" />
           <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <Button Content="ตรวจหาอัปเดต" Height="34" Margin="0,0,8,0" Click="CheckUpdatesButton_OnClick" />
-            <Button Name="StopGameButton" Style="{StaticResource StopGameButtonStyle}" Content="หยุดเกม" IsEnabled="False" Height="34" MinWidth="104" Margin="0,0,8,0" Click="StopGameButton_OnClick" />
-            <Button Name="StartGameButton" Style="{StaticResource PrimaryButtonStyle}" Content="เล่น" Height="40" MinWidth="140" FontSize="18" Click="StartGameButton_OnClick" />
+            <Button Content="ตรวจหาอัปเดต" Height="40" Margin="0,0,8,0" Click="CheckUpdatesButton_OnClick" />
+            <Button Name="StopGameButton" Style="{StaticResource StopGameButtonStyle}" Content="หยุดเกม" IsEnabled="False" Height="40" MinWidth="104" Margin="0,0,8,0" Click="StopGameButton_OnClick" />
+            <Button Name="StartGameButton" Style="{StaticResource PrimaryButtonStyle}" Content="เล่น" Height="44" MinWidth="140" FontSize="18" Click="StartGameButton_OnClick" />
           </StackPanel>
         </Grid>
       </Border>
@@ -270,7 +270,7 @@
                       <Button Content="เริ่มเซิร์ฟเวอร์" ToolTip="เริ่มเซิร์ฟเวอร์ในเครื่อง หากกำลังทำงานอยู่แล้ว จะเป็นการตรวจสอบว่าพอร์ตของเซิร์ฟเวอร์ตอบสนองหรือไม่" Click="StartServerButton_OnClick" />
                       <Button Content="หยุดเซิร์ฟเวอร์" Click="StopServerButton_OnClick" />
                       <Button Content="เปิดโฟลเดอร์ล็อก" Click="OpenLogsButton_OnClick" />
-                      <Button Content="หยุดเกม" Style="{StaticResource DangerButtonStyle}" Width="152" Height="40" Margin="0,0,8,8" IsEnabled="{Binding IsEnabled, ElementName=StopGameButton}" Click="StopGameButton_OnClick" />
+                      <Button Content="หยุดเกม" Style="{StaticResource DangerButtonStyle}" Width="152" Height="44" Margin="0,0,8,8" IsEnabled="{Binding IsEnabled, ElementName=StopGameButton}" Click="StopGameButton_OnClick" />
                     </WrapPanel>
                   </StackPanel>
                 </Grid>
@@ -281,7 +281,7 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="1" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="มีบัญชีชื่อ Master ตั้งค่าไว้ให้คุณแล้ว และบัญชีนี้มีเซอร์แวนต์ครบทุกตัว" />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="24" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="มีบัญชีชื่อ Master ตั้งค่าไว้ให้คุณแล้ว และบัญชีนี้มีเซอร์แวนต์ครบทุกตัว" />
                 </Grid>
                 <Grid MinHeight="30">
                   <Grid.ColumnDefinitions>
@@ -289,7 +289,7 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="2" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="ไปที่ การ์ดและเด็ค แล้วเลือกการ์ดได้สูงสุด 30 ใบ การ์ดจะถูกโหลดเข้าเกมเมื่อคุณกดเล่น" />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="24" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="ไปที่ การ์ดและเด็ค แล้วเลือกการ์ดได้สูงสุด 30 ใบ การ์ดจะถูกโหลดเข้าเกมเมื่อคุณกดเล่น" />
                 </Grid>
                 <Grid MinHeight="30">
                   <Grid.ColumnDefinitions>
@@ -297,7 +297,7 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="3" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="ไปที่ การตั้งค่า เพื่อเลือกจอภาพ ความละเอียด และการควบคุม" />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="24" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="ไปที่ การตั้งค่า เพื่อเลือกจอภาพ ความละเอียด และการควบคุม" />
                 </Grid>
                 <Grid MinHeight="30">
                   <Grid.ColumnDefinitions>
@@ -305,7 +305,7 @@
                     <ColumnDefinition Width="*" />
                   </Grid.ColumnDefinitions>
                   <TextBlock Text="4" FontSize="14" FontWeight="SemiBold" Foreground="{StaticResource IceBrush}" />
-                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="20" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="กดเล่น หน้าจอไตเติลจะปรากฏขึ้นในราวหนึ่งนาที" />
+                  <TextBlock Grid.Column="1" FontSize="14" LineHeight="24" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" Text="กดเล่น หน้าจอไตเติลจะปรากฏขึ้นในราวหนึ่งนาที" />
                 </Grid>
                 </StackPanel>
               </Grid>
@@ -368,7 +368,7 @@
                     <RowDefinition Height="7" />
                     <RowDefinition Name="CardBrowserRow" Height="*" MinHeight="240" />
                     <RowDefinition Height="7" />
-                    <RowDefinition Name="DeckPanelRow" Height="235" MinHeight="235" />
+                    <RowDefinition Name="DeckPanelRow" Height="248" MinHeight="248" />
                   </Grid.RowDefinitions>
                   <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -457,7 +457,7 @@
                   <Border Grid.Row="4" Background="{StaticResource GroundBrush}" BorderBrush="{StaticResource LineBrush}" BorderThickness="1">
                     <Grid>
                       <Grid.RowDefinitions>
-                        <RowDefinition Height="34" />
+                        <RowDefinition Height="44" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                       </Grid.RowDefinitions>
@@ -622,10 +622,10 @@
                         <ColumnDefinition Width="65" />
                       </Grid.ColumnDefinitions>
                       <Grid.RowDefinitions>
-                        <RowDefinition Height="36" />
-                        <RowDefinition Height="36" />
-                        <RowDefinition Height="36" />
-                        <RowDefinition Height="36" />
+                        <RowDefinition Height="44" />
+                        <RowDefinition Height="44" />
+                        <RowDefinition Height="44" />
+                        <RowDefinition Height="44" />
                       </Grid.RowDefinitions>
                       <TextBlock Text="ขนาดตัวเลขความเสียหาย" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
                       <Slider Name="DamageNumberScaleSlider" Grid.Column="1" Minimum="0" Maximum="200" Value="100" SmallChange="0.1" IsSnapToTickEnabled="False" VerticalAlignment="Center" />
@@ -751,7 +751,7 @@
             <ColumnDefinition Width="Auto" />
           </Grid.ColumnDefinitions>
           <TextBlock Name="RuntimeStatusText" VerticalAlignment="Center" FontSize="13" Foreground="{StaticResource TextSoftBrush}" TextTrimming="CharacterEllipsis" />
-          <Button Name="ToggleLogsButton" Grid.Column="1" Content="ซ่อนล็อก" MinHeight="0" Height="22" FontSize="13" Padding="10,0" Margin="12,0,0,0" Click="ToggleLogs_OnClick" />
+          <Button Name="ToggleLogsButton" Grid.Column="1" Content="ซ่อนล็อก" MinHeight="0" Height="26" FontSize="13" Padding="10,0" Margin="12,0,0,0" Click="ToggleLogs_OnClick" />
         </Grid>
       </Border>
     </Grid>

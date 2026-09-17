@@ -15,7 +15,7 @@ public static class AccountDetailRow
 		};
 		grid.ColumnDefinitions.Add(new ColumnDefinition
 		{
-			Width = new GridLength(160.0)
+			Width = new GridLength(200.0)
 		});
 		grid.ColumnDefinitions.Add(new ColumnDefinition
 		{

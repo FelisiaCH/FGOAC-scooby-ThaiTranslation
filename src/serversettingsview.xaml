@@ -16,11 +16,11 @@
           <ColumnDefinition Width="280" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-          <RowDefinition Height="44" />
-          <RowDefinition Height="44" />
-          <RowDefinition Height="44" />
-          <RowDefinition Height="44" />
-          <RowDefinition Height="44" />
+          <RowDefinition Height="52" />
+          <RowDefinition Height="52" />
+          <RowDefinition Height="52" />
+          <RowDefinition Height="52" />
+          <RowDefinition Height="52" />
         </Grid.RowDefinitions>
         <TextBlock Text="ที่อยู่เซิร์ฟเวอร์ (auto = ออฟไลน์)" VerticalAlignment="Center" Foreground="{StaticResource TextSoftBrush}" />
         <TextBox Name="HostBox" Grid.Column="1" Margin="0,5" VerticalContentAlignment="Center" />
@@ -40,7 +40,7 @@
       </WrapPanel>
       <TextBlock Text="พอร์ตต้องเป็นจำนวนเต็มตั้งแต่ 1 ถึง 65535 และห้ามมีสองบริการใช้พอร์ตเดียวกัน การบันทึกจะหยุดเซิร์ฟเวอร์ในเครื่อง จึงควรออกจากเกมก่อน ทั้งการบันทึกและการเปิดหน้านี้ไม่ได้เริ่มเซิร์ฟเวอร์ ปุ่ม คืนค่าเริ่มต้น เพียงเติมค่าลงในช่องเท่านั้น - ให้คลิก บันทึกการตั้งค่า เพื่อนำไปใช้จริง" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,16" />
       <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Background="{StaticResource PlateBrush}" Padding="14">
-        <TextBlock Name="InfoText" Text="กำลังอ่านการตั้งค่า..." TextWrapping="Wrap" LineHeight="20" />
+        <TextBlock Name="InfoText" Text="กำลังอ่านการตั้งค่า..." TextWrapping="Wrap" LineHeight="24" />
       </Border>
     </StackPanel>
   </ScrollViewer>

@@ -158,9 +158,9 @@ FGOAC scooby แปลตัวเกม FGO Arcade เป็นภาษาไ�
 
 ## เครดิต
 
-- **Cloud23333** wrote the FGO Arcade local platform - the server package, the launcher
-  (FGOLocalPlatform) that FGOAC scooby is built from, and the file hook this patch loads through. His
-  package is free; if anyone sold it to you, ask for your money back.
+- **Cloud23333** เป็นผู้เขียน FGO Arcade local platform ทั้งแพ็กเกจเซิร์ฟเวอร์ ตัวเรียกเกม
+  (FGOLocalPlatform) ที่ FGOAC scooby สร้างต่อยอดมา และฮุกไฟล์ที่แพตช์นี้โหลดผ่าน
+  แพ็กเกจของเขาแจกฟรี ถ้ามีใครขายให้คุณ ให้ทวงเงินคืน
 - **fluphus** เป็นผู้เขียนเลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel (fgo-arcade-amd-shim, MIT)
   ซึ่งแถมมาในโฟลเดอร์ `compat\amd-shim`
 - **FGO Arcade wiki** และ **Atlas Academy** เป็นแหล่งชื่อภาษาอังกฤษอย่างเป็นทางการของเซอร์แวนต์

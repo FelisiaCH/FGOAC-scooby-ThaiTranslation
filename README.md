@@ -53,8 +53,9 @@ Craft Essence ครบทั้งหมด และตั้งการแ�
 บัญชี เด็ค การตั้งค่า และเลเยอร์กราฟิกของคุณจะคงอยู่เหมือนเดิม
 การแตกไฟล์รีลีสใหม่ทับโฟลเดอร์เดิมก็ให้ผลเหมือนกัน
 
-[`docs/GUIDE_EN.pdf`](docs/GUIDE_EN.pdf) คือคู่มือผู้เล่นฉบับเต็ม ครอบคลุมวิธีได้เซอร์แวนต์ การควบคุม
+[`docs/GUIDE_TH.md`](docs/GUIDE_TH.md) คือคู่มือผู้เล่นฉบับเต็ม ครอบคลุมวิธีได้เซอร์แวนต์ การควบคุม
 การออกรบทีละขั้นตอน ร้านแลกเปลี่ยน และการแก้ปัญหา
+ส่วน [`docs/GUIDE_EN.pdf`](docs/GUIDE_EN.pdf) คือคู่มือฉบับภาษาอังกฤษ
 
 ## สิ่งที่ใช้งานได้
 
@@ -171,10 +172,9 @@ package.ps1 -GameRoot <install root>
 
 ## เครดิต
 
-**Cloud23333** wrote the FGO Arcade local platform: the server package, the front end
-(`FGOLocalPlatform`) that FGOAC scooby is built from, and the file hook this patch loads its English
-through. None of this exists without that work, and his package is free - if anyone sold it to you,
-ask for your money back. **FGO Arcade wiki** และ **Atlas Academy** คือที่มาของชื่อภาษาอังกฤษ
+**Cloud23333** เป็นผู้เขียน FGO Arcade local platform ทั้งแพ็กเกจเซิร์ฟเวอร์ หน้าจอหลัก
+(`FGOLocalPlatform`) ที่ FGOAC scooby สร้างต่อยอดมา และฮุกไฟล์ที่แพตช์นี้ใช้โหลดภาษาไทยเข้าไป
+ทั้งหมดนี้เกิดขึ้นไม่ได้เลยหากไม่มีผลงานชิ้นนั้น และแพ็กเกจของเขาแจกฟรี ถ้ามีใครขายให้คุณ ให้ทวงเงินคืน **FGO Arcade wiki** และ **Atlas Academy** คือที่มาของชื่อภาษาอังกฤษ
 อย่างเป็นทางการของเซอร์แวนต์ Craft Essence สกิล และไอเทม เกมและตัวเรียกเกมจึงเรียกทุกอย่าง
 ตามที่ฉบับภาษาอังกฤษเรียก **fluphus** เป็นผู้เขียนเลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel ชื่อ
 [fgo-arcade-amd-shim](https://github.com/fluphus/fgo-arcade-amd-shim) ซึ่งแถมมาในโฟลเดอร์

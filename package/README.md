@@ -27,8 +27,8 @@ Windows จะถามคุณเองแทนในครั้งแรก
 
 การเริ่มครั้งต่อ ๆ ไปจะข้ามขั้นตอนเหล่านี้ทั้งหมดและไปที่หน้าเล่นทันที
 
-**GUIDE_EN.pdf** ในโฟลเดอร์นี้คือคู่มือฉบับเต็ม ครอบคลุมความต้องการของระบบ วิธีได้เซอร์แวนต์ การควบคุม
-ร้านแลกเปลี่ยน และการแก้ปัญหา
+**GUIDE_TH.md** ในโฟลเดอร์นี้คือคู่มือฉบับเต็ม ครอบคลุมความต้องการของระบบ วิธีได้เซอร์แวนต์ การควบคุม
+ร้านแลกเปลี่ยน และการแก้ปัญหา ส่วน **GUIDE_EN.pdf** คือคู่มือฉบับภาษาอังกฤษ
 
 สามเรื่องที่ควรรู้ก่อนเริ่ม
 
@@ -85,10 +85,10 @@ Windows จะถามคุณเองแทนในครั้งแรก
 
 ## เครดิต
 
-- **Cloud23333** wrote the FGO Arcade local platform - the server package, the launcher
-  (`FGOLocalPlatform`) that FGOAC scooby is built from, and the file hook this patch loads its English
-  through. None of this exists without his work. His package is free; if anyone sold it to you, ask
-  for your money back.
+- **Cloud23333** เป็นผู้เขียน FGO Arcade local platform ทั้งแพ็กเกจเซิร์ฟเวอร์ ตัวเรียกเกม
+  (`FGOLocalPlatform`) ที่ FGOAC scooby สร้างต่อยอดมา และฮุกไฟล์ที่แพตช์นี้ใช้โหลดภาษาไทยเข้าไป
+  ทั้งหมดนี้เกิดขึ้นไม่ได้เลยหากไม่มีผลงานของเขา แพ็กเกจของเขาแจกฟรี ถ้ามีใครขายให้คุณ
+  ให้ทวงเงินคืน
 - **FGO Arcade wiki** และ **Atlas Academy** ถูกใช้เป็นแหล่งชื่อภาษาอังกฤษอย่างเป็นทางการของเซอร์แวนต์
   Craft Essence สกิล และไอเทม เกมและตัวเรียกเกมจึงเรียกทุกอย่างตามที่ฉบับภาษาอังกฤษเรียก
 - FGO Arcade เป็นของ Sega และ TYPE-MOON นี่คืองานแปลโดยแฟนเกม ที่นำไปใช้กับไฟล์ที่คุณมีอยู่แล้ว

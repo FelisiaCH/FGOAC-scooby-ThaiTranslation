@@ -73,7 +73,7 @@ public partial class MainWindow
 		{
 			2 => "Friend Point", 
 			3 => "การต่อสู้", 
-			5 => $"Pickup {LineupId}", 
+			5 => $"พิกอัพ {LineupId}", 
 			6 => "Summon Point x1", 
 			7 => "Summon Point x10", 
 			_ => (LineupId > 0) ? $"พูล {LineupId}" : "ประวัติ", 
@@ -152,7 +152,7 @@ public partial class MainWindow
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Card number",
+				Header = "หมายเลขการ์ด",
 				Binding = new Binding("TradingCardId"),
 				Width = 125.0
 			});
@@ -164,14 +164,14 @@ public partial class MainWindow
 			});
 			dataGrid.Columns.Add(new DataGridTextColumn
 			{
-				Header = "Internal ID",
+				Header = "รหัสภายใน",
 				Binding = new Binding("EntityId"),
 				Width = 115.0
 			});
 			Window obj = new Window
 			{
 				Owner = this,
-				Title = $"Summon results - {selectedAccount.MasterName} (ID {selectedAccount.AimeId})",
+				Title = $"ผลการสุ่ม - {selectedAccount.MasterName} (ID {selectedAccount.AimeId})",
 				Width = 1050.0,
 				Height = 580.0,
 				MinWidth = 760.0,

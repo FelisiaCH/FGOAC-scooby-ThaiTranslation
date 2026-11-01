@@ -28,7 +28,7 @@ public partial class CommunityAccountDialog : Window, IComponentConnector
 		WindowTheme.Apply(this);
 		base.Owner = owner;
 		this.create = create;
-		LabelText.Text = "Get a new account on the community server " + host + ". It comes with a recovery key, shown once, that brings the account back on any PC.";
+		LabelText.Text = "รับบัญชีใหม่บนเซิร์ฟเวอร์ชุมชน " + host + " บัญชีนี้มาพร้อมคีย์กู้คืนที่แสดงให้ดูครั้งเดียว ใช้นำบัญชีกลับมาได้บนทุกเครื่อง";
 		NameTextBox.Focus();
 	}
 

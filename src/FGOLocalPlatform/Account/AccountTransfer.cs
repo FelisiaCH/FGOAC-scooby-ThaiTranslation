@@ -92,7 +92,7 @@ internal static class AccountTransfer
 	/// <summary>The sentence for one of his tool's refusals; one it does not know is passed on as he wrote it.</summary>
 	internal static string Explain(string message)
 	{
-		return Sentences.TryGetValue(message, out string? sentence) ? sentence : ("Cloud23333's account tool refused: " + message);
+		return Sentences.TryGetValue(message, out string? sentence) ? sentence : ("เครื่องมือบัญชีของ Cloud23333 ปฏิเสธ: " + message);
 	}
 
 	private static string Accounts(int count)

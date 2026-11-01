@@ -516,10 +516,10 @@ internal sealed class FirstRun
 		return true;
 	}
 
-	/// <summary>True when the launcher has never installed into this App folder: no patch marker, no 1.2.0-era marker.</summary>
+	/// <summary>True when the launcher has never installed into this App folder: no patch marker, no 1.2.0-era marker, no Thai 1.2.0 marker.</summary>
 	internal static bool OurFirstStart(string gameRoot)
 	{
-		return !File.Exists(Path.Combine(gameRoot, "fgoac-patch.json")) && !File.Exists(Path.Combine(gameRoot, "zh", "en-patch.json"));
+		return !File.Exists(Path.Combine(gameRoot, "fgoac-patch.json")) && !File.Exists(Path.Combine(gameRoot, "zh", "en-patch.json")) && !File.Exists(Path.Combine(gameRoot, "zh", "th-patch.json"));
 	}
 
 	private static bool PadConnected()

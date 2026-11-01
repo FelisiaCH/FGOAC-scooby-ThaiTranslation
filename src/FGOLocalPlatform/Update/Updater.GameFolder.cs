@@ -12,7 +12,7 @@ internal static partial class Updater
 	private const string StopFirst = "Stop the game and the local server, then install the update.";
 
 	// Mirrors $ProtectedPrefixes and $ProtectedFiles in patch\Apply-EN-Patch.ps1.
-	private static readonly string[] ProtectedPrefixes = { "Server\\state\\", "Server\\data\\", "DEVICE\\", "AMFS\\", "GameData\\", "_en-patch-backup\\", "_update-backup\\", "backup\\", "App\\deck-loadouts\\", "Server\\artemis\\config\\summon-presets\\", "App\\1_MOD\\" };
+	private static readonly string[] ProtectedPrefixes = { "Server\\state\\", "Server\\data\\", "DEVICE\\", "AMFS\\", "GameData\\", "_en-patch-backup\\", "_th-patch-backup\\", "_update-backup\\", "backup\\", "App\\deck-loadouts\\", "Server\\artemis\\config\\summon-presets\\", "App\\1_MOD\\" };
 
 	private static readonly string[] ProtectedFiles = { "App\\fgo-launcher.json", "App\\fgo-launcher.json.bak", "App\\deck.json", "App\\deck.json.bak" };
 

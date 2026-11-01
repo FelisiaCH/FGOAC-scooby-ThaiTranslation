@@ -67,7 +67,7 @@ $scriptHost = [IO.Path]::Combine($PSHOME, 'pwsh.exe')
 if (!(Test-Path -LiteralPath $scriptHost -PathType Leaf)) { $scriptHost = [IO.Path]::Combine($PSHOME, 'powershell.exe') }
 if ([string]::IsNullOrWhiteSpace($PackageRoot)) { $PackageRoot = $PSScriptRoot }
 
-$ProtectedPrefixes = @('Server\state\', 'Server\data\', 'DEVICE\', 'AMFS\', 'GameData\', '_en-patch-backup\', '_update-backup\', 'backup\', 'App\deck-loadouts\', 'Server\artemis\config\summon-presets\', 'App\1_MOD\')
+$ProtectedPrefixes = @('Server\state\', 'Server\data\', 'DEVICE\', 'AMFS\', 'GameData\', '_en-patch-backup\', '_th-patch-backup\', '_update-backup\', 'backup\', 'App\deck-loadouts\', 'Server\artemis\config\summon-presets\', 'App\1_MOD\')
 $ProtectedFiles = @('App\fgo-launcher.json', 'App\fgo-launcher.json.bak', 'App\deck.json', 'App\deck.json.bak')
 # "FGOA scooby.exe" is the name this launcher shipped under before 1.1.0. It stays in the list so an
 # upgrade still refuses to run while the old build is open.
@@ -374,8 +374,10 @@ $backupRoot = [IO.Path]::Combine($InstallRoot, '_en-patch-backup')
 $markerPath = [IO.Path]::Combine($InstallRoot, 'App\fgoac-patch.json')
 # Where launchers up to 1.3.0 kept the marker; his 1.10 updater deletes App\zh with it.
 $legacyMarkerPath = [IO.Path]::Combine($InstallRoot, 'App\zh\en-patch.json')
+# Where the Thai builds up to 1.2.0 kept it.
+$legacyThaiMarkerPath = [IO.Path]::Combine($InstallRoot, 'App\zh\th-patch.json')
 # No marker yet: this run is the first install, not an update.
-$firstInstall = !([IO.File]::Exists($markerPath) -or [IO.File]::Exists($legacyMarkerPath))
+$firstInstall = !([IO.File]::Exists($markerPath) -or [IO.File]::Exists($legacyMarkerPath) -or [IO.File]::Exists($legacyThaiMarkerPath))
 $game1100 = Test-FgoGame1100 -Root $InstallRoot
 
 if ($Rollback) {
@@ -422,7 +424,7 @@ if ($Rollback) {
             $removed++
         }
     }
-    foreach ($marked in @($markerPath, $legacyMarkerPath)) {
+    foreach ($marked in @($markerPath, $legacyMarkerPath, $legacyThaiMarkerPath)) {
         $savedMarker = [IO.Path]::Combine($backup.FullName, $marked.Substring($rootPrefix.Length))
         if ([IO.File]::Exists($savedMarker)) { Copy-FgoFile -Source $savedMarker -Destination $marked }
         elseif ([IO.File]::Exists($marked)) { [IO.File]::Delete($marked) }

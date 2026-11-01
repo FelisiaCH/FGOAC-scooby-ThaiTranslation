@@ -25,12 +25,17 @@ Checks
   C8 encoding-bom         overlay/ decodes as UTF-8; every .ps1 keeps its
                           baseline BOM state (added and removed both fail)
   C9 ps1-ansi-hazard      no non-ASCII added to a .ps1 that is BOM-less at
-                          baseline (PowerShell 5.1 would read it as ANSI)
+                          baseline (PowerShell 5.1 would read it as ANSI); a
+                          file byte-identical to the baseline is skipped with
+                          a NOTE (upstream's own non-ASCII)
 
 Note on C8: six of the nine .ps1 files carry a UTF-8 BOM and three
 (patch/Apply-EN-Patch.ps1, patch/Build-Manifest.ps1, src/assets/extract-icon.ps1)
 do not.  So the invariant is "unchanged from baseline", not "always present";
 C9 is what actually guards against mojibake in the BOM-less three.
+
+Note on C1: the expected entry counts (EXPECTED_COUNTS) follow the current
+upstream baseline: 1582 card names and 1462 Craft Effect entries (upstream 1.3.0).
 
 Usage
   python3 tools/check-thai.py [--base HEAD] [-v]
@@ -1171,8 +1176,10 @@ def check_ps1_ansi_hazard(repo: Repo, rep: Report) -> None:
         offenders = [(i, b) for i, b in enumerate(raw) if b >= 0x80]
         if not offenders:
             continue
-        if base_raw is not None and len(offenders) <= sum(1 for b in base_raw if b >= 0x80):
-            continue  # the baseline already carried this non-ASCII; none was added
+        if base_raw is not None and raw.replace(b"\r\n", b"\n") == base_raw.replace(b"\r\n", b"\n"):
+            rep.note(tag, "%s is byte-identical to baseline %s (line endings aside); its existing non-ASCII "
+                          "is upstream's own and is not checked" % (path, repo.ref))
+            continue
         offset, byte = offenders[0]
         lineno = raw[:offset].count(b"\n") + 1
         rep.fail(tag, path,

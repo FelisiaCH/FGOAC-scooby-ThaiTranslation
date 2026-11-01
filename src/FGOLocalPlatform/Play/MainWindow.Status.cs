@@ -97,13 +97,13 @@ public partial class MainWindow
 			}
 			else if (whatsNewBody != null)
 			{
-				text = "อัปเดตเป็น " + UpdateSettings.Version + ". What's new lists the changes.";
+				text = "อัปเดตเป็น " + UpdateSettings.Version + " ดูรายการสิ่งที่เปลี่ยนได้ที่ปุ่มมีอะไรใหม่";
 				tone = "ready";
 				next = NextStep.WhatsNew;
 			}
 			else if (availableUpdate != null && !updateDismissed)
 			{
-				text = "อัปเดต " + availableUpdate.Version + " is available. Install puts it in place; the launcher restarts to finish.";
+				text = "มีอัปเดต " + availableUpdate.Version + " ให้ติดตั้งแล้ว ปุ่มติดตั้งจะติดตั้งให้ แล้วตัวเรียกเกมจะรีสตาร์ตเพื่อทำให้เสร็จสมบูรณ์";
 				tone = "next";
 				next = NextStep.Install;
 			}

@@ -204,7 +204,7 @@ internal sealed class FirstRun
 		if (result.TurnedOff.Count > 0)
 		{
 			log("English files turned off, their game files changed: " + string.Join(", ", result.TurnedOff));
-			summary.Add((result.UpdateDetected ? "- Cloud23333's update detected. " : "- ") + $"{result.TurnedOff.Count} English file(s) were made for game files that have changed since, so those screens show the game's own text until the next FGOAC scooby update. The list is in the launcher log.");
+			summary.Add((result.UpdateDetected ? "- ตรวจพบอัปเดตของ Cloud23333 " : "- ") + $"ไฟล์ภาษาอังกฤษ {result.TurnedOff.Count} ไฟล์สร้างไว้สำหรับไฟล์เกมที่เปลี่ยนไปแล้ว หน้าจอเหล่านั้นจึงแสดงข้อความดั้งเดิมของเกมจนกว่าจะมีอัปเดต FGOAC scooby ครั้งถัดไป รายการอยู่ในบันทึกของตัวเรียกเกม");
 		}
 	}
 
@@ -345,7 +345,7 @@ internal sealed class FirstRun
 		{
 			text2 = text2.Substring(0, num);
 		}
-		summary.Add($"- Environment check: {array.Length} item(s) need attention, starting with {text2}. The full report is under Settings > Diagnostics and Help.");
+		summary.Add($"- การตรวจสอบสภาพแวดล้อม: มี {array.Length} รายการที่ต้องดูแล เริ่มจาก {text2} ดูรายงานฉบับเต็มได้ที่การตั้งค่า > Diagnostics and Help");
 	}
 
 	/// <summary>
@@ -478,7 +478,7 @@ internal sealed class FirstRun
 		}
 		if (accounts.Root["server_running"]?.GetValue<bool>() == true)
 		{
-			summary.Add("- No account was created, because the local server is running. Stop the server from the menu beside the status on Play, then choose New account in the Master menu.");
+			summary.Add("- ยังไม่ได้สร้างบัญชี เพราะเซิร์ฟเวอร์ในเครื่องกำลังทำงานอยู่ ให้หยุดเซิร์ฟเวอร์จากเมนูข้างแถบสถานะในหน้าเล่น แล้วเลือกบัญชีใหม่ในเมนู Master");
 			return false;
 		}
 		report("กำลังสร้างบัญชี Master...");
@@ -486,7 +486,7 @@ internal sealed class FirstRun
 		if (!toolResult2.Ok || toolResult2.Root == null)
 		{
 			log("The first account could not be created: " + toolResult2.Message);
-			summary.Add("- ยังไม่ได้สร้างบัญชี: " + toolResult2.Message + " Choose New account in the Master menu on Play.");
+			summary.Add("- ยังไม่ได้สร้างบัญชี: " + toolResult2.Message + " เลือกบัญชีใหม่ในเมนู Master ในหน้าเล่น");
 			return false;
 		}
 		int aimeId = (toolResult2.Root["aime_id"]?.GetValue<int>()).GetValueOrDefault();
@@ -508,10 +508,10 @@ internal sealed class FirstRun
 		if (!toolResult4.Ok)
 		{
 			log("The first account could not be selected: " + toolResult4.Message);
-			summary.Add($"- The account Master (ID {aimeId}) was created but not selected. Pick it in the Master menu on Play.");
+			summary.Add($"- สร้างบัญชี Master (ID {aimeId}) แล้ว แต่ยังไม่ได้เลือกใช้ ให้เลือกในเมนู Master ในหน้าเล่น");
 			return true;
 		}
-		string text2 = ((list.Count == 0) ? "" : $" The {string.Join(", ", list)} part(s) of the one-click inventory did not finish - you can run them again from Manage accounts in the Master menu on Play.");
+		string text2 = ((list.Count == 0) ? "" : $" ส่วน {string.Join(", ", list)} ของการเติมข้อมูลแบบคลิกเดียวยังไม่เสร็จ - สั่งทำซ้ำได้จาก Accounts ในเมนู Master ในหน้าเล่น");
 		summary.Add($"- สร้างบัญชี Master (ID {aimeId}) พร้อมชุดเซอร์แวนต์และ Craft Essence ครบทั้งหมด และเลือกใช้บัญชีนี้แล้ว รหัสเข้าใช้งานคือ {text}{text2}");
 		return true;
 	}

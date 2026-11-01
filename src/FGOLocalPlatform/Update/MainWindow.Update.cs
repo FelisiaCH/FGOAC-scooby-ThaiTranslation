@@ -42,7 +42,7 @@ public partial class MainWindow
 		}
 		if (announce)
 		{
-			AboutUpdateStatusText.Text = (availableUpdate == null) ? ("คุณใช้เวอร์ชันล่าสุดอยู่แล้ว (" + UpdateSettings.Version + ").") : ("อัปเดต " + availableUpdate.Version + " is available. Install it from the Status on Play.");
+			AboutUpdateStatusText.Text = (availableUpdate == null) ? ("คุณใช้เวอร์ชันล่าสุดอยู่แล้ว (" + UpdateSettings.Version + ").") : ("มีอัปเดต " + availableUpdate.Version + " ให้ติดตั้งแล้ว กดติดตั้งได้ที่แถบสถานะในหน้าเล่น");
 		}
 		return true;
 	}
@@ -104,14 +104,14 @@ public partial class MainWindow
 			return;
 		}
 		availableUpdate = null;
-		AboutUpdateStatusText.Text = "Version " + release.Version + " is installed.";
+		AboutUpdateStatusText.Text = "ติดตั้งเวอร์ชัน " + release.Version + " แล้ว";
 		if (Updater.HasStagedLauncher(out var stagedPath))
 		{
-			RuntimeStatusText.Text = "Version " + release.Version + " is ready - the launcher restarts to finish.";
+			RuntimeStatusText.Text = "เวอร์ชัน " + release.Version + " พร้อมแล้ว - ตัวเรียกเกมจะรีสตาร์ตเพื่อทำให้เสร็จสมบูรณ์";
 			Updater.SwapAndRestart(stagedPath);
 			Close();
 			return;
 		}
-		HoldStatus("Version " + release.Version + " is installed. Close and reopen the launcher to run it.");
+		HoldStatus("ติดตั้งเวอร์ชัน " + release.Version + " แล้ว ปิดแล้วเปิดตัวเรียกเกมอีกครั้งเพื่อใช้งาน");
 	}
 }

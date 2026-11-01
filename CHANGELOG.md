@@ -7,6 +7,15 @@ All notable changes to this project are documented here. The format follows
 Version numbers cover the whole release: the launcher, the English game files it installs, and the
 installer that puts them there.
 
+## ฉบับแปลไทย - ซิงก์กับ upstream 1.3.0
+
+หมายเหตุสำหรับฉบับแปลภาษาไทยนี้ (ยังไม่ได้เปลี่ยนหมายเลขเวอร์ชัน และไม่มีการออกรีลีสใหม่)
+
+- รวมการเปลี่ยนแปลงจาก upstream 1.3.0 เข้ากับฉบับแปลไทยแล้ว
+- แปลข้อความที่ผู้ใช้เห็นซึ่งยังเป็นภาษาอังกฤษหรือปนกันอยู่เป็นภาษาไทย ได้แก่ แท็บแบนเนอร์ หน้าอีเวนต์ หน้าต่างมีอะไรใหม่ ข้อความอัปเดตและสถานะบนหน้าเล่น สรุปการตั้งค่าครั้งแรก และข้อความรหัสออกของการเริ่มเกม
+- เพิ่มหัวข้อแบนเนอร์อีเวนต์เวลาจำกัดใน docs/GUIDE_TH.md
+- ส่วนที่ยังไม่ได้แปล: Mods, ออนไลน์/เซิร์ฟเวอร์ชุมชน, Tunnel, ส่วนที่เพิ่มของ Photo Mode, หน้า Battle Debug, ข้อมูลเอฟเฟกต์ Craft Essence, ชื่อการ์ดและชื่ออีเวนต์
+
 ## [1.3.0] - 2026-10-09
 
 Works on Cloud23333's V1.01 and V1.02, with or without his latest update. Unzip this release over

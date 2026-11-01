@@ -22,11 +22,11 @@ public partial class MainWindow
 		nextStep = step;
 		StatusNextButton.Content = step switch
 		{
-			NextStep.StartServer => "Start server",
-			NextStep.StopServer => "Stop server",
-			NextStep.Install => "Install",
-			NextStep.WhatsNew => "What's new",
-			NextStep.OpenFolder => "Open folder",
+			NextStep.StartServer => "เริ่มเซิร์ฟเวอร์",
+			NextStep.StopServer => "หยุดเซิร์ฟเวอร์",
+			NextStep.Install => "ติดตั้ง",
+			NextStep.WhatsNew => "มีอะไรใหม่",
+			NextStep.OpenFolder => "เปิดโฟลเดอร์",
 			_ => ""
 		};
 		StatusNextButton.Visibility = (step == NextStep.None) ? Visibility.Collapsed : Visibility.Visible;

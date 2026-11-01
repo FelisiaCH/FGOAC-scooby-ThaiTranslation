@@ -57,7 +57,7 @@ internal static partial class Updater
 		}
 		catch (OperationCanceledException) when (!cancellation.IsCancellationRequested)
 		{
-			throw new IOException("The download stopped: nothing arrived for 15 seconds");
+			throw new IOException("การดาวน์โหลดหยุดลง: ไม่มีข้อมูลเข้ามานาน 15 วินาที");
 		}
 	}
 

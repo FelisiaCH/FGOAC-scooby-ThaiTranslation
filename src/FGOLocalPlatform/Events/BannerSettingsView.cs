@@ -62,7 +62,7 @@ public partial class BannerSettingsView : UserControl
 		{
 			return;
 		}
-		StatusText.Text = "Banner settings updated. Make sure you press Save.";
+		StatusText.Text = "แก้ไขการตั้งค่าแบนเนอร์แล้ว อย่าลืมกดบันทึก";
 	}
 
 	public void Save()
@@ -70,11 +70,11 @@ public partial class BannerSettingsView : UserControl
 		try
 		{
 			WriteEnabledSingularityIds();
-			StatusText.Text = "Banner settings saved. Stop and start the local server from the menu beside the status on Play for the changes to take effect.";
+			StatusText.Text = "บันทึกการตั้งค่าแบนเนอร์แล้ว หยุดแล้วเริ่มเซิร์ฟเวอร์ในเครื่องใหม่จากเมนูข้างแถบสถานะในหน้าเล่น การเปลี่ยนแปลงจึงจะมีผล";
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not save the banner settings: " + ex.Message;
+			StatusText.Text = "บันทึกการตั้งค่าแบนเนอร์ไม่ได้: " + ex.Message;
 		}
 	}
 
@@ -92,7 +92,7 @@ public partial class BannerSettingsView : UserControl
 				checkBox.IsChecked = false;
 			}
 		}
-		StatusText.Text = "Banner selection cleared. Press Save to turn the filter off.";
+		StatusText.Text = "ล้างการเลือกแบนเนอร์แล้ว กดบันทึกเพื่อปิดตัวกรอง";
 	}
 
 	private void ApplyEventPatch_OnClick(object sender, RoutedEventArgs e)
@@ -112,7 +112,7 @@ public partial class BannerSettingsView : UserControl
 		using Stream? patchStream = typeof(BannerSettingsView).Assembly.GetManifestResourceStream("FGOLocalPlatform.EventTogglePatch.json");
 		if (patchStream == null)
 		{
-			return "The embedded event toggle patch could not be found.";
+			return "ไม่พบแพตช์สวิตช์อีเวนต์ที่ฝังอยู่ในตัวเรียกเกม";
 		}
 		using StreamReader patchReader = new StreamReader(patchStream);
 		string patchText = patchReader.ReadToEnd();
@@ -122,7 +122,7 @@ public partial class BannerSettingsView : UserControl
 			|| editsElement.ValueKind != JsonValueKind.Array)
 		{
 			throw new InvalidOperationException(
-				"The event toggle patch file is missing the edits array.");
+				"ไฟล์แพตช์สวิตช์อีเวนต์ไม่มีอาร์เรย์ edits");
 		}
 		List<string> messages = new List<string>();
 		// Every edit is checked before any file is written, so a mismatch cannot leave one patched.
@@ -134,13 +134,13 @@ public partial class BannerSettingsView : UserControl
 			string anchorNew = editElement.TryGetProperty("anchor_new", out JsonElement newElement) ? newElement.GetString() : null;
 			if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(anchorOld) || string.IsNullOrEmpty(anchorNew))
 			{
-				throw new InvalidOperationException("One of the patch entries is missing its file, anchor_old or anchor_new value.");
+				throw new InvalidOperationException("รายการแพตช์รายการหนึ่งขาดค่า file, anchor_old หรือ anchor_new");
 			}
 
 			string targetPath = ResolvePatchTarget(fileName);
 			if (!File.Exists(targetPath))
 			{
-				throw new InvalidOperationException(targetPath + " was not found. The server files may have been updated since this launcher was built.");
+				throw new InvalidOperationException("ไม่พบ " + targetPath + " ไฟล์เซิร์ฟเวอร์อาจถูกอัปเดตหลังจากสร้างตัวเรียกเกมนี้");
 			}
 
 			string currentText = File.ReadAllText(targetPath);
@@ -154,14 +154,14 @@ public partial class BannerSettingsView : UserControl
 				|| configPropertyAlreadyApplied
 				|| currentText.Contains(PatchMarker, StringComparison.OrdinalIgnoreCase))
 			{
-				messages.Add(Path.GetFileName(targetPath) + " already has the patch applied.");
+				messages.Add(Path.GetFileName(targetPath) + " ติดตั้งแพตช์ไว้แล้ว");
 				continue;
 			}
 
 			MatchCollection oldMatches = FindLineEndingInsensitiveMatches(currentText, anchorOld);
 			if (oldMatches.Count != 1)
 			{
-				throw new InvalidOperationException(targetPath + " does not match what this patch expects. The server files may have been updated since this launcher was built.");
+				throw new InvalidOperationException(targetPath + " ไม่ตรงกับที่แพตช์นี้คาดไว้ ไฟล์เซิร์ฟเวอร์อาจถูกอัปเดตหลังจากสร้างตัวเรียกเกมนี้");
 			}
 
 			Match oldMatch = oldMatches[0];
@@ -186,10 +186,10 @@ public partial class BannerSettingsView : UserControl
 				messages.Add(ex.Message);
 				throw new InvalidOperationException(string.Join(Environment.NewLine, messages));
 			}
-			messages.Add("Applied to " + Path.GetFileName(targetPath));
+			messages.Add("ติดตั้งแพตช์ลงใน " + Path.GetFileName(targetPath));
 		}
 
-		return string.Join(Environment.NewLine, messages.Count > 0 ? messages : new[] { "No event-toggle changes were needed." });
+		return string.Join(Environment.NewLine, messages.Count > 0 ? messages : new[] { "ไม่ต้องแก้ไขสวิตช์อีเวนต์" });
 	}
 
 	private static bool ContainsLineEndingInsensitive(string text, string value)
@@ -224,7 +224,7 @@ public partial class BannerSettingsView : UserControl
 		}
 		catch (Exception ex)
 		{
-			StatusText.Text = "Could not read the saved banner settings: " + ex.Message;
+			StatusText.Text = "อ่านการตั้งค่าแบนเนอร์ที่บันทึกไว้ไม่ได้: " + ex.Message;
 		}
 	}
 
@@ -233,7 +233,7 @@ public partial class BannerSettingsView : UserControl
 		string path = ServerYamlPath;
 		if (!File.Exists(path))
 		{
-			throw new IOException("The server config file was not found: " + path);
+			throw new IOException("ไม่พบไฟล์ตั้งค่าเซิร์ฟเวอร์: " + path);
 		}
 
 		List<int> selectedIds = bannerOptions
@@ -254,7 +254,7 @@ public partial class BannerSettingsView : UserControl
 		int serverStart = lines.FindIndex(line => line.TrimEnd() == "server:");
 		if (serverStart < 0)
 		{
-			throw new InvalidOperationException("fgo.yaml has no server: block. The file may have been edited by hand.");
+			throw new InvalidOperationException("fgo.yaml ไม่มีบล็อก server: ไฟล์นี้อาจถูกแก้ด้วยมือ");
 		}
 		// The block ends at the next top-level key; an entry is replaced with its continuation lines.
 		int insertAt = serverStart + 1;
@@ -321,7 +321,7 @@ public partial class BannerSettingsView : UserControl
 		startInfo.ArgumentList.Add("py_compile");
 		startInfo.ArgumentList.Add(path);
 
-		using Process process = Process.Start(startInfo) ?? throw new IOException("Could not run Python validation for the patched file.");
+		using Process process = Process.Start(startInfo) ?? throw new IOException("รันการตรวจสอบ Python ของไฟล์ที่แพตช์แล้วไม่ได้");
 		string error = process.StandardError.ReadToEnd();
 		process.WaitForExit();
 		if (process.ExitCode != 0)
@@ -330,7 +330,7 @@ public partial class BannerSettingsView : UserControl
 			{
 				File.Copy(backupPath, path, overwrite: true);
 			}
-			throw new InvalidOperationException("The patched Python file failed validation and has been restored from backup. Error: " + error.Trim());
+			throw new InvalidOperationException("ไฟล์ Python ที่แพตช์แล้วไม่ผ่านการตรวจสอบ จึงคืนค่าจากไฟล์สำรองแล้ว ข้อผิดพลาด: " + error.Trim());
 		}
 	}
 }

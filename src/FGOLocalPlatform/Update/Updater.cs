@@ -137,7 +137,7 @@ internal static partial class Updater
 			// A link here would send the elevated write somewhere else.
 			if ((File.GetAttributes(staging) & FileAttributes.ReparsePoint) != 0)
 			{
-				throw new IOException("The update folder " + staging + " is a link, so nothing was downloaded into it");
+				throw new IOException("โฟลเดอร์อัปเดต " + staging + " เป็นลิงก์ จึงไม่ได้ดาวน์โหลดอะไรลงไป");
 			}
 
 			report("กำลังดาวน์โหลด " + release.ZipName + "...");

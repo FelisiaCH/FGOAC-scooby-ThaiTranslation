@@ -278,7 +278,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		Visibility visibility = (DualSenseHelp.Visibility = ((!isDualSenseMode) ? Visibility.Collapsed : Visibility.Visible));
 		dualSenseCalibrationPanel.Visibility = visibility;
 		ControllerMappingTitle.Text = (isDualSenseMode ? "การกำหนดปุ่มคอนโทรลเลอร์ PlayStation 5 (DualSense)" : "การกำหนดปุ่มคอนโทรลเลอร์ (XInput)");
-		ControllerDeadzoneHelp.Text = "ช่วงเดดโซนคือ 0-32766 ค่าเริ่มต้น 7849 " + (isDualSenseMode ? "L2 / R2" : "LT / RT") + " ใช้ค่าเกณฑ์การกดเท่ากับ 64 ปุ่มสกิลจะจำลองการกดและปล่อยจริง กำหนดปุ่ม Skill Target 1, 2 และ 3 เพื่อเลือก Servant ในเมนูเป้าหมายของสกิล หากไม่กำหนดให้เลือกบนหน้าจอสัมผัส กฎคูลดาวน์และซีลไม่เปลี่ยนแปลง";
+		ControllerDeadzoneHelp.Text = "ช่วงเดดโซนคือ 0-32766 ค่าเริ่มต้น 7849 " + (isDualSenseMode ? "L2 / R2" : "LT / RT") + " press threshold is 64. Skill buttons simulate a real press and release. Bind Skill Target 1, 2 and 3 to pick the Servant in a skill's target menu; unbound, pick it on the touch screen. Cooldown and seal rules are unchanged.";
 		showing = true;
 		foreach (Mapping item in mappings.Where((Mapping item) => item.Section == "xinput" && !item.ValueList))
 		{

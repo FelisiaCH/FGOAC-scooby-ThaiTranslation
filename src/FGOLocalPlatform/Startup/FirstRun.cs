@@ -601,7 +601,7 @@ internal sealed class FirstRun
 			if (keyboardChosen)
 			{
 				log("Input set to keyboard and mouse: no controller is connected.");
-				summary.Add("- ตั้งค่าเป็นคีย์บอร์ดและเมาส์ เพราะไม่ได้เชื่อมต่อคอนโทรลเลอร์ ให้เลือกคอนโทรลเลอร์ได้ที่การควบคุม");
+				summary.Add("- Set keyboard and mouse controls, since no controller is connected. Pick a controller on the Controls page.");
 			}
 			if (list.Count == 0)
 			{

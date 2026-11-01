@@ -199,8 +199,8 @@ public partial class MainWindow
 					AppendAccountLog("The account was deleted, but some old backups could not be cleaned up: " + string.Join("; ", jsonArray.Select((JsonNode node) => node?.GetValue<string>() ?? "unknown error")));
 				}
 				await RefreshAccountsAsync(showErrors: false);
-				string value = ((!deletedCurrent) ? "" : ((replacementAimeId > 0) ? $"\nThe current account switched automatically to ID {replacementAimeId}." : "\nThe current card is cleared - create a new account before starting the game."));
-				ThemedMessageBox.Show($"ลบบัญชี {account.MasterName} (ID {account.AimeId}) ทั้งหมดเรียบร้อยแล้ว{value}\n\n" + (cleanupComplete ? "Its save data, card, card mapping and leftover backups have all been cleaned up; the lowest free ID will be reused by the next new account." : "The save data, card and card mapping were deleted, but some old backups could not be cleaned up - see the log on the right. The lowest free ID will still be reused by the next new account."), "FGOAC scooby", MessageBoxButton.OK, cleanupComplete ? MessageBoxImage.Asterisk : MessageBoxImage.Exclamation);
+				string value = ((!deletedCurrent) ? "" : ((replacementAimeId > 0) ? $"\nบัญชีปัจจุบันถูกสลับไปเป็น ID {replacementAimeId} โดยอัตโนมัติ" : "\nการ์ดปัจจุบันถูกล้างแล้ว - สร้างบัญชีใหม่ก่อนเริ่มเกม"));
+				ThemedMessageBox.Show($"ลบบัญชี {account.MasterName} (ID {account.AimeId}) ทั้งหมดเรียบร้อยแล้ว{value}\n\n" + (cleanupComplete ? "ข้อมูลเซฟ การ์ด การจับคู่การ์ด และข้อมูลสำรองที่ค้างอยู่ถูกล้างหมดแล้ว บัญชีใหม่ถัดไปจะใช้ ID ว่างที่ต่ำที่สุด" : "ข้อมูลเซฟ การ์ด และการจับคู่การ์ดถูกลบแล้ว แต่ล้างข้อมูลสำรองเก่าบางส่วนไม่ได้ - ดูได้ในบันทึกทางขวา บัญชีใหม่ถัดไปจะยังคงใช้ ID ว่างที่ต่ำที่สุด"), "FGOAC scooby", MessageBoxButton.OK, cleanupComplete ? MessageBoxImage.Asterisk : MessageBoxImage.Exclamation);
 			}
 		});
 	}

@@ -33,7 +33,7 @@ public partial class EventsPage : UserControl
 			{
 				Style = (System.Windows.Style)FindResource("HelpTextStyle"),
 				Margin = new System.Windows.Thickness(28.0, 16.0, 28.0, 0.0),
-				Text = "This game folder has no local server with event switches."
+				Text = "โฟลเดอร์เกมนี้ไม่มีเซิร์ฟเวอร์ในเครื่องที่มีสวิตช์อีเวนต์"
 			};
 		}
 	}

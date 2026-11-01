@@ -137,7 +137,7 @@ internal static partial class Updater
 			// A link here would send the elevated write somewhere else.
 			if ((File.GetAttributes(staging) & FileAttributes.ReparsePoint) != 0)
 			{
-				throw new IOException("The update folder " + staging + " is a link, so nothing was downloaded into it");
+				throw new IOException("โฟลเดอร์อัปเดต " + staging + " เป็นลิงก์ จึงไม่ได้ดาวน์โหลดอะไรลงไป");
 			}
 
 			report("กำลังดาวน์โหลด " + release.ZipName + "...");
@@ -234,7 +234,7 @@ internal static partial class Updater
 			string relative = target.Substring(root.Length);
 			if (IsProtected(relative))
 			{
-				throw new IOException("The update lists a file it is not allowed to write: " + entry.FullName);
+				throw new IOException("แพ็กเกจอัปเดตมีไฟล์ที่ไม่อนุญาตให้เขียน: " + entry.FullName);
 			}
 			if (string.Equals(entry.FullName, "FGOAC scooby.exe", StringComparison.OrdinalIgnoreCase) && File.Exists(target))
 			{

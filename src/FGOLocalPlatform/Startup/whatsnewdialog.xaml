@@ -6,7 +6,7 @@
       <ScrollViewer MaxHeight="420" VerticalScrollBarVisibility="Auto">
         <TextBlock Name="BodyText" TextWrapping="Wrap" FontSize="14" Foreground="{StaticResource TextBrush}" />
       </ScrollViewer>
-      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,12,0,14" Text="The full history is under About, What's new in each version." />
+      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,12,0,14" Text="ดูประวัติการเปลี่ยนแปลงของทุกเวอร์ชันได้ในหน้าเกี่ยวกับ ที่หัวข้อมีอะไรใหม่ในแต่ละเวอร์ชัน" />
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
         <Button Content="ตกลง" Style="{StaticResource AccentButtonStyle}" Width="96" IsDefault="True" IsCancel="True" />
       </StackPanel>

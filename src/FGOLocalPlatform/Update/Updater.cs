@@ -234,7 +234,7 @@ internal static partial class Updater
 			string relative = target.Substring(root.Length);
 			if (IsProtected(relative))
 			{
-				throw new IOException("แพ็กเกจอัปเดตมีไฟล์ที่ไม่อนุญาตให้เขียน: " + entry.FullName);
+				throw new IOException("The update lists a file it is not allowed to write: " + entry.FullName);
 			}
 			if (string.Equals(entry.FullName, "FGOAC scooby.exe", StringComparison.OrdinalIgnoreCase) && File.Exists(target))
 			{

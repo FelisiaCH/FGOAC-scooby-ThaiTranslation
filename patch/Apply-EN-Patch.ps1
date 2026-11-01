@@ -395,7 +395,7 @@ if ($Rollback) {
         $configuration = Get-Content -LiteralPath $configurationPath -Raw -Encoding UTF8 | ConvertFrom-Json
         $configuration | Add-Member -NotePropertyName 'gameLanguage' -NotePropertyValue 'ja' -Force
         Write-FgoOwnFile -Path $configurationPath -Bytes ([Text.UTF8Encoding]::new($false).GetBytes(($configuration | ConvertTo-Json -Depth 50)))
-        Write-Host "โฟลเดอร์เกมนี้มีอัปเดตล่าสุดของ Cloud23333 การย้อนกลับจึงปิดข้อความภาษาอังกฤษและย้ายไฟล์ภาษาอังกฤษของ FGOAC scooby ไปไว้ที่ $backupRoot โดยไม่มีการเปลี่ยนไฟล์ของเขา"
+        Write-Host "This game folder has Cloud23333's latest update, so the rollback turned the English text off and moved the English files of FGOAC scooby into $backupRoot. None of his files were changed."
         exit 0
     }
     if (!([IO.Directory]::Exists($backupRoot))) { Stop-WithMessage "ไม่มีข้อมูลสำรองของแพตช์ให้คืนค่าใน $backupRoot" 7 }

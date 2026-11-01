@@ -345,7 +345,7 @@ internal sealed class FirstRun
 		{
 			text2 = text2.Substring(0, num);
 		}
-		summary.Add($"- การตรวจสอบสภาพแวดล้อม: มี {array.Length} รายการที่ต้องดูแล เริ่มจาก {text2} ดูรายงานฉบับเต็มได้ที่การตั้งค่า > การวินิจฉัยและความช่วยเหลือ");
+		summary.Add($"- การตรวจสอบสภาพแวดล้อม: มี {array.Length} รายการที่ต้องดูแล เริ่มจาก {text2} ดูรายงานฉบับเต็มได้ที่การตั้งค่า > Diagnostics and Help");
 	}
 
 	/// <summary>
@@ -511,7 +511,7 @@ internal sealed class FirstRun
 			summary.Add($"- สร้างบัญชี Master (ID {aimeId}) แล้ว แต่ยังไม่ได้เลือกใช้ ให้เลือกในเมนู Master ในหน้าเล่น");
 			return true;
 		}
-		string text2 = ((list.Count == 0) ? "" : $" ส่วน {string.Join(", ", list)} ของการเติมข้อมูลแบบคลิกเดียวยังไม่เสร็จ - สั่งทำซ้ำได้จากจัดการบัญชีในเมนู Master ในหน้าเล่น");
+		string text2 = ((list.Count == 0) ? "" : $" ส่วน {string.Join(", ", list)} ของการเติมข้อมูลแบบคลิกเดียวยังไม่เสร็จ - สั่งทำซ้ำได้จาก Accounts ในเมนู Master ในหน้าเล่น");
 		summary.Add($"- สร้างบัญชี Master (ID {aimeId}) พร้อมชุดเซอร์แวนต์และ Craft Essence ครบทั้งหมด และเลือกใช้บัญชีนี้แล้ว รหัสเข้าใช้งานคือ {text}{text2}");
 		return true;
 	}
@@ -601,7 +601,7 @@ internal sealed class FirstRun
 			if (keyboardChosen)
 			{
 				log("Input set to keyboard and mouse: no controller is connected.");
-				summary.Add("- ตั้งค่าเป็นคีย์บอร์ดและเมาส์ เพราะไม่ได้เชื่อมต่อคอนโทรลเลอร์ ให้เลือกคอนโทรลเลอร์ได้ที่หน้าควบคุม");
+				summary.Add("- ตั้งค่าเป็นคีย์บอร์ดและเมาส์ เพราะไม่ได้เชื่อมต่อคอนโทรลเลอร์ ให้เลือกคอนโทรลเลอร์ได้ที่การควบคุม");
 			}
 			if (list.Count == 0)
 			{

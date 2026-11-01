@@ -424,7 +424,7 @@ if ($Rollback) {
             $removed++
         }
     }
-    foreach ($marked in @($markerPath, $legacyMarkerPath, $legacyThaiMarkerPath)) {
+    foreach ($marked in @($markerPath, $legacyMarkerPath)) {
         $savedMarker = [IO.Path]::Combine($backup.FullName, $marked.Substring($rootPrefix.Length))
         if ([IO.File]::Exists($savedMarker)) { Copy-FgoFile -Source $savedMarker -Destination $marked }
         elseif ([IO.File]::Exists($marked)) { [IO.File]::Delete($marked) }

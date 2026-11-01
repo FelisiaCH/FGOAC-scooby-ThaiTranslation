@@ -6,7 +6,7 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <TextBlock Text="Mods" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,8" />
+    <TextBlock Text="ม็อด" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,8" />
     <TextBlock Name="StatusText" Grid.Row="1" Style="{StaticResource HelpTextStyle}" />
     <ContentControl Name="Workbench" Grid.Row="2" />
   </Grid>

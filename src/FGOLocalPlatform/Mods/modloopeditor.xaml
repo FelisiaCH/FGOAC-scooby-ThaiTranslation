@@ -24,12 +24,12 @@
     <TextBlock Name="TrackTitle" Style="{StaticResource SectionTitleStyle}" TextTrimming="CharacterEllipsis" Margin="0,0,0,10" />
     <StackPanel Grid.Row="1" Margin="0,0,0,6">
       <WrapPanel>
-        <Button Content="Zoom in" Click="ZoomIn" />
-        <Button Content="Zoom out" Click="ZoomOut" />
-        <Button Content="Whole track" Click="ShowFull" />
-        <Button Content="The loop" Click="ShowLoop" />
+        <Button Content="ซูมเข้า" Click="ZoomIn" />
+        <Button Content="ซูมออก" Click="ZoomOut" />
+        <Button Content="ทั้งแทร็ก" Click="ShowFull" />
+        <Button Content="ช่วงลูป" Click="ShowLoop" />
       </WrapPanel>
-      <TextBlock Text="Scroll to zoom. Drag the start and end markers or their sliders; Left and Right nudge them." Style="{StaticResource Hint}" />
+      <TextBlock Text="เลื่อนล้อเมาส์เพื่อซูม ลากเครื่องหมายจุดเริ่มและจุดสิ้นสุด หรือลากแถบเลื่อนของจุดเหล่านั้น ปุ่มลูกศรซ้ายและขวาใช้ขยับทีละนิด" Style="{StaticResource Hint}" />
     </StackPanel>
     <Grid Grid.Row="2">
       <Grid.RowDefinitions>
@@ -61,29 +61,29 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
           </Grid.ColumnDefinitions>
-          <TextBlock Text="Loop start" TextWrapping="Wrap" Foreground="{StaticResource BeginBrush}" VerticalAlignment="Center" />
-          <Slider Name="BeginSlider" Grid.Column="1" IsEnabled="False" SmallChange="0.01" LargeChange="1" IsMoveToPointEnabled="True" Margin="4,6,12,6" AutomationProperties.Name="Loop start" ValueChanged="BeginChanged" Thumb.DragStarted="LoopSliderDragStarted" Thumb.DragCompleted="LoopSliderDragCompleted" />
+          <TextBlock Text="จุดเริ่มลูป" TextWrapping="Wrap" Foreground="{StaticResource BeginBrush}" VerticalAlignment="Center" />
+          <Slider Name="BeginSlider" Grid.Column="1" IsEnabled="False" SmallChange="0.01" LargeChange="1" IsMoveToPointEnabled="True" Margin="4,6,12,6" AutomationProperties.Name="จุดเริ่มลูป" ValueChanged="BeginChanged" Thumb.DragStarted="LoopSliderDragStarted" Thumb.DragCompleted="LoopSliderDragCompleted" />
           <TextBlock Name="BeginTime" Grid.Column="2" Foreground="{StaticResource BeginBrush}" VerticalAlignment="Center" TextAlignment="Right" />
           <Button Grid.Column="3" Content="-0.01 s" Margin="12,0,8,0" Click="NudgeBeginBack" />
           <Button Grid.Column="4" Content="+0.01 s" Margin="0" Click="NudgeBeginForward" />
-          <TextBlock Grid.Row="1" Text="Loop end" TextWrapping="Wrap" Foreground="{StaticResource EndBrush}" VerticalAlignment="Center" />
-          <Slider Name="EndSlider" Grid.Row="1" Grid.Column="1" IsEnabled="False" SmallChange="0.01" LargeChange="1" IsMoveToPointEnabled="True" Margin="4,6,12,6" AutomationProperties.Name="Loop end" ValueChanged="EndChanged" Thumb.DragStarted="LoopSliderDragStarted" Thumb.DragCompleted="LoopSliderDragCompleted" />
+          <TextBlock Grid.Row="1" Text="จุดสิ้นสุดลูป" TextWrapping="Wrap" Foreground="{StaticResource EndBrush}" VerticalAlignment="Center" />
+          <Slider Name="EndSlider" Grid.Row="1" Grid.Column="1" IsEnabled="False" SmallChange="0.01" LargeChange="1" IsMoveToPointEnabled="True" Margin="4,6,12,6" AutomationProperties.Name="จุดสิ้นสุดลูป" ValueChanged="EndChanged" Thumb.DragStarted="LoopSliderDragStarted" Thumb.DragCompleted="LoopSliderDragCompleted" />
           <TextBlock Name="EndTime" Grid.Row="1" Grid.Column="2" Foreground="{StaticResource EndBrush}" VerticalAlignment="Center" TextAlignment="Right" />
           <Button Grid.Row="1" Grid.Column="3" Content="-0.01 s" Margin="12,0,8,0" Click="NudgeEndBack" />
           <Button Grid.Row="1" Grid.Column="4" Content="+0.01 s" Margin="0" Click="NudgeEndForward" />
-          <TextBlock Grid.Row="2" Text="Position" TextWrapping="Wrap" VerticalAlignment="Center" />
-          <Slider Name="PositionSlider" Grid.Row="2" Grid.Column="1" IsEnabled="False" SmallChange="0.01" LargeChange="1" IsMoveToPointEnabled="True" Margin="4,6,12,6" AutomationProperties.Name="Position" ValueChanged="PositionChanged" Thumb.DragStarted="PositionDragStarted" Thumb.DragCompleted="PositionDragCompleted" />
+          <TextBlock Grid.Row="2" Text="ตำแหน่ง" TextWrapping="Wrap" VerticalAlignment="Center" />
+          <Slider Name="PositionSlider" Grid.Row="2" Grid.Column="1" IsEnabled="False" SmallChange="0.01" LargeChange="1" IsMoveToPointEnabled="True" Margin="4,6,12,6" AutomationProperties.Name="ตำแหน่ง" ValueChanged="PositionChanged" Thumb.DragStarted="PositionDragStarted" Thumb.DragCompleted="PositionDragCompleted" />
           <TextBlock Name="PositionTime" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" TextAlignment="Right" />
         </Grid>
         <WrapPanel Grid.Row="1" Margin="0,8,0,4">
-          <Button Name="PlayButton" Content="Play or pause" Click="PlayPause" />
-          <Button Content="Play from the start" Click="PlayWhole" />
-          <Button Content="Stop" Click="StopPlayback" />
-          <CheckBox Name="RepeatLoop" Content="Repeat the loop" IsChecked="True" Margin="4,0,16,6" Click="RepeatChanged" />
-          <Button Content="Hear the join (last 4 s)" Style="{StaticResource AccentButtonStyle}" Click="PlaySeam" />
-          <Button Content="Start here" Click="MarkBegin" />
-          <Button Content="End here" Click="MarkEnd" />
-          <Button Content="Find a loop" Click="AnalyzeLoop" />
+          <Button Name="PlayButton" Content="เล่น / หยุดชั่วคราว" Click="PlayPause" />
+          <Button Content="เล่นตั้งแต่ต้น" Click="PlayWhole" />
+          <Button Content="หยุด" Click="StopPlayback" />
+          <CheckBox Name="RepeatLoop" Content="เล่นลูปซ้ำ" IsChecked="True" Margin="4,0,16,6" Click="RepeatChanged" />
+          <Button Content="ฟังรอยต่อ (4 วินาทีสุดท้าย)" Style="{StaticResource AccentButtonStyle}" Click="PlaySeam" />
+          <Button Content="เริ่มตรงนี้" Click="MarkBegin" />
+          <Button Content="จบตรงนี้" Click="MarkEnd" />
+          <Button Content="หาลูป" Click="AnalyzeLoop" />
         </WrapPanel>
         <Grid Grid.Row="2" Margin="0,4,0,8">
           <Grid.ColumnDefinitions>
@@ -100,10 +100,10 @@
     </Border>
     <DockPanel Grid.Row="4">
       <WrapPanel DockPanel.Dock="Right">
-        <Button Content="Cancel" IsCancel="True" Click="Cancel" />
-        <Button Name="ApplyButton" Content="Use these loop points" Style="{StaticResource AccentButtonStyle}" Margin="0" Click="ApplyLoop" />
+        <Button Content="ยกเลิก" IsCancel="True" Click="Cancel" />
+        <Button Name="ApplyButton" Content="ใช้จุดลูปเหล่านี้" Style="{StaticResource AccentButtonStyle}" Margin="0" Click="ApplyLoop" />
       </WrapPanel>
-      <TextBlock Text="Hear the join starts 4 seconds before the end and wraps to the loop start. Play from the start includes the intro. A loop point change keeps the audio as it is." Style="{StaticResource Hint}" />
+      <TextBlock Text="ฟังรอยต่อจะเริ่มก่อนจุดจบ 4 วินาที แล้ววนกลับไปจุดเริ่มลูป ส่วนเล่นตั้งแต่ต้นจะรวมช่วงอินโทรด้วย การเปลี่ยนจุดลูปไม่แตะต้องตัวเสียง" Style="{StaticResource Hint}" />
     </DockPanel>
   </Grid>
 </Window>

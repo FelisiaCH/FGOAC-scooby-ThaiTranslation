@@ -55,15 +55,15 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <DockPanel>
-      <Button Name="None" DockPanel.Dock="Right" Content="No portrait" Click="WithoutPortrait" />
-      <ComboBox Name="Kind" Width="160" HorizontalAlignment="Left" AutomationProperties.Name="Which portraits" SelectionChanged="Filter">
-        <ComboBoxItem Content="All portraits" />
-        <ComboBoxItem Content="Game portraits" />
-        <ComboBoxItem Content="Your portraits" />
+      <Button Name="None" DockPanel.Dock="Right" Content="ไม่มีภาพตัวละคร" Click="WithoutPortrait" />
+      <ComboBox Name="Kind" Width="160" HorizontalAlignment="Left" AutomationProperties.Name="เลือกชนิดของภาพ" SelectionChanged="Filter">
+        <ComboBoxItem Content="ภาพทั้งหมด" />
+        <ComboBoxItem Content="ภาพในเกม" />
+        <ComboBoxItem Content="ภาพของคุณ" />
       </ComboBox>
     </DockPanel>
-    <TextBox Name="Search" Grid.Row="1" Margin="0,8" ToolTip="Search by name" AutomationProperties.Name="Search" TextChanged="SearchChanged" />
-    <ListBox Name="Choices" Grid.Row="2" Background="{StaticResource PlateLowBrush}" Foreground="{StaticResource TextBrush}" BorderBrush="{StaticResource LineBrush}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizingWhenGrouping="False" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch" AutomationProperties.Name="Portraits" SelectionChanged="Choose">
+    <TextBox Name="Search" Grid.Row="1" Margin="0,8" ToolTip="ค้นหาตามชื่อ" AutomationProperties.Name="ค้นหา" TextChanged="SearchChanged" />
+    <ListBox Name="Choices" Grid.Row="2" Background="{StaticResource PlateLowBrush}" Foreground="{StaticResource TextBrush}" BorderBrush="{StaticResource LineBrush}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VirtualizingPanel.IsVirtualizingWhenGrouping="False" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch" AutomationProperties.Name="ภาพตัวละคร" SelectionChanged="Choose">
       <ListBox.GroupStyle>
         <GroupStyle>
           <GroupStyle.ContainerStyle>

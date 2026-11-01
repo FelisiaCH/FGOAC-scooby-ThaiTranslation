@@ -32,9 +32,9 @@
     </Grid.ColumnDefinitions>
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
       <StackPanel Margin="0,0,16,0">
-        <CheckBox Name="Enabled" Content="Use my Master portraits" />
-        <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,8,0,8" Text="Only your own Master shows them; other characters keep the game's portraits, and players without these files see the game's own." />
-        <ListBox Name="Slots" Height="285" ItemContainerStyle="{StaticResource MasterItem}" Background="{StaticResource PlateLowBrush}" BorderBrush="{StaticResource LineBrush}" Foreground="{StaticResource TextBrush}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="Images" SelectionChanged="SelectSlot">
+        <CheckBox Name="Enabled" Content="ใช้ภาพ Master ของฉัน" />
+        <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,8,0,8" Text="แสดงเฉพาะ Master ของคุณเองเท่านั้น ตัวละครอื่นยังใช้ภาพของเกม และผู้เล่นที่ไม่มีไฟล์เหล่านี้จะเห็นภาพของเกมเอง" />
+        <ListBox Name="Slots" Height="285" ItemContainerStyle="{StaticResource MasterItem}" Background="{StaticResource PlateLowBrush}" BorderBrush="{StaticResource LineBrush}" Foreground="{StaticResource TextBrush}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="ภาพ" SelectionChanged="SelectSlot">
           <ListBox.ItemTemplate>
             <DataTemplate>
               <TextBlock TextWrapping="Wrap" Text="{Binding}" />
@@ -51,10 +51,10 @@
         <RowDefinition Height="Auto" />
       </Grid.RowDefinitions>
       <WrapPanel>
-        <Button Content="Export the game's images" Margin="0,0,8,6" Click="ExportTemplates" />
-        <Button Content="Replace with a PNG" Margin="0,0,8,6" Click="Import" />
-        <Button Content="Replace several" Margin="0,0,8,6" Click="ImportBatch" />
-        <Button Content="Back to the game's image" Margin="0,0,0,6" Click="Restore" />
+        <Button Content="ส่งออกภาพของเกม" Margin="0,0,8,6" Click="ExportTemplates" />
+        <Button Content="แทนที่ด้วย PNG" Margin="0,0,8,6" Click="Import" />
+        <Button Content="แทนที่หลายภาพ" Margin="0,0,8,6" Click="ImportBatch" />
+        <Button Content="กลับไปใช้ภาพของเกม" Margin="0,0,0,6" Click="Restore" />
       </WrapPanel>
       <Grid Grid.Row="1" Margin="0,12">
         <Grid.ColumnDefinitions>
@@ -62,17 +62,17 @@
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <DockPanel Margin="0,0,8,0">
-          <TextBlock DockPanel.Dock="Top" Text="The game's image" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" />
+          <TextBlock DockPanel.Dock="Top" Text="ภาพของเกม" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" />
           <Image Name="Original" Stretch="Uniform" />
         </DockPanel>
         <DockPanel Grid.Column="1" Margin="8,0,0,0">
-          <TextBlock DockPanel.Dock="Top" Text="Yours" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" />
+          <TextBlock DockPanel.Dock="Top" Text="ของคุณ" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" />
           <Image Name="Replacement" Stretch="Uniform" />
         </DockPanel>
       </Grid>
-      <TextBlock Grid.Row="2" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="Export the game's images as transparent PNGs to draw over. A replacement must have the same size; it is never stretched or cropped. To replace several at once, keep the exported file names." />
+      <TextBlock Grid.Row="2" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" Text="ส่งออกภาพของเกมเป็น PNG โปร่งใสเพื่อใช้วาดทับ ภาพที่แทนที่ต้องมีขนาดเท่าเดิม และจะไม่ถูกยืดหรือครอบตัด หากต้องการแทนที่หลายภาพพร้อมกัน ให้คงชื่อไฟล์ที่ส่งออกไว้" />
       <StackPanel Grid.Row="3">
-        <Button Content="Save Master portraits" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Left" Click="Save" />
+        <Button Content="บันทึกภาพ Master" Style="{StaticResource AccentButtonStyle}" HorizontalAlignment="Left" Click="Save" />
         <TextBlock Name="Status" Style="{StaticResource HelpTextStyle}" Margin="0,8,0,0" />
       </StackPanel>
     </Grid>

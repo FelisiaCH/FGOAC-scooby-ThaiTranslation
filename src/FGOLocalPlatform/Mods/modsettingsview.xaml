@@ -57,7 +57,7 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" Text="Music changes reach a running game when saved. Dialogue, Master portraits and loading images take effect the next time the game starts." />
+    <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" Text="การเปลี่ยนแปลงของเพลงจะส่งถึงเกมที่กำลังเปิดอยู่ทันทีที่บันทึก ส่วนบทสนทนา ภาพ Master และภาพหน้าโหลดจะมีผลเมื่อเริ่มเกมครั้งถัดไป" />
     <TabControl Name="Tabs" Grid.Row="1">
       <TabItem Name="ImportedTab" Header="Packages">
         <local:ModInstallView x:Name="Installer" />
@@ -71,41 +71,41 @@
             <RowDefinition Height="Auto" />
           </Grid.RowDefinitions>
           <StackPanel>
-            <CheckBox Name="Bgm" Content="Play my music" />
-            <TextBlock Text="Tracks of a shared pool and of a scene's pool are drawn together. The pool for every battle comes before the pool of a replaced game track." Style="{StaticResource ModHint}" />
+            <CheckBox Name="Bgm" Content="เล่นเพลงของฉัน" />
+            <TextBlock Text="แทร็กของกลุ่มเพลงที่ใช้ร่วมกันและของกลุ่มเพลงประจำฉากจะถูกสุ่มเลือกรวมกัน ส่วนกลุ่มเพลงของทุกการต่อสู้จะมาก่อนกลุ่มเพลงของแทร็กเกมที่ถูกแทนที่" Style="{StaticResource ModHint}" />
           </StackPanel>
           <StackPanel Grid.Row="1">
-            <ComboBox Name="Pool" MaxDropDownHeight="360" Margin="0,6,0,0" AutomationProperties.Name="Pool" SelectionChanged="PoolChanged" />
+            <ComboBox Name="Pool" MaxDropDownHeight="360" Margin="0,6,0,0" AutomationProperties.Name="กลุ่มเพลง" SelectionChanged="PoolChanged" />
             <WrapPanel>
-              <Button Content="Where the game plays it" Margin="0,0,8,0" Click="ShowBgmUsage" />
-              <Button Content="Export the usage list" Click="ExportBgmUsage" />
+              <Button Content="ดูว่าเกมเล่นที่ไหน" Margin="0,0,8,0" Click="ShowBgmUsage" />
+              <Button Content="ส่งออกรายการการใช้งาน" Click="ExportBgmUsage" />
             </WrapPanel>
           </StackPanel>
           <DataGrid Name="Tracks" Grid.Row="2" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" SelectionMode="Single" Margin="0,10" HeadersVisibility="Column" MinHeight="120" MouseDoubleClick="OpenLoopEditor">
             <DataGrid.Columns>
-              <DataGridTemplateColumn Header="Track" Width="*" MinWidth="220">
+              <DataGridTemplateColumn Header="แทร็ก" Width="*" MinWidth="220">
                 <DataGridTemplateColumn.CellTemplate>
                   <DataTemplate>
                     <TextBlock Style="{StaticResource UserText}" Text="{Binding Title}" />
                   </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>
               </DataGridTemplateColumn>
-              <DataGridTextColumn Header="Loop start (s)" Width="120" Binding="{Binding LoopBegin}" />
-              <DataGridTextColumn Header="Loop end (s)" Width="120" Binding="{Binding LoopEnd}" />
-              <DataGridTextColumn Header="Gain (dB)" Width="100" Binding="{Binding GainDb, StringFormat=F2}" />
+              <DataGridTextColumn Header="จุดเริ่มลูป (วิ)" Width="120" Binding="{Binding LoopBegin}" />
+              <DataGridTextColumn Header="จุดสิ้นสุดลูป (วิ)" Width="120" Binding="{Binding LoopEnd}" />
+              <DataGridTextColumn Header="เกน (dB)" Width="100" Binding="{Binding GainDb, StringFormat=F2}" />
             </DataGrid.Columns>
           </DataGrid>
           <StackPanel Grid.Row="3">
-            <CheckBox Name="AutoLoudness" Content="Match the loudness of the game's own tracks in this pool" IsChecked="True" />
+            <CheckBox Name="AutoLoudness" Content="ปรับความดังให้เท่ากับแทร็กของเกมเองในกลุ่มเพลงนี้" IsChecked="True" />
             <TextBlock Name="ConverterNote" Style="{StaticResource ModHint}" Visibility="Collapsed" />
             <WrapPanel>
-              <Button Name="ImportMusicButton" Content="Add music" Style="{StaticResource AccentButtonStyle}" Margin="0,0,8,0" Click="ImportMusic" />
-              <Button Content="Waveform and loop" Margin="0,0,8,0" Click="OpenLoopEditor" />
-              <Button Content="Match loudness" Margin="0,0,8,0" IsEnabled="{Binding IsChecked, ElementName=AutoLoudness}" Click="UpdateLoudness" />
-              <Button Content="Remove track" Margin="0,0,8,0" Click="RemoveTrack" />
-              <Button Content="Save music" Click="SaveAudioLive" />
+              <Button Name="ImportMusicButton" Content="เพิ่มเพลง" Style="{StaticResource AccentButtonStyle}" Margin="0,0,8,0" Click="ImportMusic" />
+              <Button Content="คลื่นเสียงและลูป" Margin="0,0,8,0" Click="OpenLoopEditor" />
+              <Button Content="ปรับความดังให้เท่ากัน" Margin="0,0,8,0" IsEnabled="{Binding IsChecked, ElementName=AutoLoudness}" Click="UpdateLoudness" />
+              <Button Content="ลบแทร็ก" Margin="0,0,8,0" Click="RemoveTrack" />
+              <Button Content="บันทึกเพลง" Click="SaveAudioLive" />
             </WrapPanel>
-            <TextBlock Text="Double-click a track to open its waveform, drag a loop and listen to it. Loop points found on import are a first guess; points you set come first." Style="{StaticResource ModHint}" />
+            <TextBlock Text="ดับเบิลคลิกแทร็กเพื่อเปิดคลื่นเสียง ลากกำหนดลูป แล้วฟังดูได้เลย จุดลูปที่พบตอนนำเข้าเป็นเพียงการเดาเบื้องต้น ส่วนจุดที่คุณตั้งเองจะมาก่อน" Style="{StaticResource ModHint}" />
           </StackPanel>
         </Grid>
       </TabItem>
@@ -118,43 +118,43 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
           </Grid.RowDefinitions>
-          <CheckBox Name="Dialogue" Content="Play my dialogue" HorizontalAlignment="Left" />
+          <CheckBox Name="Dialogue" Content="เล่นบทสนทนาของฉัน" HorizontalAlignment="Left" />
           <WrapPanel Grid.Row="1" Margin="0,8,0,10">
-            <ComboBox Name="TargetKind" Width="140" Margin="0,0,8,6" AutomationProperties.Name="Where" SelectionChanged="TargetKindChanged">
-              <ComboBoxItem Content="Quest" />
-              <ComboBoxItem Content="Event banner" />
+            <ComboBox Name="TargetKind" Width="140" Margin="0,0,8,6" AutomationProperties.Name="เป้าหมาย" SelectionChanged="TargetKindChanged">
+              <ComboBoxItem Content="เควสต์" />
+              <ComboBoxItem Content="แบนเนอร์อีเวนต์" />
             </ComboBox>
             <Grid Width="140" Margin="0,0,8,6">
-              <TextBox Name="QuestSearch" ToolTip="Search by name or number" AutomationProperties.Name="Search" TextChanged="FilterTargets" />
+              <TextBox Name="QuestSearch" ToolTip="ค้นหาตามชื่อหรือหมายเลข" AutomationProperties.Name="ค้นหา" TextChanged="FilterTargets" />
               <TextBlock Name="QuestSearchHint" Text="Search" Margin="12,0,0,0" Foreground="{StaticResource TextFaintBrush}" VerticalAlignment="Center" IsHitTestVisible="False" />
             </Grid>
-            <ComboBox Name="Quest" Width="300" Margin="0,0,8,6" MaxDropDownHeight="360" AutomationProperties.Name="Quest or banner" SelectionChanged="QuestChanged" />
-            <ComboBox Name="Trigger" Width="200" Margin="0,0,8,6" SelectedValuePath="Tag" AutomationProperties.Name="When" />
-            <ComboBox Name="Repeat" Width="170" Margin="0,0,8,6" AutomationProperties.Name="How often">
-              <ComboBoxItem Content="Every time" />
-              <ComboBoxItem Content="First time per account" />
+            <ComboBox Name="Quest" Width="300" Margin="0,0,8,6" MaxDropDownHeight="360" AutomationProperties.Name="เควสต์หรือแบนเนอร์" SelectionChanged="QuestChanged" />
+            <ComboBox Name="Trigger" Width="200" Margin="0,0,8,6" SelectedValuePath="Tag" AutomationProperties.Name="เมื่อใด" />
+            <ComboBox Name="Repeat" Width="170" Margin="0,0,8,6" AutomationProperties.Name="ความถี่">
+              <ComboBoxItem Content="ทุกครั้ง" />
+              <ComboBoxItem Content="ครั้งแรกต่อบัญชี" />
             </ComboBox>
-            <Button Content="Add trigger" Margin="0,0,8,6" Click="AddEvent" />
-            <Button Content="Update trigger" Margin="0,0,0,6" Click="UpdateEvent" />
+            <Button Content="เพิ่มทริกเกอร์" Margin="0,0,8,6" Click="AddEvent" />
+            <Button Content="อัปเดตทริกเกอร์" Margin="0,0,0,6" Click="UpdateEvent" />
           </WrapPanel>
-          <Expander Grid.Row="2" Header="After the dialogue" Margin="0,0,0,10" HorizontalContentAlignment="Stretch">
+          <Expander Grid.Row="2" Header="หลังบทสนทนา" Margin="0,0,0,10" HorizontalContentAlignment="Stretch">
             <StackPanel>
               <WrapPanel>
                 <CheckBox Name="ContinueScreen" Content="Tap to continue" Margin="0,0,12,0" Click="ContinueOptionsChanged" />
-                <CheckBox Name="ContinueCustomImage" Content="Show my own image" Margin="0,0,12,0" Click="ContinueOptionsChanged" />
-                <Button Content="Choose image" Margin="0,0,8,0" Click="ImportContinueImage" />
-                <Button Content="Preview" Click="PreviewContinueImage" />
+                <CheckBox Name="ContinueCustomImage" Content="แสดงภาพของฉันเอง" Margin="0,0,12,0" Click="ContinueOptionsChanged" />
+                <Button Content="เลือกภาพ" Margin="0,0,8,0" Click="ImportContinueImage" />
+                <Button Content="ดูตัวอย่าง" Click="PreviewContinueImage" />
               </WrapPanel>
-              <TextBlock Name="ContinueImageInfo" Style="{StaticResource ModHint}" Text="Set for the trigger selected on the left. Without an image of your own the screen is black." />
+              <TextBlock Name="ContinueImageInfo" Style="{StaticResource ModHint}" Text="ตั้งค่าให้ทริกเกอร์ที่เลือกทางซ้าย หากไม่มีภาพของคุณเอง หน้าจอจะเป็นสีดำ" />
             </StackPanel>
           </Expander>
           <Border Grid.Row="3" Style="{StaticResource CardStyle}" Padding="14,10" Margin="0,0,0,12">
             <StackPanel>
               <WrapPanel HorizontalAlignment="Left" Margin="0">
-                <CheckBox Name="LoadingEnabled" Content="My loading image" VerticalAlignment="Center" Margin="0,0,12,0" Click="LoadingChanged" />
-                <Button Content="Choose image" Style="{StaticResource DialogueToolButton}" Click="ImportLoadingImage" />
-                <Button Content="Preview" Style="{StaticResource DialogueToolButton}" Click="PreviewLoadingImage" />
-                <Button Content="Save loading images" Style="{StaticResource DialogueToolButton}" Margin="0" Click="SaveLoadingImages" />
+                <CheckBox Name="LoadingEnabled" Content="ภาพหน้าโหลดของฉัน" VerticalAlignment="Center" Margin="0,0,12,0" Click="LoadingChanged" />
+                <Button Content="เลือกภาพ" Style="{StaticResource DialogueToolButton}" Click="ImportLoadingImage" />
+                <Button Content="ดูตัวอย่าง" Style="{StaticResource DialogueToolButton}" Click="PreviewLoadingImage" />
+                <Button Content="บันทึกภาพหน้าโหลด" Style="{StaticResource DialogueToolButton}" Margin="0" Click="SaveLoadingImages" />
                 <Image Name="LoadingPreview" Width="64" Height="36" Stretch="Uniform" Margin="12,0,0,0">
                   <Image.Style>
                     <Style TargetType="{x:Type Image}">
@@ -179,9 +179,9 @@
               <ColumnDefinition Width="240" MinWidth="160" />
             </Grid.ColumnDefinitions>
             <DockPanel>
-              <TextBlock DockPanel.Dock="Top" Text="Triggers" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
-              <Button DockPanel.Dock="Bottom" Content="Remove trigger" Margin="0,8,0,0" Click="RemoveEvent" />
-              <ListBox Name="Events" Style="{StaticResource ModList}" AutomationProperties.Name="Triggers" SelectionChanged="EventChanged">
+              <TextBlock DockPanel.Dock="Top" Text="ทริกเกอร์" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
+              <Button DockPanel.Dock="Bottom" Content="ลบทริกเกอร์" Margin="0,8,0,0" Click="RemoveEvent" />
+              <ListBox Name="Events" Style="{StaticResource ModList}" AutomationProperties.Name="ทริกเกอร์" SelectionChanged="EventChanged">
                 <ListBox.ItemTemplate>
                   <DataTemplate>
                     <TextBlock TextWrapping="Wrap" Text="{Binding}" />
@@ -197,14 +197,14 @@
                 <RowDefinition Height="Auto" />
               </Grid.RowDefinitions>
               <StackPanel Margin="0,0,0,8">
-                <TextBlock Text="Lines in order" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
+                <TextBlock Text="บทพูดตามลำดับ" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
                 <ScrollViewer Background="Transparent" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                   <StackPanel Orientation="Horizontal">
-                    <Button Content="Add line" Style="{StaticResource DialogueToolButton}" Click="AddLine" />
-                    <Button Content="Copy line" Style="{StaticResource DialogueToolButton}" Click="DuplicateLine" />
-                    <Button Content="Up" Style="{StaticResource DialogueToolButton}" Click="MoveUp" />
-                    <Button Content="Down" Style="{StaticResource DialogueToolButton}" Click="MoveDown" />
-                    <Button Content="Delete line" Style="{StaticResource DialogueToolButton}" Margin="0" Click="RemoveLine" />
+                    <Button Content="เพิ่มบทพูด" Style="{StaticResource DialogueToolButton}" Click="AddLine" />
+                    <Button Content="คัดลอกบทพูด" Style="{StaticResource DialogueToolButton}" Click="DuplicateLine" />
+                    <Button Content="ขึ้น" Style="{StaticResource DialogueToolButton}" Click="MoveUp" />
+                    <Button Content="ลง" Style="{StaticResource DialogueToolButton}" Click="MoveDown" />
+                    <Button Content="ลบบทพูด" Style="{StaticResource DialogueToolButton}" Margin="0" Click="RemoveLine" />
                   </StackPanel>
                 </ScrollViewer>
               </StackPanel>
@@ -224,7 +224,7 @@
                   </Style>
                 </DataGrid.RowHeaderStyle>
                 <DataGrid.Columns>
-                  <DataGridTemplateColumn Header="Name" Width="110">
+                  <DataGridTemplateColumn Header="ชื่อ" Width="110">
                     <DataGridTemplateColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock Style="{StaticResource UserText}" Text="{Binding Name}" />
@@ -236,7 +236,7 @@
                       </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                   </DataGridTemplateColumn>
-                  <DataGridTemplateColumn Header="Line" Width="*" MinWidth="160">
+                  <DataGridTemplateColumn Header="บทพูด" Width="*" MinWidth="160">
                     <DataGridTemplateColumn.CellTemplate>
                       <DataTemplate>
                         <TextBlock Style="{StaticResource UserText}" Text="{Binding Text}" />
@@ -250,7 +250,7 @@
                   </DataGridTemplateColumn>
                 </DataGrid.Columns>
               </DataGrid>
-              <TextBlock Grid.Row="2" Text="Drag a line by its number to move it; the list scrolls near its edges." Style="{StaticResource ModHint}" />
+              <TextBlock Grid.Row="2" Text="ลากบทพูดตามหมายเลขเพื่อย้าย รายการจะเลื่อนเองเมื่อลากไปใกล้ขอบ" Style="{StaticResource ModHint}" />
             </Grid>
             <GridSplitter Grid.Column="3" Width="4" HorizontalAlignment="Center" Background="{StaticResource LineBrush}" />
             <Grid Grid.Column="4" Margin="10,0,0,0">
@@ -272,24 +272,24 @@
             <RowDefinition Height="*" />
           </Grid.RowDefinitions>
           <StackPanel>
-            <TextBlock Text="Portrait folder" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
+            <TextBlock Text="โฟลเดอร์ภาพตัวละคร" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
             <Grid>
-              <TextBox Name="LibraryPath" ToolTip="A folder of your own; empty uses the one in App\1_MOD." AutomationProperties.Name="Portrait folder" TextChanged="LibraryPathChanged" />
+              <TextBox Name="LibraryPath" ToolTip="โฟลเดอร์ของคุณเอง ถ้าเว้นว่างจะใช้โฟลเดอร์ใน App\1_MOD" AutomationProperties.Name="โฟลเดอร์ภาพตัวละคร" TextChanged="LibraryPathChanged" />
               <TextBlock Name="LibraryPathHint" Text="Empty uses App\1_MOD" Margin="12,0,0,0" Foreground="{StaticResource TextFaintBrush}" VerticalAlignment="Center" IsHitTestVisible="False" />
             </Grid>
             <WrapPanel>
-              <Button Content="Use this folder" Margin="0,0,8,0" Click="UseLibrary" />
-              <Button Content="Open the folder" Click="OpenLibrary" />
+              <Button Content="ใช้โฟลเดอร์นี้" Margin="0,0,8,0" Click="UseLibrary" />
+              <Button Content="เปิดโฟลเดอร์" Click="OpenLibrary" />
             </WrapPanel>
-            <TextBlock Text="A folder of your own can serve several mods. An export carries the portraits its lines use." Style="{StaticResource ModHint}" />
+            <TextBlock Text="โฟลเดอร์ของคุณเองใช้ร่วมกับม็อดหลายตัวได้ การส่งออกจะรวมภาพตัวละครที่บทพูดใช้ไปด้วย" Style="{StaticResource ModHint}" />
           </StackPanel>
-          <TextBlock Grid.Row="1" Text="Pick a portrait to rename it. A line's portrait is chosen in the window that opens from the Dialogue tab." Style="{StaticResource ModHint}" />
+          <TextBlock Grid.Row="1" Text="เลือกภาพตัวละครเพื่อเปลี่ยนชื่อ ส่วนภาพตัวละครของแต่ละบทพูดให้เลือกในหน้าต่างที่เปิดจากแท็บ Dialogue" Style="{StaticResource ModHint}" />
           <Grid Grid.Row="2" Margin="0,8,0,0">
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" MinWidth="210" />
               <ColumnDefinition Width="330" />
             </Grid.ColumnDefinitions>
-            <ListBox Name="LibraryItems" Style="{StaticResource ModList}" AutomationProperties.Name="Portraits" SelectionChanged="LibraryChanged">
+            <ListBox Name="LibraryItems" Style="{StaticResource ModList}" AutomationProperties.Name="ภาพตัวละคร" SelectionChanged="LibraryChanged">
               <ListBox.ItemTemplate>
                 <DataTemplate>
                   <TextBlock TextWrapping="Wrap" Margin="4" Text="{Binding}" />
@@ -298,16 +298,16 @@
             </ListBox>
             <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
               <StackPanel Margin="16,0,0,0">
-                <TextBlock Text="Portrait name" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
-                <TextBox Name="PortraitName" AutomationProperties.Name="Portrait name" />
+                <TextBlock Text="ชื่อภาพตัวละคร" Style="{StaticResource ModLabel}" Margin="0,0,0,6" />
+                <TextBox Name="PortraitName" AutomationProperties.Name="ชื่อภาพตัวละคร" />
                 <TextBlock Name="LibraryReference" Style="{StaticResource ModHint}" />
                 <WrapPanel>
-                  <Button Content="Rename" Margin="0,0,8,6" Click="RenamePortrait" />
-                  <Button Content="Add portraits" Margin="0,0,8,6" Click="ImportPortrait" />
-                  <Button Content="Delete" Style="{StaticResource DestructiveButtonStyle}" Margin="0,0,0,6" Click="RemovePortrait" />
+                  <Button Content="เปลี่ยนชื่อ" Margin="0,0,8,6" Click="RenamePortrait" />
+                  <Button Content="เพิ่มภาพ" Margin="0,0,8,6" Click="ImportPortrait" />
+                  <Button Content="ลบ" Style="{StaticResource DestructiveButtonStyle}" Margin="0,0,0,6" Click="RemovePortrait" />
                 </WrapPanel>
                 <Image Name="LibraryPreview" Width="160" Height="180" Stretch="Uniform" Margin="0,12" />
-                <TextBlock Text="A PNG becomes a portrait of its own beside the game's portraits. It is fitted to the dialogue frame, keeping its proportions and transparency." Style="{StaticResource ModHint}" />
+                <TextBlock Text="ไฟล์ PNG จะกลายเป็นภาพตัวละครของคุณเองข้างภาพตัวละครของเกม โดยจะถูกปรับให้พอดีกับกรอบบทสนทนาและคงสัดส่วนกับความโปร่งใสไว้" Style="{StaticResource ModHint}" />
               </StackPanel>
             </ScrollViewer>
           </Grid>
@@ -319,37 +319,37 @@
       <TabItem Header="Export">
         <ScrollViewer VerticalScrollBarVisibility="Auto">
           <StackPanel Margin="0,12,0,0" MaxWidth="760" HorizontalAlignment="Left">
-            <TextBlock Text="Music, dialogue and Master portraits are exported as separate packages." Style="{StaticResource ModHint}" Margin="0,0,0,6" />
-            <TextBlock Text="Name" Style="{StaticResource ModLabel}" />
-            <TextBox Name="PackageTitle" MinWidth="500" AutomationProperties.Name="Name" />
+            <TextBlock Text="เพลง บทสนทนา และภาพ Master จะถูกส่งออกเป็นแพ็กเกจแยกกัน" Style="{StaticResource ModHint}" Margin="0,0,0,6" />
+            <TextBlock Text="ชื่อ" Style="{StaticResource ModLabel}" />
+            <TextBox Name="PackageTitle" MinWidth="500" AutomationProperties.Name="ชื่อ" />
             <Grid>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
               <StackPanel Margin="0,0,16,0">
-                <TextBlock Text="Author" Style="{StaticResource ModLabel}" />
-                <TextBox Name="PackageAuthor" AutomationProperties.Name="Author" />
+                <TextBlock Text="ผู้จัดทำ" Style="{StaticResource ModLabel}" />
+                <TextBox Name="PackageAuthor" AutomationProperties.Name="ผู้จัดทำ" />
               </StackPanel>
               <StackPanel Grid.Column="1">
-                <TextBlock Text="Version" Style="{StaticResource ModLabel}" />
-                <TextBox Name="PackageVersion" AutomationProperties.Name="Version" />
+                <TextBlock Text="เวอร์ชัน" Style="{StaticResource ModLabel}" />
+                <TextBox Name="PackageVersion" AutomationProperties.Name="เวอร์ชัน" />
               </StackPanel>
             </Grid>
-            <TextBlock Text="Description" Style="{StaticResource ModLabel}" />
-            <TextBox Name="PackageDescription" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="100" VerticalContentAlignment="Top" AutomationProperties.Name="Description" />
+            <TextBlock Text="คำอธิบาย" Style="{StaticResource ModLabel}" />
+            <TextBox Name="PackageDescription" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="100" VerticalContentAlignment="Top" AutomationProperties.Name="คำอธิบาย" />
             <WrapPanel Margin="0,20,0,8">
-              <Button Content="Export music" Margin="0,0,12,8" ToolTip="The pools, their loops and the music files only" Click="ExportAudio" />
-              <Button Content="Export dialogue" Margin="0,0,12,8" ToolTip="The triggers, their lines, the portraits they use and the built files only" Click="ExportDialogue" />
-              <Button Content="Export Master portraits" Margin="0,0,0,8" Click="ExportMaster" />
+              <Button Content="ส่งออกเพลง" Margin="0,0,12,8" ToolTip="เฉพาะกลุ่มเพลง ลูปของกลุ่มเพลง และไฟล์เพลงเท่านั้น" Click="ExportAudio" />
+              <Button Content="ส่งออกบทสนทนา" Margin="0,0,12,8" ToolTip="เฉพาะทริกเกอร์ บทพูด ภาพตัวละครที่ใช้ และไฟล์ที่สร้างแล้วเท่านั้น" Click="ExportDialogue" />
+              <Button Content="ส่งออกภาพ Master" Margin="0,0,0,8" Click="ExportMaster" />
             </WrapPanel>
-            <Button Content="Open the mod folder" HorizontalAlignment="Left" Click="OpenFolder" />
+            <Button Content="เปิดโฟลเดอร์ม็อด" HorizontalAlignment="Left" Click="OpenFolder" />
           </StackPanel>
         </ScrollViewer>
       </TabItem>
     </TabControl>
     <DockPanel Grid.Row="2" Margin="0,12,0,0">
-      <Button DockPanel.Dock="Right" Content="Save and build" Click="Save">
+      <Button DockPanel.Dock="Right" Content="บันทึกและสร้าง" Click="Save">
         <Button.Style>
           <Style BasedOn="{StaticResource AccentButtonStyle}" TargetType="{x:Type Button}">
             <Style.Triggers>

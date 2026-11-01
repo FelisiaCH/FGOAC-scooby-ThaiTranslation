@@ -155,14 +155,14 @@ function Repair-FgoCopies {
         if (!$his) { $left.Add($relative); continue }
         Copy-FgoFile -Source $path -Destination ([IO.Path]::Combine($aside, $relative))
         Copy-FgoFile -Source $his -Destination $path
-        Write-Host "Put back Cloud23333's $relative from $(Split-Path -Parent ($his.Substring(0, $his.Length - $relative.Length)))."
+        Write-Host "คืนไฟล์ $relative ของ Cloud23333 กลับจาก $(Split-Path -Parent ($his.Substring(0, $his.Length - $relative.Length))) แล้ว"
     }
     $stale = [IO.Path]::Combine($Root, 'App\zh')
     if (!$Game1100 -and [IO.Directory]::Exists($stale)) {
         $target = [IO.Path]::Combine($aside, 'App\zh')
         [void][IO.Directory]::CreateDirectory((Split-Path -Parent $target))
         [IO.Directory]::Move($stale, $target)
-        Write-Host "Moved App\zh, the English files made for the earlier game, to $target."
+        Write-Host "ย้าย App\zh ซึ่งเป็นไฟล์ภาษาอังกฤษที่สร้างไว้สำหรับเกมรุ่นก่อน ไปไว้ที่ $target"
     }
     if ($left.Count -eq 0) { return '' }
     return "These files of Cloud23333's still hold an older FGOAC scooby's copy, and no backup of his was found: $($left -join ', '). Run his updater again to put them back."
@@ -200,7 +200,7 @@ function Select-FgoInstallRoot {
         while ($picker.ShowDialog() -eq [Windows.Forms.DialogResult]::OK) {
             if (Test-FgoInstallRoot -Path $picker.SelectedPath) { return $picker.SelectedPath }
             [void][Windows.Forms.MessageBox]::Show(
-                "That folder is not an FGO Arcade install. Choose the folder that holds App\ago.exe and App\fgo-launcher.json." + [Environment]::NewLine + [Environment]::NewLine + "You chose: " + $picker.SelectedPath,
+                "โฟลเดอร์นั้นไม่ใช่โฟลเดอร์ติดตั้ง FGO Arcade ให้เลือกโฟลเดอร์ที่มี App\ago.exe และ App\fgo-launcher.json" + [Environment]::NewLine + [Environment]::NewLine + "โฟลเดอร์ที่คุณเลือก: " + $picker.SelectedPath,
                 'FGOAC scooby - แพตช์ภาษาไทย', [Windows.Forms.MessageBoxButtons]::OK, [Windows.Forms.MessageBoxIcon]::Warning)
         }
         return ''
@@ -332,7 +332,7 @@ if ([string]::IsNullOrWhiteSpace($InstallRoot)) {
     }
 }
 if (!(Test-FgoInstallRoot -Path $InstallRoot)) {
-    Stop-WithMessage "That folder is not an FGO Arcade install: $InstallRoot. Choose the folder that holds App\ago.exe and App\fgo-launcher.json." 2
+    Stop-WithMessage "โฟลเดอร์นั้นไม่ใช่โฟลเดอร์ติดตั้ง FGO Arcade: $InstallRoot ให้เลือกโฟลเดอร์ที่มี App\ago.exe และ App\fgo-launcher.json" 2
 }
 $InstallRoot = (Resolve-Path -LiteralPath $InstallRoot).Path.TrimEnd('\')
 $PackageRoot = (Resolve-Path -LiteralPath $PackageRoot).Path.TrimEnd('\')
@@ -367,7 +367,7 @@ $running = @(Get-CimInstance Win32_Process | Where-Object {
     ($RunningNames -contains $_.Name -or $_.ExecutablePath.StartsWith($rootPrefix + 'Server\', [StringComparison]::OrdinalIgnoreCase))
 })
 if ($running) {
-    Stop-WithMessage ("Close the game, the launcher and the local server in $InstallRoot first, then run the patch again. Still running: " + (($running | ForEach-Object { $_.Name }) -join ', ')) 4
+    Stop-WithMessage ("ปิดเกม ตัวเรียกเกม และเซิร์ฟเวอร์ในเครื่องใน $InstallRoot ก่อน แล้วรันแพตช์อีกครั้ง ที่ยังทำงานอยู่: " +(($running | ForEach-Object { $_.Name }) -join ', ')) 4
 }
 
 $backupRoot = [IO.Path]::Combine($InstallRoot, '_en-patch-backup')
@@ -395,7 +395,7 @@ if ($Rollback) {
         $configuration = Get-Content -LiteralPath $configurationPath -Raw -Encoding UTF8 | ConvertFrom-Json
         $configuration | Add-Member -NotePropertyName 'gameLanguage' -NotePropertyValue 'ja' -Force
         Write-FgoOwnFile -Path $configurationPath -Bytes ([Text.UTF8Encoding]::new($false).GetBytes(($configuration | ConvertTo-Json -Depth 50)))
-        Write-Host "This game folder has Cloud23333's latest update, so the rollback turned the English text off and moved the English files of FGOAC scooby into $backupRoot. None of his files were changed."
+        Write-Host "โฟลเดอร์เกมนี้มีอัปเดตล่าสุดของ Cloud23333 การย้อนกลับจึงปิดข้อความภาษาอังกฤษและย้ายไฟล์ภาษาอังกฤษของ FGOAC scooby ไปไว้ที่ $backupRoot โดยไม่มีการเปลี่ยนไฟล์ของเขา"
         exit 0
     }
     if (!([IO.Directory]::Exists($backupRoot))) { Stop-WithMessage "ไม่มีข้อมูลสำรองของแพตช์ให้คืนค่าใน $backupRoot" 7 }
@@ -403,7 +403,7 @@ if ($Rollback) {
     if (!$backup) { Stop-WithMessage "ไม่มีข้อมูลสำรองของแพตช์ให้คืนค่าใน $backupRoot" 7 }
     $recordPath = [IO.Path]::Combine($backup.FullName, 'en-patch-restore.json')
     if (!([IO.File]::Exists($recordPath))) {
-        Stop-WithMessage "The backup in $($backup.FullName) has no en-patch-restore.json, so it cannot be rolled back automatically." 7
+        Stop-WithMessage "ข้อมูลสำรองใน $($backup.FullName) ไม่มี en-patch-restore.json จึงย้อนกลับอัตโนมัติไม่ได้" 7
     }
     $record = Get-Content -LiteralPath $recordPath -Raw -Encoding UTF8 | ConvertFrom-Json
     Write-Host "กำลังคืนค่าไฟล์ที่บันทึกไว้ใน $($backup.FullName)..."
@@ -446,7 +446,7 @@ if ($Rollback) {
         $target = [IO.Path]::GetFullPath([IO.Path]::Combine($InstallRoot, $relative))
         if (!$target.StartsWith($rootPrefix, [StringComparison]::OrdinalIgnoreCase)) { continue }
         if (!([IO.File]::Exists($saved)) -or (Get-FgoFileHash -Path $saved) -ne [string]$entry.sha256) {
-            Write-Host "$relative in $updateBackup does not match its manifest, so it was not put back."
+            Write-Host "$relative ใน $updateBackup ไม่ตรงกับรายการไฟล์ จึงไม่ได้คืนไฟล์นี้"
             continue
         }
         if ([IO.File]::Exists($target) -and (Get-FgoFileHash -Path $target) -eq [string]$entry.sha256) { continue }
@@ -456,7 +456,7 @@ if ($Rollback) {
     # Set aside, so the next install of this version takes a new update backup.
     $setAside = $updateBackup + '-rolled-back-' + (Get-Date -Format 'yyyyMMdd-HHmmss')
     [IO.Directory]::Move($updateBackup, $setAside)
-    Write-Host "Put back $put of the launcher's own files from $setAside; each file it replaced is kept as .bak."
+    Write-Host "คืนไฟล์ของตัวเรียกเกมเอง $put ไฟล์จาก $setAside ไฟล์ที่ถูกแทนที่แต่ละไฟล์เก็บไว้เป็น .bak"
     exit 0
 }
 
@@ -584,7 +584,7 @@ if ($toCopy.Count -eq 0) {
             replaced = @()
             added    = @()
         })
-        Write-Host "Backup of the marker this replaces: $backup"
+        Write-Host "สำรองตัวทำเครื่องหมายที่ถูกแทนที่นี้ไว้ที่: $backup"
     }
 } else {
     $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'

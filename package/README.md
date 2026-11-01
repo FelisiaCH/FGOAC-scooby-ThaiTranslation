@@ -4,9 +4,9 @@
 ข้อความเนื้อเรื่อง หน้าจอต่อสู้ ร้านค้า และหน้าช่วยเหลือ แล้วแทนที่หน้าจอหลักภาษาจีนด้วยหน้าจอภาษาไทย
 ชื่อ **FGOAC scooby** ซึ่งเริ่มเซิร์ฟเวอร์ให้ จัดการบัญชีของคุณ และประกอบเด็คการ์ดให้
 
-นี่ไม่ใช่ไฟล์เกมสำหรับดาวน์โหลด และทำงานเองลำพังไม่ได้ คุณต้องมี FGO Arcade local platform
-ติดตั้งอยู่ก่อนแล้ว (แพ็กเกจของ Cloud23333 เวอร์ชัน V1.01 หรือ V1.02 โดยควรใช้ V1.02)
-แล้วแพตช์จะถูกนำไปวางทับบนนั้นอีกที
+This is not a game download. It does nothing on its own: you need an existing FGO Arcade local
+platform install (Cloud23333's package at V1.01 or V1.02, with or without his latest update; V1.02 is
+the one to be on), and the patch is applied on top of it.
 
 ## การติดตั้ง
 
@@ -68,10 +68,49 @@ Windows จะถามคุณเองแทนในครั้งแรก
   บนกราฟิก AMD และ Intel ตัวเรียกเกมจะเปิดเลเยอร์ความเข้ากันได้ของ fluphus ที่แถมมาให้เอง
   (การตั้งค่า > การแสดงผล หัวข้อ "เลเยอร์ความเข้ากันได้สำหรับ AMD และ Intel")
   โดยเขาทดสอบบน RX 7900 XTX ที่ความละเอียด 1920x1080 เท่านั้น พร้อมจำกัดเฟรมเรตที่ 60 fps
+## Using the launcher
+
+- **Play.** Play plays on the server on this PC. The Status sentence says where things stand -
+  whether the local server is running - or, in one sentence, why Play cannot start yet.
+- **The Master menu.** Click the Master line on Play: it lists your local accounts to switch between,
+  with New account at the bottom; Manage beside the line opens the accounts page.
+- **Deck codes.** Copy code on Cards puts the deck on the clipboard as one line of text to paste in
+  chat. Paste a code into the box beside it and press Import code: the deck loads and is saved as a
+  new loadout, never over one you have.
+- **Save a report.** Open the Status menu, the button at the end of the Status line on Play, and
+  choose Save a report. It saves one zip, on the Desktop unless you pick another place, with your
+  card number taken out. Nothing is uploaded: you attach the file yourself.
+- **Controls.** Input picks keyboard, an Xbox or other controller, or a PlayStation 5 controller,
+  with dead zone, rumble and a controller test. Bindings ties a key, a controller button or a
+  combination such as Ctrl+F5 to a button on the game's screen: click a box and press what you want.
+  Cursor sets the pointer and the mouse button that taps the screen. With Cloud23333's latest update
+  the camera is his: Battles in free camera turns the view with the mouse in battle, and Controller
+  camera turns it with the right stick, with a lock-on button. The controller methods of his update
+  hide the mouse pointer in battle, story scenes included; choose Keyboard and mouse to use the mouse
+  there. Changes count from the next Play.
+- **PC play.** Settings > PC play: after a lost quest Continue and Withdraw wait for you, and popups
+  stay open until you answer them; both are on. No GP purchase screen, Story pages wait for you and
+  No menu countdown are off until they have been tried in the game; turn them on to try them.
+  Changes count from the next Play.
+- **Widescreen.** Settings > Display > Widescreen: Widescreen picture fits the picture to screens
+  that are not 16:9, and Full width on taller screens keeps the whole width on 16:10 and 4:3; both
+  are on. HUD and menus at the screen edges is off while it is being tried.
+- **The other Settings cards.** Display also has a graphics card pick. Battle effects hides the dark
+  or white screen during Noble Phantasms, hides the white screen flash, and has an Effect opacity
+  slider for how strongly the game's own battle effects are drawn. Audio. Local server has the local
+  server and its settings. Diagnostics and Help lists every game error code with its fix. The
+  Operator menu keys (F1, F2) switch for ERROR 8404 is on the Controls page.
+- **Pages of their own.** Photo Mode, Mods (the MOD folder of Cloud23333's latest update), Events
+  (which limited-time events the server on this PC offers), Accounts and Battle Debug (battle test
+  switches for local play, including Stop the battle timer) each have a page in the sidebar.
+- **Logs.** Logs on Play opens the drawer, which shows one log at a time: Launcher, Game or Server.
+  It remembers your choice.
+
 
 ## การรายงานปัญหา
 
-บอกว่าคุณอยู่ที่หน้าจอไหนและคาดหวังอะไร แล้วแนบไฟล์ล็อกจากโฟลเดอร์ `logs` ที่อยู่ข้าง `App`
+Say which screen you were on and what you expected, and attach the zip from **Save a report** in
+the Status menu on Play. It holds the logs from the `logs` folder next to `App`, among them:
 
 | ไฟล์ | แสดงอะไร |
 | --- | --- |
@@ -80,8 +119,8 @@ Windows จะถามคุณเองแทนในครั้งแรก
 | `server-control.log`, `artemis-stderr.log`, `mariadb.log` | เซิร์ฟเวอร์ในเครื่องและฐานข้อมูลของมัน |
 | `environment-check.txt` | การตรวจสอบสภาพแวดล้อม เขียนโดยหน้าการวินิจฉัยและความช่วยเหลือ |
 
-**ขั้นสูง > การวินิจฉัยและความช่วยเหลือ** ในตัวเรียกเกมแสดงรหัสข้อผิดพลาดของเกมพร้อมวิธีแก้ของแต่ละรหัส
-ให้ดูที่นั่นก่อน เพราะคำตอบมักอยู่ที่นั่น
+**Settings > Diagnostics and Help** in the launcher lists the game's error codes with the fix for
+each one; check it first, the answer is usually there.
 
 ## เครดิต
 

@@ -7,3 +7,5 @@ packages/
 *.user
 patch/manifest.json
 tools/__pycache__/
+devroot/
+fgoacaddon.dll

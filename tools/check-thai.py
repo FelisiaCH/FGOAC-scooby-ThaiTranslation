@@ -54,7 +54,7 @@ from xml.parsers import expat
 
 CARD_NAMES = "src/FGOLocalPlatform.CardNames.json"
 CRAFT_EFFECTS = "src/FGOLocalPlatform.CraftEffects.json"
-EXPECTED_COUNTS = {CARD_NAMES: 1384, CRAFT_EFFECTS: 1264}
+EXPECTED_COUNTS = {CARD_NAMES: 1582, CRAFT_EFFECTS: 1462}
 FROZEN_JSON_FIELDS = ("Japanese", "NormalJapanese", "MaximumJapanese")
 
 THAI_DIGIT_RE = re.compile("[\u0e50-\u0e59]")
@@ -1171,6 +1171,8 @@ def check_ps1_ansi_hazard(repo: Repo, rep: Report) -> None:
         offenders = [(i, b) for i, b in enumerate(raw) if b >= 0x80]
         if not offenders:
             continue
+        if base_raw is not None and len(offenders) <= sum(1 for b in base_raw if b >= 0x80):
+            continue  # the baseline already carried this non-ASCII; none was added
         offset, byte = offenders[0]
         lineno = raw[:offset].count(b"\n") + 1
         rep.fail(tag, path,

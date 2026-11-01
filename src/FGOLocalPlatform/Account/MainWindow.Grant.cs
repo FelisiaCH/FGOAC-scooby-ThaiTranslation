@@ -84,7 +84,7 @@ public partial class MainWindow
 					table.Columns.Add(new DataGridTextColumn
 					{
 						Header = "หมวดหมู่",
-						Binding = new Binding("หมวดหมู่"),
+						Binding = new Binding("Category"),
 						Width = 120.0,
 						IsReadOnly = true
 					});
@@ -105,7 +105,7 @@ public partial class MainWindow
 					table.Columns.Add(new DataGridTextColumn
 					{
 						Header = "ปัจจุบัน",
-						Binding = new Binding("ปัจจุบัน")
+						Binding = new Binding("Current")
 						{
 							StringFormat = "N0"
 						},

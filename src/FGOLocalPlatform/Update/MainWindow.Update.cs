@@ -104,14 +104,14 @@ public partial class MainWindow
 			return;
 		}
 		availableUpdate = null;
-		AboutUpdateStatusText.Text = "Version " + release.Version + " แล้ว";
+		AboutUpdateStatusText.Text = "Version " + release.Version + " is installed.";
 		if (Updater.HasStagedLauncher(out var stagedPath))
 		{
-			RuntimeStatusText.Text = "Version " + release.Version + " พร้อมแล้ว - ตัวเรียกเกมจะเริ่มใหม่เพื่อดำเนินการให้เสร็จ";
+			RuntimeStatusText.Text = "Version " + release.Version + " is ready - the launcher restarts to finish.";
 			Updater.SwapAndRestart(stagedPath);
 			Close();
 			return;
 		}
-		HoldStatus("Version " + release.Version + " แล้ว ปิดแล้วเปิดตัวเรียกเกมใหม่เพื่อใช้งาน");
+		HoldStatus("Version " + release.Version + " is installed. Close and reopen the launcher to run it.");
 	}
 }

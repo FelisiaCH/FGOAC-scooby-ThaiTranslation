@@ -141,7 +141,7 @@ internal static partial class Updater
 			}
 
 			report("กำลังดาวน์โหลด " + release.ZipName + "...");
-			Log("กำลังดาวน์โหลด " + release.ZipUrl);
+			Log("Downloading " + release.ZipUrl);
 			// One handle, shared with no other process, from the download to the end of the
 			// extraction: the bytes verified are the bytes unpacked. The file goes with the handle.
 			using (FileStream file = new FileStream(archive, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None, 4096, FileOptions.DeleteOnClose))

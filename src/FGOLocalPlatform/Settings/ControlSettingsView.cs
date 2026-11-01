@@ -519,8 +519,8 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		}
 		array = new(string, string, int)[16]
 		{
-			("เดินขึ้น", "เปิด", 87),
-			("เดินลง", "ปิด", 83),
+			("เดินขึ้น", "up", 87),
+			("เดินลง", "down", 83),
 			("เดินซ้าย", "left", 65),
 			("เดินขวา", "right", 68),
 			("โจมตี", "attack", 2),
@@ -608,8 +608,8 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		AddMapping(BattleTouchMappings, "Touch Click", "battleKeyboard", "touchClick", 1, keys);
 		(string, string, int)[] array = new(string, string, int)[22]
 		{
-			("เดินหน้า", "เปิด", 87),
-			("ถอยหลัง", "ปิด", 83),
+			("เดินหน้า", "up", 87),
+			("ถอยหลัง", "down", 83),
 			("Move Left", "left", 65),
 			("Move Right", "right", 68),
 			("โจมตี", "attack", 1),
@@ -729,7 +729,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		{
 			if (group.Count() > 1)
 			{
-				return "Keyboard battle mode keys clash: " + string.Join(", ", group.Select((Mapping m) => m.Label)) + " แล้ว";
+				return "Keyboard battle mode keys clash: " + string.Join(", ", group.Select((Mapping m) => m.Label)) + ".";
 			}
 		}
 		Bindings bindings = Bindings.LoadQuietly(bindingsPath, StockControls.Read(iniPath));
@@ -837,7 +837,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		foreach (int code in chord.Codes)
 		{
 			Chord one = (code >= Chord.PadCode) ? Chord.FromPadMask(1u << (code - Chord.PadCode))! : Chord.FromKeys(new int[1] { code })!;
-			string? refusal = bindings.Conflict(one, "so it cannot be " + action + " แล้ว", dualSense);
+			string? refusal = bindings.Conflict(one, "so it cannot be " + action + ".", dualSense);
 			if (refusal != null)
 			{
 				return refusal;

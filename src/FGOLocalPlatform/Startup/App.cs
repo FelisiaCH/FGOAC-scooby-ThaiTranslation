@@ -47,7 +47,7 @@ public partial class App : Application
 			string? folder = ProtectedSet.TakeBackup(gameFolder, UpdateSettings.Version);
 			if (folder != null)
 			{
-				Updater.Log("Copied the protected set to " + folder + " before the first start of " + UpdateSettings.Version + " แล้ว");
+				Updater.Log("Copied the protected set to " + folder + " before the first start of " + UpdateSettings.Version + ".");
 			}
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)

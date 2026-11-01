@@ -206,7 +206,7 @@ public sealed class KeyBindingButton : Button
 		case 189:
 			return "-";
 		case 190:
-			return " แล้ว";
+			return ".";
 		case 191:
 			return "/";
 		case 192:

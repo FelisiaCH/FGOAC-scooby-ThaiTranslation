@@ -168,7 +168,7 @@ public class Card
 		{
 			if (fileStream.Length < array.Length)
 			{
-				throw new InvalidDataException("Card bitmap is too small: " + path + " แล้ว");
+				throw new InvalidDataException("Card bitmap is too small: " + path + ".");
 			}
 			fileStream.Seek(-array.Length, SeekOrigin.End);
 			int num;
@@ -177,7 +177,7 @@ public class Card
 				num = fileStream.Read(array, i, array.Length - i);
 				if (num == 0)
 				{
-					throw new EndOfStreamException("Card metadata is truncated: " + path + " แล้ว");
+					throw new EndOfStreamException("Card metadata is truncated: " + path + ".");
 				}
 			}
 		}
@@ -204,7 +204,7 @@ public class Card
 			int num2 = fileNameWithoutExtension.IndexOf('_');
 			if (!ushort.TryParse((num2 >= 0) ? fileNameWithoutExtension.Substring(0, num2) : fileNameWithoutExtension, out result) || result > 16383)
 			{
-				throw new InvalidDataException("Cannot determine a valid FGO card ID from " + path + " แล้ว");
+				throw new InvalidDataException("Cannot determine a valid FGO card ID from " + path + ".");
 			}
 		}
 		TrcId = result;

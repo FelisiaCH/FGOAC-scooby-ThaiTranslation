@@ -103,7 +103,7 @@ public partial class MainWindow
 			name = PresetFolder.FreeName(PresetFolder.Ensure(LoadoutFolder), (name.Length == 0) ? $"Imported {DateTime.Now:yyyy-MM-dd}" : name);
 			AtomicFile.WriteAllText(PresetFolder.PathFor(LoadoutFolder, name), LoadoutJson(name));
 			RefreshLoadoutList(name);
-			HoldStatus(status + ". Saved as the loadout " + name + " แล้ว");
+			HoldStatus(status + ". Saved as the loadout " + name + ".");
 		}
 		catch (Exception ex)
 		{

@@ -24,18 +24,18 @@
   </UserControl.Resources>
   <DockPanel Margin="28,16,28,28" MaxWidth="900" HorizontalAlignment="Left">
     <StackPanel DockPanel.Dock="Top">
-      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,16" Text="Ticked events are open on the Terminal. An event switched off closes its entry, missions, drops and bonuses on the server; items and progress already earned stay, and a battle already started ends as it began. Each change is saved at once." />
+      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,16" Text="อีเวนต์ที่ติ๊กไว้จะเปิดอยู่ใน Terminal ส่วนอีเวนต์ที่ปิดสวิตช์จะปิดทางเข้า ภารกิจ ไอเทมดรอป และโบนัสบนเซิร์ฟเวอร์ ไอเทมและความคืบหน้าที่ได้รับไปแล้วจะยังอยู่ และการต่อสู้ที่เริ่มไปแล้วจะจบตามที่เริ่มไว้ การเปลี่ยนแปลงทุกครั้งจะถูกบันทึกทันที" />
       <WrapPanel Margin="0,0,0,8">
-        <Button Content="All on" Margin="0,0,8,8" Click="AllOn_OnClick" />
-        <Button Content="All off" Margin="0,0,8,8" Click="AllOff_OnClick" />
-        <Button Name="ReleaseOrderButton" Content="Release order" Margin="0,0,24,8" ToolTip="Put every kind back in the order the events first opened" Click="ReleaseOrder_OnClick" />
-        <Button Content="Top" Tag="top" Margin="0,0,8,8" ToolTip="Move the selected event to the top of its kind" Click="Move_OnClick" />
-        <Button Content="Up" Tag="up" Margin="0,0,8,8" Click="Move_OnClick" />
-        <Button Content="Down" Tag="down" Margin="0,0,8,8" Click="Move_OnClick" />
-        <Button Content="Bottom" Tag="bottom" Margin="0,0,8,8" ToolTip="Move the selected event to the bottom of its kind" Click="Move_OnClick" />
+        <Button Content="เปิดทั้งหมด" Margin="0,0,8,8" Click="AllOn_OnClick" />
+        <Button Content="ปิดทั้งหมด" Margin="0,0,8,8" Click="AllOff_OnClick" />
+        <Button Name="ReleaseOrderButton" Content="ลำดับตามวันเปิด" Margin="0,0,24,8" ToolTip="จัดทุกประเภทกลับเป็นลำดับตามที่อีเวนต์เปิดครั้งแรก" Click="ReleaseOrder_OnClick" />
+        <Button Content="บนสุด" Tag="top" Margin="0,0,8,8" ToolTip="ย้ายอีเวนต์ที่เลือกไปบนสุดของประเภทเดียวกัน" Click="Move_OnClick" />
+        <Button Content="ขึ้น" Tag="up" Margin="0,0,8,8" Click="Move_OnClick" />
+        <Button Content="ลง" Tag="down" Margin="0,0,8,8" Click="Move_OnClick" />
+        <Button Content="ล่างสุด" Tag="bottom" Margin="0,0,8,8" ToolTip="ย้ายอีเวนต์ที่เลือกไปล่างสุดของประเภทเดียวกัน" Click="Move_OnClick" />
       </WrapPanel>
       <TextBlock Name="StatusText" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" />
     </StackPanel>
-    <ListBox Name="EventList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="Events" />
+    <ListBox Name="EventList" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="อีเวนต์" />
   </DockPanel>
 </UserControl>

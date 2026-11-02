@@ -87,46 +87,11 @@ Craft Essence ครบทั้งหมด และตั้งการแ�
 
 | หน้า | หน้าที่ |
 | --- | --- |
-| **Play** | Play and Stop Game on the server on this PC, the Status sentence with the next step beside it (Start server, Stop server, Install, What's new), Manage beside the Master line for the accounts page, open the logs, Save a report in the Status menu, and live readouts for the server, the selected Master and the deck. The page to leave open while the game runs. |
-| **Accounts** | Also opened with Manage beside the Master line on Play. The selected local account's details, its summon results, and create, select and delete Master accounts, and grant one of them a full Servant, Craft Essence and item roster in a single click, with levels, bond, costumes and clear rewards. With Cloud23333's latest update, Export all and Import move every local account through one file, the one his launcher uses. |
-| **Cards** | Deck and Draw Rates. The card library and the deck editor, searchable by official English name, with Craft Essence effects in FGO NA phrasing. Each deck card has - and + for its copies and Remove all copies; each saved loadout has a button above the deck that loads it. Copy code and Import code share the deck as one line of text. The deck is sent to the game every time you press Play. |
-| **Photo Mode** | The photo mode panel: free camera, depth of field, expressions, poses and the Servant model, live while the game runs. |
-| **Mods** | The MOD folder of Cloud23333's latest update, App\1_MOD. |
-| **Events** | Which limited-time events the server on this PC offers: with Cloud23333's latest update his event switches, grouped by edition and kind and in an order of your own; on the earlier game the Banners patch. |
-| **Battle Debug** | Battle test switches for local play, including Stop the battle timer. |
-| **Controls** | Input - keyboard, an Xbox or other controller (XInput) or a PlayStation 5 controller (DualSense), with dead zone, rumble, a controller test and the Operator menu keys (F1, F2) switch for ERROR 8404; with Cloud23333's latest update also his keyboard battle mode with its mouse camera, his controller camera, card selection with the controller, his controller mouse, and a switch that keeps the mouse inside the game window. Bindings - a key, controller button or chord that taps a button on the game's screen. Cursor - size, outline, position and the mouse button that taps the screen (Tap with). |
-| **Settings** | Display - monitor, resolution, aspect ratio, frame rate, display mode, a graphics card pick, the Graphics layer for AMD and Intel graphics (Cloud23333's layer by default, the 1.1.0 layer or fluphus's AMD layer), and Widescreen: the picture fitted to screens that are not 16:9, with the full width kept on 16:10 and 4:3, and the HUD and menus at the screen edges (being tried, off by default); with Cloud23333's latest update also fog, reflections, draw distance, ultra-low quality and the treasure chests' size and opacity. Battle effects - hide the dark or white screen during Noble Phantasms, hide the white screen flash, and an Effect opacity slider for how strongly the game's own battle effects are drawn. Audio. PC play - the continue window and popups wait for you instead of counting down; three more switches, off until tried in the game, remove the GP purchase screen, make story pages wait for a press, and remove the menu countdown. Local server - the local server and its settings. Diagnostics and Help with every game error code and its fix. The box at the top filters the sections. |
-| **About** | The version, Check for updates, the links to GitHub and Discord, and the credits. |
-
-### Everyday use
-
-- **Play.** Play plays on the server on this PC. The Status sentence says where things stand -
-  whether the local server is running - or, in one sentence, why Play cannot start yet.
-- **The Master menu.** Click the Master line on Play: it lists your local accounts to switch between,
-  with New account at the bottom; Manage beside the line opens the accounts page.
-- **Deck codes.** Copy code on Cards puts the deck on the clipboard as one line of text to paste in
-  chat. Paste a code into the box beside it and press Import code: the deck loads and is saved as a
-  new loadout, never over one you have.
-- **Save a report.** Open the Status menu, the button at the end of the Status line on Play, and
-  choose Save a report. It saves one zip, on the Desktop unless you pick another place, with your
-  card number taken out. Nothing is uploaded: you attach the file yourself.
-- **Bindings.** Controls > Bindings ties a key, a controller button or a combination such as Ctrl+F5
-  to a button on the game's screen: click a box and press what you want.
-- **Camera.** With Cloud23333's latest update the camera is his, set on Controls: Battles
-  in free camera, his keyboard battle mode, turns the view with the mouse in battle, and Controller
-  camera turns it with the right stick, with a lock-on button. Keep the mouse inside the game window,
-  also on Controls, holds the pointer in the window while the game is in front. Changes count from
-  the next Play.
-- **PC play.** Settings > PC play: after a lost quest Continue and Withdraw wait for you, and popups
-  stay open until you answer them; both are on. No GP purchase screen, Story pages wait for you and
-  No menu countdown are off until they have been tried in the game; turn them on to try them.
-  Changes count from the next Play.
-- **Widescreen.** Settings > Display > Widescreen: Widescreen picture fits the picture to screens
-  that are not 16:9, and Full width on taller screens keeps the whole width on 16:10 and 4:3; both
-  are on. HUD and menus at the screen edges is off while it is being tried.
-- **Logs.** Logs on Play opens the drawer, which shows one log at a time: Launcher, Game or
-  Server.
-  It remembers your choice.
+| **เล่น (Play)** | เล่นเกมและหยุดเกม เริ่มเซิร์ฟเวอร์และหยุดเซิร์ฟเวอร์ในเครื่อง เปิดล็อก และแสดงสถานะแบบเรียลไทม์ของเซิร์ฟเวอร์ มาสเตอร์ที่เลือกอยู่ และเด็ค เป็นหน้าที่ควรเปิดค้างไว้ขณะเกมกำลังทำงาน |
+| **บัญชี (Account)** | สร้าง เลือก และลบบัญชีมาสเตอร์ และมอบชุดเซอร์แวนต์ Craft Essence และไอเทมครบทั้งหมดให้บัญชีใดบัญชีหนึ่งได้ในคลิกเดียว พร้อมเลเวล สายสัมพันธ์ คอสตูม และรางวัลผ่านด่าน |
+| **การ์ดและเด็ค (Cards and Deck)** | คลังการ์ดและตัวแก้ไขเด็ค ค้นหาด้วยชื่อภาษาอังกฤษอย่างเป็นทางการได้ พร้อมเอฟเฟกต์ของ Craft Essence ตามสำนวนของ FGO NA เด็คจะถูกส่งให้เกมทุกครั้งที่คุณกดเล่น |
+| **การตั้งค่า (Settings)** | การแสดงผล ได้แก่ จอภาพ ความละเอียด สัดส่วนภาพ อัตราเฟรม และโหมดการแสดงผล การควบคุม ได้แก่ คีย์บอร์ด XInput หรือ DualSense แบบเนทีฟ พร้อมเดดโซน การสั่น และการทดสอบคอนโทรลเลอร์ และเสียง |
+| **ขั้นสูง (Advanced)** | เซิร์ฟเวอร์ในเครื่องและการตั้งค่าของมัน การวินิจฉัยและความช่วยเหลือที่มีรหัสข้อผิดพลาดของเกมทุกรหัสพร้อมวิธีแก้ ตัวชี้เมาส์ ดีบัก โหมดถ่ายภาพ และเกี่ยวกับ |
 
 ตัวเรียกเกมอัปเดตตัวเองได้ โดยถาม GitHub Releases ว่ามีเวอร์ชันใหม่กว่าหรือไม่
 แล้วเสนอที่จะดาวน์โหลดและติดตั้งให้ การแก้คำแปลจึงถึงมือคุณได้โดยไม่ต้องติดตั้งใหม่
@@ -134,13 +99,13 @@ Craft Essence ครบทั้งหมด และตั้งการแ�
 <p align="center">
   <img src="docs/screenshots/cards.png" width="32%" alt="การ์ดและเด็ค" />
   <img src="docs/screenshots/controls.png" width="32%" alt="การตั้งค่า การควบคุม" />
-  <img src="docs/screenshots/settings.png" width="32%" alt="การตั้งค่า" />
+  <img src="docs/screenshots/diagnostics.png" width="32%" alt="การวินิจฉัยและความช่วยเหลือ" />
 </p>
 
 ## ถ้ามีอะไรผิดพลาด
 
-Open **Settings > Diagnostics and Help** first. It lists every game error code with the fix, and the
-answer is usually there.
+เปิด **ขั้นสูง > การวินิจฉัยและความช่วยเหลือ** ก่อนเป็นอันดับแรก หน้านั้นแสดงรหัสข้อผิดพลาดของเกมทุกรหัส
+พร้อมวิธีแก้ และคำตอบมักอยู่ที่นั่น
 
 | อาการที่เห็น | สาเหตุ | สิ่งที่ต้องทำ |
 | --- | --- | --- |
@@ -196,16 +161,14 @@ deploy.cmd <install root>     copy the published launcher into an install
 
 ```
 publish.cmd
-package.ps1 -GameRoot <install root> -AddOnDll <build folder>\fgoacaddon.dll
+package.ps1 -GameRoot <install root>
 ```
 
-That writes `release\FGOAC-scooby-vX.Y.Z.zip` and `FGOAC-scooby-vX.Y.Z.zip.sha256`. Sign the zip
-with `tools\Sign-Release.ps1`, which writes `FGOAC-scooby-vX.Y.Z.zip.sig` beside it. Tag the commit
-`vX.Y.Z`, publish a GitHub release on that tag, and upload all three files as assets. The updater
-takes the zip only under the exact name its tag gives and needs its `.zip.sig`: one or more
-signature lines, of which one has to verify under the release keys built into the launcher, or
-nothing is installed. The `.zip.sha256` is only for launchers 1.2.0 and older, which check the zip
-against it.
+คำสั่งนั้นจะเขียน `release\FGOAC-scooby-vX.Y.Z.zip` และ `FGOAC-scooby-vX.Y.Z.zip.sha256`
+ให้ติดแท็กคอมมิตว่า `vX.Y.Z` เผยแพร่ GitHub release บนแท็กนั้น แล้วอัปโหลดไฟล์ **ทั้งสอง** เป็น asset
+เพราะตัวอัปเดตจะมองหา asset ที่ชื่อขึ้นต้นด้วย `FGOAC-scooby-v` และลงท้ายด้วย `.zip`
+กับไฟล์ `.zip.sha256` ที่อยู่ข้างกัน และจะข้ามรีลีสที่ขาดไฟล์ใดไฟล์หนึ่งไปแทนที่จะติดตั้งค้างครึ่งทาง
+[`docs/RELEASING.md`](docs/RELEASING.md) มีขั้นตอนและรายการตรวจสอบที่แน่นอน
 
 ## เครดิต
 

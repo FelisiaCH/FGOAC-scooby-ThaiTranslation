@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UserControl x:Class="FGOLocalPlatform.ControlSettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:FGOLocalPlatform">
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
+      <WrapPanel>
+        <TextBlock Text="รูปแบบการควบคุม" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
+        <ComboBox Name="InputModeSelector" Width="250" SelectedIndex="0" SelectionChanged="InputMode_OnChanged">
+          <ComboBoxItem Content="คีย์บอร์ดและเมาส์" Tag="keyboard" />
+          <ComboBoxItem Content="คอนโทรลเลอร์ XInput" Tag="xinput" />
+          <ComboBoxItem Content="DualSense (PS5, รองรับโดยตรง)" Tag="xinput" />
+        </ComboBox>
+      </WrapPanel>
+      <TextBlock Text="ปุ่มซ้ายของเมาส์ทำหน้าที่แทนหน้าจอสัมผัส ปุ่มคีย์บอร์ดที่ใช้ร่วมกันใช้ได้กับทุกรูปแบบการควบคุม การตั้งค่าที่บันทึกไว้จะมีผลเมื่อเริ่มเกมครั้งถัดไป" Style="{StaticResource HelpTextStyle}" Margin="3,8,0,16" />
+      <StackPanel Name="KeyboardPanel">
+        <TextBlock Text="การกำหนดปุ่มคีย์บอร์ดและเมาส์" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+        <ItemsControl Name="KeyboardMappings" HorizontalAlignment="Left" />
+      </StackPanel>
+      <StackPanel Name="ControllerPanel" Visibility="Collapsed">
+        <TextBlock Name="ControllerMappingTitle" Text="การกำหนดปุ่มคอนโทรลเลอร์ XInput" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+        <TextBlock Name="DualSenseHelp" Visibility="Collapsed" Text="เสียบ DualSense หรือ DualSense Edge ผ่าน USB หรือ Bluetooth บันทึกโหมด PS5 แล้วคลิก ตรวจหาคอนโทรลเลอร์ หาก DS4Windows หรือ Steam Input แปลงจอยให้กลายเป็นคอนโทรลเลอร์ Xbox อยู่แล้ว ให้เลือก XInput แทน เพื่อไม่ให้การกดแต่ละครั้งถูกนับซ้ำสองรอบ" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+        <ItemsControl Name="ControllerMappings" HorizontalAlignment="Left" />
+        <WrapPanel Margin="0,8">
+          <TextBlock Text="การเคลื่อนที่" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
+          <ComboBox Name="MovementSelector" Width="130" SelectedIndex="0">
+            <ComboBoxItem Content="อนาล็อกซ้าย" />
+            <ComboBoxItem Content="อนาล็อกขวา" />
+            <ComboBoxItem Content="ปุ่มทิศทาง" />
+          </ComboBox>
+          <TextBlock Text="หมายเลขคอนโทรลเลอร์" VerticalAlignment="Center" Margin="12,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
+          <ComboBox Name="ControllerSelector" Width="65" SelectedIndex="0">
+            <ComboBoxItem Content="1" />
+            <ComboBoxItem Content="2" />
+            <ComboBoxItem Content="3" />
+            <ComboBoxItem Content="4" />
+          </ComboBox>
+          <TextBlock Text="เดดโซนของอนาล็อก" VerticalAlignment="Center" Margin="12,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
+          <TextBox Name="DeadzoneInput" Width="90" Text="7849" TextAlignment="Center" VerticalContentAlignment="Center" />
+        </WrapPanel>
+        <TextBlock Name="ControllerDeadzoneHelp" Text="ช่วงเดดโซนคือ 0-32766 ค่าเริ่มต้นคือ 7849 เกณฑ์การกด LT / RT คือ 64 ส่วนเมนูยังคงใช้เมาส์หรือหน้าจอสัมผัส" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+        <CheckBox Name="RumbleEnabled" Content="เปิดใช้งานการสั่นของคอนโทรลเลอร์ (ตอนโจมตี ตอนโจมตีโดน และตอนถูกโจมตี)" Margin="3,8" />
+        <WrapPanel Margin="3,4,0,8">
+          <TextBlock Text="ความแรงของการสั่น" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
+          <Slider Name="RumbleStrength" Minimum="0" Maximum="100" Value="70" TickFrequency="1" IsSnapToTickEnabled="True" Width="220" VerticalAlignment="Center" />
+          <TextBlock Width="55" Margin="10,0" VerticalAlignment="Center" Text="{Binding ElementName=RumbleStrength, Path=Value, StringFormat={}{0:0}%}" />
+          <Button Name="RumbleTestButton" Content="ทดสอบการสั่น" Click="RumbleTest_OnClick" />
+          <Button Content="ตรวจหาคอนโทรลเลอร์" Click="DetectController_OnClick" />
+        </WrapPanel>
+        <TextBlock Text="ความแรงตอนโจมตี (คูณกับความแรงรวมด้านบน)" Style="{StaticResource SectionTitleStyle}" Margin="0,8" />
+        <ItemsControl Name="CardRumbleSettings" />
+        <TextBlock Text="การสั่นตอนโจมตีจะดำเนินไปตามอนิเมชันการโจมตี และหยุดเมื่อการโจมตีจบลงหรือถูกขัดจังหวะ ส่วนการโจมตีโดนและการถูกโจมตีจะเพิ่มจังหวะสั่นสั้น ๆ ขึ้นมาอีก ระบบจะใช้คอนโทรลเลอร์ที่เลือกไว้ด้านบน และจะหยุดเมื่อคุณสลับออกจากเกมหรือเข้าสู่โหมดถ่ายภาพ" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+        <Expander Name="DualSenseCalibrationPanel" Header="การปรับเทียบปุ่ม DualSense" Visibility="Collapsed" Margin="3,12,0,8">
+          <StackPanel Margin="0,8,0,0">
+            <TextBlock Text="คุณจำเป็นต้องใช้ส่วนนี้ก็ต่อเมื่อมีปุ่มที่ถูกอ่านค่าผิดปุ่มเท่านั้น คลิกปุ่มที่อยู่ข้างชื่อมาตรฐาน ปล่อยทุกปุ่มบนคอนโทรลเลอร์ แล้วกดปุ่มจริงที่คุณต้องการ ระบบจะยกเลิกหลังจากไม่มีการกดใด ๆ เป็นเวลา 10 วินาที การปรับเทียบไม่เปลี่ยนการกระทำในเกมที่กำหนดไว้ด้านบน" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,8" />
+            <ItemsControl Name="DualSenseCalibrationMappings" />
+            <Button Content="รีเซ็ตเป็นปุ่มค่าเริ่มต้น" HorizontalAlignment="Left" Margin="0,8,0,0" Click="ResetCalibration_OnClick" />
+          </StackPanel>
+        </Expander>
+      </StackPanel>
+      <Separator Margin="0,16" />
+      <TextBlock Text="ปุ่มที่ใช้ร่วมกัน" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+      <TextBlock Text="การกำหนดปุ่มคีย์บอร์ด: คลิกที่ช่องปุ่ม แล้วกดปุ่มเดียวบนคีย์บอร์ดหรือปุ่มเมาส์ที่คุณต้องการ กด Esc เพื่อยกเลิก และใช้เมนูคลิกขวาเพื่อล้างการกำหนดปุ่ม" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+      <ItemsControl Name="CommonMappings" />
+      <WrapPanel Margin="0,16,0,8">
+        <Button Content="คืนค่าเริ่มต้น" Click="Defaults_OnClick" />
+        <Button Content="บันทึก" Click="Save_OnClick" />
+      </WrapPanel>
+      <TextBlock Name="StatusText" TextWrapping="Wrap" Foreground="{StaticResource IceBrush}" />
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

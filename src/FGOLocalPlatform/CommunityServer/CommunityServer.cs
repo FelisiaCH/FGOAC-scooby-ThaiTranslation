@@ -175,7 +175,7 @@ public static class CommunityServer
 	public static void Save(string gameRoot, Settings settings)
 	{
 		string path = Path.Combine(gameRoot, "fgo-launcher.json");
-		JsonObject root = (JsonNode.Parse(File.ReadAllText(path)) as JsonObject) ?? throw new InvalidDataException("App\\fgo-launcher.json does not hold a settings object. Restore it from fgo-launcher.json.bak, then save again.");
+		JsonObject root = (JsonNode.Parse(File.ReadAllText(path)) as JsonObject) ?? throw new InvalidDataException("App\\fgo-launcher.json ไม่ได้เก็บอ็อบเจกต์การตั้งค่า ให้กู้คืนจาก fgo-launcher.json.bak แล้วบันทึกอีกครั้ง");
 		root["communityServer"] = new JsonObject
 		{
 			["enabled"] = settings.Enabled,
@@ -406,7 +406,7 @@ public static class CommunityServer
 		string? guid = cryptography?.GetValue("MachineGuid") as string;
 		if (guid == null || !GetVolumeInformation(Path.GetPathRoot(Environment.SystemDirectory)!, null, 0, out uint serial, IntPtr.Zero, IntPtr.Zero, null, 0))
 		{
-			throw new IOException("Could not read this PC's machine id. Untick \"Send this PC's machine id\" in the New Account dialog, then try again.");
+			throw new IOException("อ่านรหัสเครื่อง (machine id) ของพีซีนี้ไม่ได้ ให้เอาเครื่องหมายถูกที่ \"ส่งรหัสเครื่อง (machine id) ของพีซีนี้\" ในหน้าต่าง บัญชีใหม่ ออก แล้วลองอีกครั้ง");
 		}
 		byte[] hash = SHA256.HashData(Encoding.UTF8.GetBytes(MachineIdSalt + "\n" + guid + "\n" + serial.ToString("X8")));
 		return Convert.ToHexString(hash).ToLowerInvariant();

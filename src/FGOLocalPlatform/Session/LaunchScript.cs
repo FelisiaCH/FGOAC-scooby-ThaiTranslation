@@ -53,7 +53,7 @@ internal static class LaunchScript
 		}
 		catch (Win32Exception ex)
 		{
-			notes.Add("Hide NP screen could not be written to App\\graphics-effects.ini: " + ex.Message.TrimEnd('.') + ".");
+			notes.Add("เขียนการตั้งค่าซ่อนหน้าจอ NP ลงใน App\\graphics-effects.ini ไม่ได้: " + ex.Message.TrimEnd('.') + ".");
 		}
 		try
 		{
@@ -61,7 +61,7 @@ internal static class LaunchScript
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is System.Text.Json.JsonException)
 		{
-			notes.Add("The cursor lock, widescreen and PC play settings could not be written to App\\segatools.ini: " + ex.Message.TrimEnd('.') + ".");
+			notes.Add("เขียนการตั้งค่าล็อกเมาส์ ไวด์สกรีน และการเล่นบนพีซีลงใน App\\segatools.ini ไม่ได้: " + ex.Message.TrimEnd('.') + ".");
 		}
 		string addOn = Path.Combine(gameRoot, AddOn);
 		if (!File.Exists(his) || !File.Exists(addOn))
@@ -89,7 +89,7 @@ internal static class LaunchScript
 			}
 			else
 			{
-				notes.Add("Touch over the whole screen for the HUD at the screen edges is off for this start: Cloud23333's launch script has changed.");
+				notes.Add("การแตะทั่วทั้งหน้าจอสำหรับ HUD ที่ขอบหน้าจอถูกปิดในการเริ่มครั้งนี้: สคริปต์เริ่มเกมของ Cloud23333 มีการเปลี่ยนแปลง");
 			}
 		}
 		lines[anchors[0]] = touch + indent + "$launchArguments.Add(\"-k\")" + end + "\n" + indent + "$launchArguments.Add(" + quoted + ")" + end + "\n" + line;

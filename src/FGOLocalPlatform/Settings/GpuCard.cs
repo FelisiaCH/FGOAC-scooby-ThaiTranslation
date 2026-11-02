@@ -78,14 +78,14 @@ public sealed class GpuCard
 		IntPtr module = LoadLibraryExW(fullPath, IntPtr.Zero, 2304u);
 		if (module == IntPtr.Zero)
 		{
-			throw new IOException("The graphics card probe could not be loaded: " + fullPath, new Win32Exception(Marshal.GetLastWin32Error()));
+			throw new IOException("โหลดตัวตรวจการ์ดจอไม่ได้: " + fullPath, new Win32Exception(Marshal.GetLastWin32Error()));
 		}
 		try
 		{
 			IntPtr procAddress = GetProcAddress(module, "FgoGpuProbeEnumerateAdapters");
 			if (procAddress == IntPtr.Zero)
 			{
-				throw new IOException("The graphics card probe has no FgoGpuProbeEnumerateAdapters.");
+				throw new IOException("ตัวตรวจการ์ดจอไม่มี FgoGpuProbeEnumerateAdapters");
 			}
 			StringBuilder text = new StringBuilder();
 			List<Exception> callbackErrors = new List<Exception>();
@@ -95,7 +95,7 @@ public sealed class GpuCard
 				{
 					if (length > 4096)
 					{
-						throw new IOException("The graphics card probe returned a line that is too long.");
+						throw new IOException("ตัวตรวจการ์ดจอส่งบรรทัดที่ยาวเกินไปกลับมา");
 					}
 					byte[] array = new byte[length];
 					Marshal.Copy(bytes, array, 0, array.Length);
@@ -110,11 +110,11 @@ public sealed class GpuCard
 			GC.KeepAlive(output);
 			if (callbackErrors.Count != 0)
 			{
-				throw new IOException("The graphics card list could not be read.", callbackErrors[0]);
+				throw new IOException("อ่านรายการการ์ดจอไม่ได้", callbackErrors[0]);
 			}
 			if (status != 0)
 			{
-				throw new IOException("The graphics card list could not be read, status " + status + ".");
+				throw new IOException("อ่านรายการการ์ดจอไม่ได้ สถานะ " + status + ".");
 			}
 			return text.ToString();
 		}
@@ -144,7 +144,7 @@ public sealed class GpuCard
 				string[] fields = array[i].TrimEnd('\r').Split('\t');
 				if (fields.Length != 4 || !Regex.IsMatch(fields[0], "^[0-9A-F]{16}$") || !Regex.IsMatch(fields[1], "^[0-9A-F]{4}$"))
 				{
-					throw new IOException("The graphics card probe returned a line the launcher cannot read.");
+					throw new IOException("ตัวตรวจการ์ดจอส่งบรรทัดที่ตัวเรียกเกมอ่านไม่ได้");
 				}
 				list.Add(new Adapter(fields[0], fields[1], fields[2], fields[3]));
 			}
@@ -233,9 +233,9 @@ public sealed class GpuCard
 		}
 		if (!Routed)
 		{
-			return "The game starts on the card Windows gives it. A card picked here is used the next time the game starts.";
+			return "เกมจะเริ่มบนการ์ดจอที่ Windows กำหนดให้ การ์ดจอที่เลือกที่นี่จะถูกใช้เมื่อเริ่มเกมครั้งถัดไป";
 		}
-		return "Saved by the card's name and device and matched again at every start. If the card is gone or cannot start the game, the game does not start, rather than run on another card.";
+		return "บันทึกด้วยชื่อและอุปกรณ์ของการ์ดจอ และจับคู่ใหม่ทุกครั้งที่เริ่มเกม หากการ์ดจอหายไปหรือเริ่มเกมไม่ได้ เกมจะไม่เริ่ม แทนที่จะไปรันบนการ์ดจออื่น";
 	}
 
 	private void Populate()

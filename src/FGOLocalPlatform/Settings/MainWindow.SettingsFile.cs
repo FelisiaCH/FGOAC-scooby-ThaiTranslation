@@ -142,7 +142,7 @@ public partial class MainWindow
 	{
 		if (SaveLauncherSettings(out string _, out int _, out int _, out string _, out int _))
 		{
-			HoldStatus("PC play settings saved - they take effect the next time the game starts.");
+			HoldStatus("บันทึกการตั้งค่าการเล่นบนพีซีแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป");
 		}
 	}
 

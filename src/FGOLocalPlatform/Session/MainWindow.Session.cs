@@ -95,7 +95,7 @@ public partial class MainWindow
 		// A Recover Account request rotates the code the tunnel would start with.
 		if (online && communityBusy)
 		{
-			HoldOnlineStatus("An account request is still running. Press Play Online again when it has finished.");
+			HoldOnlineStatus("คำขอเกี่ยวกับบัญชียังทำงานอยู่ กด Play Online อีกครั้งเมื่อเสร็จแล้ว");
 			return;
 		}
 		sessionOnline = online;
@@ -133,7 +133,7 @@ public partial class MainWindow
 		{
 			if (online)
 			{
-				ShowPlayProblem("Play Online turns every Debug switch off, and App\\battle-debug.ini could not be written: " + ex.Message.TrimEnd('.') + ". Close any program that has it open, then press Play Online again.");
+				ShowPlayProblem("Play Online ปิดทุกสวิตช์ Debug และเขียน App\\battle-debug.ini ไม่ได้: " + ex.Message.TrimEnd('.') + " ปิดโปรแกรมที่เปิดไฟล์นี้อยู่ แล้วกด Play Online อีกครั้ง");
 				return;
 			}
 			battleDebugProblem = ex.Message;
@@ -187,7 +187,7 @@ public partial class MainWindow
 		StartGameButton.IsEnabled = false;
 		PlayOnlineButton.IsEnabled = false;
 		SaveLastPlay(online);
-		ShowSessionStatus($"Starting the game, {displayMode} {width} x {height} at {targetFps} FPS. The title screen appears in about a minute." + ((launch.Note == null) ? "" : (" " + launch.Note)), "busy");
+		ShowSessionStatus($"กำลังเริ่มเกม {displayMode} {width} x {height} ที่ {targetFps} FPS หน้าจอไตเติลจะปรากฏในประมาณหนึ่งนาที" + ((launch.Note == null) ? "" : (" " + launch.Note)), "busy");
 		BeginLauncherOutputCapture(launcher);
 		if (launch.Note != null)
 		{
@@ -293,7 +293,7 @@ public partial class MainWindow
 	private CommunityTunnel StartCommunityTunnel()
 	{
 		CommunityServer.Settings settings = SavedServer();
-		string code = CommunityServer.ReadCard(GamePaths.GameRoot, settings.Host) ?? throw new IOException("This PC has no account on " + settings.Host + " yet. Choose New account on the Online page, or Recover account if you have a recovery key.");
+		string code = CommunityServer.ReadCard(GamePaths.GameRoot, settings.Host) ?? throw new IOException("เครื่องนี้ยังไม่มีบัญชีบน " + settings.Host + " เลือก บัญชีใหม่ ในหน้าออนไลน์ หรือเลือก กู้คืนบัญชี หากคุณมีคีย์กู้คืน");
 		return CommunityTunnel.Start(settings, code, ReportTunnel);
 	}
 
@@ -355,7 +355,7 @@ public partial class MainWindow
 		await RefreshRuntimeStatusAsync();
 		if (exitCode != 0 && !launcherCancellationRequested && !windowClosing)
 		{
-			string text = $"The game stopped with code {exitCode}. {StartupDiagnostics.Explain(exitCode)} Open Logs for the full output.";
+			string text = $"เกมหยุดทำงานด้วยรหัส {exitCode} {StartupDiagnostics.Explain(exitCode)} เปิดล็อกเพื่อดูผลลัพธ์ทั้งหมด";
 			ShowPlayProblem(text);
 			QueueLauncherOutput(text, standardError: true);
 		}

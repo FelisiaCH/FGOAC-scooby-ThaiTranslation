@@ -28,17 +28,17 @@ public partial class MainWindow
 	private void ShowOnlinePage(bool gameRunning, bool busy, CommunityServer.Settings community, string? card, string? cardProblem)
 	{
 		(string Text, string Tone)? probe = (card != null) ? ProbeStatus(community, card) : null;
-		(string text, string tone) = startupChecking ? ("Checking the game folder. Play Online is ready in a moment.", "busy")
+		(string text, string tone) = startupChecking ? ("กำลังตรวจสอบโฟลเดอร์เกม Play Online จะพร้อมในอีกสักครู่", "busy")
 			: (installProblem != null) ? (installProblem, "problem")
-			: gameRunning ? ("The game is running. Stop game ends it and closes its window.", "ready")
-			: launcherProcessRunning ? ("The game is starting. The title screen appears in about a minute.", "busy")
+			: gameRunning ? ("เกมกำลังทำงานอยู่ ปุ่มหยุดเกมจะปิดเกมและปิดหน้าต่างของเกม", "ready")
+			: launcherProcessRunning ? ("เกมกำลังเริ่มต้น หน้าจอไตเติลจะปรากฏในประมาณหนึ่งนาที", "busy")
 			: (onlineProblem != null) ? (onlineProblem, "problem")
-			: (community.Host.Length == 0) ? ("Online needs the community server's address. Save it under Community server below, then press Play Online.", "next")
+			: (community.Host.Length == 0) ? ("โหมดออนไลน์ต้องใช้ที่อยู่ของเซิร์ฟเวอร์ชุมชน บันทึกไว้ใต้หัวข้อ เซิร์ฟเวอร์ชุมชน ด้านล่าง แล้วกด Play Online", "next")
 			: (cardProblem != null) ? (cardProblem, "problem")
-			: (card == null) ? ("This PC has no account on " + community.Host + " yet. Choose New account, or Recover account if you have a recovery key.", "next")
+			: (card == null) ? ("เครื่องนี้ยังไม่มีบัญชีบน " + community.Host + " เลือก บัญชีใหม่ หรือเลือก กู้คืนบัญชี หากคุณมีคีย์กู้คืน", "next")
 			: (probe is { Tone: not "ready" }) ? probe.Value
-			: (cardCollection.SelectedCards.Count == 0) ? ("The deck is empty. Pick up to 30 cards on Cards, then press Play Online.", "next")
-			: probe ?? ("Ready to play online on " + community.Host + ". Press Play Online.", "ready");
+			: (cardCollection.SelectedCards.Count == 0) ? ("เด็คว่างเปล่า เลือกการ์ดได้สูงสุด 30 ใบในหน้าการ์ด แล้วกด Play Online", "next")
+			: probe ?? ("พร้อมเล่นออนไลน์บน " + community.Host + " กด Play Online", "ready");
 		if (!busy && !(playStarting && sessionOnline) && DateTime.UtcNow >= onlineStatusHoldUntil)
 		{
 			ShowOnlineStatus(text, tone);

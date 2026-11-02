@@ -18,7 +18,7 @@ public partial class MainWindow
 			Title = "Save a report",
 			InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
 			FileName = Report.FileName(DateTime.Now),
-			Filter = "Zip file (*.zip)|*.zip",
+			Filter = "ไฟล์ Zip (*.zip)|*.zip",
 			DefaultExt = ".zip",
 			AddExtension = true
 		};
@@ -36,7 +36,7 @@ public partial class MainWindow
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException)
 		{
-			HoldStatus("The report could not be saved: " + ex.Message.TrimEnd('.') + ". Choose another folder, then try again.", problem: true);
+			HoldStatus("บันทึกรายงานไม่ได้: " + ex.Message.TrimEnd('.') + " เลือกโฟลเดอร์อื่น แล้วลองอีกครั้ง", problem: true);
 			return;
 		}
 		savedReport = path;

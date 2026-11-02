@@ -2,16 +2,16 @@
 <UserControl x:Class="FGOLocalPlatform.AccountsPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="40,28,40,40" MaxWidth="940" HorizontalAlignment="Left">
-      <TextBlock Text="Local accounts" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,8" />
-      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="The accounts on this PC's own server. The Master menu on Play switches between them." />
+      <TextBlock Text="บัญชีในเครื่อง" Style="{StaticResource PageTitleStyle}" Margin="0,0,0,8" />
+      <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,24" Text="บัญชีบนเซิร์ฟเวอร์ของเครื่องนี้ เมนู Master ในหน้าเล่นใช้สลับระหว่างบัญชีเหล่านี้" />
       <WrapPanel Margin="0,0,0,16" VerticalAlignment="Center">
         <TextBlock Text="กำลังใช้งาน" VerticalAlignment="Center" Margin="0,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
         <TextBlock Name="CurrentAccountText" Text="กำลังโหลด..." Foreground="{StaticResource TextBrush}" VerticalAlignment="Center" Margin="3" />
-        <TextBlock Text="Card ending" VerticalAlignment="Center" Margin="14,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
+        <TextBlock Text="การ์ดลงท้ายด้วย" VerticalAlignment="Center" Margin="14,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
         <TextBlock Name="CurrentAccessCodeText" Text="—" Foreground="{StaticResource ReadyBrush}" VerticalAlignment="Center" Margin="3" FontFamily="{StaticResource DigitFont}" FontSize="14" />
         <TextBlock Text="เลือก" VerticalAlignment="Center" Margin="14,3,6,3" Foreground="{StaticResource TextSoftBrush}" />
-        <ComboBox Name="AccountComboBox" AutomationProperties.Name="Account" Width="330" VerticalAlignment="Center" DisplayMemberPath="DisplayText" ToolTip="Local accounts: Master name, ID, level and mode" />
-        <Button Name="UseAccountButton" Content="Use this account" />
+        <ComboBox Name="AccountComboBox" AutomationProperties.Name="Account" Width="330" VerticalAlignment="Center" DisplayMemberPath="DisplayText" ToolTip="บัญชีในเครื่อง: ชื่อมาสเตอร์ ID เลเวล และโหมด" />
+        <Button Name="UseAccountButton" Content="ใช้บัญชีที่เลือก" />
         <Button Name="CreateAccountButton" Content="บัญชีใหม่" />
       </WrapPanel>
       <ItemsControl Name="AccountDetailsTable" Margin="0,0,0,20" AutomationProperties.Name="Account details">
@@ -23,19 +23,19 @@
       </ItemsControl>
       <WrapPanel Margin="0,0,0,16">
         <Button Name="ResetAccountButton" Content="รีเซ็ตเป็นบัญชีใหม่" Style="{StaticResource DangerButtonStyle}" />
-        <Button Name="DeleteAccountButton" Content="ลบบัญชี" IsEnabled="False" Style="{StaticResource DestructiveButtonStyle}" ToolTip="Permanently deletes the selected account: its save data, its card, card mappings and leftover backups" />
-        <Button Name="RepairAccountButton" Content="ซ่อมผลการเล่นที่ผ่านมา" ToolTip="Restores EXP, materials, Bond and Quest progress that an older version failed to save, from the results the game sent at the time" />
+        <Button Name="DeleteAccountButton" Content="ลบบัญชี" IsEnabled="False" Style="{StaticResource DestructiveButtonStyle}" ToolTip="ลบบัญชีที่เลือกอย่างถาวร ทั้งข้อมูลเซฟ การ์ดของบัญชี การจับคู่การ์ด และไฟล์สำรองที่ตกค้าง" />
+        <Button Name="RepairAccountButton" Content="ซ่อมผลการเล่นที่ผ่านมา" ToolTip="กู้คืน EXP วัสดุ Bond และความคืบหน้าของเควสต์ที่เวอร์ชันเก่าบันทึกไม่สำเร็จ จากผลลัพธ์ที่เกมส่งมาในตอนนั้น" />
         <Button Name="GrantBenefitsButton" Content="มอบไอเทม" IsEnabled="False" Style="{StaticResource GrantButtonStyle}" ToolTip="เลือกสกุลเงินหรือวัสดุจากข้อมูลเกมที่ติดตั้งไว้ แล้วเพิ่มจำนวนที่ต้องการให้บัญชีที่เลือก" />
         <Button Name="RefreshAccountsButton" Content="รีเฟรช" />
-        <Button Name="SummonHistoryButton" Content="Summon results" IsEnabled="False" ToolTip="The account's recent summons and the card each one gave" />
+        <Button Name="SummonHistoryButton" Content="ผลการสุ่ม" IsEnabled="False" ToolTip="การสุ่มล่าสุดของบัญชีและการ์ดที่ได้จากแต่ละครั้ง" />
         <TextBlock Name="CurrentSummonSummaryText" Text="Lv.1 - EXP 0 - การ์ด 0 ใบ" FontSize="14" Foreground="{StaticResource TextSoftBrush}" VerticalAlignment="Center" Margin="8,3,3,3" />
       </WrapPanel>
       <TextBlock Name="AccountStatusText" Visibility="Collapsed" Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource IceBrush}" Margin="0,0,0,16" />
       <StackPanel Name="AccountTransferPanel" Visibility="Collapsed" Margin="0,8,0,16">
-        <TextBlock Text="Move accounts" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
-        <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" Text="Export all writes every local account to one .fgoaccounts.json file: its card, its whole save and its pending gifts. Import shows what it replaces before it writes, and backs everything up first. Cloud23333's launcher reads and writes the same files." />
+        <TextBlock Text="ย้ายบัญชี" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+        <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" Text="ส่งออกทั้งหมด จะเขียนบัญชีในเครื่องทุกบัญชีลงไฟล์ .fgoaccounts.json ไฟล์เดียว ทั้งการ์ด เซฟทั้งหมด และของขวัญที่รอรับ ส่วนนำเข้าจะแสดงสิ่งที่จะถูกแทนที่ก่อนเขียน และสำรองทุกอย่างก่อนเสมอ ตัวเรียกเกมของ Cloud23333 อ่านและเขียนไฟล์ชุดเดียวกันนี้" />
         <WrapPanel>
-          <Button Name="ExportAccountsButton" Content="Export all" />
+          <Button Name="ExportAccountsButton" Content="ส่งออกทั้งหมด" />
           <Button Name="ImportAccountsButton" Content="นำเข้า" />
         </WrapPanel>
       </StackPanel>
@@ -58,7 +58,7 @@
         <Button Content="ปลดล็อกคอสตูมทั้งหมด" Tag="costumes" />
         <Button Content="ตั้งวัสดุสูงสุดทั้งหมด" Tag="materials" ToolTip="เติมวัสดุเสริมพลังทุกชนิดในข้อมูลที่ติดตั้งไว้ให้เต็มขีดจำกัดของแต่ละชนิด" />
         <Button Content="ตั้งเซอร์แวนต์สูงสุดทั้งหมด" Tag="levels" ToolTip="เพิ่มเลเวล Ascension ขีดจำกัดเลเวล สกิล สกิลซัพพอร์ต Noble Phantasm และ Bond ให้สูงที่สุดเท่าที่มี" />
-        <Button Content="ตั้งเลเวลมาสเตอร์สูงสุด" Tag="master" ToolTip="Sets the Master's EXP to the top of the game's level table. Nothing else on the account changes." />
+        <Button Content="ตั้งเลเวลมาสเตอร์สูงสุด" Tag="master" ToolTip="ตั้ง EXP ของมาสเตอร์เป็นระดับสูงสุดของตารางเลเวลในเกม ส่วนอื่นของบัญชีไม่เปลี่ยน" />
       </WrapPanel>
     </StackPanel>
   </ScrollViewer>

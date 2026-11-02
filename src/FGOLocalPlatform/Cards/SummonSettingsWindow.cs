@@ -334,7 +334,7 @@ public partial class SummonSettingsWindow : UserControl, IComponentConnector
 			AtomicFile.WriteAllText(settingsPath, contents);
 			loadedText = contents;
 			dirty = false;
-			StatusText.Text = "Saved. The local server uses the new rates from its next draw, with no need to restart the game; after a launcher update, stop and start the server once.";
+			StatusText.Text = "บันทึกแล้ว เซิร์ฟเวอร์ในเครื่องจะใช้อัตราใหม่ตั้งแต่การสุ่มครั้งถัดไป โดยไม่ต้องรีสตาร์ตเกม หลังอัปเดตตัวเรียกเกม ให้หยุดแล้วเริ่มเซิร์ฟเวอร์อีกครั้งหนึ่งครั้ง";
 		}
 		catch (Exception ex)
 		{

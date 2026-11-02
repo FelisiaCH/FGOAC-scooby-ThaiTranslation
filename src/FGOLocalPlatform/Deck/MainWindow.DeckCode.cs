@@ -16,7 +16,7 @@ public partial class MainWindow
 		int count = cardCollection.SelectedCards.Count;
 		if (count == 0)
 		{
-			HoldStatus("The deck is empty - nothing to copy.");
+			HoldStatus("เด็คว่างเปล่า - ไม่มีอะไรให้คัดลอก");
 			return;
 		}
 		string code = DeckCode.Encode(cardCollection.SelectedCards.Select(DeckCode.SlotOf).ToList(), LoadoutComboBox.SelectedItem as string ?? "");
@@ -26,10 +26,10 @@ public partial class MainWindow
 		}
 		catch (ExternalException)
 		{
-			HoldStatus("The clipboard is busy. Press Copy code again.", problem: true);
+			HoldStatus("คลิปบอร์ดไม่ว่าง กดคัดลอกรหัสอีกครั้ง", problem: true);
 			return;
 		}
-		HoldStatus($"Deck code copied: {Cards(count)}");
+		HoldStatus($"คัดลอกรหัสเด็คแล้ว: {Cards(count)}");
 	}
 
 	private void DeckCodeImportButton_OnClick(object sender, RoutedEventArgs e)
@@ -59,7 +59,7 @@ public partial class MainWindow
 	{
 		if (DeckCodeTextBox.Text.Trim().Length == 0)
 		{
-			HoldStatus("Paste a deck code first.");
+			HoldStatus("วางรหัสเด็คก่อน");
 			return;
 		}
 		DeckCode.Reading reading = DeckCode.Decode(DeckCodeTextBox.Text);
@@ -88,7 +88,7 @@ public partial class MainWindow
 		int missing = total - paths.Count;
 		if (paths.Count == 0)
 		{
-			HoldStatus($"None of that deck's {Cards(total)} are on this PC.", problem: true);
+			HoldStatus($"เด็คนั้นมี {Cards(total)} แต่ไม่มีอยู่ในเครื่องนี้เลย", problem: true);
 			return;
 		}
 		cardCollection.Reload(paths, null, copies);
@@ -96,23 +96,23 @@ public partial class MainWindow
 		PublishDeck();
 		DeckCodeTextBox.Clear();
 		int held = cardCollection.SelectedCards.Count;
-		string status = $"Deck loaded from code: {held} of {Cards(total)}" + ((missing > 0) ? $", {missing} not on this PC" : "") + ((total - missing > held) ? $", {total - missing - held} more than the account owns" : "");
+		string status = $"โหลดเด็คจากรหัสแล้ว: ได้ {held} จาก {Cards(total)}" + ((missing > 0) ? $", {missing} ใบไม่อยู่ในเครื่องนี้" : "") + ((total - missing > held) ? $", เกินกว่าที่บัญชีมี {total - missing - held} ใบ" : "");
 		string name = reading.Name.Trim();
 		try
 		{
 			name = PresetFolder.FreeName(PresetFolder.Ensure(LoadoutFolder), (name.Length == 0) ? $"Imported {DateTime.Now:yyyy-MM-dd}" : name);
 			AtomicFile.WriteAllText(PresetFolder.PathFor(LoadoutFolder, name), LoadoutJson(name));
 			RefreshLoadoutList(name);
-			HoldStatus(status + ". Saved as the loadout " + name + ".");
+			HoldStatus(status + " บันทึกเป็นชุดเด็ค " + name + ".");
 		}
 		catch (Exception ex)
 		{
-			HoldStatus(status + ". The loadout could not be saved: " + ex.Message, problem: true);
+			HoldStatus(status + " บันทึกชุดเด็คไม่ได้: " + ex.Message, problem: true);
 		}
 	}
 
 	private static string Cards(int count)
 	{
-		return (count == 1) ? "1 card" : $"{count} cards";
+		return (count == 1) ? "การ์ด 1 ใบ" : $"การ์ด {count} ใบ";
 	}
 }

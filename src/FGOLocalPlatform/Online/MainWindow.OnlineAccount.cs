@@ -25,11 +25,11 @@ public partial class MainWindow
 			}
 			catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is UnauthorizedAccessException)
 			{
-				cardProblem = "The account for " + community.Host + " could not be read: " + ex.Message;
+				cardProblem = "อ่านบัญชีสำหรับ " + community.Host + " ไม่ได้: " + ex.Message;
 			}
 		}
 		string? name = (card != null) ? CommunityServer.ReadMasterName(GamePaths.GameRoot, community.Host) : null;
-		OnlineAccountText.Text = cardProblem ?? ((community.Host.Length == 0) ? "Save the server's address below first" : (card == null) ? ("None on " + community.Host + " yet") : (name != null) ? (name + ", ending " + card.Substring(16) + " on " + community.Host) : ("Ending " + card.Substring(16) + " on " + community.Host));
+		OnlineAccountText.Text = cardProblem ?? ((community.Host.Length == 0) ? "บันทึกที่อยู่เซิร์ฟเวอร์ด้านล่างก่อน" : (card == null) ? ("ยังไม่มีบัญชีบน " + community.Host + " เลย") : (name != null) ? (name + ", ลงท้ายด้วย " + card.Substring(16) + " บน " + community.Host) : ("ลงท้ายด้วย " + card.Substring(16) + " บน " + community.Host));
 		return card;
 	}
 
@@ -49,7 +49,7 @@ public partial class MainWindow
 		// Both change the card Play Online is starting or running with, and the server refuses the old one from then on.
 		if (playStarting || CommunityTunnelRunning)
 		{
-			ThemedMessageBox.Show("Stop the game first: a new or recovered account changes the code the game plays with, and it would lose its connection.", recover ? "Recover Account" : "New Account", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show("หยุดเกมก่อน: บัญชีใหม่หรือบัญชีที่กู้คืนจะเปลี่ยนรหัสที่เกมใช้เล่น และเกมจะเสียการเชื่อมต่อ", recover ? "กู้คืนบัญชี" : "บัญชีใหม่", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			return;
 		}
 		CommunityServer.Settings saved = SavedServer();
@@ -60,7 +60,7 @@ public partial class MainWindow
 		}
 		catch (ArgumentException ex)
 		{
-			ThemedMessageBox.Show((saved.Host.Length == 0) ? "Online needs the community server's address. Save it under Community server on this page first." : ex.Message, recover ? "Recover Account" : "New Account", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show((saved.Host.Length == 0) ? "โหมดออนไลน์ต้องใช้ที่อยู่ของเซิร์ฟเวอร์ชุมชน บันทึกไว้ใต้หัวข้อ เซิร์ฟเวอร์ชุมชน ในหน้านี้ก่อน" : ex.Message, recover ? "กู้คืนบัญชี" : "บัญชีใหม่", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			return;
 		}
 		if (recover)
@@ -88,10 +88,10 @@ public partial class MainWindow
 		}
 		catch (Exception ex) when (ex is ArgumentException || ex is IOException || ex is UnauthorizedAccessException)
 		{
-			ThemedMessageBox.Show(ex.Message, "Community Server", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(ex.Message, "เซิร์ฟเวอร์ชุมชน", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			return false;
 		}
-		if (ThemedMessageBox.Show("This PC has no account on the community server " + settings.Host + " yet.\n\nCreate a new account now? If you already have one, choose No and use Recover account on the Online page with your recovery key.", "Community Server", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+		if (ThemedMessageBox.Show("เครื่องนี้ยังไม่มีบัญชีบนเซิร์ฟเวอร์ชุมชน " + settings.Host + "\n\nสร้างบัญชีใหม่ตอนนี้เลยไหม หากคุณมีบัญชีอยู่แล้ว ให้เลือก ไม่ใช่ แล้วใช้ กู้คืนบัญชี ในหน้าออนไลน์พร้อมคีย์กู้คืนของคุณ", "เซิร์ฟเวอร์ชุมชน", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
 		{
 			return false;
 		}
@@ -106,12 +106,12 @@ public partial class MainWindow
 		{
 			if (dialog.Failure != null)
 			{
-				ThemedMessageBox.Show(dialog.Failure, "New Account", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+				ThemedMessageBox.Show(dialog.Failure, "บัญชีใหม่", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			}
 			return false;
 		}
 		CommunityServer.Account account = dialog.Account;
-		return await TakeCommunityAccountAsync(settings, () => Task.FromResult(account), "New Account", recovered: false);
+		return await TakeCommunityAccountAsync(settings, () => Task.FromResult(account), "บัญชีใหม่", recovered: false);
 	}
 
 	/// <summary>Runs the account request, stores the card it brings and shows its recovery key once.</summary>
@@ -131,7 +131,7 @@ public partial class MainWindow
 			DialogSink.ShowDialog(new RecoveryKeyDialog(this, settings.Host, account.RecoveryKey, recovered));
 			if (storeError != null)
 			{
-				ThemedMessageBox.Show((recovered ? "The account was recovered" : "The account was created") + ", but this PC could not store it: " + storeError + "\n\nFix that, then use Recover Account with the key you just saved.", caption, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+				ThemedMessageBox.Show((recovered ? "บัญชีถูกกู้คืนแล้ว" : "บัญชีถูกสร้างแล้ว") + " แต่เครื่องนี้เก็บบัญชีไม่ได้: " + storeError + "\n\nแก้ปัญหานั้นก่อน แล้วใช้ กู้คืนบัญชี กับคีย์ที่คุณเพิ่งบันทึกไว้", caption, MessageBoxButton.OK, MessageBoxImage.Exclamation);
 				return false;
 			}
 			return true;
@@ -159,10 +159,10 @@ public partial class MainWindow
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
 		{
-			ThemedMessageBox.Show(ex.Message, "New Account", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(ex.Message, "บัญชีใหม่", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			return;
 		}
-		if (card != null && ThemedMessageBox.Show("This PC already has an account on " + settings.Host + ". A new account takes its place here, and the old one comes back only with its recovery key.\n\nCreate a new account anyway?", "New Account", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (card != null && ThemedMessageBox.Show("เครื่องนี้มีบัญชีบน " + settings.Host + " อยู่แล้ว บัญชีใหม่จะมาแทนที่บัญชีนั้นในเครื่องนี้ และบัญชีเดิมจะกลับมาได้ก็ต่อเมื่อใช้คีย์กู้คืนของมันเท่านั้น\n\nสร้างบัญชีใหม่ต่อไปหรือไม่", "บัญชีใหม่", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -174,7 +174,7 @@ public partial class MainWindow
 	{
 		if (CommunityTunnelRunning)
 		{
-			ThemedMessageBox.Show("Stop the game first: recovering the account changes its code, and the running game would lose its connection.", "Recover Account", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show("หยุดเกมก่อน: การกู้คืนบัญชีจะเปลี่ยนรหัสของบัญชี และเกมที่กำลังทำงานอยู่จะเสียการเชื่อมต่อ", "กู้คืนบัญชี", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			return;
 		}
 		string? card;
@@ -184,11 +184,11 @@ public partial class MainWindow
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
 		{
-			ThemedMessageBox.Show(ex.Message, "Recover Account", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(ex.Message, "กู้คืนบัญชี", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 			return;
 		}
 		// Recovery rotates the code and the key on the server, so the card here is replaced whatever it holds.
-		if (card != null && ThemedMessageBox.Show("This PC already has an account on " + settings.Host + ". The recovered account takes its place here; if that is another account, it comes back only with its own recovery key.\n\nRecover anyway?", "Recover Account", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (card != null && ThemedMessageBox.Show("เครื่องนี้มีบัญชีบน " + settings.Host + " อยู่แล้ว บัญชีที่กู้คืนจะมาแทนที่บัญชีนั้นในเครื่องนี้ หากเป็นบัญชีอื่น ก็จะกลับมาได้เฉพาะเมื่อใช้คีย์กู้คืนของบัญชีนั้นเอง\n\nกู้คืนต่อไปหรือไม่", "กู้คืนบัญชี", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -197,6 +197,6 @@ public partial class MainWindow
 		{
 			return;
 		}
-		await TakeCommunityAccountAsync(settings, () => CommunityServer.RecoverAccountAsync(settings, dialog.RecoveryKey), "Recover Account", recovered: true);
+		await TakeCommunityAccountAsync(settings, () => CommunityServer.RecoverAccountAsync(settings, dialog.RecoveryKey), "กู้คืนบัญชี", recovered: true);
 	}
 }

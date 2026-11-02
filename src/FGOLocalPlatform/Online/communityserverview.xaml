@@ -24,14 +24,14 @@
         <RowDefinition Height="44" />
         <RowDefinition Height="Auto" MinHeight="44" />
       </Grid.RowDefinitions>
-      <TextBlock Text="Address" Style="{StaticResource LabelStyle}" />
+      <TextBlock Text="ที่อยู่" Style="{StaticResource LabelStyle}" />
       <TextBox Name="CommunityHostBox" Grid.Column="1" AutomationProperties.Name="Community server address" />
-      <TextBlock Text="Secure port" Grid.Row="1" Style="{StaticResource LabelStyle}" />
+      <TextBlock Text="พอร์ตปลอดภัย" Grid.Row="1" Style="{StaticResource LabelStyle}" />
       <TextBox Name="CommunityTlsPortBox" Grid.Row="1" Grid.Column="1" Width="120" HorizontalAlignment="Left" FontFamily="{StaticResource DigitFont}" AutomationProperties.Name="Secure port" />
-      <TextBlock Text="Certificate fingerprint (the code the operator gives, if any)" Grid.Row="2" Margin="0,0,16,0" Style="{StaticResource LabelStyle}" />
+      <TextBlock Text="ลายนิ้วมือใบรับรอง (รหัสที่ผู้ดูแลให้ ถ้ามี)" Grid.Row="2" Margin="0,0,16,0" Style="{StaticResource LabelStyle}" />
       <TextBox Name="CommunityPinBox" Grid.Row="2" Grid.Column="1" FontFamily="{StaticResource DigitFont}" AutomationProperties.Name="Certificate fingerprint" />
     </Grid>
-    <Expander Header="Ports: keep them unless the operator says otherwise" Margin="0,12,0,0">
+    <Expander Header="พอร์ต: ไม่ต้องแก้ เว้นแต่ผู้ดูแลบอกให้เปลี่ยน" Margin="0,12,0,0">
       <Grid Margin="0,8,0,0">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="260" />
@@ -55,21 +55,21 @@
             </Style>
           </ResourceDictionary>
         </FrameworkElement.Resources>
-        <TextBlock Text="Ping UDP port on the server" Style="{StaticResource LabelStyle}" />
+        <TextBlock Text="พอร์ต UDP Ping บนเซิร์ฟเวอร์" Style="{StaticResource LabelStyle}" />
         <TextBox Name="CommunityUdpPingBox" Grid.Column="1" AutomationProperties.Name="Ping UDP port on the server" />
-        <TextBlock Text="Battle UDP port on the server" Grid.Row="1" Style="{StaticResource LabelStyle}" />
+        <TextBlock Text="พอร์ต UDP การต่อสู้บนเซิร์ฟเวอร์" Grid.Row="1" Style="{StaticResource LabelStyle}" />
         <TextBox Name="CommunityUdpDistBox" Grid.Row="1" Grid.Column="1" AutomationProperties.Name="Battle UDP port on the server" />
-        <TextBlock Text="Ports the game uses on this PC" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,6" Style="{StaticResource HelpTextStyle}" />
-        <TextBlock Text="Title port (game sign-in)" Grid.Row="3" Style="{StaticResource LabelStyle}" />
+        <TextBlock Text="พอร์ตที่เกมใช้บนเครื่องนี้" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,6" Style="{StaticResource HelpTextStyle}" />
+        <TextBlock Text="พอร์ต Title (เข้าสู่ระบบเกม)" Grid.Row="3" Style="{StaticResource LabelStyle}" />
         <TextBox Name="CommunityHttpBox" Grid.Row="3" Grid.Column="1" AutomationProperties.Name="Title port" />
-        <TextBlock Text="Billing port (secure)" Grid.Row="4" Style="{StaticResource LabelStyle}" />
+        <TextBlock Text="พอร์ต Billing (ปลอดภัย)" Grid.Row="4" Style="{StaticResource LabelStyle}" />
         <TextBox Name="CommunityBillingBox" Grid.Row="4" Grid.Column="1" AutomationProperties.Name="Billing port" />
-        <TextBlock Text="Card reader port" Grid.Row="5" Style="{StaticResource LabelStyle}" />
+        <TextBlock Text="พอร์ตเครื่องอ่านการ์ด" Grid.Row="5" Style="{StaticResource LabelStyle}" />
         <TextBox Name="CommunityAimeBox" Grid.Row="5" Grid.Column="1" AutomationProperties.Name="Card reader port" />
       </Grid>
     </Expander>
     <DockPanel Margin="0,16,0,0">
-      <Button Content="Save" MinWidth="120" Margin="0,0,16,0" ToolTip="Saves the address and ports; Enter in any box does the same" Click="Save_OnClick" />
+      <Button Content="บันทึก" MinWidth="120" Margin="0,0,16,0" ToolTip="บันทึกที่อยู่และพอร์ต การกด Enter ในช่องใดก็ได้ให้ผลเหมือนกัน" Click="Save_OnClick" />
       <TextBlock Name="SaveNote" VerticalAlignment="Center" Style="{StaticResource HelpTextStyle}" />
     </DockPanel>
   </StackPanel>

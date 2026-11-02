@@ -12,7 +12,7 @@ public partial class RecoverAccountDialog : Window, IComponentConnector
 		InitializeComponent();
 		WindowTheme.Apply(this);
 		base.Owner = owner;
-		LabelText.Text = "Type or paste the recovery key of your account on " + host + ".";
+		LabelText.Text = "พิมพ์หรือวางคีย์กู้คืนของบัญชีคุณบน " + host + ".";
 		KeyTextBox.Focus();
 	}
 

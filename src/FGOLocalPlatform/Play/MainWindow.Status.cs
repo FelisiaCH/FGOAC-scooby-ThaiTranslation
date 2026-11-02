@@ -66,12 +66,12 @@ public partial class MainWindow
 			NextStep next = NextStep.None;
 			if (startupChecking)
 			{
-				text = "Checking the game folder. Play is ready in a moment.";
+				text = "กำลังตรวจสอบโฟลเดอร์เกม ปุ่มเล่นจะพร้อมในอีกสักครู่";
 				tone = "busy";
 			}
 			else if (savedReport != null)
 			{
-				text = "Report saved: " + savedReport + ". Attach it to your post in Discord.";
+				text = "บันทึกรายงานแล้ว: " + savedReport + " แนบไฟล์นี้ในโพสต์ของคุณบน Discord";
 				tone = "ready";
 				next = NextStep.OpenFolder;
 			}
@@ -82,12 +82,12 @@ public partial class MainWindow
 			}
 			else if (gameRunning)
 			{
-				text = "The game is running. Stop game ends it and closes its window.";
+				text = "เกมกำลังทำงานอยู่ ปุ่มหยุดเกมจะปิดเกมและปิดหน้าต่างของเกม";
 				tone = "ready";
 			}
 			else if (launcherProcessRunning)
 			{
-				text = "The game is starting. The title screen appears in about a minute.";
+				text = "เกมกำลังเริ่มต้น หน้าจอไตเติลจะปรากฏในประมาณหนึ่งนาที";
 				tone = "busy";
 			}
 			else if (playProblem != null)
@@ -112,13 +112,13 @@ public partial class MainWindow
 				bool[] source = serverPorts ?? Array.Empty<bool>();
 				bool anyAccount = (AccountComboBox.ItemsSource as IEnumerable<AccountEntry>)?.Any() == true;
 				bool currentAccount = (AccountComboBox.ItemsSource as IEnumerable<AccountEntry>)?.Any((AccountEntry account) => account.IsCurrent) == true;
-				(text, tone) = localToolMissing ? (CommunityServer.Offered ? "This copy has no local server. Play online on the Online page, or unpack the full game package." : "This copy has no local server. Unpack the full game package.", "problem")
-					: (!anyAccount && !firstRunning) ? ("There is no local account yet. Choose New account in the Master menu, then press Play.", "next")
-					: (!currentAccount && !firstRunning) ? ("No Master is selected. Pick one in the Master menu, then press Play.", "next")
-					: (cardCollection.SelectedCards.Count == 0) ? ("The deck is empty. Pick up to 30 cards on Cards, then press Play.", "next")
-					: source.All((bool value) => value) ? ("Local server running. Press Play.", "ready")
-					: source.Any((bool value) => value) ? ("The local server answers on some of its ports but not all. Press Stop server, then press Play.", "problem")
-					: ("Ready. Play starts the local server first.", "ready");
+				(text, tone) = localToolMissing ? (CommunityServer.Offered ? "สำเนานี้ไม่มีเซิร์ฟเวอร์ในเครื่อง เล่นออนไลน์ได้ในหน้าออนไลน์ หรือแตกไฟล์แพ็กเกจเกมฉบับเต็ม" : "สำเนานี้ไม่มีเซิร์ฟเวอร์ในเครื่อง แตกไฟล์แพ็กเกจเกมฉบับเต็ม", "problem")
+					: (!anyAccount && !firstRunning) ? ("ยังไม่มีบัญชีในเครื่อง เลือก บัญชีใหม่ ในเมนู Master แล้วกดเล่น", "next")
+					: (!currentAccount && !firstRunning) ? ("ยังไม่ได้เลือก Master เลือกจากเมนู Master แล้วกดเล่น", "next")
+					: (cardCollection.SelectedCards.Count == 0) ? ("เด็คว่างเปล่า เลือกการ์ดได้สูงสุด 30 ใบในหน้าการ์ด แล้วกดเล่น", "next")
+					: source.All((bool value) => value) ? ("เซิร์ฟเวอร์ในเครื่องกำลังทำงาน กดเล่นได้เลย", "ready")
+					: source.Any((bool value) => value) ? ("เซิร์ฟเวอร์ในเครื่องตอบสนองบางพอร์ตแต่ไม่ครบทุกพอร์ต กดหยุดเซิร์ฟเวอร์ แล้วกดเล่น", "problem")
+					: ("พร้อมแล้ว การกดเล่นจะเริ่มเซิร์ฟเวอร์ในเครื่องก่อน", "ready");
 			}
 			// Start or Stop server by hand whenever Local is idle and nothing else is the next step.
 			if (next == NextStep.None && serverPorts != null && !localToolMissing && !startupChecking && installProblem == null)

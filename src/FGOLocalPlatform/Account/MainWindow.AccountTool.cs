@@ -167,7 +167,7 @@ public partial class MainWindow
 
 	private static void ShowServerRunningAccountWarning()
 	{
-		ThemedMessageBox.Show("The local server is running, so this account operation cannot run.\nStop it from the menu beside the status on Play, then try again.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+		ThemedMessageBox.Show("เซิร์ฟเวอร์ในเครื่องกำลังทำงานอยู่ จึงดำเนินการกับบัญชีไม่ได้\nหยุดเซิร์ฟเวอร์จากเมนูข้างสถานะในหน้าเล่น แล้วลองอีกครั้ง", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 	}
 
 	/// <summary>True when the game is running; shows the warning that account actions are blocked until it exits.</summary>
@@ -198,7 +198,7 @@ public partial class MainWindow
 
 	private static void ShowGameRunningAccountWarning()
 	{
-		ThemedMessageBox.Show("The game is running, so accounts cannot be switched, created, deleted, reset or repaired.\nEnd the current game session first, so the card still matches the save that is logged in.", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+		ThemedMessageBox.Show("เกมกำลังทำงานอยู่ จึงสลับ สร้าง ลบ รีเซ็ต หรือซ่อมแซมบัญชีไม่ได้\nจบเซสชันเกมปัจจุบันก่อน เพื่อให้การ์ดยังตรงกับเซฟที่ล็อกอินอยู่", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 	}
 
 	private bool ReportAccountToolFailure(AccountToolResult result, string operation)

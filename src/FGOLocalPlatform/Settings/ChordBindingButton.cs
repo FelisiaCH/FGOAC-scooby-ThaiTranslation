@@ -32,7 +32,7 @@ public sealed class ChordBindingButton : Button
 			this.value = value;
 			listening = false;
 			held.Clear();
-			base.Content = value?.Display() ?? "Not bound";
+			base.Content = value?.Display() ?? "ยังไม่ได้ผูกปุ่ม";
 		}
 	}
 
@@ -40,8 +40,8 @@ public sealed class ChordBindingButton : Button
 	{
 		SetResourceReference(FrameworkElement.StyleProperty, typeof(Button));
 		base.HorizontalContentAlignment = HorizontalAlignment.Left;
-		base.ToolTip = "Click, then press a key, or hold Ctrl, Shift or Alt and press a key. Esc cancels.";
-		base.Content = "Not bound";
+		base.ToolTip = "คลิก แล้วกดปุ่ม หรือกด Ctrl, Shift หรือ Alt ค้างไว้แล้วกดปุ่ม กด Esc เพื่อยกเลิก";
+		base.Content = "ยังไม่ได้ผูกปุ่ม";
 		base.LostKeyboardFocus += delegate
 		{
 			if (listening)
@@ -57,7 +57,7 @@ public sealed class ChordBindingButton : Button
 		Focus();
 		listening = true;
 		held.Clear();
-		base.Content = "Press a key or a chord... (Esc cancels)";
+		base.Content = "กดปุ่มหรือชุดปุ่มผสม... (กด Esc เพื่อยกเลิก)";
 	}
 
 	protected override void OnPreviewKeyDown(KeyEventArgs e)

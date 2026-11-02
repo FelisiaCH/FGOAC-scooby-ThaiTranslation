@@ -16,7 +16,7 @@ internal static class AccountTransfer
 	/// <summary>What an import would do: how many accounts the file holds, the Masters in it whose card is already here, and its token.</summary>
 	internal sealed record Preview(int Count, string[] Overwrites, string Token);
 
-	internal const string FileFilter = "FGO account backup (*.fgoaccounts.json)|*.fgoaccounts.json";
+	internal const string FileFilter = "ไฟล์สำรองบัญชี FGO (*.fgoaccounts.json)|*.fgoaccounts.json";
 
 	/// <summary>His tool's messages for the refusals a player can meet, with the sentence shown for each.</summary>
 	private static readonly Dictionary<string, string> Sentences = new Dictionary<string, string>

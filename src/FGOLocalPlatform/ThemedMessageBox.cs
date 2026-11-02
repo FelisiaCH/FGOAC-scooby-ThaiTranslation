@@ -26,10 +26,6 @@ internal static class ThemedMessageBox
 	/// </summary>
 	public static MessageBoxResult Show(Window? owner, string message, string caption = "FGOAC scooby", MessageBoxButton buttons = MessageBoxButton.OK, MessageBoxImage image = MessageBoxImage.None, MessageBoxResult defaultResult = MessageBoxResult.None, bool foreground = false)
 	{
-		if (DialogSink.Take(caption, message))
-		{
-			return Unanswered(buttons, foreground);
-		}
 		if (owner == null)
 		{
 			owner = Application.Current?.Windows.OfType<Window>().FirstOrDefault((Window w) => w.IsActive);
@@ -169,9 +165,16 @@ internal static class ThemedMessageBox
 		}
 		dialog.Closing += delegate
 		{
-			if (!selected)
+			if (!selected && !foreground)
 			{
-				result = Unanswered(buttons, foreground);
+				if (buttons == MessageBoxButton.YesNo)
+				{
+					result = MessageBoxResult.No;
+				}
+				else
+				{
+					result = ((buttons == MessageBoxButton.OK) ? MessageBoxResult.OK : MessageBoxResult.Cancel);
+				}
 			}
 		};
 		dialog.Loaded += delegate
@@ -193,21 +196,7 @@ internal static class ThemedMessageBox
 				dialog.Close();
 			}
 		};
-		DialogSink.ShowDialog(dialog);
+		dialog.ShowDialog();
 		return result;
-	}
-
-	/// <summary>The answer of a box closed without a button; a foreground question answers nothing.</summary>
-	private static MessageBoxResult Unanswered(MessageBoxButton buttons, bool foreground)
-	{
-		if (foreground)
-		{
-			return MessageBoxResult.None;
-		}
-		if (buttons == MessageBoxButton.YesNo)
-		{
-			return MessageBoxResult.No;
-		}
-		return (buttons == MessageBoxButton.OK) ? MessageBoxResult.OK : MessageBoxResult.Cancel;
 	}
 }

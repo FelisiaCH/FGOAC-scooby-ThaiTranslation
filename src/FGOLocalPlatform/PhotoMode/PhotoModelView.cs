@@ -132,7 +132,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 
 	private readonly CheckBox morphEnabled = new CheckBox
 	{
-		Content = "Customize This Part",
+		Content = "กำหนดชิ้นส่วนนี้เอง",
 		Margin = new Thickness(0.0, 4.0, 0.0, 4.0)
 	};
 
@@ -142,7 +142,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 
 	private readonly Button morphAdd = new Button
 	{
-		Content = "Add Shape",
+		Content = "เพิ่มรูปทรง",
 		Margin = new Thickness(0.0, 6.0, 0.0, 6.0)
 	};
 
@@ -159,7 +159,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 
 	private readonly CheckBox mouthEnabled = new CheckBox
 	{
-		Content = "Custom Mouth",
+		Content = "กำหนดปากเอง",
 		Margin = new Thickness(0.0, 6.0, 0.0, 4.0)
 	};
 
@@ -196,13 +196,13 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		(2, "U"),
 		(3, "E"),
 		(4, "O"),
-		(12, "Smile"),
-		(13, "Angry"),
-		(14, "Sad"),
-		(15, "Shy"),
-		(16, "Shout"),
-		(17, "Pain"),
-		(21, "Calm")
+		(12, "ยิ้ม"),
+		(13, "โกรธ"),
+		(14, "เศร้า"),
+		(15, "เขินอาย"),
+		(16, "ตะโกน"),
+		(17, "เจ็บปวด"),
+		(21, "สงบ")
 	};
 
 	private static readonly int[] MouthVowels = new int[5] { 0, 3, 1, 4, 2 };
@@ -225,31 +225,31 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 	{
 		newer.Children.Add(new TextBlock
 		{
-			Text = "Eye Gaze",
+			Text = "การมองของดวงตา",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 14.0, 0.0, 4.0)
 		});
 		newer.Children.Add(new TextBlock
 		{
-			Text = "Each eye is set on its own. Horizontal and Vertical are degrees. A strength from 0 to 1 keeps the eye inside its natural limits; above 1 lifts them and the eye looks straight at its target.",
+			Text = "ตั้งค่าแต่ละตาแยกกัน แนวนอนและแนวตั้งเป็นหน่วยองศา ความแรง 0 ถึง 1 จะคงดวงตาไว้ในขีดจำกัดตามธรรมชาติ ค่าที่เกิน 1 จะปลดขีดจำกัดและดวงตาจะมองตรงไปที่เป้าหมาย",
 			TextWrapping = TextWrapping.Wrap
 		});
 		newer.Children.Add(new TextBlock
 		{
-			Text = "Iris size is set per eye too; 1 is the original size.",
+			Text = "ขนาดม่านตาก็ตั้งแยกแต่ละตาเช่นกัน 1 คือขนาดเดิม",
 			TextWrapping = TextWrapping.Wrap
 		});
 		for (int i = 0; i < 2; i++)
 		{
 			eyeFollow[i] = new CheckBox
 			{
-				Content = ((i == 0) ? "Left" : "Right") + " Eye Follows Camera",
+				Content = ((i == 0) ? "ตาซ้าย" : "ตาขวา") + " มองตามกล้อง",
 				Margin = new Thickness(0.0, 10.0, 0.0, 4.0)
 			};
 			eyeManual[i] = new CheckBox
 			{
-				Content = "Custom Gaze Offset",
+				Content = "กำหนดการเบี่ยงสายตาเอง",
 				Margin = new Thickness(0.0, 4.0, 0.0, 4.0)
 			};
 			CheckBox[] array = new CheckBox[2]
@@ -288,7 +288,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 				});
 				grid.Children.Add(new TextBlock
 				{
-					Text = (new string[4] { "Horizontal", "Vertical", "Strength", "Iris Size" })[num]
+					Text = (new string[4] { "แนวนอน", "แนวตั้ง", "ความแรง", "ขนาดม่านตา" })[num]
 				});
 				Slider slider = new Slider
 				{
@@ -312,7 +312,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			}
 			eyeBlink[i] = new CheckBox
 			{
-				Content = "Custom Eyelid",
+				Content = "กำหนดเปลือกตาเอง",
 				Margin = new Thickness(0.0, 6.0, 0.0, 4.0)
 			};
 			eyeBlink[i].Checked += delegate
@@ -341,7 +341,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			});
 			grid2.Children.Add(new TextBlock
 			{
-				Text = "Closed"
+				Text = "ปิดตา"
 			});
 			eyeClosure[i] = new Slider
 			{
@@ -363,7 +363,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			};
 			newer.Children.Add(new TextBlock
 			{
-				Text = "0 is open and 1 is closed, on top of the current expression; untick to give the eye back to the expression.",
+				Text = "0 คือเปิดตาและ 1 คือปิดตา ซ้อนทับสีหน้าปัจจุบัน เอาเครื่องหมายติ๊กออกเพื่อคืนดวงตาให้สีหน้า",
 				TextWrapping = TextWrapping.Wrap
 			});
 			eyeStatus[i] = new TextBlock
@@ -374,7 +374,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		}
 		Button button = new Button
 		{
-			Content = "Restore Original Eyes",
+			Content = "คืนค่าดวงตาเดิม",
 			Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 		};
 		button.Click += delegate
@@ -473,15 +473,15 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			TextBlock textBlock = eyeStatus[i];
 			textBlock.Text = ipc.ReadInt32(892 + i * 4) switch
 			{
-				1 => "Eye gaze applied",
-				-4 => "This model has no matching eye bones or eye limits.",
-				-5 => "The game hook's eye control is not running - restart the game.",
-				_ => "Using the original eye motion",
+				1 => "ใช้การมองของดวงตาแล้ว",
+				-4 => "โมเดลนี้ไม่มีกระดูกดวงตาหรือขีดจำกัดดวงตาที่ตรงกัน",
+				-5 => "ระบบควบคุมดวงตาของฮุกเกมไม่ทำงาน - เริ่มเกมใหม่",
+				_ => "ใช้การเคลื่อนไหวดวงตาเดิม",
 			};
 			if (eyeBlink[i].IsChecked == true)
 			{
 				TextBlock obj = eyeStatus[i];
-				obj.Text = obj.Text + "\n" + ((ipc.ReadInt32(928 + i * 4) == 1) ? "Eyelid applied" : "This model's eyelids cannot be set.");
+				obj.Text = obj.Text + "\n" + ((ipc.ReadInt32(928 + i * 4) == 1) ? "ใช้เปลือกตาแล้ว" : "ตั้งค่าเปลือกตาของโมเดลนี้ไม่ได้");
 			}
 		}
 	}
@@ -747,7 +747,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		});
 		grid4.Children.Add(new TextBlock
 		{
-			Text = "Model Scale"
+			Text = "ขนาดโมเดล"
 		});
 		Grid.SetColumn(modelScale, 1);
 		grid4.Children.Add(modelScale);
@@ -762,7 +762,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		};
 		Button button4 = new Button
 		{
-			Content = "Reset Scale",
+			Content = "รีเซ็ตขนาด",
 			Margin = new Thickness(0.0, 4.0, 0.0, 8.0)
 		};
 		button4.Click += delegate
@@ -1185,14 +1185,14 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		newer.Children.Add(stackPanel);
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Face Parts",
+			Text = "ส่วนของใบหน้า",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 14.0, 0.0, 6.0)
 		});
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "Pick a part such as the face, the inside of the mouth or the teeth, add shapes to it and set each shape's weight. Shapes add up.",
+			Text = "เลือกส่วน เช่น ใบหน้า ภายในปาก หรือฟัน เพิ่มรูปทรงให้ส่วนนั้นและตั้งน้ำหนักของแต่ละรูปทรง รูปทรงจะรวมกัน",
 			TextWrapping = TextWrapping.Wrap
 		});
 		stackPanel.Children.Add(morphGroupChoice);
@@ -1217,12 +1217,12 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		};
 		stackPanel.Children.Add(new TextBlock
 		{
-			Text = "A customized part uses these shapes instead of the expression's; the other parts keep the expression, and each eyelid can still be set above.",
+			Text = "ส่วนที่กำหนดเองจะใช้รูปทรงเหล่านี้แทนของสีหน้า ส่วนอื่นยังคงใช้สีหน้าตามเดิม และยังตั้งค่าเปลือกตาแต่ละข้างได้จากด้านบน",
 			TextWrapping = TextWrapping.Wrap
 		});
 		Button button = new Button
 		{
-			Content = "Restore All Parts",
+			Content = "คืนค่าทุกส่วน",
 			Margin = new Thickness(0.0, 6.0, 0.0, 4.0)
 		};
 		button.Click += delegate
@@ -1353,7 +1353,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		stackPanel.Children.Add(dockPanel);
 		Button button = new Button
 		{
-			Content = "Remove",
+			Content = "ลบออก",
 			MinWidth = 56.0,
 			Margin = new Thickness(8.0, 0.0, 0.0, 0.0)
 		};
@@ -1510,14 +1510,14 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 				{
 					string content = item.Name switch
 					{
-						"face" => "Face",
-						"oral" => "Inside of the Mouth",
-						"tooth" => "Teeth",
-						"cheek" => "Cheeks",
-						"eyebrow" => "Eyebrows",
-						"eyelashes" => "Eyelashes",
-						"eyelid" => "Eyelids",
-						"eyehole" => "Eye Area",
+						"face" => "ใบหน้า",
+						"oral" => "ภายในปาก",
+						"tooth" => "ฟัน",
+						"cheek" => "แก้ม",
+						"eyebrow" => "คิ้ว",
+						"eyelashes" => "ขนตา",
+						"eyelid" => "เปลือกตา",
+						"eyehole" => "บริเวณดวงตา",
 						_ => item.Name, 
 					};
 					morphGroupChoice.Items.Add(new ComboBoxItem
@@ -1546,9 +1546,9 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		TextBlock textBlock = morphStatus;
 		textBlock.Text = ipc.ReadInt32(972L) switch
 		{
-			1 => "Face parts applied",
-			-4 => "Some shapes are no longer available - pick them again.",
-			_ => (morphGroups.Count > 0) ? "Parts that are not customized keep the expression." : "This character has no face shapes to edit.",
+			1 => "ใช้ส่วนของใบหน้าแล้ว",
+			-4 => "รูปทรงบางส่วนใช้ไม่ได้แล้ว - เลือกใหม่อีกครั้ง",
+			_ => (morphGroups.Count > 0) ? "ส่วนที่ไม่ได้กำหนดเองจะคงสีหน้าไว้" : "ตัวละครนี้ไม่มีรูปทรงใบหน้าให้แก้ไข",
 		};
 	}
 
@@ -1556,7 +1556,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 	{
 		newer.Children.Add(new TextBlock
 		{
-			Text = "Mouth",
+			Text = "ปาก",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 14.0, 0.0, 4.0)
@@ -1564,17 +1564,17 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		newer.Children.Add(mouthEnabled);
 		mouthMode.Items.Add(new TabItem
 		{
-			Header = "Mix",
+			Header = "ผสม",
 			Content = new TextBlock
 			{
-				Text = "Set A, E, I, O and U each on its own; they add up.",
+				Text = "ตั้งค่า A, E, I, O และ U แยกกันได้ ค่าจะรวมกัน",
 				TextWrapping = TextWrapping.Wrap,
 				Margin = new Thickness(4.0, 8.0, 4.0, 8.0)
 			}
 		});
 		mouthMode.Items.Add(new TabItem
 		{
-			Header = "Preset",
+			Header = "พรีเซ็ต",
 			Content = mouthShape
 		});
 		mouthMode.SelectedIndex = 0;
@@ -1622,7 +1622,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		}
 		newer.Children.Add(new TextBlock
 		{
-			Text = "A preset locks the weights above; Mix keeps their values. Untick Custom Mouth to give the mouth back to its animation.",
+			Text = "พรีเซ็ตจะล็อกน้ำหนักด้านบน ส่วน “ผสม” จะคงค่าของน้ำหนักไว้ เอาเครื่องหมายติ๊กออกจาก “กำหนดปากเอง” เพื่อคืนปากให้แอนิเมชันเดิม",
 			TextWrapping = TextWrapping.Wrap,
 			Margin = new Thickness(0.0, 6.0, 0.0, 4.0)
 		});
@@ -1704,7 +1704,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 			}
 			mouthAvailable = -1;
 			mouthShape.Items.Clear();
-			mouthStatus.Text = "Reading the character's mouth shapes...";
+			mouthStatus.Text = "กำลังอ่านรูปทรงปากของตัวละคร...";
 			UpdateMouthEditor();
 		}
 		finally
@@ -1739,7 +1739,7 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		}
 		if (ipc.ReadUInt64(17248L) == 0L)
 		{
-			mouthStatus.Text = "Reading the character's mouth shapes...";
+			mouthStatus.Text = "กำลังอ่านรูปทรงปากของตัวละคร...";
 			return;
 		}
 		int num2 = ipc.ReadInt32(968L);
@@ -1791,12 +1791,12 @@ public sealed class PhotoModelView : StackPanel, IDisposable
 		TextBlock textBlock = mouthStatus;
 		textBlock.Text = num3 switch
 		{
-			-1 => "The game hook's mouth control is not running - restart the game.",
-			-2 => "The mouth values or the model data are not valid.",
-			-3 => "The mouth cannot be set right now.",
-			-4 => "That mouth shape is not available - pick one from the list.",
-			1 => "Mouth applied",
-			_ => (num2 != 0) ? "Using the original mouth animation" : "This model has no mouth shapes.",
+			-1 => "ระบบควบคุมปากของฮุกเกมไม่ทำงาน - เริ่มเกมใหม่",
+			-2 => "ค่าของปากหรือข้อมูลโมเดลไม่ถูกต้อง",
+			-3 => "ตั้งค่าปากตอนนี้ไม่ได้",
+			-4 => "รูปทรงปากนั้นใช้ไม่ได้ - เลือกจากรายการ",
+			1 => "ใช้ปากแล้ว",
+			_ => (num2 != 0) ? "ใช้แอนิเมชันปากเดิม" : "โมเดลนี้ไม่มีรูปทรงปาก",
 		};
 	}
 }

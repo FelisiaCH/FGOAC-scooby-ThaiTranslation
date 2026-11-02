@@ -22,7 +22,7 @@ public sealed class PhotoBackdropView : StackPanel, IDisposable
 
 	private readonly CheckBox enabled = new CheckBox
 	{
-		Content = "Solid Backdrop (keeps characters and effects)",
+		Content = "พื้นหลังสีล้วน (คงตัวละครและเอฟเฟกต์ไว้)",
 		Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 	};
 
@@ -43,7 +43,7 @@ public sealed class PhotoBackdropView : StackPanel, IDisposable
 	{
 		base.Children.Add(new TextBlock
 		{
-			Text = "Green Screen",
+			Text = "กรีนสกรีน",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 14.0, 0.0, 6.0)
@@ -51,7 +51,7 @@ public sealed class PhotoBackdropView : StackPanel, IDisposable
 		base.Children.Add(enabled);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Keeps the characters, their weapons and particle effects on a single color; the scene and the game's interface are left out. Set the color as red, green and blue.",
+			Text = "คงตัวละคร อาวุธ และเอฟเฟกต์อนุภาคไว้บนสีเดียว ส่วนฉากและหน้าจอของเกมจะถูกตัดออก กำหนดสีด้วยค่าแดง เขียว และน้ำเงิน",
 			TextWrapping = TextWrapping.Wrap
 		});
 		for (int i = 0; i < 3; i++)
@@ -71,7 +71,7 @@ public sealed class PhotoBackdropView : StackPanel, IDisposable
 			});
 			grid.Children.Add(new TextBlock
 			{
-				Text = (new string[3] { "Red", "Green", "Blue" })[i]
+				Text = (new string[3] { "แดง", "เขียว", "น้ำเงิน" })[i]
 			});
 			Slider slider = new Slider
 			{
@@ -82,7 +82,7 @@ public sealed class PhotoBackdropView : StackPanel, IDisposable
 				TickFrequency = 1.0,
 				IsSnapToTickEnabled = true
 			};
-			AutomationProperties.SetName(slider, "Backdrop " + (new string[3] { "red", "green", "blue" })[i]);
+			AutomationProperties.SetName(slider, "พื้นหลังสี" + (new string[3] { "แดง", "เขียว", "น้ำเงิน" })[i]);
 			rgb[i] = slider;
 			Grid.SetColumn(slider, 1);
 			grid.Children.Add(slider);
@@ -98,7 +98,7 @@ public sealed class PhotoBackdropView : StackPanel, IDisposable
 		base.Children.Add(preview);
 		Button button = new Button
 		{
-			Content = "Reset to Green",
+			Content = "รีเซ็ตเป็นสีเขียว",
 			Margin = new Thickness(0.0, 4.0, 0.0, 8.0)
 		};
 		button.Click += delegate
@@ -149,11 +149,11 @@ public sealed class PhotoBackdropView : StackPanel, IDisposable
 			}
 			Write();
 			int num = ipc?.ReadInt32(28L) ?? 0;
-			status.Text = ((enabled.IsChecked != true) ? "The solid backdrop is off." : ((num == 1) ? $"The solid backdrop is on; {ipc.ReadInt32(32L)} character and effect draws were kept this frame." : ((num < 0) ? "The solid backdrop could not be set up, so the original picture stays." : "Waiting for the characters and effects to draw.")));
+			status.Text = ((enabled.IsChecked != true) ? "ปิดพื้นหลังสีล้วนอยู่" : ((num == 1) ? $"เปิดพื้นหลังสีล้วนอยู่ เฟรมนี้คงการวาดตัวละครและเอฟเฟกต์ไว้ {ipc.ReadInt32(32L)} รายการ" : ((num < 0) ? "ตั้งค่าพื้นหลังสีล้วนไม่ได้ จึงคงภาพเดิมไว้" : "กำลังรอให้ตัวละครและเอฟเฟกต์วาดภาพ")));
 		}
 		catch (IOException)
 		{
-			status.Text = "The solid backdrop connection is not available.";
+			status.Text = "ไม่มีการเชื่อมต่อของพื้นหลังสีล้วน";
 		}
 	}
 

@@ -135,7 +135,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 				}
 				else
 				{
-					status.Text = "Reading expressions...";
+					status.Text = "กำลังอ่านสีหน้า...";
 					IReadOnlyList<FaceMotionEntry> itemsSource;
 					try
 					{
@@ -146,7 +146,7 @@ public sealed class PhotoFaceView : StackPanel, IDisposable
 						if (version == loadVersion)
 						{
 							loading = false;
-							status.Text = "Could not read the expressions: " + ex.Message;
+							status.Text = "อ่านสีหน้าไม่ได้: " + ex.Message;
 						}
 						return;
 					}

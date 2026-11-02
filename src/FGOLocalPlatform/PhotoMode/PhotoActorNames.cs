@@ -11,6 +11,6 @@ internal static class PhotoActorNames
 		string text = token.ToUpperInvariant();
 		uint value = (text.StartsWith("SVT_", StringComparison.Ordinal) && uint.TryParse(text.AsSpan(4), out uint result)) ? result : model;
 		string name = CardNames.English(1, (int)value);
-		return $"{((name.Length == 0) ? "Unlisted character" : name)} · Model {model} · {token}";
+		return $"{((name.Length == 0) ? "ตัวละครที่ไม่อยู่ในรายการ" : name)} · โมเดล {model} · {token}";
 	}
 }

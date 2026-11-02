@@ -264,7 +264,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 					int num6 = Array.IndexOf(array3, (byte)0);
 					if (num6 < 0)
 					{
-						throw new IOException("The bone name is not valid.");
+						throw new IOException("ชื่อกระดูกไม่ถูกต้อง");
 					}
 					array[i] = new PhotoRigBone(ipc.ReadInt32(num5), ipc.ReadInt32(num5 + 4), Encoding.ASCII.GetString(array3, 0, num6));
 				}
@@ -277,7 +277,7 @@ public sealed class PhotoBodyView : StackPanel, IDisposable
 					int num7 = Array.IndexOf(array4, (byte)0);
 					if (num7 < 0)
 					{
-						throw new IOException("The character's model name is not valid.");
+						throw new IOException("ชื่อโมเดลของตัวละครไม่ถูกต้อง");
 					}
 					resource = Encoding.ASCII.GetString(array4, 0, num7);
 				}

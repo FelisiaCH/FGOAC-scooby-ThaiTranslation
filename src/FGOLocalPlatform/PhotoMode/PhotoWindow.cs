@@ -739,7 +739,7 @@ public sealed class PhotoWindow : UserControl
 		bool flag = view.ReadInt32(12L) != 0;
 		RefreshCharacters(connectedPid, flag);
 		UpdateOverlay(flag);
-		status.Text = (flag ? $"In photo mode\nPosition {view.ReadSingle(32L):F2}, {view.ReadSingle(36L):F2}, {view.ReadSingle(40L):F2}" : "เชื่อมต่อกับเกมแล้ว - ปิดโหมดถ่ายภาพอยู่");
+		status.Text = (flag ? $"อยู่ในโหมดถ่ายภาพ\nตำแหน่ง {view.ReadSingle(32L):F2}, {view.ReadSingle(36L):F2}, {view.ReadSingle(40L):F2}" : "เชื่อมต่อกับเกมแล้ว - ปิดโหมดถ่ายภาพอยู่");
 		if (flag && !fov.IsMouseCaptureWithin && (view.ReadInt32(8L) & 8) == 0)
 		{
 			syncing = true;

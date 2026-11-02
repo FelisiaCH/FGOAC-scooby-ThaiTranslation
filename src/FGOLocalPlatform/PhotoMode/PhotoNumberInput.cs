@@ -72,7 +72,7 @@ public static class PhotoNumberInput
 			Background = new SolidColorBrush(Color.FromRgb(23, 18, 27)),
 			BorderBrush = new SolidColorBrush(Color.FromRgb(86, 65, 93)),
 			BorderThickness = new Thickness(1.0),
-			ToolTip = (expandRange ? "Type a value and press Enter, or click elsewhere, to apply it; Esc undoes what you typed. A value outside the slider's range is allowed. Drag sideways to fine-tune." : "Type a value and press Enter, or click elsewhere, to apply it; Esc undoes what you typed. A value outside the range snaps to the nearest one allowed. Drag sideways to fine-tune.")		};
+			ToolTip = (expandRange ? "พิมพ์ค่าแล้วกด Enter หรือคลิกที่อื่นเพื่อใช้ค่านั้น กด Esc เพื่อยกเลิกสิ่งที่พิมพ์ ค่านอกช่วงของแถบเลื่อนก็ใช้ได้ ลากไปด้านข้างเพื่อปรับละเอียด" : "พิมพ์ค่าแล้วกด Enter หรือคลิกที่อื่นเพื่อใช้ค่านั้น กด Esc เพื่อยกเลิกสิ่งที่พิมพ์ ค่านอกช่วงจะถูกปัดเป็นค่าที่ใกล้ที่สุดที่อนุญาต ลากไปด้านข้างเพื่อปรับละเอียด")		};
 		slider.ValueChanged += delegate
 		{
 			if (!box.IsKeyboardFocusWithin)

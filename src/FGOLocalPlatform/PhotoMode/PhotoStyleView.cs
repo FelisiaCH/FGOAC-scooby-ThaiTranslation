@@ -20,13 +20,13 @@ public sealed class PhotoStyleView : StackPanel, IDisposable
 
 	private readonly CheckBox shading = new CheckBox
 	{
-		Content = "Custom Character Shading (every toon-shaded character)",
+		Content = "กำหนดการแรเงาตัวละครเอง (ทุกตัวละครที่แรเงาแบบการ์ตูน)",
 		Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 	};
 
 	private readonly CheckBox lines = new CheckBox
 	{
-		Content = "Custom Outlines (whole picture)",
+		Content = "กำหนดเส้นขอบเอง (ทั้งภาพ)",
 		Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 	};
 
@@ -44,18 +44,18 @@ public sealed class PhotoStyleView : StackPanel, IDisposable
 		base.Children.Add(backdrop);
 		base.Children.Add(new TextBlock
 		{
-			Text = "Shading and Outlines",
+			Text = "การแรเงาและเส้นขอบ",
 			FontSize = 16.0,
 			FontWeight = FontWeights.Bold,
 			Margin = new Thickness(0.0, 14.0, 0.0, 6.0)
 		});
 		base.Children.Add(new TextBlock
 		{
-			Text = "Applies in photo mode only. Shading changes the toon-shaded materials; outlines are drawn over the whole picture, so they cannot be set for one character.",
+			Text = "ใช้ได้ในโหมดถ่ายภาพเท่านั้น การแรเงาเปลี่ยนวัสดุที่แรเงาแบบการ์ตูน ส่วนเส้นขอบถูกวาดทับทั้งภาพ จึงตั้งแยกทีละตัวละครไม่ได้",
 			TextWrapping = TextWrapping.Wrap
 		});
 		base.Children.Add(shading);
-		string[] array = new string[9] { "Light Offset", "Shadow Edge", "Ambient Light", "Rim Light", "Outline Width", "Outline Strength", "Outline Red", "Outline Green", "Outline Blue" };
+		string[] array = new string[9] { "ชดเชยแสง", "ขอบเงา", "แสงรอบด้าน", "แสงขอบ", "เส้นขอบ กว้าง", "เส้นขอบ เข้ม", "เส้นขอบ แดง", "เส้นขอบ เขียว", "เส้นขอบ น้ำเงิน" };
 		for (int i = 0; i < 9; i++)
 		{
 			if (i == 4)
@@ -115,7 +115,7 @@ public sealed class PhotoStyleView : StackPanel, IDisposable
 		}
 		Button button = new Button
 		{
-			Content = "Restore Original Shading and Outlines",
+			Content = "คืนค่าการแรเงาและเส้นขอบเดิม",
 			Margin = new Thickness(0.0, 8.0, 0.0, 8.0)
 		};
 		button.Click += delegate
@@ -162,11 +162,11 @@ public sealed class PhotoStyleView : StackPanel, IDisposable
 				ipc.Write(4L, 2);
 			}
 			Write();
-			status.Text = ((ipc != null) ? $"Shading: {((ipc.ReadInt32(56L) == 1) ? "the renderer is connected" : "no renderer found yet")}; outlines: {((ipc.ReadInt32(60L) == 1) ? "the renderer is connected" : "no renderer found yet")}." : "Waiting for the renderer.");
+			status.Text = ((ipc != null) ? $"การแรเงา: {((ipc.ReadInt32(56L) == 1) ? "เชื่อมต่อตัวเรนเดอร์แล้ว" : "ยังไม่พบตัวเรนเดอร์")}; เส้นขอบ: {((ipc.ReadInt32(60L) == 1) ? "เชื่อมต่อตัวเรนเดอร์แล้ว" : "ยังไม่พบตัวเรนเดอร์")}" : "กำลังรอตัวเรนเดอร์");
 		}
 		catch (IOException)
 		{
-			status.Text = "The shading connection is not available.";
+			status.Text = "ไม่มีการเชื่อมต่อของการแรเงา";
 		}
 	}
 

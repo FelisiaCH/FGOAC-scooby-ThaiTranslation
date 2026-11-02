@@ -82,12 +82,12 @@ internal static class EventSwitches
 		using JsonDocument document = JsonDocument.Parse(File.ReadAllText(path));
 		if (document.RootElement.GetProperty("schema_version").GetInt32() != 1)
 		{
-			throw new InvalidDataException("Unsupported event catalogue version");
+			throw new InvalidDataException("ไม่รองรับเวอร์ชันของรายการอีเวนต์");
 		}
 		Entry[] entries = JsonSerializer.Deserialize<Entry[]>(document.RootElement.GetProperty("events").GetRawText()) ?? Array.Empty<Entry>();
 		if (entries.Length == 0 || entries.Select((Entry entry) => entry.Id).Distinct().Count() != entries.Length || entries.Any((Entry entry) => entry.Id < 0 || !Editions.Contains(entry.Edition) || !Categories.Contains(entry.Category) || string.IsNullOrWhiteSpace(entry.Name)))
 		{
-			throw new InvalidDataException("Invalid event catalogue");
+			throw new InvalidDataException("รายการอีเวนต์ไม่ถูกต้อง");
 		}
 		return entries.OrderBy((Entry entry) => entry.ReleaseOrder).ThenBy((Entry entry) => entry.Id).ToArray();
 	}
@@ -103,14 +103,14 @@ internal static class EventSwitches
 				["hidden_ids"] = new JsonArray()
 			};
 		}
-		JsonObject document = (JsonNode.Parse(File.ReadAllText(path)) as JsonObject) ?? throw new InvalidDataException("Invalid event settings");
+		JsonObject document = (JsonNode.Parse(File.ReadAllText(path)) as JsonObject) ?? throw new InvalidDataException("การตั้งค่าอีเวนต์ไม่ถูกต้อง");
 		if (document["schema_version"]?.GetValue<int>() != 1 || !(document["hidden_ids"] is JsonArray hidden) || hidden.Any((JsonNode? id) => id == null || id.GetValue<int>() < 0))
 		{
-			throw new InvalidDataException("Invalid event settings");
+			throw new InvalidDataException("การตั้งค่าอีเวนต์ไม่ถูกต้อง");
 		}
 		if (document.ContainsKey("ordered_ids") && (!(document["ordered_ids"] is JsonArray order) || order.Any((JsonNode? id) => id == null || id.GetValue<int>() < 0) || order.Select((JsonNode? id) => id!.GetValue<int>()).Distinct().Count() != order.Count))
 		{
-			throw new InvalidDataException("Invalid event order");
+			throw new InvalidDataException("ลำดับอีเวนต์ไม่ถูกต้อง");
 		}
 		return document;
 	}

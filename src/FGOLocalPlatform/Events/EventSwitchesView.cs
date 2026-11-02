@@ -61,12 +61,12 @@ public partial class EventSwitchesView : UserControl
 			entries = EventSwitches.Grouped(EventSwitches.Sort(catalogue, order));
 			Build(entries.Where((EventSwitches.Entry entry) => !hidden.Contains(entry.Id)).Select((EventSwitches.Entry entry) => entry.Id).ToHashSet());
 			ready = true;
-			StatusText.Text = $"{entries.Length - hidden.Count((int id) => entries.Any((EventSwitches.Entry entry) => entry.Id == id))} of {entries.Length} events on.";
+			StatusText.Text = $"เปิดอยู่ {entries.Length - hidden.Count((int id) => entries.Any((EventSwitches.Entry entry) => entry.Id == id))} จาก {entries.Length} อีเวนต์";
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException || ex is System.Text.Json.JsonException || ex is InvalidOperationException || ex is KeyNotFoundException)
 		{
 			EventList.Items.Clear();
-			StatusText.Text = "The event list could not be read: " + ex.Message;
+			StatusText.Text = "อ่านรายการอีเวนต์ไม่ได้: " + ex.Message;
 		}
 	}
 
@@ -226,11 +226,11 @@ public partial class EventSwitchesView : UserControl
 		try
 		{
 			EventSwitches.Save(EventSwitches.SettingsPath(serverRoot), entries, Visible(), customOrder ? entries.Select((EventSwitches.Entry entry) => entry.Id) : null);
-			StatusText.Text = $"Saved: {Visible().Count} of {entries.Length} events on. The game shows the change the next time it starts.";
+			StatusText.Text = $"บันทึกแล้ว: เปิดอยู่ {Visible().Count} จาก {entries.Length} อีเวนต์ เกมจะแสดงการเปลี่ยนแปลงเมื่อเริ่มครั้งถัดไป";
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException || ex is System.Text.Json.JsonException)
 		{
-			StatusText.Text = "The event switches could not be saved: " + ex.Message;
+			StatusText.Text = "บันทึกสวิตช์อีเวนต์ไม่ได้: " + ex.Message;
 		}
 	}
 
@@ -261,7 +261,7 @@ public partial class EventSwitchesView : UserControl
 	{
 		if (!ready || !((EventList.SelectedItem as ListBoxItem)?.Tag is int selected))
 		{
-			StatusText.Text = "Pick an event in the list first, then move it.";
+			StatusText.Text = "เลือกอีเวนต์ในรายการก่อน แล้วจึงย้าย";
 			return;
 		}
 		EventSwitches.Entry[] moved = EventSwitches.Move(entries, selected, ((sender as Button)?.Tag as string) ?? "");

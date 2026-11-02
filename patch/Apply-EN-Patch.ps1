@@ -395,7 +395,7 @@ if ($Rollback) {
         $configuration = Get-Content -LiteralPath $configurationPath -Raw -Encoding UTF8 | ConvertFrom-Json
         $configuration | Add-Member -NotePropertyName 'gameLanguage' -NotePropertyValue 'ja' -Force
         Write-FgoOwnFile -Path $configurationPath -Bytes ([Text.UTF8Encoding]::new($false).GetBytes(($configuration | ConvertTo-Json -Depth 50)))
-        Write-Host "This game folder has Cloud23333's latest update, so the rollback turned the English text off and moved the English files of FGOAC scooby into $backupRoot. None of his files were changed."
+        Write-Host "โฟลเดอร์เกมนี้มีอัปเดตล่าสุดของ Cloud23333 การย้อนกลับจึงปิดข้อความแปล และย้ายไฟล์ข้อความแปลของ FGOAC scooby ไปไว้ที่ $backupRoot ไฟล์ของเขาไม่ถูกเปลี่ยนแปลง"
         exit 0
     }
     if (!([IO.Directory]::Exists($backupRoot))) { Stop-WithMessage "ไม่มีข้อมูลสำรองของแพตช์ให้คืนค่าใน $backupRoot" 7 }
@@ -487,7 +487,7 @@ if (!([IO.Directory]::Exists([IO.Path]::Combine($InstallRoot, 'Server')))) {
 # server and account scripts; on that build or any other they are left out.
 if (!$game1100) {
     $entries = @($entries | Where-Object { !(Test-FgoGame1100Only -Relative $_.Name) })
-    Write-Host 'This game folder has Cloud23333''s latest update, so the English files made for the earlier game are left out.'
+    Write-Host 'โฟลเดอร์เกมนี้มีอัปเดตล่าสุดของ Cloud23333 จึงไม่รวมไฟล์ข้อความแปลที่ทำไว้สำหรับเกมรุ่นก่อนหน้า'
 }
 
 if (!$Force -and [IO.File]::Exists($markerPath)) {
@@ -680,7 +680,7 @@ try {
     }
     if ($changed) {
         Write-FgoOwnFile -Path $configurationPath -Bytes ([Text.UTF8Encoding]::new($false).GetBytes(($configuration | ConvertTo-Json -Depth 50)))
-        if ($firstInstall) { Write-Host 'Turned the English text on in the launcher settings.' }
+        if ($firstInstall) { Write-Host 'เปิด ข้อความแปล ในการตั้งค่าตัวเรียกเกมแล้ว' }
     }
 } catch {
     Write-Host "ตั้งค่าสวิตช์ ข้อความแปล ใน App\fgo-launcher.json ไม่ได้: $($_.Exception.Message)"

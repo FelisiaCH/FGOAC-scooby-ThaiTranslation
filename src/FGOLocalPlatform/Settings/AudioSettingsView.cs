@@ -155,11 +155,11 @@ public partial class AudioSettingsView : UserControl, IComponentConnector
 		try
 		{
 			AtomicFile.WriteAllText(settingsPath, WithChannels(File.Exists(settingsPath) ? File.ReadAllText(settingsPath) : "", (OutputChannelsComboBox.SelectedIndex == 1) ? 4 : 2));
-			StatusText.Text = "Saved - the output takes effect the next time the game starts.";
+			StatusText.Text = "บันทึกแล้ว - เอาต์พุตจะมีผลเมื่อเริ่มเกมครั้งถัดไป";
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
 		{
-			StatusText.Text = "Could not save the output channels: " + ex.Message;
+			StatusText.Text = "บันทึกช่องเอาต์พุตไม่ได้: " + ex.Message;
 		}
 	}
 

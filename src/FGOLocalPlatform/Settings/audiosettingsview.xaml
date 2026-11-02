@@ -30,12 +30,12 @@
         <Button Content="คืนค่าเริ่มต้น" Width="150" Click="Defaults_OnClick" />
       </WrapPanel>
       <StackPanel Name="OutputChannelsRow" Visibility="Collapsed" Margin="0,0,0,24">
-        <TextBlock Text="Output" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,12" />
+        <TextBlock Text="เอาต์พุต" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,12" />
         <ComboBox Name="OutputChannelsComboBox" Width="420" HorizontalAlignment="Left" AutomationProperties.Name="Output channels" SelectionChanged="OutputChannels_OnChanged">
-          <ComboBoxItem Content="2 channels: headphones and stereo speakers" Tag="2" />
-          <ComboBoxItem Content="4 channels: front left, front right, back left, back right" Tag="4" />
+          <ComboBoxItem Content="2 ช่อง: หูฟังและลำโพงสเตอริโอ" Tag="2" />
+          <ComboBoxItem Content="4 ช่อง: หน้าซ้าย หน้าขวา หลังซ้าย หลังขวา" Tag="4" />
         </ComboBox>
-        <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,8,0,0" Text="Takes effect the next time the game starts. 4 channels keeps the game's own four and lets Windows fit them to your speakers; a stereo device mixes them down." />
+        <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,8,0,0" Text="มีผลเมื่อเริ่มเกมครั้งถัดไป แบบ 4 ช่องจะคงช่องเสียงเดิมทั้งสี่ช่องของเกมไว้ และให้ Windows จัดให้เข้ากับลำโพงของคุณ ส่วนอุปกรณ์สเตอริโอจะมิกซ์ลงเหลือสองช่อง" />
       </StackPanel>
       <TextBlock Name="StatusText" Style="{StaticResource HelpTextStyle}" />
       <TextBlock Text="0 คือเงียบสนิท และ 100 คือระดับเสียงต้นฉบับ ค่านี้ไม่มีผลต่อระดับเสียงหลักของ Windows หรือโปรแกรมอื่น เสียงที่ถูกผสมรวมกันไว้แล้วในวิดีโอจะแยกออกจากกันอีกไม่ได้" Style="{StaticResource HelpTextStyle}" Margin="0,16,0,0" />

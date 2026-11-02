@@ -149,7 +149,7 @@ internal static class GpuCompat
 		}
 		if (File.Exists(LegacyTargetPath) && LegacyBuild() == null)
 		{
-			throw new IOException("App\\fgoglcompat.dll is a layer FGOAC scooby did not ship, so it was left as it is.");
+			throw new IOException("App\\fgoglcompat.dll เป็นเลเยอร์ที่ FGOAC scooby ไม่ได้ติดตั้งให้ จึงปล่อยไว้ตามเดิม");
 		}
 		switch (choice)
 		{
@@ -185,7 +185,7 @@ internal static class GpuCompat
 		case Choice.Fluphus:
 			if (File.Exists(ShimTargetPath) && !OurShimPresent)
 			{
-				throw new IOException("App\\opengl32.dll is a layer FGOAC scooby did not ship, so it was left as it is.");
+				throw new IOException("App\\opengl32.dll เป็นเลเยอร์ที่ FGOAC scooby ไม่ได้ติดตั้งให้ จึงปล่อยไว้ตามเดิม");
 			}
 			if (!SameFile(ShimTargetPath, ShimSourcePath))
 			{
@@ -193,7 +193,7 @@ internal static class GpuCompat
 			}
 			return;
 		default:
-			throw new IOException("This game folder has Cloud23333's latest update: his layer runs, and fluphus's AMD layer is the other choice.");
+			throw new IOException("โฟลเดอร์เกมนี้มีอัปเดตล่าสุดของ Cloud23333: เลเยอร์ของเขาทำงานอยู่ และเลเยอร์ AMD ของ fluphus เป็นอีกตัวเลือกหนึ่ง");
 		}
 	}
 

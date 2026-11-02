@@ -2,11 +2,11 @@
 <UserControl x:Class="FGOLocalPlatform.CursorSettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:fgolocalplatform="clr-namespace:FGOLocalPlatform;assembly=FGOLocalPlatform">
   <StackPanel Margin="0,4" MaxWidth="900" HorizontalAlignment="Left">
     <WrapPanel Margin="0,0,0,4">
-      <TextBlock Text="Tap with" VerticalAlignment="Center" Margin="0,3,8,3" Foreground="{StaticResource TextSoftBrush}" />
+      <TextBlock Text="แตะด้วย" VerticalAlignment="Center" Margin="0,3,8,3" Foreground="{StaticResource TextSoftBrush}" />
       <ComboBox Name="TapButton" Width="220" AutomationProperties.Name="Tap with" SelectionChanged="TapButton_OnChanged" />
     </WrapPanel>
-    <TextBlock Name="TapHookNote" Text="This game folder has an older update from Cloud23333, which ignores this setting; his latest update reads it." Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource WarnBrush}" Margin="0,0,0,4" Visibility="Collapsed" />
-    <TextBlock Name="TapStatus" Text="The mouse button that touches the screen in the game. Saved at once; used the next time the game starts." Style="{StaticResource HelpTextStyle}" Margin="0,0,0,16" />
+    <TextBlock Name="TapHookNote" Text="โฟลเดอร์เกมนี้มีอัปเดตรุ่นเก่าของ Cloud23333 ซึ่งไม่สนใจการตั้งค่านี้ ต้องใช้อัปเดตล่าสุดของเขาจึงจะอ่านค่านี้" Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource WarnBrush}" Margin="0,0,0,4" Visibility="Collapsed" />
+    <TextBlock Name="TapStatus" Text="ปุ่มเมาส์ที่ใช้แตะหน้าจอในเกม บันทึกทันที และมีผลเมื่อเริ่มเกมครั้งถัดไป" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,16" />
     <TextBlock Text="ตัวชี้เมาส์และเส้นขอบกลับสี" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
     <TextBlock Text="ใช้แทนตัวชี้แบบเป้าเล็งภายในเกม การตั้งค่าเหล่านี้จะถูกบันทึกแยกต่างหาก และจะมีผลเมื่อเริ่มเกมครั้งถัดไป" Style="{StaticResource HelpTextStyle}" />
     <WrapPanel Margin="0,8">

@@ -6,37 +6,37 @@
         <TextBlock Text="รูปแบบการควบคุม" VerticalAlignment="Center" Margin="0,0,12,0" Foreground="{StaticResource TextSoftBrush}" />
         <ComboBox Name="InputModeSelector" AutomationProperties.Name="Input method" Width="320" SelectedIndex="0" SelectionChanged="InputMode_OnChanged">
           <ComboBoxItem Content="คีย์บอร์ดและเมาส์" Tag="keyboard" />
-          <ComboBoxItem Content="Xbox or other controller (XInput)" Tag="xinput" />
-          <ComboBoxItem Content="PlayStation 5 controller (DualSense)" Tag="xinput" />
+          <ComboBoxItem Content="Xbox หรือคอนโทรลเลอร์อื่น (XInput)" Tag="xinput" />
+          <ComboBoxItem Content="คอนโทรลเลอร์ PlayStation 5 (DualSense)" Tag="xinput" />
         </ComboBox>
       </WrapPanel>
-      <TextBlock Text="The left mouse button acts as the touch screen. The shared keyboard buttons work with every input method. With Cloud23333's latest update, the controller methods hide the mouse pointer in battle, story scenes inside a quest included: choose Keyboard and Mouse to use the mouse there. Saved settings take effect the next time the game starts." Style="{StaticResource HelpTextStyle}" Margin="3,8,0,16" />
+      <TextBlock Text="ปุ่มซ้ายของเมาส์ทำหน้าที่แทนหน้าจอสัมผัส ปุ่มคีย์บอร์ดที่ใช้ร่วมกันใช้ได้กับทุกรูปแบบการควบคุม เมื่อใช้อัปเดตล่าสุดของ Cloud23333 วิธีควบคุมด้วยคอนโทรลเลอร์จะซ่อนตัวชี้เมาส์ในการต่อสู้ รวมถึงฉากเนื้อเรื่องภายในเควสต์: ให้เลือก คีย์บอร์ดและเมาส์ หากต้องการใช้เมาส์ในช่วงนั้น การตั้งค่าที่บันทึกไว้จะมีผลเมื่อเริ่มเกมครั้งถัดไป" Style="{StaticResource HelpTextStyle}" Margin="3,8,0,16" />
       <TextBlock Name="HisPadMissingText" Text="Cloud23333's update adds a keyboard battle mode with a mouse camera, a controller camera, a controller mouse and controller card selection here." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,16" />
       <StackPanel Name="KeyboardPanel">
         <TextBlock Text="การกำหนดปุ่มคีย์บอร์ดและเมาส์" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
         <ItemsControl Name="KeyboardMappings" HorizontalAlignment="Left" />
-        <TextBlock Text="Skill Target 1, 2 and 3 pick the Servants from left to right in a skill's target menu. While that menu is open, only these keys and Cancel act on it; release the key that opened it before pressing it again." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+        <TextBlock Text="Skill Target 1, 2 และ 3 เลือกเซอร์แวนต์จากซ้ายไปขวาในเมนูเลือกเป้าหมายของสกิล ขณะที่เมนูนั้นเปิดอยู่ จะมีเพียงปุ่มเหล่านี้และ Cancel ที่ใช้กับเมนูได้ ให้ปล่อยปุ่มที่เปิดเมนูก่อนจึงจะกดซ้ำได้" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
         <StackPanel Name="BattleKeyboardPanel" Visibility="Collapsed" Margin="0,16,0,0">
-          <TextBlock Text="Keyboard Battle Mode" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
-          <ToggleButton Name="BattleKeyboardSwitch" Style="{StaticResource SwitchToggleStyle}" Content="Battles in free camera" AutomationProperties.Name="Battles in free camera" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,4" Checked="BattleKeyboard_OnChanged" Unchecked="BattleKeyboard_OnChanged" />
-          <TextBlock Text="Works with keyboard and mouse in battles you control: the mouse turns the camera, WASD moves and Q and E pick a card. Victory, defeat and leaving the battle bring touch back, and Photo Mode keeps its own controls." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+          <TextBlock Text="โหมดต่อสู้ด้วยคีย์บอร์ด" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+          <ToggleButton Name="BattleKeyboardSwitch" Style="{StaticResource SwitchToggleStyle}" Content="ต่อสู้ด้วยกล้องอิสระ" AutomationProperties.Name="Battles in free camera" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,4" Checked="BattleKeyboard_OnChanged" Unchecked="BattleKeyboard_OnChanged" />
+          <TextBlock Text="ใช้ได้กับคีย์บอร์ดและเมาส์ในการต่อสู้ที่คุณควบคุมเอง: เมาส์หมุนกล้อง WASD เดิน และ Q กับ E เลือกการ์ด เมื่อชนะ แพ้ หรือออกจากการต่อสู้ ระบบจะกลับไปใช้การสัมผัส ส่วนโหมดถ่ายภาพมีการควบคุมของตัวเอง" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
           <StackPanel Name="BattleKeyboardRows" Visibility="Collapsed">
-            <TextBlock Text="By default mouse button 4 confirms a card, the right button undoes it and the left button attacks; the middle button locks on and off, X unlocks and F moves to the next locked target. Tab steps out of the mode so the menus can be tapped, and Tab again goes back. The touch mapping above is not changed." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+            <TextBlock Text="โดยค่าเริ่มต้น ปุ่มเมาส์ 4 ยืนยันการ์ด ปุ่มขวายกเลิกการ์ด และปุ่มซ้ายโจมตี ปุ่มกลางล็อกเป้าเปิด/ปิด X ปลดล็อก และ F ย้ายไปเป้าหมายที่ล็อกถัดไป Tab ใช้ออกจากโหมดเพื่อให้แตะเมนูได้ และกด Tab อีกครั้งเพื่อกลับ การกำหนดปุ่มสัมผัสด้านบนไม่เปลี่ยนแปลง" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
             <WrapPanel Margin="0,4,0,12">
-              <TextBlock Text="Mouse Sensitivity" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
+              <TextBlock Text="ความไวเมาส์" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
               <Slider Name="BattleMouseSensitivity" Minimum="20" Maximum="300" Value="100" TickFrequency="5" IsSnapToTickEnabled="True" Width="220" VerticalAlignment="Center" AutomationProperties.Name="Mouse sensitivity in keyboard battle mode" />
               <TextBlock Width="55" Margin="10,0" VerticalAlignment="Center" Text="{Binding ElementName=BattleMouseSensitivity, Path=Value, StringFormat={}{0:0}%}" />
-              <CheckBox Name="BattleInvertY" Content="Invert vertical" VerticalAlignment="Center" />
+              <CheckBox Name="BattleInvertY" Content="กลับแกนแนวตั้ง" VerticalAlignment="Center" />
             </WrapPanel>
             <ItemsControl Name="BattleTouchMappings" HorizontalAlignment="Left" />
-            <TextBlock Text="Touch Click is kept apart for the menus outside battle and while the mode steps out; it can be held and dragged." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+            <TextBlock Text="Touch Click แยกไว้สำหรับเมนูนอกการต่อสู้และตอนที่โหมดออกไปชั่วคราว กดค้างและลากได้" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
             <ItemsControl Name="BattleKeyboardMappings" HorizontalAlignment="Left" />
           </StackPanel>
         </StackPanel>
       </StackPanel>
       <StackPanel Name="ControllerPanel" Visibility="Collapsed">
-        <TextBlock Name="ControllerMappingTitle" Text="Controller Mapping (XInput)" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
-        <TextBlock Name="DualSenseHelp" Visibility="Collapsed" Text="Plug in a DualSense or DualSense Edge over USB or Bluetooth, save PS5 mode, then click Detect Controller. If DS4Windows or Steam Input already turns the pad into an Xbox controller, pick Xbox or other controller (XInput) instead so every press is not counted twice." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+        <TextBlock Name="ControllerMappingTitle" Text="การกำหนดปุ่มคอนโทรลเลอร์ (XInput)" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
+        <TextBlock Name="DualSenseHelp" Visibility="Collapsed" Text="เสียบ DualSense หรือ DualSense Edge ผ่าน USB หรือบลูทูธ บันทึกโหมด PS5 แล้วคลิก ตรวจหาคอนโทรลเลอร์ หาก DS4Windows หรือ Steam Input แปลงแพดเป็นคอนโทรลเลอร์ Xbox อยู่แล้ว ให้เลือก Xbox หรือคอนโทรลเลอร์อื่น (XInput) แทน เพื่อไม่ให้การกดทุกครั้งถูกนับสองรอบ" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
         <ItemsControl Name="ControllerMappings" HorizontalAlignment="Left" />
         <WrapPanel Margin="0,8">
           <TextBlock Text="การเคลื่อนที่" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="{StaticResource TextSoftBrush}" />
@@ -57,24 +57,24 @@
         </WrapPanel>
         <TextBlock Name="ControllerDeadzoneHelp" Text="ช่วงเดดโซนคือ 0-32766 ค่าเริ่มต้นคือ 7849 เกณฑ์การกด LT / RT คือ 64 ส่วนเมนูยังคงใช้เมาส์หรือหน้าจอสัมผัส" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
         <StackPanel Name="HisPadPanel" Visibility="Collapsed">
-          <TextBlock Text="Card Selection" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
-          <ToggleButton Name="CardNavigationEnabled" Style="{StaticResource SwitchToggleStyle}" Content="Pick cards with the controller" AutomationProperties.Name="Pick cards with the controller" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,4" />
-          <TextBlock Text="The highlight moves left and right through the cards, confirm adds the card to the attack and undo takes back the last one. Touch still picks cards. While cards are picked, these buttons pick cards instead of their battle actions." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+          <TextBlock Text="การเลือกการ์ด" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
+          <ToggleButton Name="CardNavigationEnabled" Style="{StaticResource SwitchToggleStyle}" Content="เลือกการ์ดด้วยคอนโทรลเลอร์" AutomationProperties.Name="Pick cards with the controller" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,4" />
+          <TextBlock Text="ไฮไลต์จะเลื่อนซ้ายและขวาผ่านการ์ด ปุ่มยืนยันจะเพิ่มการ์ดเข้าการโจมตี และปุ่มยกเลิกจะนำใบล่าสุดออก การสัมผัสยังเลือกการ์ดได้ ขณะที่กำลังเลือกการ์ด ปุ่มเหล่านี้จะเลือกการ์ดแทนการทำงานในการต่อสู้ของมัน" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
           <ItemsControl Name="CardSelectionMappings" HorizontalAlignment="Left" />
-          <TextBlock Text="Controller Camera and Lock-on" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
-          <ToggleButton Name="ModernCameraEnabled" Style="{StaticResource SwitchToggleStyle}" Content="Controller camera" AutomationProperties.Name="Controller camera" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,4" />
+          <TextBlock Text="กล้องคอนโทรลเลอร์และการล็อกเป้า" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
+          <ToggleButton Name="ModernCameraEnabled" Style="{StaticResource SwitchToggleStyle}" Content="กล้องคอนโทรลเลอร์" AutomationProperties.Name="Controller camera" HorizontalAlignment="Left" MinWidth="210" Margin="0,0,0,4" />
           <WrapPanel Margin="0,4,0,8">
-            <TextBlock Text="Camera Sensitivity" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
+            <TextBlock Text="ความไวกล้อง" VerticalAlignment="Center" Margin="0,0,10,0" Foreground="{StaticResource TextSoftBrush}" />
             <Slider Name="CameraSensitivity" Minimum="20" Maximum="300" Value="100" TickFrequency="5" IsSnapToTickEnabled="True" Width="220" VerticalAlignment="Center" AutomationProperties.Name="Controller camera sensitivity" />
             <TextBlock Width="55" Margin="10,0" VerticalAlignment="Center" Text="{Binding ElementName=CameraSensitivity, Path=Value, StringFormat={}{0:0}%}" />
-            <CheckBox Name="CameraInvertY" Content="Invert vertical" VerticalAlignment="Center" />
+            <CheckBox Name="CameraInvertY" Content="กลับแกนแนวตั้ง" VerticalAlignment="Center" />
           </WrapPanel>
           <ItemsControl Name="CameraLockMappings" HorizontalAlignment="Left" />
-          <TextBlock Text="Unlocked, the right stick turns the camera. The lock button locks on and off; locked, push the right stick toward another target to switch to it. When on, the controller camera takes over lock-on, switching targets and centring the camera, and the right stick no longer moves the Servant." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
-          <TextBlock Text="Controller Mouse" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
+          <TextBlock Text="เมื่อไม่ได้ล็อก อนาล็อกขวาจะหมุนกล้อง ปุ่มล็อกใช้เปิด/ปิดการล็อกเป้า เมื่อล็อกอยู่ ดันอนาล็อกขวาไปทางเป้าหมายอื่นเพื่อสลับไปที่เป้าหมายนั้น เมื่อเปิดอยู่ กล้องคอนโทรลเลอร์จะรับหน้าที่ล็อกเป้า สลับเป้าหมาย และจัดกล้องให้กลับมาตรงกลาง และอนาล็อกขวาจะไม่ขยับเซอร์แวนต์อีกต่อไป" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+          <TextBlock Text="เมาส์คอนโทรลเลอร์" Style="{StaticResource SectionTitleStyle}" Margin="0,8,0,8" />
           <ItemsControl Name="MouseMappings" HorizontalAlignment="Left" />
           <TextBlock Name="MouseBindingNotice" TextWrapping="Wrap" Margin="3,0,0,8" Foreground="{StaticResource WarnBrush}" Visibility="Collapsed" />
-          <TextBlock Text="The toggle turns the controller mouse on and off; the click button clicks, holds and drags. The other stick drags across the screen like a finger, and the pointer stops at the screen's edge. While the controller mouse is on, the controller's battle input is paused. Pick Disabled for the toggle to turn it off." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
+          <TextBlock Text="ปุ่มสลับใช้เปิดและปิดเมาส์คอนโทรลเลอร์ ปุ่มคลิกใช้คลิก กดค้าง และลาก อนาล็อกอีกข้างลากไปทั่วหน้าจอเหมือนนิ้ว และตัวชี้จะหยุดที่ขอบหน้าจอ ขณะที่เมาส์คอนโทรลเลอร์เปิดอยู่ การป้อนข้อมูลการต่อสู้ของคอนโทรลเลอร์จะหยุดชั่วคราว เลือก Disabled ที่ปุ่มสลับเพื่อปิด" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,12" />
         </StackPanel>
         <CheckBox Name="RumbleEnabled" Content="เปิดใช้งานการสั่นของคอนโทรลเลอร์ (ตอนโจมตี ตอนโจมตีโดน และตอนถูกโจมตี)" Margin="3,8" />
         <WrapPanel Margin="3,4,0,8">
@@ -99,10 +99,10 @@
       <TextBlock Text="ปุ่มที่ใช้ร่วมกัน" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,8" />
       <TextBlock Text="การกำหนดปุ่มคีย์บอร์ด: คลิกที่ช่องปุ่ม แล้วกดปุ่มเดียวบนคีย์บอร์ดหรือปุ่มเมาส์ที่คุณต้องการ กด Esc เพื่อยกเลิก และใช้เมนูคลิกขวาเพื่อล้างการกำหนดปุ่ม" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
       <ItemsControl Name="CommonMappings" />
-      <ToggleButton Name="OperatorMenuKeysSwitch" Style="{StaticResource SwitchToggleStyle}" Content="Operator menu keys (F1, F2)" AutomationProperties.Name="Operator menu keys (F1, F2)" HorizontalAlignment="Left" MinWidth="210" Margin="0,8,0,8" />
-      <TextBlock Text="Off, these two keys do nothing in the game. Turn on only if the game shows ERROR 8404. Takes effect the next time you press Play." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
-      <ToggleButton Name="CursorLockSwitch" Style="{StaticResource SwitchToggleStyle}" Content="Keep the mouse inside the game window" AutomationProperties.Name="Keep the mouse inside the game window" HorizontalAlignment="Left" MinWidth="210" Margin="0,8,0,8" />
-      <TextBlock Text="Holds only while the game is in front: bring another window forward and the mouse is free. Takes effect the next time you press Play." Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+      <ToggleButton Name="OperatorMenuKeysSwitch" Style="{StaticResource SwitchToggleStyle}" Content="ปุ่มเมนูผู้ดูแล (F1, F2)" AutomationProperties.Name="Operator menu keys (F1, F2)" HorizontalAlignment="Left" MinWidth="210" Margin="0,8,0,8" />
+      <TextBlock Text="เมื่อปิด ปุ่มทั้งสองนี้จะไม่ทำอะไรในเกม เปิดเฉพาะเมื่อเกมแสดง ERROR 8404 จะมีผลเมื่อกดเล่นครั้งถัดไป" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
+      <ToggleButton Name="CursorLockSwitch" Style="{StaticResource SwitchToggleStyle}" Content="ล็อกเมาส์ไว้ในหน้าต่างเกม" AutomationProperties.Name="Keep the mouse inside the game window" HorizontalAlignment="Left" MinWidth="210" Margin="0,8,0,8" />
+      <TextBlock Text="ล็อกเฉพาะตอนที่เกมอยู่ด้านหน้า: หากเปิดหน้าต่างอื่นขึ้นมา เมาส์จะเป็นอิสระ จะมีผลเมื่อกดเล่นครั้งถัดไป" Style="{StaticResource HelpTextStyle}" Margin="3,0,0,8" />
       <WrapPanel Margin="0,16,0,8">
         <Button Content="คืนค่าเริ่มต้น" Click="Defaults_OnClick" />
         <Button Content="บันทึก" Click="Save_OnClick" />

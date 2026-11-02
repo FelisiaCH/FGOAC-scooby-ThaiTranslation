@@ -65,7 +65,7 @@ public partial class MainWindow
 		}
 		try
 		{
-			HoldStatus((ShaderCache.Clear(GamePaths.GameRoot, running).Count == 0) ? "There was no shader cache to clear." : "Shader cache cleared: the next start builds it again, so it takes a little longer.");
+			HoldStatus((ShaderCache.Clear(GamePaths.GameRoot, running).Count == 0) ? "ไม่มีแคชเชเดอร์ให้ล้าง" : "ล้างแคชเชเดอร์แล้ว: การเริ่มเกมครั้งถัดไปจะสร้างใหม่ จึงใช้เวลานานขึ้นเล็กน้อย");
 		}
 		catch (Exception ex) when (ex is InvalidOperationException || ex is IOException || ex is UnauthorizedAccessException)
 		{
@@ -99,7 +99,7 @@ public partial class MainWindow
 		}
 		catch (Exception ex)
 		{
-			HoldStatus("The GPU preference could not be set: " + ex.Message);
+			HoldStatus("ตั้งค่ากำหนด GPU ไม่ได้: " + ex.Message);
 			return;
 		}
 		HoldStatus("บันทึกการตั้งค่ากราฟิกแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป");
@@ -115,7 +115,7 @@ public partial class MainWindow
 		GpuLayerComboBox.Items.Clear();
 		if (current == null)
 		{
-			GpuLayerComboBox.Items.Add(new ComboBoxItem { Content = "Another layer, left as it is", Tag = null });
+			GpuLayerComboBox.Items.Add(new ComboBoxItem { Content = "เลเยอร์อื่น ปล่อยไว้ตามเดิม", Tag = null });
 		}
 		foreach (GpuCompat.Choice choice in GpuCompat.Offered)
 		{
@@ -137,8 +137,8 @@ public partial class MainWindow
 		return choice switch
 		{
 			GpuCompat.Choice.Cloud => "Cloud23333's layer",
-			GpuCompat.Choice.Older => "The 1.1.0 layer",
-			GpuCompat.Choice.Fluphus => "fluphus's AMD layer",
+			GpuCompat.Choice.Older => "เลเยอร์ 1.1.0",
+			GpuCompat.Choice.Fluphus => "เลเยอร์ AMD ของ fluphus",
 			_ => "Off"
 		};
 	}
@@ -153,11 +153,11 @@ public partial class MainWindow
 		bool his = GpuCompat.HisBuild;
 		GpuCompatHelpText.Text = PickedGpuLayer switch
 		{
-			null => "App holds a layer file FGOAC scooby did not ship, so it is left as it is. Pick a layer to replace it.",
-			GpuCompat.Choice.Cloud => his ? "The layer Cloud23333's update installs and runs. fluphus's AMD layer is the other choice, for a card that runs badly on his." : "Cloud23333's layer from his latest update (App\\fgoglcompat.dll), the default for AMD and Intel graphics.",
-			GpuCompat.Choice.Older => "The layer FGOAC scooby shipped with 1.1.0 (App\\fgoglcompat.dll), which players report working on RX 500, RX 6000 and RX 7600 cards and on desktop Ryzen graphics.",
+			null => "App มีไฟล์เลเยอร์ที่ FGOAC scooby ไม่ได้ติดตั้งให้ จึงปล่อยไว้ตามเดิม เลือกเลเยอร์เพื่อแทนที่",
+			GpuCompat.Choice.Cloud => his ? "เลเยอร์ที่อัปเดตของ Cloud23333 ติดตั้งและใช้งาน เลเยอร์ AMD ของ fluphus เป็นอีกตัวเลือกสำหรับการ์ดจอที่ทำงานได้ไม่ดีบนเลเยอร์ของเขา" : "เลเยอร์ของ Cloud23333 จากอัปเดตล่าสุดของเขา (App\\fgoglcompat.dll) เป็นค่าเริ่มต้นสำหรับกราฟิก AMD และ Intel",
+			GpuCompat.Choice.Older => "เลเยอร์ที่ FGOAC scooby ติดตั้งมากับ 1.1.0 (App\\fgoglcompat.dll) ซึ่งผู้เล่นรายงานว่าใช้ได้กับการ์ดจอ RX 500, RX 6000 และ RX 7600 และกราฟิก Ryzen บนเดสก์ท็อป",
 			GpuCompat.Choice.Fluphus => "fluphus's AMD layer (App\\opengl32.dll), which holds the game at 60 FPS. In AMD Software set Wait for Vertical Refresh to Off, Unless Application Specifies, and turn off overlays and other frame limiters." + (his ? " No graphics card can be picked while it is on." : ""),
-			_ => GpuCompat.HasNvidiaAdapter() ? "Off. An NVIDIA card is present: the layers are for AMD and Intel graphics." : "Off. On AMD and Intel graphics pick a layer; Cloud23333's is the default."
+			_ => GpuCompat.HasNvidiaAdapter() ? "ปิดอยู่ มีการ์ดจอ NVIDIA ในเครื่อง: เลเยอร์ใช้สำหรับกราฟิก AMD และ Intel" : "ปิดอยู่ บนกราฟิก AMD และ Intel ให้เลือกเลเยอร์ ค่าเริ่มต้นคือของ Cloud23333"
 		};
 	}
 

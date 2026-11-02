@@ -36,7 +36,7 @@ public partial class BindingsSettingsView : UserControl, IComponentConnector
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
 		{
 			bindings = Bindings.Parse("", stock, problems.Add);
-			problems.Add("The bindings file could not be read: " + ex.Message);
+			problems.Add("อ่านไฟล์การผูกปุ่มไม่ได้: " + ex.Message);
 		}
 		if (stock.TapsOff != null)
 		{
@@ -164,11 +164,11 @@ public partial class BindingsSettingsView : UserControl, IComponentConnector
 		{
 			bindings.Save(path);
 			StatusText.Foreground = (Brush)Application.Current.Resources["IceBrush"];
-			StatusText.Text = "Saved. The bindings apply the next time you press Play.";
+			StatusText.Text = "บันทึกแล้ว การผูกปุ่มจะมีผลเมื่อกดเล่นครั้งถัดไป";
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
 		{
-			ShowProblem(this, "Could not save the bindings: " + ex.Message);
+			ShowProblem(this, "บันทึกการผูกปุ่มไม่ได้: " + ex.Message);
 		}
 	}
 

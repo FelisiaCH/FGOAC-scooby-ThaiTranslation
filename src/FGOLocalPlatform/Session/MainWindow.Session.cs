@@ -133,7 +133,7 @@ public partial class MainWindow
 		{
 			if (online)
 			{
-				ShowPlayProblem("Play Online turns every Debug switch off, and App\\battle-debug.ini could not be written: " + ex.Message.TrimEnd('.') + ". Close any program that has it open, then press Play Online again.");
+				ShowPlayProblem("Play Online ปิดทุกสวิตช์ Debug และเขียน App\\battle-debug.ini ไม่ได้: " + ex.Message.TrimEnd('.') + " ปิดโปรแกรมที่เปิดไฟล์นี้อยู่ แล้วกด Play Online อีกครั้ง");
 				return;
 			}
 			battleDebugProblem = ex.Message;

@@ -309,10 +309,10 @@ $useCommunityServer = [bool]$CommunityServer
 if ($useCommunityServer) {
     $communityHost = [string]$launcherConfig.communityServer.host
     if ([string][Uri]::CheckHostName($communityHost) -notin @('Dns', 'IPv4')) {
-        Stop-WithMessage "The community server address '$communityHost' is not a host name or an IPv4 address. Enter it again on the Online page." 13
+        Stop-WithMessage "ที่อยู่เซิร์ฟเวอร์ชุมชน '$communityHost' ไม่ใช่ชื่อโฮสต์หรือที่อยู่ IPv4 ให้กรอกใหม่ในหน้า Online" 13
     }
     if ((Get-FgoNetworkPlan -ServerHost $communityHost).Local) {
-        Stop-WithMessage "The community server address '$communityHost' is this PC. Press Play on the Play page to play on the local server." 13
+        Stop-WithMessage "ที่อยู่เซิร์ฟเวอร์ชุมชน '$communityHost' คือเครื่องนี้ ให้กดเล่นในหน้าเล่นเพื่อเล่นบนเซิร์ฟเวอร์ในเครื่อง" 13
     }
     # The game reaches the launcher's TLS tunnel on this PC the way it reaches the local server.
     $network = Get-FgoNetworkPlan -ServerHost 'auto'
@@ -330,7 +330,7 @@ else {
     $requiredPorts = @($launcherConfig.requiredPorts)
     $aimePath = Join-Path $deviceRoot "aime.txt"
     if (-not (Test-Path -LiteralPath $aimePath -PathType Leaf)) {
-        Stop-WithMessage "No account is selected: $aimePath is missing. Pick a Master in the Master menu on Play, then press Play again." 16
+        Stop-WithMessage "ยังไม่ได้เลือกบัญชี: ไม่พบ $aimePath ให้เลือก Master ในเมนู Master ในหน้าเล่น แล้วกดเล่นอีกครั้ง" 16
     }
 }
 $localIp = $network.Cabinet
@@ -749,7 +749,7 @@ Write-Host "ตัวเรนเดอร์: $nativeRenderArgument $($nativeRe
 Write-Host "อัตราเฟรม: $effectiveTargetFps FPS (ปรับมาตรฐานโดยเอนจิน)"
 Write-Host "ฮุกเสียง: $useAudioHook"
 Write-Host "โลแคล JP ของโปรเซส: $useProcessJapaneseLocale"
-Write-Host "WASAPI     : $useWasapiShared"
+Write-Host "WASAPI: $useWasapiShared"
 if ($audioEndpointInspectionSucceeded) {
     Write-Host "เสียงออก: $($activeAudioEndpoints.Name -join ', ')"
 }

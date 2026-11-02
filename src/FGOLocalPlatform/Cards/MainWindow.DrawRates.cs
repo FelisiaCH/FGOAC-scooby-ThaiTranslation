@@ -21,7 +21,7 @@ public partial class MainWindow
 		}
 		catch (Exception ex)
 		{
-			SummonTabProblemText.Text = "Draw rates are a setting of the local server, and its files could not be read, so there is nothing to change here. Online play uses the community server's own rates.\n\n" + ex.Message;
+			SummonTabProblemText.Text = "อัตราการสุ่มเป็นการตั้งค่าของเซิร์ฟเวอร์ในเครื่อง และอ่านไฟล์ของเซิร์ฟเวอร์ไม่ได้ จึงไม่มีอะไรให้เปลี่ยนที่นี่ การเล่นออนไลน์ใช้อัตราของเซิร์ฟเวอร์ชุมชนเอง\n\n" + ex.Message;
 			SummonTabProblemText.Visibility = Visibility.Visible;
 		}
 	}

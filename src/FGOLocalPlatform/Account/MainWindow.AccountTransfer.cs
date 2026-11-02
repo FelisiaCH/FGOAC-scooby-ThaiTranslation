@@ -41,7 +41,7 @@ public partial class MainWindow
 		}
 		else
 		{
-			ThemedMessageBox.Show(this, AccountTransfer.Explain(result.Message), "Move accounts", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(this, AccountTransfer.Explain(result.Message), "ย้ายบัญชี", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 		}
 		return true;
 	}
@@ -56,7 +56,7 @@ public partial class MainWindow
 			}
 			SaveFileDialog dialog = new SaveFileDialog
 			{
-				Title = "Export all local accounts",
+				Title = "ส่งออกบัญชีในเครื่องทั้งหมด",
 				Filter = AccountTransfer.FileFilter,
 				FileName = AccountTransfer.DefaultFileName(DateTime.Now)
 			};
@@ -68,7 +68,7 @@ public partial class MainWindow
 			if (!ReportTransferFailure(result, "export-accounts"))
 			{
 				AppendAccountLog("Every local account exported to " + dialog.FileName);
-				ThemedMessageBox.Show(this, "Every local account is in " + dialog.FileName + ": its card, its whole save and its pending gifts. Keep the file somewhere safe.", "Export all", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+				ThemedMessageBox.Show(this, "บัญชีในเครื่องทั้งหมดอยู่ใน " + dialog.FileName + ": ทั้งการ์ด เซฟทั้งหมด และของขวัญที่รอรับ เก็บไฟล์นี้ไว้ในที่ปลอดภัย", "ส่งออกทั้งหมด", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 			}
 		});
 	}
@@ -83,7 +83,7 @@ public partial class MainWindow
 			}
 			OpenFileDialog dialog = new OpenFileDialog
 			{
-				Title = "Import local accounts",
+				Title = "นำเข้าบัญชีในเครื่อง",
 				Filter = AccountTransfer.FileFilter
 			};
 			if (DialogSink.ShowDialog(dialog, this) != true)

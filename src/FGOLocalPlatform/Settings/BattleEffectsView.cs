@@ -77,7 +77,7 @@ public partial class BattleEffectsView : UserControl, IComponentConnector
 		}
 		catch (Win32Exception ex)
 		{
-			StatusText.Text = "Could not save: " + ex.Message;
+			StatusText.Text = "บันทึกไม่สำเร็จ: " + ex.Message;
 			StatusText.Visibility = Visibility.Visible;
 		}
 	}

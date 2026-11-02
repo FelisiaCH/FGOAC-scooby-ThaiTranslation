@@ -46,7 +46,7 @@ public sealed class PadBindingButton : Button
 		{
 			this.value = value;
 			timer.Stop();
-			base.Content = value?.Display(DualSense) ?? "Not bound";
+			base.Content = value?.Display(DualSense) ?? "ยังไม่ได้ผูกปุ่ม";
 		}
 	}
 
@@ -54,8 +54,8 @@ public sealed class PadBindingButton : Button
 	{
 		SetResourceReference(FrameworkElement.StyleProperty, typeof(Button));
 		base.HorizontalContentAlignment = HorizontalAlignment.Left;
-		base.ToolTip = "Click, release every controller button, then press the button or buttons you want and let go.";
-		base.Content = "Not bound";
+		base.ToolTip = "คลิก ปล่อยปุ่มคอนโทรลเลอร์ทุกปุ่ม แล้วกดปุ่มที่ต้องการ (กดได้หลายปุ่มพร้อมกัน) จากนั้นปล่อยมือ";
+		base.Content = "ยังไม่ได้ผูกปุ่ม";
 		timer.Tick += Timer_OnTick;
 		base.Unloaded += delegate
 		{
@@ -69,7 +69,7 @@ public sealed class PadBindingButton : Button
 		sawNeutral = false;
 		pressed = 0;
 		deadline = DateTime.UtcNow.AddSeconds(10.0);
-		base.Content = "Release, then press...";
+		base.Content = "ปล่อยปุ่มก่อน แล้วกด...";
 		timer.Start();
 	}
 
@@ -77,7 +77,7 @@ public sealed class PadBindingButton : Button
 	{
 		if (DateTime.UtcNow >= deadline)
 		{
-			Stop("Nothing was pressed on the controller for 10 seconds, so nothing changed.");
+			Stop("ไม่มีการกดปุ่มบนคอนโทรลเลอร์ภายใน 10 วินาที จึงไม่มีอะไรเปลี่ยน");
 			return;
 		}
 		uint result;
@@ -93,7 +93,7 @@ public sealed class PadBindingButton : Button
 		}
 		if (result != 0)
 		{
-			Stop((result == 1167) ? $"No controller answers as number {ControllerIndex + 1}. Check its connection and the controller number in Controls." : $"The controller check failed with error {result}.");
+			Stop((result == 1167) ? $"ไม่มีคอนโทรลเลอร์ตอบสนองที่หมายเลข {ControllerIndex + 1} ตรวจสอบการเชื่อมต่อและหมายเลขคอนโทรลเลอร์ในหน้าการควบคุม" : $"การตรวจสอบคอนโทรลเลอร์ล้มเหลว ข้อผิดพลาด {result}");
 			return;
 		}
 		uint buttons = (state.Gamepad.Buttons | ((state.Gamepad.LeftTrigger > 64) ? 0x10000u : 0u) | ((state.Gamepad.RightTrigger > 64) ? 0x20000u : 0u)) & PadButtons;

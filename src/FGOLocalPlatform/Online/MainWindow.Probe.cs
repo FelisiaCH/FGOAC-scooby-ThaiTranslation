@@ -54,7 +54,7 @@ public partial class MainWindow
 	{
 		CommunityServer.Settings settings = tunnel.Settings;
 		sessionProbing = true;
-		ShowOnlineStatus("Checking the community server " + settings.Host + "...", "busy");
+		ShowOnlineStatus("กำลังตรวจสอบเซิร์ฟเวอร์ชุมชน " + settings.Host + "...", "busy");
 		string? refusal;
 		try
 		{
@@ -87,11 +87,11 @@ public partial class MainWindow
 	{
 		if (probing)
 		{
-			return ("Checking the community server " + settings.Host + "...", "busy");
+			return ("กำลังตรวจสอบเซิร์ฟเวอร์ชุมชน " + settings.Host + "...", "busy");
 		}
 		if (lastProbe is { } probe && probe.Settings == settings && probe.Card == card)
 		{
-			return (probe.Refusal != null) ? (probe.Refusal, "problem") : ($"Online, {settings.Host}, reachable, checked {probe.At:HH:mm}", "ready");
+			return (probe.Refusal != null) ? (probe.Refusal, "problem") : ($"ออนไลน์ {settings.Host} เชื่อมต่อได้ ตรวจเมื่อ {probe.At:HH:mm}", "ready");
 		}
 		return null;
 	}

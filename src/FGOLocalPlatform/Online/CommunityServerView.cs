@@ -48,13 +48,13 @@ public partial class CommunityServerView : UserControl, IComponentConnector
 		{
 			if (!int.TryParse(value, out var result) || result < 1 || result > 65535)
 			{
-				throw new ArgumentException("Each port must be a whole number from 1 to 65535.");
+				throw new ArgumentException("แต่ละพอร์ตต้องเป็นจำนวนเต็มตั้งแต่ 1 ถึง 65535");
 			}
 			return result;
 		}).ToArray();
 		if (ports.Skip(3).Concat(new int[3] { CommunityServer.MsPort, CommunityServer.PingPort, CommunityServer.DistPort }).Distinct().Count() != 6)
 		{
-			throw new ArgumentException("The title, billing and card reader ports cannot share a number, and cannot be 30110, 30111 or 30112, which the game uses for matching.");
+			throw new ArgumentException("พอร์ต Title พอร์ต Billing และพอร์ตเครื่องอ่านการ์ดต้องไม่ใช้เลขซ้ำกัน และห้ามเป็น 30110, 30111 หรือ 30112 ซึ่งเกมใช้สำหรับการจับคู่");
 		}
 		string pin = CommunityServer.NormalizePin(CommunityPinBox.Text);
 		return new CommunityServer.Settings(enabled, host, ports[0], pin, ports[1], ports[2], ports[3], ports[4], ports[5], CommunityServer.MsPort, CommunityServer.PingPort, CommunityServer.DistPort);
@@ -64,7 +64,7 @@ public partial class CommunityServerView : UserControl, IComponentConnector
 	{
 		if (Process.GetProcessesByName("ago").Length != 0)
 		{
-			ShowNote("Quit the game before changing the address.", problem: true);
+			ShowNote("ออกจากเกมก่อนเปลี่ยนที่อยู่", problem: true);
 			return;
 		}
 		try

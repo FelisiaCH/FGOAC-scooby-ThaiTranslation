@@ -3,9 +3,9 @@
   <ScrollViewer VerticalScrollBarVisibility="Auto">
     <StackPanel Margin="28" MaxWidth="900" HorizontalAlignment="Left">
       <TextBlock Text="ชุดค่าดีบักการต่อสู้ในเครื่อง ทุกอย่างปิดอยู่ตามค่าเริ่มต้น และจะไม่มีการเขียนข้อมูลลงเซฟบัญชีของคุณ" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,4" />
-      <TextBlock Text="Online play ignores them: Play Online always starts with every switch off." Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" />
+      <TextBlock Text="การเล่นออนไลน์ไม่ใช้ค่าเหล่านี้: Play Online จะเริ่มโดยปิดทุกสวิตช์เสมอ" Style="{StaticResource HelpTextStyle}" Margin="0,0,0,12" />
       <Border BorderBrush="{StaticResource LineBrush}" BorderThickness="1" Background="{StaticResource PlateBrush}" Padding="12" Margin="0,0,0,18">
-        <TextBlock Text="A running game takes the changes about a second after you save." TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" />
+        <TextBlock Text="เกมที่กำลังทำงานอยู่จะรับการเปลี่ยนแปลงประมาณหนึ่งวินาทีหลังจากคุณบันทึก" TextWrapping="Wrap" Foreground="{StaticResource TextBrush}" />
       </Border>
       <TextBlock Text="สูตรโกง" Style="{StaticResource SectionTitleStyle}" Margin="0,0,0,10" />
       <StackPanel>
@@ -19,18 +19,18 @@
             <TextBlock Text="ข้ามช่วงรอชาร์จ Noble Phantasm ส่วนคัตซีน NP และการคำนวณความเสียหายตามปกติยังคงเดิม" Foreground="{StaticResource TextSoftBrush}" Margin="24,0,0,14" />
             <CheckBox Name="Invincible" Content="อมตะ" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
             <TextBlock Text="การโจมตีของศัตรูจะไม่ลด HP ของคุณอีกต่อไป การพ่ายแพ้ตามบทในเนื้อเรื่องยังคงเกิดขึ้น และตัวศัตรูเองไม่ได้ถูกเปลี่ยนแปลง" Foreground="{StaticResource TextSoftBrush}" Margin="24,0,0,14" />
-            <CheckBox Name="StopTimer" Content="Stop the battle timer" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
-            <TextBlock Name="StopTimerHookNote" Text="This game folder has an older update from Cloud23333, which ignores this setting; his latest update reads it." Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource WarnBrush}" Margin="24,0,0,4" Visibility="Collapsed" />
-            <TextBlock Text="The battle's countdown stops while this is on." Foreground="{StaticResource TextSoftBrush}" Margin="24,0,0,14" />
+            <CheckBox Name="StopTimer" Content="หยุดตัวจับเวลาการต่อสู้" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
+            <TextBlock Name="StopTimerHookNote" Text="โฟลเดอร์เกมนี้มีอัปเดตรุ่นเก่าของ Cloud23333 ซึ่งไม่สนใจการตั้งค่านี้ ต้องใช้อัปเดตล่าสุดของเขาจึงจะอ่านค่านี้" Style="{StaticResource HelpTextStyle}" Foreground="{StaticResource WarnBrush}" Margin="24,0,0,4" Visibility="Collapsed" />
+            <TextBlock Text="ตัวนับถอยหลังของการต่อสู้จะหยุดนิ่งเมื่อเปิดตัวเลือกนี้" Foreground="{StaticResource TextSoftBrush}" Margin="24,0,0,14" />
       </StackPanel>
       <StackPanel Name="HisSwitchesPanel" Visibility="Collapsed">
-        <TextBlock Text="Quests and Versus" Style="{StaticResource SectionTitleStyle}" Margin="0,18,0,10" />
-        <CheckBox Name="AutoClear" Content="Clear Quests on Entry" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
-        <TextBlock Text="Single-player quests only. Each wave is cleared as soon as its battle starts, with the normal scenes and results; mission conditions such as kills or damage are not filled in." Style="{StaticResource HelpTextStyle}" Margin="24,0,0,14" />
-        <CheckBox Name="Cost233" Content="Party Cost Limit 233" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
-        <TextBlock Text="Turning it off brings back the normal limit for your Master level." Style="{StaticResource HelpTextStyle}" Margin="24,0,0,14" />
-        <CheckBox Name="PvpSelect" Content="Pick the Versus Map" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
-        <TextBlock Text="The map for ranked versus and solo versus against NPCs, used the next time you enter one in the game. Story, event and co-op battles keep their own maps." Style="{StaticResource HelpTextStyle}" Margin="24,0,0,8" />
+        <TextBlock Text="เควสต์และ Versus" Style="{StaticResource SectionTitleStyle}" Margin="0,18,0,10" />
+        <CheckBox Name="AutoClear" Content="เคลียร์เควสต์ทันทีเมื่อเข้า" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
+        <TextBlock Text="เฉพาะเควสต์เล่นคนเดียว แต่ละเวฟจะถูกเคลียร์ทันทีที่การต่อสู้เริ่ม โดยยังมีฉากและผลลัพธ์ตามปกติ เงื่อนไขภารกิจ เช่น จำนวนที่สังหารหรือความเสียหาย จะไม่ถูกเติมให้" Style="{StaticResource HelpTextStyle}" Margin="24,0,0,14" />
+        <CheckBox Name="Cost233" Content="ขีดจำกัดคอสต์ปาร์ตี้ 233" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
+        <TextBlock Text="เมื่อปิด จะคืนขีดจำกัดปกติตามเลเวลมาสเตอร์ของคุณ" Style="{StaticResource HelpTextStyle}" Margin="24,0,0,14" />
+        <CheckBox Name="PvpSelect" Content="เลือกแผนที่ Versus" Margin="0,8" Checked="Option_OnChanged" Unchecked="Option_OnChanged" />
+        <TextBlock Text="แผนที่สำหรับ ranked versus และ solo versus กับ NPC ใช้เมื่อคุณเข้าโหมดนั้นในเกมครั้งถัดไป การต่อสู้ในเนื้อเรื่อง อีเวนต์ และ co-op จะใช้แผนที่ของตัวเอง" Style="{StaticResource HelpTextStyle}" Margin="24,0,0,8" />
         <ComboBox Name="PvpStage" Width="360" HorizontalAlignment="Left" Margin="24,0,0,0" MaxDropDownHeight="360" AutomationProperties.Name="Versus map" SelectionChanged="PvpStage_OnChanged" />
         <Image Name="PvpPreview" Height="180" Stretch="Uniform" HorizontalAlignment="Left" Margin="24,10,0,4" />
       </StackPanel>

@@ -160,7 +160,7 @@ public partial class CursorSettingsView : UserControl, IComponentConnector
 			if (refusal == null)
 			{
 				WriteTapButton(ini, key);
-				TapStatus.Text = "Saved - it takes effect the next time the game starts.";
+				TapStatus.Text = "บันทึกแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป";
 				return;
 			}
 			TapStatus.Text = refusal;

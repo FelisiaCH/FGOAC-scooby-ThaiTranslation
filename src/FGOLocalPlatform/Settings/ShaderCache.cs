@@ -27,7 +27,7 @@ public static class ShaderCache
 		string appRoot = Path.GetFullPath(appFolder).TrimEnd('\\') + "\\";
 		if (!File.Exists(Path.Combine(appRoot, "ago.exe")))
 		{
-			throw new InvalidOperationException("The game's App folder with ago.exe was not found, so nothing was cleared.");
+			throw new InvalidOperationException("ไม่พบโฟลเดอร์ App ของเกมที่มี ago.exe จึงไม่ได้ล้างอะไร");
 		}
 		List<string> removed = new List<string>();
 		foreach (string name in Folders)

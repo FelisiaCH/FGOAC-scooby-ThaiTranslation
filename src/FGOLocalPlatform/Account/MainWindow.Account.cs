@@ -148,7 +148,7 @@ public partial class MainWindow
 				AppendAccountLog($"Created account {name} (ID {aimeId}), mode {mode}, access code {accessCode}");
 				await RefreshAccountsAsync(showErrors: false);
 				SelectAccountById(aimeId);
-				ThemedMessageBox.Show($"Account created: {name} (ID {aimeId})\nCard ending {accessCode.Substring(Math.Max(0, accessCode.Length - 4))}", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+				ThemedMessageBox.Show($"สร้างบัญชีแล้ว: {name} (ID {aimeId})\nการ์ดลงท้ายด้วย {accessCode.Substring(Math.Max(0, accessCode.Length - 4))}", "FGOAC scooby", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 				if (ThemedMessageBox.Show("สลับไปใช้บัญชีใหม่ตอนนี้เลยไหม", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
 				{
 					AccountToolResult result = await RunAccountToolAsync("use", "--aime-id", aimeId.ToString(), "--json");
@@ -179,8 +179,8 @@ public partial class MainWindow
 		{
 			return;
 		}
-		string text = (account.IsCurrent ? "\n\nThis is the current account. After it is deleted the launcher switches to a remaining account; if none are left the current card is cleared." : "");
-		if (ThemedMessageBox.Show($"Permanently delete the account {account.MasterName} (ID {account.AimeId})?\n\nMaster level: Lv.{account.MasterLevel}\nPrinted cards: {account.OwnedCardCount} unique / {account.OwnedCardCopyCount} copies\nQuests cleared: {account.ClearedQuestCount}\n\n" + "The save data, the account's card, the card mapping and any leftover account backups are deleted permanently, and no recoverable copy is kept." + text, "ยืนยันการลบบัญชี", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
+		string text = (account.IsCurrent ? "\n\nนี่คือบัญชีปัจจุบัน หลังจากลบแล้วตัวเรียกเกมจะสลับไปใช้บัญชีที่เหลืออยู่ หากไม่เหลือบัญชีใดเลย การ์ดปัจจุบันจะถูกล้าง" : "");
+		if (ThemedMessageBox.Show($"ลบบัญชี {account.MasterName} (ID {account.AimeId}) อย่างถาวรหรือไม่\n\nเลเวลมาสเตอร์: Lv.{account.MasterLevel}\nการ์ดที่พิมพ์: {account.OwnedCardCount} แบบ / {account.OwnedCardCopyCount} ใบ\nเควสต์ที่เคลียร์: {account.ClearedQuestCount}\n\n" + "ข้อมูลเซฟ การ์ดของบัญชี การจับคู่การ์ด และไฟล์สำรองของบัญชีที่ยังเหลืออยู่ จะถูกลบอย่างถาวร และจะไม่มีสำเนาที่กู้คืนได้เหลือไว้" + text, "ยืนยันการลบบัญชี", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -229,7 +229,7 @@ public partial class MainWindow
 		string action = button.Tag.ToString();
 		string title = button.Content.ToString();
 		// Only Clear Present Box deletes anything, so it alone asks first; every action backs the save up before writing.
-		if (action == "clear-gifts" && ThemedMessageBox.Show(this, $"Run {title} on the account {account.MasterName} (ID {account.AimeId})?\n\nThis deletes every unclaimed present without collecting the rewards inside. All other progress is kept, and the save is backed up before anything is written.", title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (action == "clear-gifts" && ThemedMessageBox.Show(this, $"เรียกใช้ {title} กับบัญชี {account.MasterName} (ID {account.AimeId}) หรือไม่\n\nการทำเช่นนี้จะลบของขวัญที่ยังไม่ได้รับทุกชิ้นโดยไม่รับรางวัลข้างใน ความคืบหน้าอื่นทั้งหมดจะยังอยู่ และจะสำรองเซฟก่อนเขียนข้อมูลใดๆ", title, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}

@@ -73,7 +73,7 @@ public partial class MainWindow
 					}
 					return AccountMode;
 				}
-				return "All Servants";
+				return "เซอร์แวนต์ทั้งหมด";
 			}
 		}
 

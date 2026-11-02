@@ -202,7 +202,7 @@ public partial class MainWindow
 					Window dialog = new Window
 					{
 						Owner = this,
-						Title = $"Grant Bonus Items - {account.MasterName} (ID {account.AimeId})",
+						Title = $"มอบไอเทม - {account.MasterName} (ID {account.AimeId})",
 						Width = 980.0,
 						Height = 680.0,
 						MinWidth = 760.0,

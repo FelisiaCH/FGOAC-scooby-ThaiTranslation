@@ -696,7 +696,7 @@ public partial class ControlSettingsView : UserControl, IComponentConnector
 		string[] shared = (from m in mappings
 			where m.Section == "xinput" && !m.ValueList && !m.Key.StartsWith("mouse") && (m.Value & toggle) != 0
 			select m.Label).ToArray();
-		MouseBindingNotice.Text = (shared.Length != 0) ? ("The controller mouse toggle is also " + string.Join(", ", shared) + "; pick another button for those actions.") : "";
+		MouseBindingNotice.Text = (shared.Length != 0) ? ("ปุ่มสลับเมาส์คอนโทรลเลอร์ยังเป็นปุ่ม " + string.Join(", ", shared) + " ด้วย เลือกปุ่มอื่นสำหรับการกระทำเหล่านั้น") : "";
 		MouseBindingNotice.Visibility = (shared.Length == 0) ? Visibility.Collapsed : Visibility.Visible;
 	}
 

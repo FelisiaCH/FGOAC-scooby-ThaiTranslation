@@ -21,7 +21,7 @@ public partial class RecoveryKeyDialog : Window, IComponentConnector
 		WindowTheme.Apply(this);
 		base.Owner = owner;
 		this.host = host;
-		HeadingText.Text = recovered ? ("Your account on " + host + " is back on this PC.") : ("Your account on " + host + " is ready.");
+		HeadingText.Text = recovered ? ("บัญชีของคุณบน " + host + " กลับมาอยู่บนเครื่องนี้แล้ว") : ("บัญชีของคุณบน " + host + " พร้อมใช้งานแล้ว");
 		NoticeText.Text = Notice(recovered);
 		KeyTextBox.Text = recoveryKey;
 		KeyTextBox.SelectAll();
@@ -43,7 +43,7 @@ public partial class RecoveryKeyDialog : Window, IComponentConnector
 		}
 		catch (ExternalException ex)
 		{
-			ThemedMessageBox.Show(this, "Could not copy the key: " + ex.Message + "\nSelect it and press Ctrl+C, or use Save to File.", "Recovery Key", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(this, "คัดลอกคีย์ไม่ได้: " + ex.Message + "\nเลือกคีย์แล้วกด Ctrl+C หรือใช้ปุ่ม บันทึกเป็นไฟล์", "คีย์กู้คืน", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 		}
 	}
 
@@ -51,10 +51,10 @@ public partial class RecoveryKeyDialog : Window, IComponentConnector
 	{
 		SaveFileDialog dialog = new SaveFileDialog
 		{
-			Title = "Save the recovery key",
+			Title = "บันทึกคีย์กู้คืน",
 			InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
 			FileName = "FGOAC recovery key " + host + ".txt",
-			Filter = "Text file (*.txt)|*.txt",
+			Filter = "ไฟล์ข้อความ (*.txt)|*.txt",
 			DefaultExt = ".txt",
 			AddExtension = true
 		};
@@ -69,7 +69,7 @@ public partial class RecoveryKeyDialog : Window, IComponentConnector
 		}
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
 		{
-			ThemedMessageBox.Show(this, "Could not save the key: " + ex.Message + "\nChoose another folder, or copy the key instead.", "Recovery Key", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+			ThemedMessageBox.Show(this, "บันทึกคีย์ไม่ได้: " + ex.Message + "\nเลือกโฟลเดอร์อื่น หรือคัดลอกคีย์แทน", "คีย์กู้คืน", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 		}
 	}
 
@@ -80,7 +80,7 @@ public partial class RecoveryKeyDialog : Window, IComponentConnector
 
 	private void Dialog_OnClosing(object? sender, CancelEventArgs e)
 	{
-		if (!kept && ThemedMessageBox.Show(this, "Close without saving the recovery key? It is not shown again.", "Recovery Key", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (!kept && ThemedMessageBox.Show(this, "ปิดโดยไม่บันทึกคีย์กู้คืนใช่ไหม คีย์นี้จะไม่แสดงอีก", "คีย์กู้คืน", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			e.Cancel = true;
 		}

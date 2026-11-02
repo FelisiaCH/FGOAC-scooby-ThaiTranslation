@@ -455,7 +455,7 @@ internal sealed class FirstRun
 			catch
 			{
 			}
-			throw new IOException("Windows Firewall did not answer within 20 seconds.");
+			throw new IOException("Windows Firewall ไม่ตอบสนองภายใน 20 วินาที");
 		}
 		return (process.ExitCode, await outputTask + await errorTask);
 	}

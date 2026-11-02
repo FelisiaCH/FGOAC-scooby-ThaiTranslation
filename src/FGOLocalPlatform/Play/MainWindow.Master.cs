@@ -28,7 +28,7 @@ public partial class MainWindow
 		}
 		else
 		{
-			name = !accountsRead ? "Reading accounts..." : (localToolMissing ? "Local accounts need the Server folder" : "No Master selected");
+			name = !accountsRead ? "Reading accounts..." : (localToolMissing ? "บัญชีในเครื่องต้องใช้โฟลเดอร์ Server" : "No Master selected");
 		}
 		string shown = name + "|" + detail;
 		if (shown != masterLineShown)
@@ -69,7 +69,7 @@ public partial class MainWindow
 		{
 			menu.Items.Add(new Separator());
 		}
-		MenuItem create = MenuEntry("New account", delegate
+		MenuItem create = MenuEntry("บัญชีใหม่", delegate
 		{
 			CreateAccountButton_OnClick(MasterLineButton, new RoutedEventArgs());
 		});

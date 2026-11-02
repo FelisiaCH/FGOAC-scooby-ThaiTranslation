@@ -298,7 +298,7 @@ public partial class MainWindow
 		}
 		gpuCard = null;
 		GpuCardRefreshButton.Visibility = Visibility.Collapsed;
-		GpuPreferenceComboBox.ToolTip = "The game's GPU preference, the same setting as Windows' own Graphics settings page.";
+		GpuPreferenceComboBox.ToolTip = "ค่ากำหนด GPU ของเกม ซึ่งเป็นการตั้งค่าเดียวกับหน้าการตั้งค่ากราฟิกของ Windows";
 		GpuPreferenceComboBox.IsEnabled = true;
 		try
 		{
@@ -327,7 +327,7 @@ public partial class MainWindow
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is System.Text.Json.JsonException)
 		{
 		}
-		GpuPreferenceHelpText.Text = "Set when you save or press Play; used the next time the game starts." + ((hisPick == null) ? "" : (" Cloud23333's launcher has a graphics card picked" + ((hisPick.Length == 0) ? "" : (", " + hisPick)) + ", which the game uses instead; clear it there to use this one."));
+		GpuPreferenceHelpText.Text = "ตั้งค่าเมื่อคุณบันทึกหรือกดเล่น และมีผลเมื่อเริ่มเกมครั้งถัดไป" + ((hisPick == null) ? "" : (" ตัวเรียกเกมของ Cloud23333 เลือกการ์ดจอไว้" + ((hisPick.Length == 0) ? "" : (", " + hisPick)) + " ซึ่งเกมจะใช้ตัวนั้นแทน ให้ล้างค่าที่นั่นหากต้องการใช้ตัวนี้"));
 	}
 
 	/// <summary>Writes the picked GPU preference for the game when it differs from the one shown; his card pick replaces it.</summary>
@@ -364,7 +364,7 @@ public partial class MainWindow
 		}
 		gpuCard.Load(graphics);
 		GpuCardRefreshButton.Visibility = Visibility.Visible;
-		GpuPreferenceComboBox.ToolTip = "The graphics card the game starts on; Cloud23333's launcher shows the same pick.";
+		GpuPreferenceComboBox.ToolTip = "การ์ดจอที่เกมใช้เริ่มต้น ตัวเรียกเกมของ Cloud23333 แสดงตัวเลือกเดียวกันนี้";
 		ShowGpuCardOptions();
 		_ = DetectGpuCardsAsync(gpuCard);
 	}
@@ -479,7 +479,7 @@ public partial class MainWindow
 	{
 		if (!showingWidescreen && SaveLauncherSettings(out string _, out int _, out int _, out string _, out int _))
 		{
-			HoldStatus("Widescreen settings saved - they take effect the next time the game starts.");
+			HoldStatus("บันทึกการตั้งค่าไวด์สกรีนแล้ว - จะมีผลเมื่อเริ่มเกมครั้งถัดไป");
 		}
 	}
 }

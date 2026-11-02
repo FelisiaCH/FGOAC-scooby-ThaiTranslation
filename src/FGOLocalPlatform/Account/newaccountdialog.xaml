@@ -6,7 +6,7 @@
       <TextBox Name="MasterNameTextBox" MaxLength="32" Margin="0,6,0,14" />
       <TextBlock Text="โหมดบัญชี" FontSize="14" Foreground="{StaticResource TextSoftBrush}" />
       <ComboBox Name="AccountModeComboBox" Margin="0,6,0,6" SelectedIndex="0">
-        <ComboBoxItem Content="Standard (starting resources)" Tag="normal" />
+        <ComboBoxItem Content="มาตรฐาน (ทรัพยากรเริ่มต้น)" Tag="normal" />
       </ComboBox>
       <TextBlock Style="{StaticResource HelpTextStyle}" Margin="0,0,0,16" Text="บัญชีใหม่จะเริ่มจากสถานะตั้งต้นมาตรฐาน เมื่อสร้างบัญชีแล้ว ให้ใช้ตัวเลือกพิมพ์การ์ดและเพิ่มค่าสถานะในหน้าบัญชีได้ทุกเมื่อที่ต้องการ" />
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

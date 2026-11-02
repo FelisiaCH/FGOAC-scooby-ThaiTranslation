@@ -270,7 +270,7 @@ public sealed partial class CommunityTunnel : IDisposable
 
 	private static string PortUsed(int port)
 	{
-		return $"พอร์ต {port} บนเครื่องนี้ถูกโปรแกรมอื่นใช้อยู่ ปิดโปรแกรมนั้น แล้วกด Play Online";
+		return $"Port {port} on this PC is used by another program. Close that program, then press Play Online.";
 	}
 
 	public CommunityServer.Settings Settings => settings;

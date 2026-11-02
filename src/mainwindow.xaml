@@ -386,7 +386,7 @@
               </Grid>
             </ScrollViewer>
           </TabItem>
-          <TabItem Name="CardsTab" Header="การ์ด" Style="{StaticResource SidebarTabItemStyle}">
+          <TabItem Name="CardsTab" Header="Cards" Style="{StaticResource SidebarTabItemStyle}">
             <TabControl>
               <TabItem Header="เด็ค">
                 <!-- Shorter than the library header, a row of cards and the deck, the tab scrolls as a page. The border

@@ -58,7 +58,7 @@ public partial class ModPortraitPicker : Window, IComponentConnector
 
 		public string Reference => Portrait.Reference;
 
-		public string KindLabel => ModPortraits.IsCustom(Reference) ? "Your portrait" : "Game portrait";
+		public string KindLabel => ModPortraits.IsCustom(Reference) ? "ภาพของคุณ" : "ภาพในเกม";
 
 		public CharacterGroup Group { get; }
 
@@ -222,6 +222,6 @@ public partial class ModPortraitPicker : Window, IComponentConnector
 
 	private void WithoutPortrait(object sender, RoutedEventArgs e)
 	{
-		selected(new ModPortraitReference("", "No portrait"));
+		selected(new ModPortraitReference("", "ไม่มีภาพตัวละคร"));
 	}
 }

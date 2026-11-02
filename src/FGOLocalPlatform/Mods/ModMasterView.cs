@@ -71,7 +71,7 @@ public partial class ModMasterView : UserControl, IComponentConnector
 		{
 			Original.Source = ModMaster.Original(gameRoot, masterSprite);
 			Replacement.Source = ModMaster.Preview(gameRoot, root, settings, masterSprite);
-			string text = ((masterSprite == ModMaster.GenderExtras[0] || masterSprite == ModMaster.GenderExtras[1]) ? "The confirmation image is replaced on its own; until then the game's shows." : ((masterSprite == ModMaster.GenderExtras[3] || masterSprite == ModMaster.GenderExtras[4]) ? "Unless replaced, the image when not chosen is built from the portrait and the background." : ((masterSprite == ModMaster.GenderExtras[2]) ? "The background of the image when not chosen. Keep its transparency and size." : "")));
+			string text = ((masterSprite == ModMaster.GenderExtras[0] || masterSprite == ModMaster.GenderExtras[1]) ? "ภาพหน้ายืนยันต้องแทนที่แยกต่างหาก จนกว่าจะแทนที่จะแสดงภาพของเกม" : ((masterSprite == ModMaster.GenderExtras[3] || masterSprite == ModMaster.GenderExtras[4]) ? "หากไม่แทนที่ ภาพเมื่อไม่ได้เลือกจะสร้างจากภาพ Master และพื้นหลัง" : ((masterSprite == ModMaster.GenderExtras[2]) ? "พื้นหลังของภาพเมื่อไม่ได้เลือก ให้คงความโปร่งใสและขนาดไว้" : "")));
 			Status.Text = masterSprite.Name + " · " + masterSprite.Width + "×" + masterSprite.Height + ((text.Length == 0) ? "" : ("\n" + text));
 		}
 		catch (Exception ex)
@@ -111,7 +111,7 @@ public partial class ModMasterView : UserControl, IComponentConnector
 		{
 			ModMaster.Import(root, settings, slot, openFileDialog.FileName);
 			SelectSlot(this, null);
-			Message("Replaced. Save to keep it.");
+			Message("แทนที่แล้ว กด “บันทึกภาพ Master” เพื่อเก็บไว้");
 		}
 		catch (Exception ex)
 		{
@@ -132,7 +132,7 @@ public partial class ModMasterView : UserControl, IComponentConnector
 		}
 		try
 		{
-			(string, MasterSprite)[] array = openFileDialog.FileNames.Select((string f) => (File: f, Slot: ModMaster.EditableSlots.SingleOrDefault((MasterSprite s) => s.Name == Path.GetFileNameWithoutExtension(f)) ?? throw new InvalidDataException("Replacing several needs the exported file names."))).ToArray();
+			(string, MasterSprite)[] array = openFileDialog.FileNames.Select((string f) => (File: f, Slot: ModMaster.EditableSlots.SingleOrDefault((MasterSprite s) => s.Name == Path.GetFileNameWithoutExtension(f)) ?? throw new InvalidDataException("การแทนที่หลายภาพต้องใช้ชื่อไฟล์ที่ส่งออกไว้"))).ToArray();
 			(string, MasterSprite)[] array2 = array;
 			for (int num = 0; num < array2.Length; num++)
 			{
@@ -140,7 +140,7 @@ public partial class ModMasterView : UserControl, IComponentConnector
 				BitmapSource bitmapSource = TextureDocument.LoadPng(tuple.Item1);
 				if (bitmapSource.PixelWidth != tuple.Item2.Width || bitmapSource.PixelHeight != tuple.Item2.Height)
 				{
-					throw new InvalidDataException("The image must be the size of the game's: " + tuple.Item2.Name);
+					throw new InvalidDataException("ภาพต้องมีขนาดเท่ากับภาพของเกม: " + tuple.Item2.Name);
 				}
 			}
 			array2 = array;
@@ -150,7 +150,7 @@ public partial class ModMasterView : UserControl, IComponentConnector
 				ModMaster.Import(root, settings, tuple2.Item2, tuple2.Item1);
 			}
 			SelectSlot(this, null);
-			Message("Replaced. Save to keep it.");
+			Message("แทนที่แล้ว กด “บันทึกภาพ Master” เพื่อเก็บไว้");
 		}
 		catch (Exception ex)
 		{
@@ -164,7 +164,7 @@ public partial class ModMasterView : UserControl, IComponentConnector
 		{
 			settings.Images.Remove(masterSprite.Name);
 			SelectSlot(this, null);
-			Message("Back to the game's image. Save to keep it.");
+			Message("กลับไปใช้ภาพของเกมแล้ว กด “บันทึกภาพ Master” เพื่อเก็บไว้");
 		}
 	}
 
@@ -172,11 +172,11 @@ public partial class ModMasterView : UserControl, IComponentConnector
 	{
 		try
 		{
-			string text = FolderPicker.Show(Window.GetWindow(this), "Export the game's images to");
+			string text = FolderPicker.Show(Window.GetWindow(this), "ส่งออกภาพของเกมไปที่");
 			if (text != null)
 			{
 				ModMaster.ExportTemplates(gameRoot, text);
-				Message("The game's images are exported.");
+				Message("ส่งออกภาพของเกมแล้ว");
 			}
 		}
 		catch (Exception ex)
@@ -189,7 +189,7 @@ public partial class ModMasterView : UserControl, IComponentConnector
 	{
 		Read();
 		base.IsEnabled = false;
-		Message("Building...");
+		Message("กำลังสร้าง...");
 		try
 		{
 			if (settings.Images.Count != 0)
@@ -205,11 +205,11 @@ public partial class ModMasterView : UserControl, IComponentConnector
 				Enabled.IsChecked = false;
 				ModMaster.Save(root, settings);
 			}
-			Message("Saved. It applies the next time the game starts.");
+			Message("บันทึกแล้ว จะมีผลเมื่อเริ่มเกมครั้งถัดไป");
 		}
 		catch (Exception ex)
 		{
-			Message("Saving failed: " + ex.Message);
+			Message("บันทึกไม่สำเร็จ: " + ex.Message);
 		}
 		finally
 		{
@@ -235,14 +235,14 @@ public partial class ModMasterView : UserControl, IComponentConnector
 			return;
 		}
 		base.IsEnabled = false;
-		Message("Building...");
+		Message("กำลังสร้าง...");
 		try
 		{
 			await Task.Run(delegate
 			{
 				ModMaster.Export(gameRoot, root, settings, dialog.FileName);
 			});
-			Message("Package exported: " + dialog.FileName);
+			Message("ส่งออกแพ็กเกจแล้ว: " + dialog.FileName);
 		}
 		catch (Exception ex)
 		{

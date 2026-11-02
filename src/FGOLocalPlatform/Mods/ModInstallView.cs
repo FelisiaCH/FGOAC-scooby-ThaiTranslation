@@ -47,7 +47,7 @@ public partial class ModInstallView : UserControl, IComponentConnector
 
 	private static string Kind(string component)
 	{
-		return (component == "audio") ? "Music" : ((!(component == "dialogue")) ? "Master portraits" : "Dialogue");
+		return (component == "audio") ? "เพลง" : ((!(component == "dialogue")) ? "ภาพ Master" : "บทสนทนา");
 	}
 
 	public void Refresh()
@@ -68,10 +68,10 @@ public partial class ModInstallView : UserControl, IComponentConnector
 				ImportedMod importedMod = (modLibraryState.Selected.TryGetValue(component, out id) ? list.SingleOrDefault((ImportedMod p) => p.Id == id && p.Info.Component == component) : null);
 				if (id != null && importedMod == null)
 				{
-					throw new InvalidDataException("The chosen package is not there.");
+					throw new InvalidDataException("ไม่พบแพ็กเกจที่เลือก");
 				}
 				bool flag = importedMod != null || ModInstall.Enabled(root, component);
-				list2.Add(Kind(component) + " · " + (importedMod?.Info.Title ?? "your own") + (flag ? "" : (" · " + "switched off")));
+				list2.Add(Kind(component) + " · " + (importedMod?.Info.Title ?? "ของคุณเอง") + (flag ? "" : (" · " + "ปิดใช้งาน")));
 			}
 			Sources.Text = string.Join("\n", list2);
 			foreach (ImportedMod package in list)
@@ -96,7 +96,7 @@ public partial class ModInstallView : UserControl, IComponentConnector
 				string value;
 				CheckBox use = new CheckBox
 				{
-					Content = "Use this package instead of my own",
+					Content = "ใช้แพ็กเกจนี้แทนของฉัน",
 					HorizontalAlignment = HorizontalAlignment.Left,
 					IsChecked = (modLibraryState.Selected.TryGetValue(package.Info.Component, out value) && value == package.Id)
 				};
@@ -107,7 +107,7 @@ public partial class ModInstallView : UserControl, IComponentConnector
 				stackPanel.Children.Add(use);
 				stackPanel.Children.Add(new TextBlock
 				{
-					Text = "One package per kind. Opening a tab changes nothing; Use does.",
+					Text = "ใช้ได้หนึ่งแพ็กเกจต่อหนึ่งชนิด การเปิดแท็บไม่ได้เปลี่ยนอะไร ต้องติ๊ก “ใช้แพ็กเกจนี้แทนของฉัน” จึงจะมีผล",
 					TextWrapping = TextWrapping.Wrap,
 					Foreground = (Brush)FindResource("TextSoftBrush"),
 					Margin = new Thickness(0.0, 16.0, 0.0, 0.0)
@@ -156,12 +156,12 @@ public partial class ModInstallView : UserControl, IComponentConnector
 		bool load = LoadOnInstall.IsChecked == true;
 		if (load && GameRunning())
 		{
-			Status.Text = "The game is running: untick Use it once imported to only import, or quit the game first.";
+			Status.Text = "เกมกำลังทำงานอยู่: เอาเครื่องหมายติ๊กออกจาก “ใช้ทันทีหลังนำเข้า” หากต้องการนำเข้าอย่างเดียว หรือปิดเกมก่อน";
 			return;
 		}
 		OpenFileDialog dialog = new OpenFileDialog
 		{
-			Filter = "Mod package|*.zip"
+			Filter = "แพ็กเกจม็อด|*.zip"
 		};
 		if (DialogSink.ShowDialog(dialog, Window.GetWindow(this)) != true)
 		{
@@ -173,11 +173,11 @@ public partial class ModInstallView : UserControl, IComponentConnector
 			string id = await Task.Run(() => ModInstall.Install(root, dialog.FileName, load));
 			Refresh();
 			Packages.SelectedItem = Packages.Items.Cast<TabItem>().FirstOrDefault((TabItem t) => t.Uid == id);
-			Status.Text = "Package imported; your own edits are kept.";
+			Status.Text = "นำเข้าแพ็กเกจแล้ว การแก้ไขของคุณเองยังอยู่ครบ";
 		}
 		catch (Exception ex)
 		{
-			Status.Text = "Import failed: " + ex.Message;
+			Status.Text = "นำเข้าไม่สำเร็จ: " + ex.Message;
 		}
 		finally
 		{
@@ -189,14 +189,14 @@ public partial class ModInstallView : UserControl, IComponentConnector
 	{
 		if (GameRunning())
 		{
-			Status.Text = "Quit the game before changing which package is used.";
+			Status.Text = "ปิดเกมก่อนเปลี่ยนแพ็กเกจที่ใช้";
 			Refresh();
 			return;
 		}
 		try
 		{
 			ModLibrary.Select(root, package.Info.Component, use ? package.Id : null);
-			Status.Text = "Saved; it applies the next time the game starts.";
+			Status.Text = "บันทึกแล้ว จะมีผลเมื่อเริ่มเกมครั้งถัดไป";
 		}
 		catch (Exception ex)
 		{

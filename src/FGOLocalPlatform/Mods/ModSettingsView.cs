@@ -94,14 +94,14 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			int num = settings.Tracks.IndexOf(track);
 			if (num < 0)
 			{
-				throw new InvalidOperationException("The track was removed.");
+				throw new InvalidOperationException("ลบแทร็กนี้ไปแล้ว");
 			}
 			settings.Tracks[num] = replacement;
 			settings.BgmEnabled = Bgm.IsChecked == true;
 			await ModStorage.SaveBgmAndClean(root, settings);
 			RefreshTracks();
 			Tracks.SelectedItem = replacement;
-			Message("Music saved; a running game switches to it now.");
+			Message("บันทึกเพลงแล้ว เกมที่เปิดอยู่จะเปลี่ยนมาใช้เพลงนี้ทันที");
 		})
 		{
 			Owner = Window.GetWindow(this)
@@ -205,7 +205,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		catch (Exception ex)
 		{
 			base.IsEnabled = false;
-			Message("The mod files could not be read, so nothing was changed: " + ex.Message);
+			Message("อ่านไฟล์ม็อดไม่ได้ จึงไม่มีอะไรเปลี่ยนแปลง: " + ex.Message);
 		}
 	}
 
@@ -227,7 +227,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 	{
 		foreach (ModDialogue d in settings.Dialogues)
 		{
-			d.QuestName = ((d.TargetKind == 0) ? quests : banners).FirstOrDefault((ModQuest q) => q.Id == d.Quest)?.Name ?? "Not in this game's files";
+			d.QuestName = ((d.TargetKind == 0) ? quests : banners).FirstOrDefault((ModQuest q) => q.Id == d.Quest)?.Name ?? "ไม่พบในไฟล์ของเกมนี้";
 		}
 	}
 
@@ -305,23 +305,23 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 	{
 		int selected = saved ?? ((Trigger.SelectedValue is int num) ? num : 0);
 		Trigger.Items.Clear();
-		Add(0, "Quest start");
+		Add(0, "เริ่มเควสต์");
 		if (TargetKind.SelectedIndex == 0)
 		{
 			if (Quest.SelectedItem is ModQuest modQuest)
 			{
 				foreach (int item in modQuest.BattleWaves.Where((int w) => w >= 1 && w <= 3))
 				{
-					Add(item, $"Wave {item}");
+					Add(item, $"เวฟ {item}");
 				}
 			}
-			Add(4, "After battle");
+			Add(4, "หลังการต่อสู้");
 		}
 		if (!Trigger.Items.Cast<ComboBoxItem>().Any((ComboBoxItem item) => (int)item.Tag == selected))
 		{
 			if (saved.HasValue)
 			{
-				Add(selected, $"Wave {selected} (this quest has no such wave)", enabled: false);
+				Add(selected, $"เวฟ {selected} (เควสต์นี้ไม่มีเวฟนี้)", enabled: false);
 			}
 			else
 			{
@@ -368,7 +368,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		Lines.ItemsSource = modDialogue.Lines;
 		ContinueScreen.IsChecked = modDialogue.ContinueScreen;
 		ContinueCustomImage.IsChecked = modDialogue.ContinueCustomImage;
-		ContinueImageInfo.Text = File.Exists(ModContinueImage.PathFor(root, modDialogue.Id)) ? "Image added. Save and build, then restart the game." : "No image of your own: the screen is black.";
+		ContinueImageInfo.Text = File.Exists(ModContinueImage.PathFor(root, modDialogue.Id)) ? "เพิ่มภาพแล้ว กด “บันทึกและสร้าง” แล้วเริ่มเกมใหม่" : "ยังไม่มีภาพของคุณเอง: หน้าจอจะเป็นสีดำ";
 		if (modDialogue.Lines.Count > 0)
 		{
 			Lines.SelectedIndex = 0;
@@ -385,14 +385,14 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		ModQuest q = selectedItem as ModQuest;
 		if (q == null)
 		{
-			Message("Pick a quest or banner first.");
+			Message("เลือกเควสต์หรือแบนเนอร์ก่อน");
 			return;
 		}
 		int kind = TargetKind.SelectedIndex;
 		int t = SelectedTrigger;
 		if (!ValidTrigger(q, t))
 		{
-			Message("Pick a wave this quest has.");
+			Message("เลือกเวฟที่เควสต์นี้มี");
 			return;
 		}
 		ModDialogue modDialogue = settings.Dialogues.FirstOrDefault((ModDialogue x) => x.TargetKind == kind && x.Quest == q.Id && x.Trigger == t);
@@ -428,12 +428,12 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			int t = SelectedTrigger;
 			if (!ValidTrigger(q, t))
 			{
-				Message("Pick a wave this quest has.");
+				Message("เลือกเวฟที่เควสต์นี้มี");
 				return;
 			}
 			if (settings.Dialogues.Any((ModDialogue x) => x != d && x.TargetKind == kind && x.Quest == q.Id && x.Trigger == t))
 			{
-				Message("That quest or banner already has this trigger.");
+				Message("เควสต์หรือแบนเนอร์นี้มีทริกเกอร์นี้อยู่แล้ว");
 				return;
 			}
 			d.TargetKind = kind;
@@ -443,7 +443,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			d.Once = Repeat.SelectedIndex == 1;
 			FilterTargets(this, new TextChangedEventArgs(TextBoxBase.TextChangedEvent, UndoAction.None));
 			Events.SelectedItem = d;
-			Message("Trigger updated. Save to keep it.");
+			Message("อัปเดตทริกเกอร์แล้ว กด “บันทึกและสร้าง” เพื่อเก็บไว้");
 		}
 	}
 
@@ -460,7 +460,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 	{
 		if (!(Events.SelectedItem is ModDialogue modDialogue))
 		{
-			Message("Pick a trigger first.");
+			Message("เลือกทริกเกอร์ก่อน");
 			ContinueScreen.IsChecked = false;
 			ContinueCustomImage.IsChecked = false;
 		}
@@ -475,12 +475,12 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 	{
 		if (!(Events.SelectedItem is ModDialogue modDialogue))
 		{
-			Message("Pick a trigger first.");
+			Message("เลือกทริกเกอร์ก่อน");
 			return;
 		}
 		OpenFileDialog openFileDialog = new OpenFileDialog
 		{
-			Filter = "Images|*.png;*.jpg;*.jpeg;*.bmp"
+			Filter = "ภาพ|*.png;*.jpg;*.jpeg;*.bmp"
 		};
 		if (DialogSink.ShowDialog(openFileDialog, Window.GetWindow(this)) != true)
 		{
@@ -489,7 +489,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		try
 		{
 			ModContinueImage.Import(root, modDialogue.Id, openFileDialog.FileName);
-			ContinueImageInfo.Text = "Image added. Save and build, then restart the game.";
+			ContinueImageInfo.Text = "เพิ่มภาพแล้ว กด “บันทึกและสร้าง” แล้วเริ่มเกมใหม่";
 		}
 		catch (Exception ex)
 		{
@@ -514,7 +514,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 				string text = ModContinueImage.PathFor(root, modDialogue.Id);
 				if (!File.Exists(text))
 				{
-					Message("Choose an image first.");
+					Message("เลือกภาพก่อน");
 					return;
 				}
 				BitmapImage bitmapImage = new BitmapImage();
@@ -540,7 +540,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			});
 			Window preview = new Window
 			{
-				Title = "After the dialogue",
+				Title = "หลังบทสนทนา",
 				Owner = Window.GetWindow(this),
 				Content = grid,
 				Width = 960.0,
@@ -680,7 +680,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 				bitmapImage.Freeze();
 				PortraitPreview.Source = bitmapImage;
 			}
-			PortraitInfo.Text = string.IsNullOrEmpty(text) ? "No portrait" : (ModPortraits.IsCustom(text) ? "Your portrait" : "Game portrait");
+			PortraitInfo.Text = string.IsNullOrEmpty(text) ? "ไม่มีภาพตัวละคร" : (ModPortraits.IsCustom(text) ? "ภาพของคุณ" : "ภาพในเกม");
 		}
 	}
 
@@ -747,7 +747,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 	{
 		OpenFileDialog pick = new OpenFileDialog
 		{
-			Filter = "PNG images|*.png",
+			Filter = "ภาพ PNG|*.png",
 			Multiselect = true
 		};
 		if (DialogSink.ShowDialog(pick, Window.GetWindow(this)) != true)
@@ -760,7 +760,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			(List<ModPortraitReference> Added, List<string> Errors) result = await Task.Run(() => ModPortraits.ImportBatch(root, pick.FileNames, settings.PortraitLibraryPath));
 			RefreshPortraitReferences();
 			LibraryItems.SelectedItem = LibraryItems.Items.Cast<ModPortraitReference>().FirstOrDefault((ModPortraitReference p) => p.Reference == result.Added.LastOrDefault()?.Reference);
-			Message($"Imported {result.Added.Count} portraits; {result.Errors.Count} failed." + ((result.Errors.Count == 0) ? "" : ("\n" + string.Join("\n", result.Errors))));
+			Message($"นำเข้าภาพตัวละคร {result.Added.Count} ภาพ ไม่สำเร็จ {result.Errors.Count} ภาพ" + ((result.Errors.Count == 0) ? "" : ("\n" + string.Join("\n", result.Errors))));
 		}
 		catch (Exception ex)
 		{
@@ -821,7 +821,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			ModPortraits.References(gameRoot, root, text);
 			settings.PortraitLibraryPath = text;
 			RefreshPortraitReferences();
-			Message("Portrait folder in use. Save to keep it.");
+			Message("ใช้โฟลเดอร์ภาพตัวละครนี้แล้ว กด “บันทึกและสร้าง” เพื่อเก็บไว้");
 		}
 		catch (Exception ex)
 		{
@@ -846,7 +846,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		{
 			ModPortraits.Rename(root, modPortraitReference.Reference, PortraitName.Text, settings.PortraitLibraryPath);
 			RefreshPortraitReferences();
-			Message("Portrait renamed; the lines that use it keep it.");
+			Message("เปลี่ยนชื่อภาพตัวละครแล้ว บทพูดที่ใช้ภาพนี้ยังคงใช้ต่อ");
 		}
 		catch (Exception ex)
 		{
@@ -864,7 +864,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		{
 			ModPortraits.Remove(root, modPortraitReference.Reference, settings.Dialogues, settings.PortraitLibraryPath);
 			RefreshPortraitReferences();
-			Message("Portrait deleted. Save and build to apply.");
+			Message("ลบภาพตัวละครแล้ว กด “บันทึกและสร้าง” เพื่อให้มีผล");
 		}
 		catch (Exception ex)
 		{
@@ -899,7 +899,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		}
 		OpenFileDialog openFileDialog = new OpenFileDialog
 		{
-			Filter = "Audio" + "|*.ogg;*.mp3;*.wav;*.flac;*.m4a;*.aac|" + "All files" + "|*.*",
+			Filter = "เสียง" + "|*.ogg;*.mp3;*.wav;*.flac;*.m4a;*.aac|" + "ไฟล์ทั้งหมด" + "|*.*",
 			Multiselect = true
 		};
 		if (DialogSink.ShowDialog(openFileDialog, Window.GetWindow(this)) != true)
@@ -920,7 +920,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			await ModStorage.SaveBgmAndClean(root, settings);
 			RefreshTracks();
 			Tracks.SelectedItem = last;
-			Message("Music saved; a running game switches to it now.");
+			Message("บันทึกเพลงแล้ว เกมที่เปิดอยู่จะเปลี่ยนมาใช้เพลงนี้ทันที");
 		}
 		catch (Exception ex)
 		{
@@ -949,7 +949,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			await ModStorage.SaveBgmAndClean(root, settings);
 			RefreshTracks();
 			Tracks.SelectedItem = replacement;
-			Message("Music saved; a running game switches to it now.");
+			Message("บันทึกเพลงแล้ว เกมที่เปิดอยู่จะเปลี่ยนมาใช้เพลงนี้ทันที");
 		}
 		catch (Exception ex)
 		{
@@ -975,7 +975,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			};
 			Window obj = new Window
 			{
-				Title = "Where the game plays " + modPool.Key,
+				Title = "ตำแหน่งที่เกมเล่น " + modPool.Key,
 				Owner = Window.GetWindow(this),
 				Width = 850.0,
 				Height = 550.0,
@@ -1005,7 +1005,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		{
 			File.WriteAllText(saveFileDialog.FileName, "Track,Usage,References\r\n" + string.Join("\r\n", from p in ModStorage.Pools(gameRoot)
 				select string.Join(",", Cell(p.Key), Cell(p.Label), Cell(p.Usage))), new UTF8Encoding(encoderShouldEmitUTF8Identifier: true));
-			Message("Usage list exported.");
+			Message("ส่งออกรายการการใช้งานแล้ว");
 		}
 		catch (Exception ex)
 		{
@@ -1030,11 +1030,11 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		{
 			settings.BgmEnabled = Bgm.IsChecked == true;
 			await ModStorage.SaveBgmAndClean(root, settings);
-			Message("Track removed and saved; a running game switches now.");
+			Message("ลบแทร็กและบันทึกแล้ว เกมที่เปิดอยู่จะเปลี่ยนตามทันที");
 		}
 		catch (Exception ex)
 		{
-			Message("The removal could not be saved: " + ex.Message);
+			Message("บันทึกการลบไม่ได้: " + ex.Message);
 		}
 		finally
 		{
@@ -1060,7 +1060,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		{
 			settings.BgmEnabled = Bgm.IsChecked == true;
 			await ModStorage.SaveBgmAndClean(root, settings);
-			Message("Music saved; a running game switches to it now.");
+			Message("บันทึกเพลงแล้ว เกมที่เปิดอยู่จะเปลี่ยนมาใช้เพลงนี้ทันที");
 		}
 		catch (Exception ex)
 		{
@@ -1091,7 +1091,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			}
 			ReadOptions();
 			base.IsEnabled = false;
-			Message("Building...");
+			Message("กำลังสร้าง...");
 			try
 			{
 				await Task.Run(delegate
@@ -1111,11 +1111,11 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 				{
 					array[num].Dispose();
 				}
-				Message(flag ? "Saved. The running game keeps the old dialogue until it restarts." : "Saved. It applies the next time the game starts.");
+				Message(flag ? "บันทึกแล้ว เกมที่เปิดอยู่จะใช้บทสนทนาเดิมจนกว่าจะเริ่มใหม่" : "บันทึกแล้ว จะมีผลเมื่อเริ่มเกมครั้งถัดไป");
 			}
 			catch (Exception ex)
 			{
-				Message("Saving failed: " + ex.Message);
+				Message("บันทึกไม่สำเร็จ: " + ex.Message);
 			}
 			finally
 			{
@@ -1161,18 +1161,18 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			return;
 		}
 		base.IsEnabled = false;
-		Message("Building...");
+		Message("กำลังสร้าง...");
 		try
 		{
 			await Task.Run(delegate
 			{
 				ModPackage.Export(gameRoot, root, settings, pick.FileName, audio);
 			});
-			Message("Package exported: " + pick.FileName);
+			Message("ส่งออกแพ็กเกจแล้ว: " + pick.FileName);
 		}
 		catch (Exception ex)
 		{
-			Message("Export failed: " + ex.Message);
+			Message("ส่งออกไม่สำเร็จ: " + ex.Message);
 		}
 		finally
 		{
@@ -1370,7 +1370,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		{
 			LoadingPreview.Source = TextureDocument.LoadPng(path);
 		}
-		LoadingInfo.Text = (!flag) ? "Loading images are for quests only." : (File.Exists(path) ? "Image chosen. Save loading images, then restart the game." : "No image of your own: the game's loading screen shows.");
+		LoadingInfo.Text = (!flag) ? "ภาพหน้าโหลดใช้ได้กับเควสต์เท่านั้น" : (File.Exists(path) ? "เลือกภาพแล้ว กด “บันทึกภาพหน้าโหลด” แล้วเริ่มเกมใหม่" : "ยังไม่มีภาพของคุณเอง: จะแสดงหน้าโหลดของเกม");
 	}
 
 	private void LoadingChanged(object sender, RoutedEventArgs e)
@@ -1407,8 +1407,8 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 		}
 		OpenFileDialog openFileDialog = new OpenFileDialog
 		{
-			Title = "Choose a loading image",
-			Filter = "Images" + "|*.png;*.jpg;*.jpeg;*.bmp"
+			Title = "เลือกภาพหน้าโหลด",
+			Filter = "ภาพ" + "|*.png;*.jpg;*.jpeg;*.bmp"
 		};
 		if (DialogSink.ShowDialog(openFileDialog, Window.GetWindow(this)) != true)
 		{
@@ -1444,7 +1444,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			Window obj = new Window
 			{
 				Owner = Window.GetWindow(this),
-				Title = "Loading image",
+				Title = "ภาพหน้าโหลด",
 				Width = 960.0,
 				Height = 580.0,
 				Content = new Image
@@ -1469,7 +1469,7 @@ public partial class ModSettingsView : UserControl, IComponentConnector
 			{
 				ModLoading.Build(gameRoot, root, loadingImages);
 			});
-			Message("Loading images saved; they show the next time the game starts.");
+			Message("บันทึกภาพหน้าโหลดแล้ว จะแสดงเมื่อเริ่มเกมครั้งถัดไป");
 		}
 		catch (Exception ex)
 		{

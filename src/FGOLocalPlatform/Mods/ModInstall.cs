@@ -22,18 +22,18 @@ public static class ModInstall
 			"audio" => "BGM", 
 			"dialogue" => "Dialogue", 
 			"master" => "Master", 
-			_ => throw new InvalidDataException("The package holds a kind of content this launcher does not know."), 
+			_ => throw new InvalidDataException("แพ็กเกจมีเนื้อหาชนิดที่ตัวเรียกเกมนี้ไม่รู้จัก"), 
 		};
 	}
 
 	public static ModPackageInfo Read(string file)
 	{
 		using ZipArchive zipArchive = ZipFile.OpenRead(file);
-		using Stream utf8Json = (zipArchive.GetEntry("mod-package.json") ?? throw new InvalidDataException("This file is not a mod package.")).Open();
-		ModPackageInfo modPackageInfo = JsonSerializer.Deserialize<ModPackageInfo>(utf8Json, Json) ?? throw new InvalidDataException("This file is not a mod package.");
+		using Stream utf8Json = (zipArchive.GetEntry("mod-package.json") ?? throw new InvalidDataException("ไฟล์นี้ไม่ใช่แพ็กเกจม็อด")).Open();
+		ModPackageInfo modPackageInfo = JsonSerializer.Deserialize<ModPackageInfo>(utf8Json, Json) ?? throw new InvalidDataException("ไฟล์นี้ไม่ใช่แพ็กเกจม็อด");
 		if (modPackageInfo.SchemaVersion != 3 || modPackageInfo.GameVersion != "11.51")
 		{
-			throw new InvalidDataException("This package is made for another game version.");
+			throw new InvalidDataException("แพ็กเกจนี้สร้างไว้สำหรับเกมคนละเวอร์ชัน");
 		}
 		DirectoryName(modPackageInfo.Component);
 		return modPackageInfo;
@@ -84,19 +84,19 @@ public static class ModInstall
 				}
 				if (!fullName.StartsWith(text2, StringComparison.Ordinal) || fullName.Contains('\\'))
 				{
-					throw new InvalidDataException("The package holds files of another kind, or a file name that is not allowed.");
+					throw new InvalidDataException("แพ็กเกจมีไฟล์ชนิดอื่น หรือมีชื่อไฟล์ที่ไม่อนุญาต");
 				}
 				string text7 = fullName.Substring(text2.Length);
 				if (text7.Length != 0 || !fullName.EndsWith('/'))
 				{
 					if (text7.Split('/').Any((string s) => ((s == "." || s == "..") ? true : false) || s.Contains(':')))
 					{
-						throw new InvalidDataException("The package holds files of another kind, or a file name that is not allowed.");
+						throw new InvalidDataException("แพ็กเกจมีไฟล์ชนิดอื่น หรือมีชื่อไฟล์ที่ไม่อนุญาต");
 					}
 					string fullPath = Path.GetFullPath(Path.Combine(text6, text7));
 					if (!fullPath.StartsWith(Path.GetFullPath(text6) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || !hashSet.Add(fullPath))
 					{
-						throw new InvalidDataException("The package holds files of another kind, or a file name that is not allowed.");
+						throw new InvalidDataException("แพ็กเกจมีไฟล์ชนิดอื่น หรือมีชื่อไฟล์ที่ไม่อนุญาต");
 					}
 					if (fullName.EndsWith('/'))
 					{
@@ -109,7 +109,7 @@ public static class ModInstall
 			}
 			if (!File.Exists(Path.Combine(text6, "settings.json")) || !File.Exists(Path.Combine(text6, "runtime.ini")))
 			{
-				throw new InvalidDataException("The package is incomplete: its settings are missing.");
+				throw new InvalidDataException("แพ็กเกจไม่สมบูรณ์: ไม่พบไฟล์การตั้งค่า");
 			}
 			ModStorage.AtomicWrite(Path.Combine(text6, "installed-package.json"), JsonSerializer.Serialize(modPackageInfo, ModStorage.Json));
 			if (modPackageInfo.Component == "master")
@@ -122,13 +122,13 @@ public static class ModInstall
 			{
 				if (modPackageInfo.Component == "dialogue")
 				{
-					ModStorage.DialogueIndex dialogueIndex = JsonSerializer.Deserialize<ModStorage.DialogueIndex>(File.ReadAllText(Path.Combine(text6, "settings.json")), ModStorage.Json) ?? throw new InvalidDataException("The package's dialogue list is empty.");
+					ModStorage.DialogueIndex dialogueIndex = JsonSerializer.Deserialize<ModStorage.DialogueIndex>(File.ReadAllText(Path.Combine(text6, "settings.json")), ModStorage.Json) ?? throw new InvalidDataException("รายการบทสนทนาของแพ็กเกจว่างเปล่า");
 					foreach (string item in dialogueIndex.Events.Concat(dialogueIndex.Quests ?? new List<string>()))
 					{
 						string fullPath2 = Path.GetFullPath(Path.Combine(text6, item));
 						if (!fullPath2.StartsWith(Path.GetFullPath(text6) + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || !File.Exists(fullPath2))
 						{
-							throw new InvalidDataException("The package's dialogue names a file the package does not hold.");
+							throw new InvalidDataException("บทสนทนาของแพ็กเกจอ้างถึงไฟล์ที่แพ็กเกจไม่มี");
 						}
 					}
 				}
@@ -137,25 +137,25 @@ public static class ModInstall
 				{
 					if (dialogue.ContinueScreen && dialogue.ContinueCustomImage && !File.Exists(ModContinueImage.PathFor(text4, dialogue.Id)))
 					{
-						throw new InvalidDataException("The package is missing a tap-to-continue image.");
+						throw new InvalidDataException("แพ็กเกจไม่มีภาพ Tap to continue");
 					}
 				}
 				foreach (ModTrack track in modSettings.Tracks)
 				{
 					if (!File.Exists(ModStorage.TrackPath(text4, track.File)))
 					{
-						throw new InvalidDataException("The package is missing a music file.");
+						throw new InvalidDataException("แพ็กเกจไม่มีไฟล์เพลง");
 					}
 				}
 				if (modPackageInfo.Component == "dialogue" && (!Regex.IsMatch(modSettings.DialogueFolder, "\\ADialogue/(Events/shared-|generated/dialogue-)[a-f0-9]{32}\\z") || !Directory.Exists(Path.Combine(text4, modSettings.DialogueFolder))))
 				{
-					throw new InvalidDataException("The package is missing its built dialogue files.");
+					throw new InvalidDataException("แพ็กเกจไม่มีไฟล์บทสนทนาที่สร้างไว้");
 				}
 				foreach (ModDialogue dialogue2 in modSettings.Dialogues)
 				{
 					if (dialogue2.ContinueScreen && dialogue2.ContinueCustomImage && !File.Exists(Path.Combine(text4, ModDialogueCompiler.EventResource(modSettings.DialogueFolder, dialogue2.Id), "continue.bmp")))
 					{
-						throw new InvalidDataException("The package is missing a built tap-to-continue image.");
+						throw new InvalidDataException("แพ็กเกจไม่มีภาพ Tap to continue ที่สร้างไว้");
 					}
 				}
 			}

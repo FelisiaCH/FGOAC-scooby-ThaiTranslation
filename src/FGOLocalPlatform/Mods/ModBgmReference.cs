@@ -31,7 +31,7 @@ public static class ModBgmReference
 		string[] names = ReferenceNames(fullPath, pool);
 		if (names.Length == 0)
 		{
-			throw new InvalidDataException("Original BGM for this pool was not found; the loudness reference cannot be determined.");
+			throw new InvalidDataException("ไม่พบ BGM ดั้งเดิมของกลุ่มเพลงนี้ จึงหาค่าอ้างอิงความดังไม่ได้");
 		}
 		List<Measurement> measurements = new List<Measurement>();
 		string[] array = names;
@@ -40,7 +40,7 @@ public static class ModBgmReference
 			string text2 = Path.Combine(directory, text);
 			if (!File.Exists(text2))
 			{
-				throw new FileNotFoundException("Original BGM is missing; the loudness reference cannot be determined.", text);
+				throw new FileNotFoundException("ไม่พบ BGM ดั้งเดิม จึงหาค่าอ้างอิงความดังไม่ได้", text);
 			}
 			string hash;
 			using (FileStream inputStream = File.OpenRead(text2))
@@ -63,7 +63,7 @@ public static class ModBgmReference
 					int num2 = tuple.Item2.LastIndexOf('}');
 					if (num < 0 || num2 < num)
 					{
-						throw new InvalidDataException("No loudness analysis result was obtained for the original BGM.");
+						throw new InvalidDataException("ไม่ได้ผลการวิเคราะห์ความดังของ BGM ดั้งเดิม");
 					}
 					string item = tuple.Item2;
 					int num3 = num;
@@ -82,7 +82,7 @@ public static class ModBgmReference
 				}
 				if (!double.IsFinite(value.Integrated) || !double.IsFinite(value.TruePeak) || !double.IsFinite(value.Range))
 				{
-					throw new InvalidDataException("The original BGM has no valid loudness reference.");
+					throw new InvalidDataException("BGM ดั้งเดิมไม่มีค่าอ้างอิงความดังที่ใช้ได้");
 				}
 				Measured[key] = value;
 			}
@@ -124,7 +124,7 @@ public static class ModBgmReference
 			}
 			if (pool != "battle_all")
 			{
-				throw new InvalidDataException("Could not determine the original BGM for this pool.");
+				throw new InvalidDataException("หา BGM ดั้งเดิมของกลุ่มเพลงนี้ไม่ได้");
 			}
 			HashSet<string> hashSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 			string path = Path.Combine(gameRoot, "rom", "single");

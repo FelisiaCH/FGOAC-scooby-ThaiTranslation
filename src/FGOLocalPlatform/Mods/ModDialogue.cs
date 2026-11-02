@@ -27,6 +27,6 @@ public sealed class ModDialogue
 
 	public override string ToString()
 	{
-		return $"{Quest} · {QuestName}\n" + ((TargetKind == 1) ? "Event banner" : ((Trigger == 0) ? "Quest start" : ((Trigger == 4) ? "After battle" : $"Wave {Trigger}"))) + " · " + (Once ? "First time per account" : "Every time");
+		return $"{Quest} · {QuestName}\n" + ((TargetKind == 1) ? "แบนเนอร์อีเวนต์" : ((Trigger == 0) ? "เริ่มเควสต์" : ((Trigger == 4) ? "หลังการต่อสู้" : $"เวฟ {Trigger}"))) + " · " + (Once ? "ครั้งแรกต่อบัญชี" : "ทุกครั้ง");
 	}
 }

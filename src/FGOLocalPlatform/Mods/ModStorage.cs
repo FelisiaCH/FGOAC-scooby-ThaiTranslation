@@ -82,7 +82,7 @@ public static class ModStorage
 	{
 		if (!Regex.IsMatch(relative, "\\A1_MOD/BGM/[a-f0-9]+\\.ogg\\z"))
 		{
-			throw new InvalidDataException("Invalid track path or pool.");
+			throw new InvalidDataException("พาธแทร็กหรือกลุ่มเพลงไม่ถูกต้อง");
 		}
 		return Path.Combine(root, "BGM", Path.GetFileName(relative));
 	}
@@ -108,7 +108,7 @@ public static class ModStorage
 					text2 = text3;
 				}
 			}
-			list.Add(new ModQuest(result, string.IsNullOrWhiteSpace(text2) ? "Unnamed quest" : text2, text)
+			list.Add(new ModQuest(result, string.IsNullOrWhiteSpace(text2) ? "เควสต์ไม่มีชื่อ" : text2, text)
 			{
 				BattleWaves = (from w in (from Match m in Regex.Matches(input, "(?m)^battle\\.\\d+\\.wave_id=(\\d+)\\s*$")
 						select int.Parse(m.Groups[1].Value)).Distinct()
@@ -126,8 +126,8 @@ public static class ModStorage
 		if (File.Exists(path) || File.Exists(path2))
 		{
 			string path3 = Path.Combine(root, "settings.json");
-			ModSettings modSettings = (((!File.Exists(path) || !File.Exists(path2)) && File.Exists(path3)) ? (JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(path3), Json) ?? throw new InvalidDataException("The mod settings are empty.")) : new ModSettings());
-			ModSettings modSettings2 = (File.Exists(path2) ? (JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(path2), Json) ?? throw new InvalidDataException("The music settings are empty.")) : modSettings);
+			ModSettings modSettings = (((!File.Exists(path) || !File.Exists(path2)) && File.Exists(path3)) ? (JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(path3), Json) ?? throw new InvalidDataException("การตั้งค่าม็อดว่างเปล่า")) : new ModSettings());
+			ModSettings modSettings2 = (File.Exists(path2) ? (JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(path2), Json) ?? throw new InvalidDataException("การตั้งค่าเพลงว่างเปล่า")) : modSettings);
 			if (!File.Exists(path))
 			{
 				modSettings2.DialogueEnabled = modSettings.DialogueEnabled;
@@ -136,7 +136,7 @@ public static class ModStorage
 				modSettings2.PortraitLibraryPath = modSettings.PortraitLibraryPath;
 				return modSettings2;
 			}
-			DialogueIndex dialogueIndex = JsonSerializer.Deserialize<DialogueIndex>(File.ReadAllText(path), Json) ?? throw new InvalidDataException("The dialogue list is empty.");
+			DialogueIndex dialogueIndex = JsonSerializer.Deserialize<DialogueIndex>(File.ReadAllText(path), Json) ?? throw new InvalidDataException("รายการบทสนทนาว่างเปล่า");
 			modSettings2.Dialogues.Clear();
 			modSettings2.DialogueEnabled = dialogueIndex.Enabled;
 			modSettings2.DialogueFolder = dialogueIndex.GeneratedFolder;
@@ -152,14 +152,14 @@ public static class ModStorage
 					using JsonDocument jsonDocument = JsonDocument.Parse(json);
 					if (jsonDocument.RootElement.ValueKind == JsonValueKind.Array)
 					{
-						foreach (ModDialogue item2 in JsonSerializer.Deserialize<List<ModDialogue>>(json, Json) ?? throw new InvalidDataException("The dialogue of a trigger is empty."))
+						foreach (ModDialogue item2 in JsonSerializer.Deserialize<List<ModDialogue>>(json, Json) ?? throw new InvalidDataException("บทสนทนาของทริกเกอร์ว่างเปล่า"))
 						{
 							modSettings2.Dialogues.Add(item2);
 						}
 					}
 					else
 					{
-						modSettings2.Dialogues.Add(JsonSerializer.Deserialize<ModDialogue>(json, Json) ?? throw new InvalidDataException("The dialogue of a trigger is empty."));
+						modSettings2.Dialogues.Add(JsonSerializer.Deserialize<ModDialogue>(json, Json) ?? throw new InvalidDataException("บทสนทนาของทริกเกอร์ว่างเปล่า"));
 					}
 				}
 				return modSettings2;
@@ -170,7 +170,7 @@ public static class ModStorage
 		{
 			return new ModSettings();
 		}
-		return JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(path4), Json) ?? throw new InvalidDataException("The mod settings are empty.");
+		return JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(path4), Json) ?? throw new InvalidDataException("การตั้งค่าม็อดว่างเปล่า");
 	}
 
 	public static string QuestDirectory(int id, string name)
@@ -232,7 +232,7 @@ public static class ModStorage
 	{
 		if (settings.Tracks.Count > 1024)
 		{
-			throw new InvalidDataException("Up to 1024 tracks are supported.");
+			throw new InvalidDataException("รองรับสูงสุด 1024 แทร็ก");
 		}
 		StringBuilder stringBuilder = new StringBuilder("[bgm]\r\nenabled=" + (settings.BgmEnabled ? "1" : "0") + "\r\ncount=" + settings.Tracks.Count + "\r\n");
 		for (int i = 0; i < settings.Tracks.Count; i++)
@@ -240,7 +240,7 @@ public static class ModStorage
 			ModTrack modTrack = settings.Tracks[i];
 			if (!Regex.IsMatch(modTrack.Pool, "\\A[a-zA-Z0-9_.-]+\\z") || !Regex.IsMatch(modTrack.File, "\\A1_MOD/BGM/[a-f0-9]+\\.ogg\\z"))
 			{
-				throw new InvalidDataException("Invalid track path or pool.");
+				throw new InvalidDataException("พาธแทร็กหรือกลุ่มเพลงไม่ถูกต้อง");
 			}
 			StringBuilder stringBuilder2 = stringBuilder;
 			StringBuilder.AppendInterpolatedStringHandler handler = new StringBuilder.AppendInterpolatedStringHandler(23, 3, stringBuilder2);
@@ -260,15 +260,15 @@ public static class ModStorage
 	{
 		if (settings.Dialogues.Count > 512)
 		{
-			throw new InvalidDataException("Up to 512 dialogue triggers are supported.");
+			throw new InvalidDataException("รองรับทริกเกอร์บทสนทนาสูงสุด 512 รายการ");
 		}
 		if (settings.Dialogues.Select((ModDialogue d) => d.Id).Distinct<string>(StringComparer.Ordinal).Count() != settings.Dialogues.Count)
 		{
-			throw new InvalidDataException("Invalid event ID.");
+			throw new InvalidDataException("รหัสอีเวนต์ไม่ถูกต้อง");
 		}
 		if (settings.DialogueEnabled && !Regex.IsMatch(settings.DialogueFolder, "\\ADialogue/(generated/dialogue-|Events/shared-)[a-f0-9]{32}\\z"))
 		{
-			throw new InvalidDataException("Save and build the dialogue first.");
+			throw new InvalidDataException("กด “บันทึกและสร้าง” สำหรับบทสนทนาก่อน");
 		}
 		StringBuilder stringBuilder = new StringBuilder("[dialogue]\r\nenabled=" + (settings.DialogueEnabled ? "1" : "0") + "\r\n");
 		stringBuilder.Append("folder=" + settings.DialogueFolder + "\r\n");
@@ -278,7 +278,7 @@ public static class ModStorage
 			ModDialogue modDialogue = settings.Dialogues[num];
 			if (!Regex.IsMatch(modDialogue.Id, "\\A[a-f0-9]{32}\\z"))
 			{
-				throw new InvalidDataException("Invalid event ID.");
+				throw new InvalidDataException("รหัสอีเวนต์ไม่ถูกต้อง");
 			}
 			StringBuilder stringBuilder2 = stringBuilder;
 			StringBuilder stringBuilder3 = stringBuilder2;
@@ -410,7 +410,7 @@ public static class ModStorage
 				catch (IOException ex) when ((ex.HResult & 0xFFFF) == 32 && retry < 20)
 				{
 					await Task.Delay(250).ConfigureAwait(continueOnCapturedContext: false);
-					if (!(JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(Path.Combine(root, "BGM", "settings.json")), Json) ?? throw new InvalidDataException("The music settings are empty.")).Tracks.Any((ModTrack t) => string.Equals(Path.GetFileName(t.File), name, StringComparison.OrdinalIgnoreCase)))
+					if (!(JsonSerializer.Deserialize<ModSettings>(File.ReadAllText(Path.Combine(root, "BGM", "settings.json")), Json) ?? throw new InvalidDataException("การตั้งค่าเพลงว่างเปล่า")).Tracks.Any((ModTrack t) => string.Equals(Path.GetFileName(t.File), name, StringComparison.OrdinalIgnoreCase)))
 					{
 						goto IL_0217;
 					}
@@ -426,10 +426,10 @@ public static class ModStorage
 	{
 		List<ModPool> list = new List<ModPool>
 		{
-			new ModPool("battle_all", "All battles · continuous across waves / Fatal / Grand"),
-			new ModPool("menu", "Home · separate pool"),
-			new ModPool("room", "My Room · separate pool"),
-			new ModPool("menu_room_shared", "Home + My Room · shared continuous pool")
+			new ModPool("battle_all", "ทุกการต่อสู้ · เล่นต่อเนื่องข้ามเวฟ / Fatal / Grand"),
+			new ModPool("menu", "Home · กลุ่มเพลงแยก"),
+			new ModPool("room", "My Room · กลุ่มเพลงแยก"),
+			new ModPool("menu_room_shared", "Home + My Room · กลุ่มเพลงต่อเนื่องร่วมกัน")
 		};
 		Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase);
 		string path = Path.Combine(gameRoot, "rom", "single");
@@ -446,7 +446,7 @@ public static class ModStorage
 					{
 						value = (dictionary[key] = new List<string>());
 					}
-					value.Add(text + " / " + "Wave" + item2.Groups[1].Value);
+					value.Add(text + " / " + "เวฟ " + item2.Groups[1].Value);
 				}
 				Match match2 = Regex.Match(input, "(?m)^result_bgm_name=(\\S+)");
 				if (match2.Success)
@@ -456,7 +456,7 @@ public static class ModStorage
 					{
 						value2 = (dictionary[key2] = new List<string>());
 					}
-					value2.Add(text + " / " + "Solo quest victory result");
+					value2.Add(text + " / " + "ผลชนะเควสต์เดี่ยว");
 				}
 			}
 		}
@@ -477,11 +477,11 @@ public static class ModStorage
 			}
 			Dictionary<string, string> dictionary4 = new Dictionary<string, string>
 			{
-				["normal_bgm"] = "Normal battle",
-				["fatal_bgm"] = "Fatal battle",
-				["result_bgm_win"] = "Victory",
-				["result_bgm_lose"] = "Defeat",
-				["result_bgm_draw"] = "Draw"
+				["normal_bgm"] = "การต่อสู้ปกติ",
+				["fatal_bgm"] = "การต่อสู้ Fatal",
+				["result_bgm_win"] = "ชนะ",
+				["result_bgm_lose"] = "แพ้",
+				["result_bgm_draw"] = "เสมอ"
 			};
 			foreach (Dictionary<string, string> value9 in dictionary2.Values)
 			{
@@ -523,11 +523,11 @@ public static class ModStorage
 		{
 			["arms_bgm04"] = "Home",
 			["arms_bgm05"] = "My Room",
-			["arms_bgm06"] = "Summon",
-			["arms_bgm12"] = "Login",
-			["arms_bgm15"] = "Ranked / Servant battle · default victory",
-			["arms_bgm23"] = "Solo quest · default victory",
-			["arms_bgm16"] = "Default defeat / battle draw"
+			["arms_bgm06"] = "ซัมมอน",
+			["arms_bgm12"] = "เข้าสู่ระบบ",
+			["arms_bgm15"] = "Ranked / การต่อสู้เซอร์แวนต์ · ชนะ (ค่าเริ่มต้น)",
+			["arms_bgm23"] = "เควสต์เดี่ยว · ชนะ (ค่าเริ่มต้น)",
+			["arms_bgm16"] = "แพ้ (ค่าเริ่มต้น) / การต่อสู้เสมอ"
 		};
 		string text3 = Path.Combine(gameRoot, "rom");
 		if (Directory.Exists(text3))
@@ -557,8 +557,8 @@ public static class ModStorage
 				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(item8);
 				string[] array = dictionary.GetValueOrDefault(fileName, new List<string>()).Distinct().ToArray();
 				string value8;
-				string text4 = (dictionary5.TryGetValue(fileNameWithoutExtension, out value8) ? value8 : ((array.Length != 0) ? string.Join("; ", array.Take(2)) : "Use not known"));
-				list.Add(new ModPool(fileName, text4 + " · " + fileNameWithoutExtension, (array.Length != 0) ? string.Join("\n", array) : "The game's files do not say where this track plays."));
+				string text4 = (dictionary5.TryGetValue(fileNameWithoutExtension, out value8) ? value8 : ((array.Length != 0) ? string.Join("; ", array.Take(2)) : "ไม่ทราบการใช้งาน"));
+				list.Add(new ModPool(fileName, text4 + " · " + fileNameWithoutExtension, (array.Length != 0) ? string.Join("\n", array) : "ไฟล์ของเกมไม่ระบุว่าแทร็กนี้เล่นที่ไหน"));
 			}
 		}
 		string[] array2 = new string[3] { "arms_bgm23.ogg", "arms_bgm16.ogg", "arms_bgm15.ogg" };
@@ -589,7 +589,7 @@ public static class ModStorage
 			byte[] array = binaryReader.ReadBytes(27);
 			if (array.Length != 27 || Encoding.ASCII.GetString(array, 0, 4) != "OggS")
 			{
-				throw new InvalidDataException("The music file is damaged.");
+				throw new InvalidDataException("ไฟล์เพลงเสียหาย");
 			}
 			long num2 = BitConverter.ToInt64(array, 6);
 			if (num2 > num)
@@ -606,7 +606,7 @@ public static class ModStorage
 	{
 		if (begin.HasValue != end.HasValue || (begin.HasValue && (!double.IsFinite(begin.Value) || !double.IsFinite(end.Value) || begin < 0.0 || end <= begin)))
 		{
-			throw new InvalidDataException("Loop end must exceed loop start, in seconds.");
+			throw new InvalidDataException("จุดสิ้นสุดลูปต้องมากกว่าจุดเริ่มลูป (หน่วยเป็นวินาที)");
 		}
 		string encoder = Path.Combine(root, "Tools", "ffmpeg.exe");
 		if (!File.Exists(encoder))
@@ -681,7 +681,7 @@ public static class ModStorage
 			}
 		}
 		processStartInfo.ArgumentList.Add(output);
-		using Process process = Process.Start(processStartInfo) ?? throw new IOException("Could not start the audio converter.");
+		using Process process = Process.Start(processStartInfo) ?? throw new IOException("เริ่มตัวแปลงเสียงไม่ได้");
 		string errors = await process.StandardError.ReadToEndAsync();
 		await process.WaitForExitAsync();
 		if (process.ExitCode != 0)
@@ -690,7 +690,7 @@ public static class ModStorage
 			{
 				File.Delete(output);
 			}
-			throw new InvalidDataException("Audio conversion failed: " + errors);
+			throw new InvalidDataException("แปลงเสียงไม่สำเร็จ: " + errors);
 		}
 		long num2;
 		try
@@ -698,7 +698,7 @@ public static class ModStorage
 			long num = OggSamples(output);
 			if (end.HasValue && end.Value * 44100.0 > (double)num)
 			{
-				throw new InvalidDataException($"The loop end is past the end of the music ({(double)num / 44100.0:F3} s).");
+				throw new InvalidDataException($"จุดสิ้นสุดลูปเลยจุดจบของเพลง ({(double)num / 44100.0:F3} วินาที)");
 			}
 			num2 = num;
 		}
@@ -735,7 +735,7 @@ public static class ModStorage
 			{
 				processStartInfo2.ArgumentList.Add(item3);
 			}
-			using Process tagging = Process.Start(processStartInfo2) ?? throw new IOException("Could not write the loop tags of the music file.");
+			using Process tagging = Process.Start(processStartInfo2) ?? throw new IOException("เขียนแท็กลูปลงไฟล์เพลงไม่ได้");
 			string error = await tagging.StandardError.ReadToEndAsync();
 			await tagging.WaitForExitAsync();
 			if (tagging.ExitCode != 0)

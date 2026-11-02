@@ -45,10 +45,10 @@ public static class ModPortraits
 		{
 			return new List<ModPortraitReference>();
 		}
-		List<ModPortraitReference> list = JsonSerializer.Deserialize<List<ModPortraitReference>>(File.ReadAllText(file), ModStorage.Json) ?? throw new InvalidDataException("Custom portrait index is empty.");
+		List<ModPortraitReference> list = JsonSerializer.Deserialize<List<ModPortraitReference>>(File.ReadAllText(file), ModStorage.Json) ?? throw new InvalidDataException("ดัชนีภาพตัวละครของคุณว่างเปล่า");
 		if (list.Any((ModPortraitReference p) => !IsCustom(p.Reference)) || list.Select((ModPortraitReference p) => p.Reference).Distinct().Count() != list.Count)
 		{
-			throw new InvalidDataException("Custom portrait reference is invalid or duplicated.");
+			throw new InvalidDataException("การอ้างอิงภาพตัวละครของคุณไม่ถูกต้องหรือซ้ำกัน");
 		}
 		return list.Select((ModPortraitReference p) => (p.LegacySlot == null || !(p.Name == p.LegacySlot)) ? p : p with
 		{
@@ -70,7 +70,7 @@ public static class ModPortraits
 	{
 		return new ModPortraitReference[1]
 		{
-			new ModPortraitReference("", "No portrait")
+			new ModPortraitReference("", "ไม่มีภาพตัวละคร")
 		}.Concat(from p in ModDialogueCompiler.NativePortraits(gameRoot, root)
 			select new ModPortraitReference(p, p)).Concat(Custom(root, library)).ToArray();
 	}
@@ -119,7 +119,7 @@ public static class ModPortraits
 				}
 			}
 		}
-		throw new InvalidDataException("Native portrait slot not found.");
+		throw new InvalidDataException("ไม่พบช่องภาพตัวละครของเกม");
 	}
 
 	public static ModPortraitReference Import(string root, string source, string? name = null, string? legacySlot = null, string? library = null)
@@ -181,14 +181,14 @@ public static class ModPortraits
 	{
 		if (!IsCustom(reference) || string.IsNullOrWhiteSpace(name))
 		{
-			throw new InvalidDataException("Enter a name for the custom portrait.");
+			throw new InvalidDataException("ใส่ชื่อให้ภาพตัวละครของคุณ");
 		}
 		string text = OwnerIndex(root, reference, library);
 		List<ModPortraitReference> list = ReadIndex(text);
 		int num = list.FindIndex((ModPortraitReference p) => p.Reference == reference);
 		if (num < 0)
 		{
-			throw new InvalidDataException("Custom portrait reference is invalid or duplicated.");
+			throw new InvalidDataException("การอ้างอิงภาพตัวละครของคุณไม่ถูกต้องหรือซ้ำกัน");
 		}
 		list[num] = list[num]with
 		{
@@ -203,7 +203,7 @@ public static class ModPortraits
 		{
 			if (dialogues.SelectMany((ModDialogue d) => d.Lines).Any((ModLine l) => l.Portrait == reference))
 			{
-				throw new InvalidDataException("This portrait is still referenced by dialogue. Update those lines first.");
+				throw new InvalidDataException("บทสนทนายังใช้ภาพตัวละครนี้อยู่ แก้บทพูดเหล่านั้นก่อน");
 			}
 			string text = OwnerIndex(root, reference, library);
 			List<ModPortraitReference> list = ReadIndex(text);

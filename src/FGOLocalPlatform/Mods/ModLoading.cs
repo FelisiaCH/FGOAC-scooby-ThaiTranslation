@@ -20,14 +20,14 @@ public static class ModLoading
 		{
 			return new ModLoadingSettings();
 		}
-		return JsonSerializer.Deserialize<ModLoadingSettings>(File.ReadAllText(path), ModStorage.Json) ?? throw new InvalidDataException("Invalid loading image settings.");
+		return JsonSerializer.Deserialize<ModLoadingSettings>(File.ReadAllText(path), ModStorage.Json) ?? throw new InvalidDataException("การตั้งค่าภาพหน้าโหลดไม่ถูกต้อง");
 	}
 
 	public static string Source(string root, int quest)
 	{
 		if (quest < 0)
 		{
-			throw new InvalidDataException("Invalid quest ID.");
+			throw new InvalidDataException("รหัสเควสต์ไม่ถูกต้อง");
 		}
 		return Path.Combine(root, "Loading/Sources", $"quest-{quest}.png");
 	}
@@ -38,7 +38,7 @@ public static class ModLoading
 		BitmapFrame bitmapFrame = BitmapDecoder.Create(bitmapStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
 		if ((long)bitmapFrame.PixelWidth * (long)bitmapFrame.PixelHeight > 67108864)
 		{
-			throw new InvalidDataException("The image is too large. Use an image with no more than 64 million pixels.");
+			throw new InvalidDataException("ภาพใหญ่เกินไป ใช้ภาพที่มีไม่เกิน 64 ล้านพิกเซล");
 		}
 		DrawingVisual drawingVisual = new DrawingVisual();
 		using (DrawingContext drawingContext = drawingVisual.RenderOpen())
@@ -72,7 +72,7 @@ public static class ModLoading
 	{
 		if (settings.Entries.Select((ModLoadingEntry e) => e.Quest).Distinct().Count() != settings.Entries.Count || settings.Entries.Count > 900)
 		{
-			throw new InvalidDataException("Invalid loading image settings.");
+			throw new InvalidDataException("การตั้งค่าภาพหน้าโหลดไม่ถูกต้อง");
 		}
 		string text = "Loading/Generated/build-" + Guid.NewGuid().ToString("N");
 		string text2 = Path.Combine(root, text);
@@ -82,7 +82,7 @@ public static class ModLoading
 		UiSpriteTable uiSpriteTable = UiSpriteTable.Parse(File.ReadAllBytes(Path.Combine(gameRoot, "rom/sprite/spr_qst_sing_007_table.bin")));
 		if (!uiSpriteTable.Entries.Any((UiSpriteTableEntry e) => e.SpriteName == "QST_SING_007_load_story_bg_01") || !Encoding.ASCII.GetString(array).Contains("load_story_01_loop"))
 		{
-			throw new InvalidDataException("The original loading screen resources do not match.");
+			throw new InvalidDataException("ทรัพยากรหน้าโหลดดั้งเดิมไม่ตรงกัน");
 		}
 		int num = 100;
 		foreach (ModLoadingEntry item in from e in settings.Entries
@@ -92,7 +92,7 @@ public static class ModLoading
 		{
 			if (!File.Exists(Path.Combine(gameRoot, "rom/single", $"quest_prop_{item.Quest:000000}.txt")))
 			{
-				throw new InvalidDataException("The game files for this quest were not found.");
+				throw new InvalidDataException("ไม่พบไฟล์เกมของเควสต์นี้");
 			}
 			for (; num <= 999; num++)
 			{
@@ -103,7 +103,7 @@ public static class ModLoading
 			}
 			if (num > 999)
 			{
-				throw new InvalidDataException("No loading image resource IDs are available.");
+				throw new InvalidDataException("ไม่มีรหัสทรัพยากรภาพหน้าโหลดที่ใช้ได้");
 			}
 			item.Set = num++;
 			string text3 = item.Set.ToString("000");
@@ -119,7 +119,7 @@ public static class ModLoading
 			BitmapSource bitmapSource = TextureDocument.LoadPng(Source(root, item.Quest));
 			if (bitmapSource.PixelWidth != 1920 || bitmapSource.PixelHeight != 1080)
 			{
-				throw new InvalidDataException("Invalid loading image dimensions.");
+				throw new InvalidDataException("ขนาดภาพหน้าโหลดไม่ถูกต้อง");
 			}
 			byte[] array3 = new byte[16777216];
 			byte[] array4 = new byte[8294400];

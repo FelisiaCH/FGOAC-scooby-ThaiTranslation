@@ -62,7 +62,7 @@ public static class ModLibrary
 	{
 		if (!Regex.IsMatch(id, "\\A[a-f0-9]{32}\\z"))
 		{
-			throw new InvalidDataException("The package id is not valid.");
+			throw new InvalidDataException("รหัสแพ็กเกจไม่ถูกต้อง");
 		}
 		return Path.Combine(root, "Packages", id);
 	}
@@ -70,10 +70,10 @@ public static class ModLibrary
 	public static ModLibraryState Load(string root)
 	{
 		string path = Path.Combine(root, "packages.json");
-		ModLibraryState modLibraryState = (File.Exists(path) ? (JsonSerializer.Deserialize<ModLibraryState>(File.ReadAllText(path), ModStorage.Json) ?? throw new InvalidDataException("The list of packages in use is empty.")) : new ModLibraryState());
+		ModLibraryState modLibraryState = (File.Exists(path) ? (JsonSerializer.Deserialize<ModLibraryState>(File.ReadAllText(path), ModStorage.Json) ?? throw new InvalidDataException("รายการแพ็กเกจที่ใช้อยู่ว่างเปล่า")) : new ModLibraryState());
 		if (modLibraryState.SchemaVersion != 1)
 		{
-			throw new InvalidDataException("The list of packages in use has a version this launcher does not read.");
+			throw new InvalidDataException("รายการแพ็กเกจที่ใช้อยู่เป็นเวอร์ชันที่ตัวเรียกเกมนี้อ่านไม่ได้");
 		}
 		foreach (KeyValuePair<string, string> item in modLibraryState.Selected)
 		{
@@ -103,7 +103,7 @@ public static class ModLibrary
 				{
 					if (modPackageInfo.Component != text)
 					{
-						throw new InvalidDataException("The package holds another kind of content.");
+						throw new InvalidDataException("แพ็กเกจมีเนื้อหาคนละชนิดกัน");
 					}
 					list.Add(new ImportedMod(fileName, modPackageInfo));
 				}
@@ -124,7 +124,7 @@ public static class ModLibrary
 		{
 			if (ModInstall.Current(PackageRoot(root, id), component)?.Component != component)
 			{
-				throw new InvalidDataException("The package is not there.");
+				throw new InvalidDataException("ไม่พบแพ็กเกจ");
 			}
 			modLibraryState.Selected[component] = id;
 		}
@@ -172,7 +172,7 @@ public static class ModLibrary
 				string text4 = PackageRoot(root, value);
 				if (ModInstall.Current(text4, text2)?.Component != text2)
 				{
-					throw new InvalidDataException("The chosen package is not there.");
+					throw new InvalidDataException("ไม่พบแพ็กเกจที่เลือก");
 				}
 				string input = File.ReadAllText(Path.Combine(text4, path2, "runtime.ini"));
 				flag = true;
@@ -186,7 +186,7 @@ public static class ModLibrary
 			MatchCollection source = Regex.Matches(text3, "(?m)^\\[([^\\]\\r\\n]+)\\]\\r?$");
 			if (!source.Cast<Match>().Any((Match m) => m.Groups[1].Value == section) || source.Cast<Match>().Any((Match m) => !Regex.IsMatch(m.Groups[1].Value, allowed)))
 			{
-				throw new InvalidDataException("The mod settings file App\\1_MOD\\runtime.ini is not valid.");
+				throw new InvalidDataException("ไฟล์ตั้งค่าม็อด App\\1_MOD\\runtime.ini ไม่ถูกต้อง");
 			}
 			stringBuilder.Append(text3.TrimEnd('\r', '\n')).Append("\r\n");
 		}

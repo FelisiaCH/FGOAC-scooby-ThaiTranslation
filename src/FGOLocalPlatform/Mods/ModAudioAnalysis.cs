@@ -27,7 +27,7 @@ public static class ModAudioAnalysis
 		{
 			processStartInfo.ArgumentList.Add(arg);
 		}
-		using Process p = Process.Start(processStartInfo) ?? throw new IOException("Could not start the audio converter.");
+		using Process p = Process.Start(processStartInfo) ?? throw new IOException("เริ่มตัวแปลงเสียงไม่ได้");
 		Task<string> stdout = p.StandardOutput.ReadToEndAsync();
 		Task<string> stderr = p.StandardError.ReadToEndAsync();
 		await p.WaitForExitAsync();
@@ -35,7 +35,7 @@ public static class ModAudioAnalysis
 		string text = await stderr;
 		if (p.ExitCode != 0)
 		{
-			throw new InvalidDataException("Audio analysis failed: " + text);
+			throw new InvalidDataException("วิเคราะห์เสียงไม่สำเร็จ: " + text);
 		}
 		return (Output: output, Error: text);
 	}
@@ -103,7 +103,7 @@ public static class ModAudioAnalysis
 			double num7 = Read(measured, "target_offset");
 			if (!double.IsFinite(num3) || !double.IsFinite(num4) || !double.IsFinite(num5) || !double.IsFinite(num6) || !double.IsFinite(num7))
 			{
-				throw new InvalidDataException("Invalid loudness measurement parameters.");
+				throw new InvalidDataException("พารามิเตอร์การวัดความดังไม่ถูกต้อง");
 			}
 			return target + ":measured_I=" + Number(num3) + ":measured_TP=" + Number(num4) + ":measured_LRA=" + Number(num5) + ":measured_thresh=" + Number(num6) + ":offset=" + Number(num7) + ":linear=true,aresample=44100";
 		}
@@ -127,7 +127,7 @@ public static class ModAudioAnalysis
 		int num2 = error.LastIndexOf('}');
 		if (num < 0 || num2 < num)
 		{
-			throw new InvalidDataException("No loudness analysis result obtained.");
+			throw new InvalidDataException("ไม่ได้ผลการวิเคราะห์ความดัง");
 		}
 		int num3 = num;
 		return JsonDocument.Parse(error.Substring(num3, num2 + 1 - num3));
@@ -178,7 +178,7 @@ public static class ModAudioAnalysis
 		{
 			processStartInfo.ArgumentList.Add(item);
 		}
-		using Process p = Process.Start(processStartInfo) ?? throw new IOException("Could not start the audio converter.");
+		using Process p = Process.Start(processStartInfo) ?? throw new IOException("เริ่มตัวแปลงเสียงไม่ได้");
 		using MemoryStream pcm = new MemoryStream();
 		Task task = p.StandardOutput.BaseStream.CopyToAsync(pcm);
 		Task<string> errors = p.StandardError.ReadToEndAsync();
@@ -186,7 +186,7 @@ public static class ModAudioAnalysis
 		string text = await errors;
 		if (p.ExitCode != 0)
 		{
-			throw new InvalidDataException("Audio analysis failed: " + text);
+			throw new InvalidDataException("วิเคราะห์เสียงไม่สำเร็จ: " + text);
 		}
 		float[] samples = new float[pcm.Length / 4];
 		Buffer.BlockCopy(pcm.GetBuffer(), 0, samples, 0, samples.Length * 4);

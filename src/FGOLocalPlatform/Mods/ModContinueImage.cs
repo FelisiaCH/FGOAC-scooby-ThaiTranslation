@@ -13,7 +13,7 @@ public static class ModContinueImage
 	{
 		if (!Regex.IsMatch(id, "\\A[a-f0-9]{32}\\z"))
 		{
-			throw new InvalidDataException("Invalid event ID.");
+			throw new InvalidDataException("รหัสอีเวนต์ไม่ถูกต้อง");
 		}
 		return Path.Combine(root, "Dialogue", "Events", "event-" + id, "continue.bmp");
 	}
@@ -24,7 +24,7 @@ public static class ModContinueImage
 		BitmapFrame bitmapFrame = BitmapDecoder.Create(bitmapStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad).Frames[0];
 		if (bitmapFrame.PixelWidth <= 0 || bitmapFrame.PixelHeight <= 0 || (long)bitmapFrame.PixelWidth * (long)bitmapFrame.PixelHeight > 67108864)
 		{
-			throw new InvalidDataException("The image is too large. Use an image with no more than 64 million pixels.");
+			throw new InvalidDataException("ภาพใหญ่เกินไป ใช้ภาพที่มีไม่เกิน 64 ล้านพิกเซล");
 		}
 		double num = Math.Min(1920.0 / (double)bitmapFrame.PixelWidth, 1080.0 / (double)bitmapFrame.PixelHeight);
 		DrawingVisual drawingVisual = new DrawingVisual();

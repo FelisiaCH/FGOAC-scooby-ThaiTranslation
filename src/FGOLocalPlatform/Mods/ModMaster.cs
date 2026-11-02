@@ -16,21 +16,21 @@ public static class ModMaster
 {
 	public static readonly MasterSprite[] Slots = new MasterSprite[6]
 	{
-		new MasterSprite("spr_sel_aimeinfo", "SEL_AIMEINFO_icon_player_male_001", 98, 98, "Male Master · Icon"),
-		new MasterSprite("spr_sel_aimeinfo", "SEL_AIMEINFO_icon_player_female_001", 98, 98, "Female Master · Icon"),
-		new MasterSprite("spr_sel_gender", "SEL_GENDER_icon_player_male_001", 326, 560, "Male Master · Gender selection"),
-		new MasterSprite("spr_sel_gender", "SEL_GENDER_icon_player_female_001", 402, 554, "Female Master · Gender selection"),
-		new MasterSprite("spr_gam_result", "GAM_RESULT_player_male_001", 912, 986, "Male Master · Result portrait"),
-		new MasterSprite("spr_gam_result", "GAM_RESULT_player_female_001", 912, 986, "Female Master · Result portrait")
+		new MasterSprite("spr_sel_aimeinfo", "SEL_AIMEINFO_icon_player_male_001", 98, 98, "Master ชาย · ไอคอน"),
+		new MasterSprite("spr_sel_aimeinfo", "SEL_AIMEINFO_icon_player_female_001", 98, 98, "Master หญิง · ไอคอน"),
+		new MasterSprite("spr_sel_gender", "SEL_GENDER_icon_player_male_001", 326, 560, "Master ชาย · หน้าเลือกเพศ"),
+		new MasterSprite("spr_sel_gender", "SEL_GENDER_icon_player_female_001", 402, 554, "Master หญิง · หน้าเลือกเพศ"),
+		new MasterSprite("spr_gam_result", "GAM_RESULT_player_male_001", 912, 986, "Master ชาย · ภาพหน้าผลลัพธ์"),
+		new MasterSprite("spr_gam_result", "GAM_RESULT_player_female_001", 912, 986, "Master หญิง · ภาพหน้าผลลัพธ์")
 	};
 
 	public static readonly MasterSprite[] GenderExtras = new MasterSprite[5]
 	{
-		new MasterSprite("spr_key_win", "KEY_WIN_win_obj_gender_m", 416, 428, "Male Master · Confirmation"),
-		new MasterSprite("spr_key_win", "KEY_WIN_win_obj_gender_f", 416, 422, "Female Master · Confirmation"),
-		new MasterSprite("spr_sel_gender", "SEL_GENDER_g_btn_base", 604, 604, "Gender selection · Composition background"),
-		new MasterSprite("spr_sel_gender", "SEL_GENDER_g_btn_m_base", 604, 614, "Male Master · Unselected image"),
-		new MasterSprite("spr_sel_gender", "SEL_GENDER_g_btn_f_base", 604, 606, "Female Master · Unselected image")
+		new MasterSprite("spr_key_win", "KEY_WIN_win_obj_gender_m", 416, 428, "Master ชาย · หน้ายืนยัน"),
+		new MasterSprite("spr_key_win", "KEY_WIN_win_obj_gender_f", 416, 422, "Master หญิง · หน้ายืนยัน"),
+		new MasterSprite("spr_sel_gender", "SEL_GENDER_g_btn_base", 604, 604, "หน้าเลือกเพศ · พื้นหลังองค์ประกอบ"),
+		new MasterSprite("spr_sel_gender", "SEL_GENDER_g_btn_m_base", 604, 614, "Master ชาย · ภาพเมื่อไม่ได้เลือก"),
+		new MasterSprite("spr_sel_gender", "SEL_GENDER_g_btn_f_base", 604, 606, "Master หญิง · ภาพเมื่อไม่ได้เลือก")
 	};
 
 	public static readonly MasterSprite[] EditableSlots = new MasterSprite[11]
@@ -80,7 +80,7 @@ public static class ModMaster
 		{
 			return new ModMasterSettings();
 		}
-		return JsonSerializer.Deserialize<ModMasterSettings>(File.ReadAllText(path), ModStorage.Json) ?? throw new InvalidDataException("The Master portrait settings are empty.");
+		return JsonSerializer.Deserialize<ModMasterSettings>(File.ReadAllText(path), ModStorage.Json) ?? throw new InvalidDataException("การตั้งค่าภาพ Master ว่างเปล่า");
 	}
 
 	public static BitmapSource Original(string gameRoot, MasterSprite slot)
@@ -137,7 +137,7 @@ public static class ModMaster
 		BitmapSource bitmapSource = TextureDocument.LoadPng(file);
 		if (bitmapSource.PixelWidth != slot.Width || bitmapSource.PixelHeight != slot.Height)
 		{
-			throw new InvalidDataException($"The image must be {slot.Width}×{slot.Height}, the size of the game's.");
+			throw new InvalidDataException($"ภาพต้องมีขนาด {slot.Width}×{slot.Height} เท่ากับภาพของเกม");
 		}
 		string text = ImagePath(root, slot.Name);
 		Directory.CreateDirectory(Path.GetDirectoryName(text));
@@ -153,24 +153,24 @@ public static class ModMaster
 		ModMasterSettings settings = Load(root);
 		if (settings.Images.Count == 0)
 		{
-			throw new InvalidDataException("Import a Master image first.");
+			throw new InvalidDataException("นำเข้าภาพ Master ก่อน");
 		}
 		foreach (KeyValuePair<string, string> entry in settings.Images)
 		{
-			MasterSprite masterSprite = EditableSlots.SingleOrDefault((MasterSprite s) => s.Name == entry.Key) ?? throw new InvalidDataException("The Master portrait settings name an image the game does not have.");
+			MasterSprite masterSprite = EditableSlots.SingleOrDefault((MasterSprite s) => s.Name == entry.Key) ?? throw new InvalidDataException("การตั้งค่าภาพ Master อ้างถึงภาพที่เกมไม่มี");
 			if (entry.Value != "Sources/" + masterSprite.Name + ".png")
 			{
-				throw new InvalidDataException("Invalid Master image path.");
+				throw new InvalidDataException("พาธภาพ Master ไม่ถูกต้อง");
 			}
 			BitmapSource bitmapSource = TextureDocument.LoadPng(ImagePath(root, masterSprite.Name));
 			if (bitmapSource.PixelWidth != masterSprite.Width || bitmapSource.PixelHeight != masterSprite.Height)
 			{
-				throw new InvalidDataException("Invalid Master image dimensions.");
+				throw new InvalidDataException("ขนาดภาพ Master ไม่ถูกต้อง");
 			}
 		}
 		if (!Regex.IsMatch(settings.Folder, "\\AMaster/Generated/build-[a-f0-9]{32}\\z") || !Directory.Exists(Path.Combine(root, settings.Folder)))
 		{
-			throw new InvalidDataException("Save Master portraits first.");
+			throw new InvalidDataException("กด “บันทึกภาพ Master” ก่อน");
 		}
 		foreach (MasterSprite item in Slots.Where((MasterSprite s, int i) => HasRuntimeSlot(settings, i)))
 		{
@@ -179,7 +179,7 @@ public static class ModMaster
 			{
 				if (!File.Exists(Path.Combine(root, settings.Folder, "rom", "sprite", IndependentStem(item) + text)))
 				{
-					throw new InvalidDataException("Save Master portraits first.");
+					throw new InvalidDataException("กด “บันทึกภาพ Master” ก่อน");
 				}
 			}
 		}
@@ -257,7 +257,7 @@ public static class ModMaster
 		BitmapSource bitmapSource = textureDocument.Crop(textureDocument.Sprites.Single((Sprite s) => s.Name.Substring(6) == "SEL_GENDER_g_btn_base"), chinese: false);
 		if (bitmapSource.PixelWidth != 604 || bitmapSource.PixelHeight != 604)
 		{
-			throw new InvalidDataException("The Master portrait settings name an image the game does not have.");
+			throw new InvalidDataException("การตั้งค่าภาพ Master อ้างถึงภาพที่เกมไม่มี");
 		}
 		return bitmapSource;
 	}
@@ -306,21 +306,21 @@ public static class ModMaster
 	{
 		if (settings.Images.Count == 0)
 		{
-			throw new InvalidDataException("Import a Master image first.");
+			throw new InvalidDataException("นำเข้าภาพ Master ก่อน");
 		}
 		string text = Path.Combine(output, "rom", "sprite");
 		Directory.CreateDirectory(text);
 		foreach (KeyValuePair<string, string> pair in settings.Images)
 		{
-			MasterSprite masterSprite = EditableSlots.SingleOrDefault((MasterSprite s) => s.Name == pair.Key) ?? throw new InvalidDataException("The Master portrait settings name an image the game does not have.");
+			MasterSprite masterSprite = EditableSlots.SingleOrDefault((MasterSprite s) => s.Name == pair.Key) ?? throw new InvalidDataException("การตั้งค่าภาพ Master อ้างถึงภาพที่เกมไม่มี");
 			if (pair.Value != "Sources/" + masterSprite.Name + ".png")
 			{
-				throw new InvalidDataException("Invalid Master image path.");
+				throw new InvalidDataException("พาธภาพ Master ไม่ถูกต้อง");
 			}
 			BitmapSource bitmapSource = TextureDocument.LoadPng(ImagePath(root, masterSprite.Name));
 			if (bitmapSource.PixelWidth != masterSprite.Width || bitmapSource.PixelHeight != masterSprite.Height)
 			{
-				throw new InvalidDataException("Invalid Master image dimensions.");
+				throw new InvalidDataException("ขนาดภาพ Master ไม่ถูกต้อง");
 			}
 		}
 		for (int num = 0; num < Slots.Length; num++)

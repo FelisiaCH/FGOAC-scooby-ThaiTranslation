@@ -6,7 +6,7 @@ public sealed record ModPortraitReference(string Reference, string Name, string?
 	{
 		if (Reference.Length != 0)
 		{
-			return "[" + (ModPortraits.IsCustom(Reference) ? "Your portrait" : "Game portrait") + "] " + Name;
+			return "[" + (ModPortraits.IsCustom(Reference) ? "ภาพของคุณ" : "ภาพในเกม") + "] " + Name;
 		}
 		return Name;
 	}

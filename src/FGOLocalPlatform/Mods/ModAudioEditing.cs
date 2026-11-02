@@ -13,7 +13,7 @@ public static class ModAudioEditing
 		string text = ModStorage.TrackPath(root, track.File);
 		if (!double.IsFinite(begin) || !double.IsFinite(end) || begin < 0.0 || end <= begin || end > ModStorage.TrackDuration(text))
 		{
-			throw new InvalidDataException("Set valid loop start and end points.");
+			throw new InvalidDataException("ตั้งจุดเริ่มและจุดสิ้นสุดลูปให้ถูกต้อง");
 		}
 		checked
 		{
@@ -21,7 +21,7 @@ public static class ModAudioEditing
 			long last = (long)Math.Round(end * 44100.0);
 			if (last <= first)
 			{
-				throw new InvalidDataException("Set valid loop start and end points.");
+				throw new InvalidDataException("ตั้งจุดเริ่มและจุดสิ้นสุดลูปให้ถูกต้อง");
 			}
 			string id = Guid.NewGuid().ToString("N");
 			string output = Path.Combine(root, "BGM", id + ".ogg");
@@ -49,7 +49,7 @@ public static class ModAudioEditing
 				(string Output, string Error) metadata = await ModAudioAnalysis.Run(encoder, new string[10] { "-nostdin", "-v", "error", "-i", output, "-map_metadata", "0:s:0", "-f", "ffmetadata", "-" });
 				if (!Matches("LOOP_BEGIN", first) || !Matches("LOOP_END", last))
 				{
-					throw new InvalidDataException("Could not write the audio loop tags; these loop settings were not saved.");
+					throw new InvalidDataException("เขียนแท็กลูปของเสียงไม่ได้ จึงไม่ได้บันทึกการตั้งค่าลูปเหล่านี้");
 				}
 				bool Matches(string key, long expected)
 				{

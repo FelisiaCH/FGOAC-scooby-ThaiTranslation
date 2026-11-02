@@ -161,7 +161,7 @@ public sealed class ModWaveAudio : IDisposable
 	{
 		if (data.Length == 0 || data.Length % 4 != 0)
 		{
-			throw new InvalidDataException("The audio contains no complete PCM frames.");
+			throw new InvalidDataException("เสียงนี้ไม่มีเฟรม PCM ที่สมบูรณ์");
 		}
 		pcm = data;
 		blocks = new ModWavePeak[(FrameCount + 128 - 1) / 128];
@@ -195,7 +195,7 @@ public sealed class ModWaveAudio : IDisposable
 		{
 			processStartInfo.ArgumentList.Add(item);
 		}
-		Process process = Process.Start(processStartInfo) ?? throw new IOException("Could not start the audio converter.");
+		Process process = Process.Start(processStartInfo) ?? throw new IOException("เริ่มตัวแปลงเสียงไม่ได้");
 		try
 		{
 			using (cancellationToken.Register(delegate
@@ -221,7 +221,7 @@ public sealed class ModWaveAudio : IDisposable
 					cancellationToken.ThrowIfCancellationRequested();
 					if (process.ExitCode != 0)
 					{
-						throw new InvalidDataException("Audio decoding failed: " + text);
+						throw new InvalidDataException("ถอดรหัสเสียงไม่สำเร็จ: " + text);
 					}
 					byte[] data = output.ToArray();
 					return await Task.Run(() => new ModWaveAudio(data), cancellationToken).ConfigureAwait(continueOnCapturedContext: false);
@@ -436,7 +436,7 @@ public sealed class ModWaveAudio : IDisposable
 			2u => num, 
 			4u => num / 4, 
 			1u => num * 44100 / 1000, 
-			_ => throw new IOException("The audio device returned an unsupported position format."), 
+			_ => throw new IOException("อุปกรณ์เสียงส่งรูปแบบตำแหน่งที่ไม่รองรับกลับมา"), 
 		};
 		if (!plan.Loop && headers.Count > 0)
 		{
@@ -543,7 +543,7 @@ public sealed class ModWaveAudio : IDisposable
 		}
 		StringBuilder stringBuilder = new StringBuilder(256);
 		waveOutGetErrorText(result, stringBuilder, stringBuilder.Capacity);
-		throw new IOException("Audio playback failed: " + operation + ": " + stringBuilder);
+		throw new IOException("เล่นเสียงไม่สำเร็จ: " + operation + ": " + stringBuilder);
 	}
 
 	[DllImport("winmm.dll")]

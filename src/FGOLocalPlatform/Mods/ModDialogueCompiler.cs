@@ -56,45 +56,45 @@ public static class ModDialogueCompiler
 	{
 		if (settings.Dialogues.Any((ModDialogue modDialogue) => !Regex.IsMatch(modDialogue.Id, "\\A[a-f0-9]{32}\\z")) || settings.Dialogues.Select((ModDialogue modDialogue) => modDialogue.Id).Distinct<string>(StringComparer.Ordinal).Count() != settings.Dialogues.Count)
 		{
-			throw new InvalidDataException("Invalid event ID.");
+			throw new InvalidDataException("รหัสอีเวนต์ไม่ถูกต้อง");
 		}
 		ModPortraits.MigrateLegacy(gameRoot, root, settings);
 		HashSet<string> hashSet = Portraits(gameRoot, root, settings.PortraitLibraryPath).ToHashSet<string>(StringComparer.Ordinal);
 		if ((from modDialogue in settings.Dialogues
 			group modDialogue by (TargetKind: modDialogue.TargetKind, Quest: modDialogue.Quest, Trigger: modDialogue.Trigger)).Any((IGrouping<(int TargetKind, int Quest, int Trigger), ModDialogue> g) => g.Count() > 1))
 		{
-			throw new InvalidDataException("A target cannot have duplicate triggers.");
+			throw new InvalidDataException("เป้าหมายหนึ่งมีทริกเกอร์ซ้ำกันไม่ได้");
 		}
 		foreach (ModDialogue d in settings.Dialogues)
 		{
 			if (d.ContinueScreen && d.ContinueCustomImage && !File.Exists(ModContinueImage.PathFor(root, d.Id)))
 			{
-				throw new InvalidDataException("Import an image for each trigger that has custom images enabled first.");
+				throw new InvalidDataException("นำเข้าภาพให้ทุกทริกเกอร์ที่เปิดใช้ภาพของคุณเองก่อน");
 			}
 			string path = Path.Combine(gameRoot, "rom", "single", $"quest_prop_{d.Quest:000000}.txt");
 			if (d.TargetKind == 0 && !File.Exists(path))
 			{
-				throw new InvalidDataException($"Quest {d.Quest} is not in the game.");
+				throw new InvalidDataException($"ไม่พบเควสต์ {d.Quest} ในเกม");
 			}
 			if (d.TargetKind == 1 && !ModStorage.Banners(gameRoot).Any((ModQuest q) => q.Id == d.Quest))
 			{
-				throw new InvalidDataException("The event banner is not in the game.");
+				throw new InvalidDataException("ไม่พบแบนเนอร์อีเวนต์ในเกม");
 			}
 			int targetKind = d.TargetKind;
 			bool flag = ((targetKind < 0 || targetKind > 1) ? true : false);
 			if (flag || d.Trigger < 0 || d.Trigger > 4 || (d.TargetKind == 1 && d.Trigger != 0) || (d.TargetKind == 0 && d.Trigger > 0 && d.Trigger < 4 && !Regex.IsMatch(File.ReadAllText(path), "(?m)^battle\\." + d.Trigger + "\\.wave_id=")))
 			{
-				throw new InvalidDataException($"Quest {d.Quest} has no such wave.");
+				throw new InvalidDataException($"เควสต์ {d.Quest} ไม่มีเวฟนี้");
 			}
 			if (d.Lines.Count == 0)
 			{
-				throw new InvalidDataException($"{d} has no lines yet.");
+				throw new InvalidDataException($"{d} ยังไม่มีบทพูด");
 			}
 			foreach (ModLine line in d.Lines)
 			{
 				if ((line.Portrait.Length > 0 && !hashSet.Contains(line.Portrait)) || string.IsNullOrWhiteSpace(line.Text) || string.IsNullOrWhiteSpace(line.Name))
 				{
-					throw new InvalidDataException($"A line of {d} has no valid portrait, name or text.");
+					throw new InvalidDataException($"บทพูดของ {d} ไม่มีภาพตัวละคร ชื่อ หรือข้อความที่ถูกต้อง");
 				}
 			}
 		}

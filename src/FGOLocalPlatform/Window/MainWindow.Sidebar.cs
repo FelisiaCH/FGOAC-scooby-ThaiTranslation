@@ -35,7 +35,7 @@ public partial class MainWindow
 		}
 		catch (Exception ex) when (ex is Win32Exception || ex is InvalidOperationException)
 		{
-			HoldStatus("The link could not be opened: " + ex.Message, problem: true);
+			HoldStatus("เปิดลิงก์ไม่ได้: " + ex.Message, problem: true);
 		}
 	}
 

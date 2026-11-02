@@ -71,7 +71,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException || ex is InvalidDataException || ex is InvalidOperationException)
 		{
 			// A deck that cannot be published must not keep the window from opening.
-			RuntimeStatusText.Text = "The deck could not be saved: " + ex.Message;
+			RuntimeStatusText.Text = "บันทึกเด็คไม่ได้: " + ex.Message;
 		}
 		UpdateDeckStatus();
 		OwnedCardsOnlyCheckBox.IsChecked = true;
@@ -136,7 +136,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 			return;
 		}
 		// The tunnel lives in this process, so closing the window cuts the game off the community server.
-		if (communityTunnel is { Running: true } && ThemedMessageBox.Show("The game is connected to the community server " + communityTunnel.Settings.Host + " through this launcher. Closing the launcher now cuts that connection and ends any match in progress.\n\nClose the launcher anyway?", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
+		if (communityTunnel is { Running: true } && ThemedMessageBox.Show("เกมเชื่อมต่อกับเซิร์ฟเวอร์ชุมชน " + communityTunnel.Settings.Host + " ผ่านตัวเรียกเกมนี้ การปิดตัวเรียกเกมตอนนี้จะตัดการเชื่อมต่อและจบแมตช์ที่กำลังดำเนินอยู่\n\nปิดตัวเรียกเกมต่อไปหรือไม่", "FGOAC scooby", MessageBoxButton.YesNo, MessageBoxImage.Exclamation, MessageBoxResult.No) != MessageBoxResult.Yes)
 		{
 			return;
 		}
@@ -145,7 +145,7 @@ public partial class MainWindow : Window, IComponentConnector, IStyleConnector
 		launcherOutputTimer.Stop();
 		bool gameRunning = IsThisGameRunning();
 		string? stopScript = LocalServerStop.CloseScript(GamePaths.GameRoot, gameRunning, AppendServerControlLog);
-		RuntimeStatusText.Text = (stopScript == null) ? "Closing the launcher..." : "กำลังปิดตัวเรียกเกมและปิดเซิร์ฟเวอร์ในเครื่อง...";
+		RuntimeStatusText.Text = (stopScript == null) ? "กำลังปิดตัวเรียกเกม..." : "กำลังปิดตัวเรียกเกมและปิดเซิร์ฟเวอร์ในเครื่อง...";
 		try
 		{
 			SaveLayoutSettings();

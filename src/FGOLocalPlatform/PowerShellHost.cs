@@ -100,6 +100,6 @@ internal static class PowerShellHost
 			{
 			}
 		}
-		throw new IOException("No 64-bit PowerShell was found - enable the built-in Windows PowerShell 5.1, install PowerShell 7, or add the folder holding a portable pwsh.exe to PATH. Any 7.x version will do.");
+		throw new IOException("ไม่พบ PowerShell 64 บิต - เปิดใช้ Windows PowerShell 5.1 ที่มากับระบบ ติดตั้ง PowerShell 7 หรือเพิ่มโฟลเดอร์ที่มี pwsh.exe แบบพกพาลงใน PATH ใช้เวอร์ชัน 7.x ใดก็ได้");
 	}
 }

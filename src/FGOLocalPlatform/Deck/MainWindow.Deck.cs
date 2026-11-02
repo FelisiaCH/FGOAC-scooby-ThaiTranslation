@@ -28,7 +28,7 @@ public partial class MainWindow
 		config.Save(Path.Combine(GamePaths.GameRoot, "deck.json"));
 		if (!GameCommunication.UpdateCards(cardCollection.SelectedCards))
 		{
-			HoldStatus("The deck is saved, but the running game could not take it now; the game reads the saved deck instead.");
+			HoldStatus("บันทึกเด็คแล้ว แต่เกมที่กำลังทำงานอยู่รับเด็คตอนนี้ไม่ได้ เกมจะอ่านเด็คที่บันทึกไว้แทน");
 		}
 		UpdateDeckStatus();
 	}
@@ -108,7 +108,7 @@ public partial class MainWindow
 		}
 		if (CardStack.Move(cardCollection, stack.TrcId, Math.Abs(change), change > 0) == 0)
 		{
-			HoldStatus((cardCollection.SelectedCards.Count >= MaxSelection) ? "The deck holds 30 cards, the most it can." : ("No more copies of " + stack.EnglishName + " can go in the deck: the account owns no more."));
+			HoldStatus((cardCollection.SelectedCards.Count >= MaxSelection) ? "เด็คมีการ์ด 30 ใบแล้ว ซึ่งเป็นจำนวนสูงสุด" : ("ใส่ " + stack.EnglishName + " เพิ่มในเด็คอีกไม่ได้ เพราะบัญชีไม่มีเหลือแล้ว"));
 			return;
 		}
 		cardListView.Refresh();

@@ -69,7 +69,7 @@ public partial class MainWindow
 		{
 			menu.Items.Add(new Separator());
 		}
-		MenuItem create = MenuEntry("New account", delegate
+		MenuItem create = MenuEntry("บัญชีใหม่", delegate
 		{
 			CreateAccountButton_OnClick(MasterLineButton, new RoutedEventArgs());
 		});

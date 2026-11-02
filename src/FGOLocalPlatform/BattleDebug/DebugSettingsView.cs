@@ -85,7 +85,7 @@ public partial class DebugSettingsView : UserControl, IComponentConnector
 			int pvpStage = (PvpStage.SelectedItem as PvpStages.Stage)?.StageId ?? 0;
 			string pvpStages = string.Join(",", stages.Select((PvpStages.Stage stage) => stage.StageId).Distinct());
 			BattleDebug.SaveFromCard(appFolder, options.Where((KeyValuePair<string, CheckBox> option) => option.Value.IsChecked == true).Select((KeyValuePair<string, CheckBox> option) => option.Key).ToHashSet(), OnlineSession, pvpStage, pvpStages);
-			StatusText.Text = OnlineSession ? "Settings saved for Local play - Play Online keeps every switch off." : "Settings saved. A running game takes them about a second later.";
+			StatusText.Text = OnlineSession ? "บันทึกการตั้งค่าสำหรับการเล่นในเครื่องแล้ว - Play Online จะปิดทุกสวิตช์ไว้เสมอ" : "บันทึกการตั้งค่าแล้ว เกมที่กำลังทำงานอยู่จะรับค่าประมาณหนึ่งวินาทีถัดมา";
 			return true;
 		}
 		catch (Exception ex)

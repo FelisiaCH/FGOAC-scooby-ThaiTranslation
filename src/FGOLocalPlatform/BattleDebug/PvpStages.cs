@@ -49,7 +49,7 @@ internal static class PvpStages
 				continue;
 			}
 			string? name = english.GetValueOrDefault(table.GetValueOrDefault(prefix + "disp_name", ""));
-			stages.Add(new Stage(id, code, name ?? $"Stage {id}", name != null));
+			stages.Add(new Stage(id, code, name ?? $"ด่าน {id}", name != null));
 		}
 		return stages.OrderBy((Stage stage) => stage.StageId).ToList();
 	}

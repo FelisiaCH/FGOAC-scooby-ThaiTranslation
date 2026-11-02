@@ -73,7 +73,7 @@
         <DataGridTextColumn Header="ชนิด / การ์ด" Width="112" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding KindName}" />
         <DataGridTextColumn Header="ความหายาก" Width="75" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding Stars}" />
         <DataGridTextColumn Header="ID การ์ด" Width="85" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding TcId}" />
-        <DataGridTextColumn Header="Weight (whole number)" Width="190" ElementStyle="{StaticResource WrappedCell}" Binding="{Binding WeightText, UpdateSourceTrigger=PropertyChanged}" />
+        <DataGridTextColumn Header="น้ำหนัก (จำนวนเต็ม)" Width="190" ElementStyle="{StaticResource WrappedCell}" Binding="{Binding WeightText, UpdateSourceTrigger=PropertyChanged}" />
         <DataGridTextColumn Header="โอกาสสุ่มได้" Width="120" ElementStyle="{StaticResource WrappedCell}" IsReadOnly="True" Binding="{Binding Probability}" />
       </DataGrid.Columns>
     </DataGrid>

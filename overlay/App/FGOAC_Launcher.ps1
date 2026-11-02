@@ -330,7 +330,7 @@ else {
     $requiredPorts = @($launcherConfig.requiredPorts)
     $aimePath = Join-Path $deviceRoot "aime.txt"
     if (-not (Test-Path -LiteralPath $aimePath -PathType Leaf)) {
-        Stop-WithMessage "ยังไม่ได้เลือกบัญชี: ไม่พบ $aimePath ให้เลือก Master ในเมนู Master ในหน้าเล่น แล้วกดเล่นอีกครั้ง" 16
+        Stop-WithMessage "No account is selected: $aimePath is missing. Pick a Master in the Master menu on Play, then press Play again." 16
     }
 }
 $localIp = $network.Cabinet

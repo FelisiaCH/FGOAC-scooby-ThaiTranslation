@@ -110,7 +110,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 
 	private async void LoadAudio(object sender, RoutedEventArgs e)
 	{
-		Status.Text = "Reading the waveform...";
+		Status.Text = "กำลังอ่านคลื่นเสียง...";
 		try
 		{
 			ModWaveAudio modWaveAudio = await ModWaveAudio.LoadAsync(Path.Combine(root, "Tools", "ffmpeg.exe"), ModStorage.TrackPath(root, track.File), cancellation.Token);
@@ -123,7 +123,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 			Wave.SetAudio(audio, track.LoopBegin, track.LoopEnd);
 			position = 0.0;
 			ApplyButton.IsEnabled = true;
-			Status.Text = (track.LoopAnalysis.Length == 0) ? "Drag across the waveform to choose the loop." : ModAudioAnalysis.Describe(track.LoopAnalysis);
+			Status.Text = (track.LoopAnalysis.Length == 0) ? "ลากบนคลื่นเสียงเพื่อเลือกช่วงลูป" : ModAudioAnalysis.Describe(track.LoopAnalysis);
 			timer.Start();
 			Tick();
 		}
@@ -155,7 +155,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 
 	private void UpdateLoopText()
 	{
-		LoopText.Text = "Start" + "  " + Wave.LoopBegin.ToString("F3", CultureInfo.InvariantCulture) + " s     " + "End" + "  " + Wave.LoopEnd.ToString("F3", CultureInfo.InvariantCulture) + " s     " + "Loop length" + "  " + (Wave.LoopEnd - Wave.LoopBegin).ToString("F3", CultureInfo.InvariantCulture) + " s";
+		LoopText.Text = "เริ่ม" + "  " + Wave.LoopBegin.ToString("F3", CultureInfo.InvariantCulture) + " s     " + "จบ" + "  " + Wave.LoopEnd.ToString("F3", CultureInfo.InvariantCulture) + " s     " + "ความยาวลูป" + "  " + (Wave.LoopEnd - Wave.LoopBegin).ToString("F3", CultureInfo.InvariantCulture) + " s";
 	}
 
 	private static string Seconds(double value)
@@ -355,7 +355,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 		{
 			audio.Play(time, (RepeatLoop.IsChecked == true) ? new double?(Wave.LoopBegin) : ((double?)null), (RepeatLoop.IsChecked == true) ? new double?(Wave.LoopEnd) : ((double?)null));
 			position = audio.PositionSeconds;
-			Status.Text = wholePlayback ? "Playing from the start to the loop end, then the loop again and again." : (seamPlayback ? "Playing the join: the end wraps to the loop start." : ((RepeatLoop.IsChecked == true) ? "Repeating the loop." : "Playing the whole track."));
+			Status.Text = wholePlayback ? "เล่นตั้งแต่ต้นจนถึงจุดสิ้นสุดลูป แล้ววนลูปซ้ำไปเรื่อย ๆ" : (seamPlayback ? "กำลังเล่นรอยต่อ: จุดจบวนกลับไปที่จุดเริ่มลูป" : ((RepeatLoop.IsChecked == true) ? "กำลังเล่นลูปซ้ำ" : "กำลังเล่นทั้งแทร็ก"));
 			Tick();
 		}
 		catch (Exception ex)
@@ -457,7 +457,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 	{
 		if (position >= Wave.LoopEnd)
 		{
-			Status.Text = "The loop start must come before its end.";
+			Status.Text = "จุดเริ่มลูปต้องอยู่ก่อนจุดสิ้นสุด";
 		}
 		else
 		{
@@ -469,7 +469,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 	{
 		if (position <= Wave.LoopBegin)
 		{
-			Status.Text = "The loop end must come after its start.";
+			Status.Text = "จุดสิ้นสุดลูปต้องอยู่หลังจุดเริ่มต้น";
 		}
 		else
 		{
@@ -507,7 +507,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 		busy = true;
 		int revision = loopRevision;
 		ApplyButton.IsEnabled = false;
-		Status.Text = "Looking for a loop...";
+		Status.Text = "กำลังหาลูป...";
 		try
 		{
 			ModLoopAnalysis modLoopAnalysis = await ModAudioAnalysis.Loop(Path.Combine(root, "Tools", "ffmpeg.exe"), ModStorage.TrackPath(root, track.File));
@@ -551,7 +551,7 @@ public partial class ModLoopEditor : Window, IComponentConnector
 		applying = true;
 		base.IsEnabled = false;
 		audio.Stop();
-		Status.Text = "Saving the loop points...";
+		Status.Text = "กำลังบันทึกจุดลูป...";
 		try
 		{
 			await apply(Wave.LoopBegin, Wave.LoopEnd);

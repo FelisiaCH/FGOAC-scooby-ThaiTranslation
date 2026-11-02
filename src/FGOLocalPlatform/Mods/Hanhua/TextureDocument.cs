@@ -44,7 +44,7 @@ public sealed class TextureDocument
 			ArchiveEntry archiveEntry = ((entry == null) ? Archive.Entries.FirstOrDefault((ArchiveEntry e) => e.Name == "texture.bin" || e.Name.EndsWith("_tex.bin")) : Archive.Entries.FirstOrDefault((ArchiveEntry e) => e.Name == entry));
 			if (archiveEntry == null)
 			{
-				throw new InvalidDataException("The game archive holds no texture.");
+				throw new InvalidDataException("ไม่พบเท็กซ์เจอร์ในไฟล์เก็บถาวรของเกม");
 			}
 			Entry = archiveEntry.Name;
 			Txp = Archive.Read(archiveEntry);
@@ -191,7 +191,7 @@ public sealed class TextureDocument
 	{
 		if (image.PixelWidth != s.Width || image.PixelHeight != s.Height)
 		{
-			throw new InvalidDataException($"The image must be exactly {s.Width}×{s.Height}; it is {image.PixelWidth}×{image.PixelHeight}. Nothing was scaled or written.");
+			throw new InvalidDataException($"ภาพต้องมีขนาด {s.Width}×{s.Height} พอดี แต่ภาพนี้มีขนาด {image.PixelWidth}×{image.PixelHeight} ไม่มีการปรับขนาดหรือเขียนไฟล์ใด ๆ");
 		}
 		if (s.Rotated)
 		{
